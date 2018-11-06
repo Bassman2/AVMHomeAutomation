@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomation", "AVMHomeAutomation\AVMHomeAutomation.csproj", "{9AC0A879-FA3F-4172-A8D5-5DC9363BE180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationUnitTest", "AVMHomeAutomationUnitTest\AVMHomeAutomationUnitTest.csproj", "{5724467F-59AC-42E0-8C6B-96E22A1E35F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationTest", "AVMHomeAutomationTest\AVMHomeAutomationTest.csproj", "{4E432B01-294C-45DD-8E9E-696B3B13ABAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationDemo", "AVMHomeAutomationDemo\AVMHomeAutomationDemo.csproj", "{2F168EDB-3DF7-4039-854C-DDC792697AE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AC0A879-FA3F-4172-A8D5-5DC9363BE180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AC0A879-FA3F-4172-A8D5-5DC9363BE180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AC0A879-FA3F-4172-A8D5-5DC9363BE180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AC0A879-FA3F-4172-A8D5-5DC9363BE180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5724467F-59AC-42E0-8C6B-96E22A1E35F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5724467F-59AC-42E0-8C6B-96E22A1E35F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5724467F-59AC-42E0-8C6B-96E22A1E35F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5724467F-59AC-42E0-8C6B-96E22A1E35F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E432B01-294C-45DD-8E9E-696B3B13ABAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E432B01-294C-45DD-8E9E-696B3B13ABAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E432B01-294C-45DD-8E9E-696B3B13ABAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E432B01-294C-45DD-8E9E-696B3B13ABAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F168EDB-3DF7-4039-854C-DDC792697AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F168EDB-3DF7-4039-854C-DDC792697AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F168EDB-3DF7-4039-854C-DDC792697AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F168EDB-3DF7-4039-854C-DDC792697AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA554914-5C65-43F3-ADFB-C436CCD65309}
+	EndGlobalSection
+EndGlobal
