@@ -41,6 +41,99 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <StackPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedDevice}" >
+                <GroupBox Header="Device / Group" Margin="3" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Id" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="2" Content="FirmwareVersion" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FirmwareVersion}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="3" Content="Manufacturer" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Manufacturer}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="4" Content="ProductName" />
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding ProductName}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="5" Content="FunctionBitMask" />
+                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding FunctionBitMask}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="6" Content="Present" />
+                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Present}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="7" Content="Name" />
+                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Name}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Switch" DataContext="{Binding Switch}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="State" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding State}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Mode" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Mode}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="2" Content="Lock" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Lock}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="3" Content="DeviceLock" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding DeviceLock}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Power Meter" DataContext="{Binding PowerMeter}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Power" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Power}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Energy" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Energy}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="2" Content="Voltage" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Temperature" DataContext="{Binding Temperature}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Celsius" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Celsius}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Offset" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Offset}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
         </Grid>
 
     </DockPanel>
