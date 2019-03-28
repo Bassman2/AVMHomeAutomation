@@ -55,8 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\BoolToYesNoStringConverter.cs" />
+    <Compile Include="Converter\DateTimeToStringConverter.cs" />
+    <Compile Include="Converter\DoubleToCelsiusConverter.cs" />
+    <Compile Include="Converter\IntToCelsiusConverter.cs" />
+    <Compile Include="Converter\IntToFunctionBitMaskConverter.cs" />
+    <Compile Include="Converter\IntToTemperatureConverter.cs" />
     <Compile Include="Mvvm\BaseViewModel.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
+    <Compile Include="ViewModel\DeviceViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>

@@ -1,13 +1,22 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
     public class NextChange
     {
+        static DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0, 0) + (DateTime.Now - DateTime.UtcNow);
+
         [XmlElement("endperiod")]
-        public string EndPeriod { get; set; }
+        public long endPeriod { get; set; }
+
+        [XmlIgnore]
+        public DateTime? EndPeriod {  get
+            {
+                return (endPeriod == 0) ? (DateTime?)null : baseDate.AddSeconds(endPeriod);
+            } }
 
         [XmlElement("tchange")]
-        public string TChange { get; set; }
+        public int TChange { get; set; }
     }
 }

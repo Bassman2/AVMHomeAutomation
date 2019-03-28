@@ -3,9 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
         xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
         mc:Ignorable="d"
         Title="AVM Home Automation Demo" Height="450" Width="800">
+    <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:IntToCelsiusConverter x:Key="IntToCelsiusConverter"/>
+        <conv:IntToTemperatureConverter x:Key="IntToTemperatureConverter"/>
+        <conv:IntToFunctionBitMaskConverter x:Key="IntToFunctionBitMaskConverter"/>
+        <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+        <conv:BoolToYesNoStringConverter x:Key="BoolToYesNoStringConverter"/>
+        <conv:DoubleToCelsiusConverter x:Key="DoubleToCelsiusConverter"/>
+    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="DarkGray">
             <StatusBar.ItemsPanel>
@@ -45,7 +55,7 @@
                 <GroupBox Header="Device / Group" Margin="3" >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -58,28 +68,27 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
-                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="1" Content="Id" />
-                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="2" Content="FirmwareVersion" />
-                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FirmwareVersion}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="3" Content="Manufacturer" />
-                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Manufacturer}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="4" Content="ProductName" />
-                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding ProductName}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="5" Content="FunctionBitMask" />
-                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding FunctionBitMask}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="6" Content="Present" />
-                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Present}" Margin="3" />
+                        <CheckBox Grid.Column="1" Grid.Row="0" IsChecked="{Binding IsPresent, Mode=OneWay}" Margin="3" Content="Connected" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Identifier" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="2" Content="Id" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="3" Content="FirmwareVersion" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding FirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="4" Content="Manufacturer" />
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Manufacturer, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="5" Content="ProductName" />
+                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding ProductName, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="6" Content="FunctionBitMask" />
+                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Functions, Converter={StaticResource IntToFunctionBitMaskConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                         <Label Grid.Column="0" Grid.Row="7" Content="Name" />
-                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Name}" Margin="3" />
+                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Switch" DataContext="{Binding Switch}">
-                    <Grid>
+                <GroupBox Header="Switch" Visibility="{Binding IsSwitch, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid DataContext="{Binding Switch}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -98,10 +107,10 @@
                         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding DeviceLock}" Margin="3" />
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Power Meter" DataContext="{Binding PowerMeter}">
-                    <Grid>
+                <GroupBox Header="Power Meter" Visibility="{Binding IsEnergy, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid DataContext="{Binding PowerMeter}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -117,20 +126,108 @@
                         <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage}" Margin="3" />
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Temperature" DataContext="{Binding Temperature}">
+                <GroupBox Header="Temperature" Visibility="{Binding IsTemperature, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" Content="Celsius" />
-                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Celsius}" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="1" Content="Offset" />
-                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Offset}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="0" Content="Current Temperature" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TemperatureCelsius, Converter={StaticResource DoubleToCelsiusConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Temperature Offset" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TemperatureOffset, Converter={StaticResource DoubleToCelsiusConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Alert" Visibility="{Binding IsAlarm, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid DataContext="{Binding Alert}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="State" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding State}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Button" Visibility="{Binding IsSwitch, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid DataContext="{Binding Button}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Last Pressed Timestamp" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding LastPressedTimestamp}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="ETSI Unit Info" Visibility="{Binding IsHANFUN, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid DataContext="{Binding EtsiUnitInfo}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="ETSI Device Id" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding EtsiDeviceId}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Unit Type" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding UnitType}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="2" Content="Interfaces" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Interfaces}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Radiator regulator" Visibility="{Binding IsHeater, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid DataContext="{Binding Hkr}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="T Ist" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TIst, Converter={StaticResource IntToTemperatureConverter}}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="T Soll" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TSoll, Converter={StaticResource IntToTemperatureConverter}}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="2" Content="Komfort" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Komfort, Converter={StaticResource IntToTemperatureConverter}}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="3" Content="Absenk" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Absenk, Converter={StaticResource IntToTemperatureConverter}}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="4" Content="Battery Low" />
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding BatteryLow}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="5" Content="Window Open Activ" />
+                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding WindowOpenActiv}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="6" Content="Lock" />
+                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Lock}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="7" Content="Device Lock" />
+                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding DeviceLock}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="8" Content="Next Change End Period" />
+                        <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding NextChange.EndPeriod, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="9" Content="Next Change T Change" />
+                        <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding NextChange.TChange, Converter={StaticResource IntToTemperatureConverter}}" Margin="3" />
+                        <Label Grid.Column="0" Grid.Row="10" Content="Error Code" />
+                        <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding ErrorCode}" Margin="3" />
                     </Grid>
                 </GroupBox>
             </StackPanel>

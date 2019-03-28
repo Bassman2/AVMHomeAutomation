@@ -38,58 +38,107 @@ namespace AVMHomeAutomation
 
         #region Public Methods
 
+        /// <summary>
+        /// Returns the AIN / MAC list of all known sockets.
+        /// </summary>
+        /// <returns>AIN / MAC list</returns>
         public string[] GetSwitchList()
         {
             string list = Get("getswitchlist");
             return list.TrimEnd().Split(',');
         }
 
+        /// <summary>
+        /// Turns on the socket.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>New state of the socket</returns>
         public bool SetSwitchOn(string ain)
         {
             string res = Get(ain, "setswitchon");
             return res == "1";
         }
 
+        /// <summary>
+        /// Switches off the socket.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>New state of the socket</returns>
         public bool SetSwitchOff(string ain)
         {
             string res = Get(ain, "setswitchoff");
             return res == "1";
         }
+        
+        /// <summary>
+        /// Toggle the power socket on / off.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>New state of the socket</returns>
         public bool SetsSwitchToggle(string ain)
         {
             string res = Get(ain, "setswitchtoggle");
             return res == "1";
         }
 
+        /// <summary>
+        /// Determines the switching state of the socket.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>State of the socket</returns>
         public bool GetSwitchState(string ain)
         {
             string res = Get(ain, "getswitchstate");
             return res == "1";
         }
 
+        /// <summary>
+        /// Determines the connection status of the actuator.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>True if connected; false if not</returns>
         public bool GetSwitchPresent(string ain)
         {
             string res = Get(ain, "getswitchpresent");
             return res == "1";
         }
 
+        /// <summary>
+        /// Determines current power taken from the power outlet.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Power in mW, "inval" if unknown.</returns>
         public int GetSwitchPower(string ain)
         {
             string res = Get(ain, "getswitchpower");
             return int.Parse(res);
         }
 
+        /// <summary>
+        /// Delivers the amount of energy taken from the socket since commissioning or resetting the energy statistics.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Energy in Wh, "inval" if unknown.</returns>
         public int GetSwitchEnergy(string ain)
         {
             string res = Get(ain, "getswitchenergy");
             return int.Parse(res);
         }
 
+        /// <summary>
+        /// Returns identifiers of the actor.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Name of the actor</returns>
         public string GetSwitchName(string ain)
         {
             return Get(ain, "getswitchname");
         }
 
+        /// <summary>
+        /// Provides the basic information of all SmartHome devices.
+        /// </summary>
+        /// <returns>Information of all SmartHome devices</returns>
         public DeviceList GetDeviceListInfos()
         {
             string res = Get("getdevicelistinfos");
@@ -98,31 +147,62 @@ namespace AVMHomeAutomation
             return value;
         }
 
+        /// <summary>
+        /// Last temperature information of the actuator.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C.</returns>
         public string GetTemperature(string ain)
         {
             return Get(ain, "gettemperature");
         }
 
+        /// <summary>
+        /// Setpoint temperature currently set for HKR.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &le;= 8 ° C, 17 =, 5 ° C ...... 56 &gr;= 28 ° C 254 = ON, 253 = OFF.</returns>
         public string GetHkrtSoll(string ain)
         {
             return Get(ain, "gethkrtsoll");
         }
 
+        /// <summary>
+        /// Comfort temperature set for HKR timer.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &le;= 8 ° C, 17 =, 5 ° C ...... 56 &gr;= 28 ° C 254 = ON, 253 = OFF.</returns>
         public string GetHkrKomfort(string ain)
         {
             return Get(ain, "gethkrkomfort");
         }
 
+        /// <summary>
+        /// Economy temperature set for HKR timer.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &le;= 8 ° C, 17 =, 5 ° C ...... 56 &gr;= 28 ° C 254 = ON, 253 = OFF.</returns>
         public string GetHkrAbsenk(string ain)
         {
             return Get(ain, "gethkrabsenk");
         }
 
-        public string SetHkrtSoll(string ain, string value)
+        /// <summary>
+        /// HKR set temperature. The setpoint temperature is transferred with the "param" Get parameter.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <param name="value">Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 <= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C 254 = ON, 253 = OFF</param>
+        /// <returns></returns>
+        public void SetHkrtSoll(string ain, string value)
         {
-            return Get(ain, "sethkrtsoll", value);
+            Get(ain, "sethkrtsoll", value);
         }
 
+        /// <summary>
+        /// Provides the basic statistics (temperature, voltage, power) of the actuator.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns></returns>
         public DeviceStats GetBasicDeviceStats(string ain)
         {
             string res = Get(ain, "getbasicdevicestats");
@@ -131,6 +211,11 @@ namespace AVMHomeAutomation
             return value;
         }
 
+        /// <summary>
+        /// Returns the basic information of all templates / templates.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns></returns>
         public TemplateList GetTemplateListInfos(string ain)
         {
             string res = Get(ain, "gettemplatelistinfos");
@@ -139,9 +224,14 @@ namespace AVMHomeAutomation
             return value;
         }
 
-        public string ApplyTemplate(string ain)
+        /// <summary>
+        /// Returns the basic information of all templates / templates. Apply template, the ain parameter is evaluated.
+        /// </summary>
+        /// <param name="ain"></param>
+        /// <returns></returns>
+        public void ApplyTemplate(string ain)
         {
-            return Get(ain, "applytemplate");
+            Get(ain, "applytemplate");
         }
 
         #endregion
