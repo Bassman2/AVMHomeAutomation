@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>78527ef9-74e9-44c2-98cc-a2f939ae8b7d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AVMHomeAutomation</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Alert.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceStat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceStats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Functions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Group.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GroupInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hkr.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HomeAutomation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NextChange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PowerMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Switch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TemplateDevice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
+  </ItemGroup>
+</Project>

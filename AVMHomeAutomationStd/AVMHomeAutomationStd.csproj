@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AVMHomeAutomation</AssemblyName>
+    <RootNamespace>AVMHomeAutomation</RootNamespace>
+    <Authors>Ralf Beckers</Authors>
+    <RepositoryUrl>https://github.com/Bassman2/AVMHomeAutomation</RepositoryUrl>
+  </PropertyGroup>
+
+  <Import Project="..\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems" Label="Shared" />
+
+</Project>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="fa84a60e-9faf-41c2-a67d-d07f42d4259c" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>The topics in this section describe the various changes made to the AVM Home Automation library over the life of the project.</para>
+		</introduction>
+
+    <section>
+      <title>Version 1.0 was released on , 2019.</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>Creation</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+		<relatedTopics>
+			<link xlink:href="95158882-6eb2-440d-9e3a-5cb90ad7e079" />
+		</relatedTopics>
+
+	</developerConceptualDocument>
+</topic>
