@@ -161,7 +161,7 @@ namespace AVMHomeAutomation
         /// Setpoint temperature currently set for HKR.
         /// </summary>
         /// <param name="ain"></param>
-        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &le;= 8 ° C, 17 =, 5 ° C ...... 56 &gr;= 28 ° C 254 = ON, 253 = OFF.</returns>
+        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
         public string GetHkrtSoll(string ain)
         {
             return Get(ain, "gethkrtsoll");
@@ -171,7 +171,7 @@ namespace AVMHomeAutomation
         /// Comfort temperature set for HKR timer.
         /// </summary>
         /// <param name="ain"></param>
-        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &le;= 8 ° C, 17 =, 5 ° C ...... 56 &gr;= 28 ° C 254 = ON, 253 = OFF.</returns>
+        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
         public string GetHkrKomfort(string ain)
         {
             return Get(ain, "gethkrkomfort");
@@ -181,7 +181,7 @@ namespace AVMHomeAutomation
         /// Economy temperature set for HKR timer.
         /// </summary>
         /// <param name="ain"></param>
-        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &le;= 8 ° C, 17 =, 5 ° C ...... 56 &gr;= 28 ° C 254 = ON, 253 = OFF.</returns>
+        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
         public string GetHkrAbsenk(string ain)
         {
             return Get(ain, "gethkrabsenk");
@@ -191,7 +191,7 @@ namespace AVMHomeAutomation
         /// HKR set temperature. The setpoint temperature is transferred with the "param" Get parameter.
         /// </summary>
         /// <param name="ain"></param>
-        /// <param name="value">Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 <= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C 254 = ON, 253 = OFF</param>
+        /// <param name="value">Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56&gt; = 28 ° C 254 = ON, 253 = OFF</param>
         /// <returns></returns>
         public void SetHkrtSoll(string ain, string value)
         {
