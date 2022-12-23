@@ -10,12 +10,9 @@ namespace AVMHomeAutomation
         [XmlElement("endperiod")]
         public long endPeriod { get; set; }
 
-        [XmlIgnore]
-        public DateTime? EndPeriod {  get
-            {
-                return (endPeriod == 0) ? (DateTime?)null : baseDate.AddSeconds(endPeriod);
-            } }
-
+        //[XmlIgnore]
+        //public DateTime? EndPeriod => (endPeriod == 0) ? (DateTime?)null : baseDate.AddSeconds(endPeriod);
+            
         [XmlElement("tchange")]
         public int TChange { get; set; }
     }

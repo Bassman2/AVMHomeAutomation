@@ -11,20 +11,14 @@ namespace AVMHomeAutomation
         /// Actual temperature in 0.5 ° C, value range: 0x10 - 0x3816 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C ...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("tist")]
-        public int TIst { get; set; }
+        public string TIst { get; set; }
 
         /// <summary>
         /// Target temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("tsoll")]
-        public int TSoll { get; set; }
-
-        /// <summary>
-        /// Comfort temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
-        /// </summary>
-        [XmlElement("komfort")]
-        public int Komfort { get; set; }
-
+        public string TSoll { get; set; }
+                
         /// <summary>
         /// Lowering temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
@@ -32,16 +26,10 @@ namespace AVMHomeAutomation
         public int Absenk { get; set; }
 
         /// <summary>
-        /// 0 or 1: Battery low - please change the battery
+        /// Comfort temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
-        [XmlElement("batterylow")]
-        public string BatteryLow { get; set; }
-
-        /// <summary>
-        /// 0 or 1: window oven detected
-        /// </summary>
-        [XmlElement("windowopenactiv")]
-        public string WindowOpenActiv { get; set; }
+        [XmlElement("komfort")]
+        public int Komfort { get; set; }
 
         /// <summary>
         /// 0/1 - Keylock via UI / API on no / yes (empty if unknown or error)
@@ -54,13 +42,7 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlElement("devicelock")]
         public string DeviceLock { get; set; }
-
-        /// <summary>
-        /// Next temperature change
-        /// </summary>
-        [XmlElement("nextchange")]
-        public NextChange NextChange { get; set; }
-
+        
         /// <summary>
         /// Error codes supplied by the HKR (eg if there was a problem during the installation of the HKR):
         /// 0: no error
@@ -74,5 +56,59 @@ namespace AVMHomeAutomation
         [XmlElement("errorcode")]
         public int ErrorCode { get; set; }
 
+        /// <summary>
+        /// 0 or 1: window oven detected
+        /// </summary>
+        [XmlElement("windowopenactiv")]
+        public string WindowOpenActiv { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement("windowopenactiveendtime")]
+        public int WindowOpenActivEndTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement("boostactive")]
+        public int BoostActive { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement("boostactiveendtime")]
+        public int BoostActiveEndTime { get; set; }
+
+        /// <summary>
+        /// 0 or 1: Battery low - please change the battery
+        /// </summary>
+        [XmlElement("batterylow")]
+        public string BatteryLow { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement("battery")]
+        public string Battery{ get; set; }
+
+        /// <summary>
+        /// Next temperature change
+        /// </summary>
+        [XmlElement("nextchange")]
+        public NextChange NextChange { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement("summeractive")]
+        public string SummerActive { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement("holidayactive")]
+        public string HolidayActive { get; set; }
+        
     }
 }

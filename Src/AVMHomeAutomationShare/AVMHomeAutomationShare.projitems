@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)HomeAutomation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NextChange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PowerMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SimpleOnOff.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Stats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Switch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />

@@ -1,7 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
+    [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName}")]
     public class Device
     {
         /// <summary>
@@ -15,6 +18,12 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlAttribute("id")]
         public string Id { get; set; }
+
+        /// <summary>
+        /// Bit mask of the device function classes, starting with bit 0, several bits can be set. For internal use only. Use Functions instead.
+        /// </summary>
+        [XmlAttribute("functionbitmask")]
+        public int FunctionBitMask { get; set; }
 
         /// <summary>
         /// Firmware version of the device
@@ -33,13 +42,7 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlAttribute("productname")]
         public string ProductName { get; set; }
-
-        /// <summary>
-        /// Bit mask of the device function classes, starting with bit 0, several bits can be set. For internal use only. Use Functions instead.
-        /// </summary>
-        [XmlAttribute("functionbitmask")]
-        public int FunctionBitMask { get; set; }
-
+        
         /// <summary>
         /// Functions of the device
         /// </summary>
@@ -51,35 +54,46 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlElement("present")]
         public string Present { get; set; }
-
+        
         /// <summary>
         /// Device connected no / yes.
         /// </summary>
-        [XmlElement("present")]
-        public bool IsPresent { get { return this.Present == "1" ? true : false; } }
+        [XmlIgnore]
+        public bool IsPresent => this.Present == "1" ? true : false; 
 
+        [XmlElement("txbusy")]
+        public string TXBusy { get; set; }
+                
         [XmlElement("name")]
         public string Name { get; set; }
 
+        
         [XmlElement("switch", IsNullable = true)]
         public Switch Switch { get; set; }
+        
+        [XmlElement("simpleonoff", IsNullable = true)]
+        public SimpleOnOff SimpleOnOff { get; set; }
 
+        
         [XmlElement("powermeter", IsNullable = true)]
         public PowerMeter PowerMeter { get; set; }
-
+                
         [XmlElement("temperature", IsNullable = true)]
         public Temperature Temperature { get; set; }
-
+                
         [XmlElement("alert", IsNullable = true)]
         public Alert Alert { get; set; }
+                
+        [XmlElement("button")]
+        public List<Button> Buttons { get; set; }
 
-        [XmlElement("button", IsNullable = true)]
-        public Button Button { get; set; }
-
+        
         [XmlElement("etsiunitinfo", IsNullable = true)]
         public EtsiUnitInfo EtsiUnitInfo { get; set; }
 
+        
         [XmlElement("hkr", IsNullable = true)]
         public Hkr Hkr { get; set; }
+        
     }
 }

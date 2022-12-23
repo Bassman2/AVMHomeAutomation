@@ -8,27 +8,27 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Energy meter
     /// </summary>
-    public class PowerMeter : IXmlSerializable
+    public class PowerMeter //: IXmlSerializable
     {
-        /// <summary>
-        /// Value in 0.001 W (current performance, refreshed approximately every 2 minutes)
-        /// </summary>
-        [XmlElement("power")]
-        public double Power { get; private set; }
-
-        
-        /// <summary>
-        /// Value in 1.0 Wh (absolute consumption since commissioning)
-        /// </summary>
-        [XmlElement("energy")]
-        public double Energy { get; private set; }
-
         /// <summary>
         /// Value in 0.001 V (current voltage, updated approximately every 2 minutes)
         /// </summary>
         [XmlElement("voltage")]
-        public double Voltage { get; private set; }
+        public double Voltage { get; set; }
 
+        /// <summary>
+        /// Value in 0.001 W (current performance, refreshed approximately every 2 minutes)
+        /// </summary>
+        [XmlElement("power")]
+        public double Power { get; set; }
+                
+        /// <summary>
+        /// Value in 1.0 Wh (absolute consumption since commissioning)
+        /// </summary>
+        [XmlElement("energy")]
+        public double Energy { get; set; }
+        
+        /*
         public XmlSchema GetSchema()
         {
             return null;
@@ -72,7 +72,7 @@ namespace AVMHomeAutomation
             }
             catch (Exception ex)
             {
-
+                var x = ex;
             }
         }
 
@@ -80,5 +80,6 @@ namespace AVMHomeAutomation
         {
             throw new System.NotImplementedException();
         }
+        */
     }
 }
