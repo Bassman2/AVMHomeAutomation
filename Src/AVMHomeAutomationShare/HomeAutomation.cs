@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
+
 namespace AVMHomeAutomation
 {
     public class HomeAutomation : IDisposable
@@ -45,7 +46,12 @@ namespace AVMHomeAutomation
         /// <returns>AIN / MAC list</returns>
         public string[] GetSwitchList()
         {
-            string list = Get("getswitchlist");
+            return GetString("getswitchlist").TrimEnd().Split(',');
+        }
+
+        public async Task<string[]> GetSwitchListAsync()
+        {
+            string list = await GetStringAsync("getswitchlist");
             return list.TrimEnd().Split(',');
         }
 
@@ -56,8 +62,12 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchOn(string ain)
         {
-            string res = Get(ain, "setswitchon");
-            return res == "1";
+            return GetBool("setswitchon", ain);
+        }
+
+        public async Task<bool> SetSwitchOnAsync(string ain)
+        {
+            return await GetBoolAsync(ain, "setswitchon");
         }
 
         /// <summary>
@@ -67,10 +77,14 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchOff(string ain)
         {
-            string res = Get(ain, "setswitchoff");
-            return res == "1";
+            return GetBool("setswitchoff", ain);
         }
-        
+
+        public async Task<bool> SetSwitchOffAsync(string ain)
+        {
+            return await GetBoolAsync(ain, "setswitchoff");
+        }
+
         /// <summary>
         /// Toggle the power socket on / off.
         /// </summary>
@@ -78,9 +92,14 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetsSwitchToggle(string ain)
         {
-            string res = Get(ain, "setswitchtoggle");
-            return res == "1";
+            return GetBool("setswitchtoggle", ain);
         }
+
+        public async Task<bool> SetsSwitchToggleAsync(string ain)
+        {
+            return await GetBoolAsync(ain, "setswitchtoggle");
+        }
+
 
         /// <summary>
         /// Determines the switching state of the socket.
@@ -89,8 +108,12 @@ namespace AVMHomeAutomation
         /// <returns>State of the socket</returns>
         public bool GetSwitchState(string ain)
         {
-            string res = Get(ain, "getswitchstate");
-            return res == "1";
+            return GetBool("getswitchstate", ain);
+        }
+
+        public async Task<bool> GetSwitchStateAsync(string ain)
+        {
+            return await GetBoolAsync(ain, "getswitchstate");
         }
 
         /// <summary>
@@ -100,8 +123,12 @@ namespace AVMHomeAutomation
         /// <returns>True if connected; false if not</returns>
         public bool GetSwitchPresent(string ain)
         {
-            string res = Get(ain, "getswitchpresent");
-            return res == "1";
+            return GetBool("getswitchpresent", ain);
+        }
+
+        public async Task<bool> GetSwitchPresentAsync(string ain)
+        {
+            return await GetBoolAsync(ain, "getswitchpresent");
         }
 
         /// <summary>
@@ -111,8 +138,12 @@ namespace AVMHomeAutomation
         /// <returns>Power in mW, "inval" if unknown.</returns>
         public int GetSwitchPower(string ain)
         {
-            string res = Get(ain, "getswitchpower");
-            return int.Parse(res);
+            return GetInt("getswitchpower", ain);
+        }
+
+        public async Task<int> GetSwitchPowerAsync(string ain)
+        {
+            return await GetIntAsync(ain, "getswitchpower");
         }
 
         /// <summary>
@@ -122,8 +153,12 @@ namespace AVMHomeAutomation
         /// <returns>Energy in Wh, "inval" if unknown.</returns>
         public int GetSwitchEnergy(string ain)
         {
-            string res = Get(ain, "getswitchenergy");
-            return int.Parse(res);
+            return GetInt("getswitchenergy", ain);
+        }
+
+        public async Task<int> GetSwitchEnergyAsync(string ain)
+        {
+            return await GetIntAsync(ain, "getswitchenergy");
         }
 
         /// <summary>
@@ -133,7 +168,12 @@ namespace AVMHomeAutomation
         /// <returns>Name of the actor</returns>
         public string GetSwitchName(string ain)
         {
-            return Get(ain, "getswitchname");
+            return GetString("getswitchname", ain);
+        }
+
+        public async Task<string> GetSwitchNameAsync(string ain)
+        {
+            return await GetStringAsync(ain, "getswitchname");
         }
 
         /// <summary>
@@ -142,10 +182,12 @@ namespace AVMHomeAutomation
         /// <returns>Information of all SmartHome devices</returns>
         public DeviceList GetDeviceListInfos()
         {
-            string res = Get("getdevicelistinfos");
-            XmlSerializer serializer = new XmlSerializer(typeof(DeviceList));
-            var value = (DeviceList)serializer.Deserialize(new StringReader(res));
-            return value;
+            return GetAs<DeviceList>("getdevicelistinfos");
+        }
+
+        public async Task<DeviceList> GetDeviceListInfosAsync()
+        {
+            return await GetAsAsync<DeviceList>("getdevicelistinfos");
         }
 
         /// <summary>
@@ -153,9 +195,14 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain"></param>
         /// <returns>Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C.</returns>
-        public string GetTemperature(string ain)
+        public int GetTemperature(string ain)
         {
-            return Get(ain, "gettemperature");
+            return GetInt("gettemperature", ain);
+        }
+
+        public async Task<string> GetTemperatureAsync(string ain)
+        {
+            return await GetStringAsync("gettemperature", ain);
         }
 
         /// <summary>
@@ -163,9 +210,14 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain"></param>
         /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
-        public string GetHkrtSoll(string ain)
+        public int GetHkrtSoll(string ain)
         {
-            return Get(ain, "gethkrtsoll");
+            return GetInt("gethkrtsoll", ain);
+        }
+
+        public async Task<string> GetHkrtSollAsync(string ain)
+        {
+            return await GetStringAsync("gethkrtsoll", ain);
         }
 
         /// <summary>
@@ -173,9 +225,14 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain"></param>
         /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
-        public string GetHkrKomfort(string ain)
+        public int GetHkrKomfort(string ain)
         {
-            return Get(ain, "gethkrkomfort");
+            return GetInt("gethkrkomfort", ain);
+        }
+
+        public async Task<string> GetHkrKomfortAsync(string ain)
+        {
+            return await GetStringAsync("gethkrkomfort", ain);
         }
 
         /// <summary>
@@ -183,9 +240,14 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain"></param>
         /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
-        public string GetHkrAbsenk(string ain)
+        public int GetHkrAbsenk(string ain)
         {
-            return Get(ain, "gethkrabsenk");
+            return GetInt("gethkrabsenk", ain);
+        }
+
+        public async Task<string> GetHkrAbsenkAsync(string ain)
+        {
+            return await GetStringAsync("gethkrabsenk", ain);
         }
 
         /// <summary>
@@ -196,7 +258,12 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public void SetHkrtSoll(string ain, string value)
         {
-            Get(ain, "sethkrtsoll", value);
+            Get("sethkrtsoll", ain, value);
+        }
+
+        public async Task SetHkrtSollAsync(string ain, string value)
+        {
+            await GetAsync("sethkrtsoll", ain, value);
         }
 
         /// <summary>
@@ -206,10 +273,12 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public DeviceStats GetBasicDeviceStats(string ain)
         {
-            string res = Get(ain, "getbasicdevicestats");
-            XmlSerializer serializer = new XmlSerializer(typeof(DeviceStats));
-            var value = (DeviceStats)serializer.Deserialize(new StringReader(res));
-            return value;
+            return GetAs<DeviceStats>("getbasicdevicestats", ain);
+        }
+
+        public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain)
+        {
+            return await GetAsAsync<DeviceStats>("getbasicdevicestats", ain);
         }
 
         /// <summary>
@@ -219,10 +288,12 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public TemplateList GetTemplateListInfos(string ain)
         {
-            string res = Get(ain, "gettemplatelistinfos");
-            XmlSerializer serializer = new XmlSerializer(typeof(TemplateList));
-            var value = (TemplateList)serializer.Deserialize(new StringReader(res));
-            return value;
+            return GetAs<TemplateList>("gettemplatelistinfos", ain);
+        }
+
+        public async Task<TemplateList> GetTemplateListInfosAsync(string ain)
+        {
+            return await GetAsAsync<TemplateList>("gettemplatelistinfos", ain);
         }
 
         /// <summary>
@@ -232,118 +303,70 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public void ApplyTemplate(string ain)
         {
-            Get(ain, "applytemplate");
-        }
-
-        #endregion
-
-        #region Public Async Methods
-
-        public async Task<string[]> GetSwitchListAsync()
-        {
-            string list = await GetAsync("getswitchlist");
-            return list.TrimEnd().Split(',');
-        }
-
-        public async Task<bool> SetSwitchOnAsync(string ain)
-        {
-            string res = await GetAsync(ain, "setswitchon");
-            return res == "1";
-        }
-        
-        public async Task<bool> SetSwitchOffAsync(string ain)
-        {
-            string res = await GetAsync(ain, "setswitchoff");
-            return res == "1";
-        }
-        public async Task<bool> SetsSwitchToggleAsync(string ain)
-        {
-            string res = await GetAsync(ain, "setswitchtoggle");
-            return res == "1";
-        }
-
-        public async Task<bool> GetSwitchStateAsync(string ain)
-        {
-            string res = await GetAsync(ain, "getswitchstate");
-            return res == "1";
-        }
-
-        public async Task<bool> GetSwitchPresentAsync(string ain)
-        {
-            string res = await GetAsync(ain, "getswitchpresent");
-            return res == "1";
-        }
-
-        public async Task<int> GetSwitchPowerAsync(string ain)
-        {
-            string res = await GetAsync(ain, "getswitchpower");
-            return int.Parse(res);
-        }
-
-        public async Task<int> GetSwitchEnergyAsync(string ain)
-        {
-            string res = await GetAsync(ain, "getswitchenergy");
-            return int.Parse(res);
-        }
-
-        public async Task<string> GetSwitchNameAsync(string ain)
-        {
-            return await GetAsync(ain, "getswitchname");
-        }
-
-        public async Task<DeviceList> GetDeviceListInfosAsync()
-        {
-            string res = await GetAsync("getdevicelistinfos");
-            XmlSerializer serializer = new XmlSerializer(typeof(DeviceList));
-            var value = (DeviceList)serializer.Deserialize(new StringReader(res));
-            return value;
-        }
-
-        public async Task<string> GetTemperatureAsync(string ain)
-        {
-            return await GetAsync(ain, "gettemperature");
-        }
-
-        public async Task<string> GetHkrtSollAsync(string ain)
-        {
-            return await GetAsync(ain, "gethkrtsoll");
-        }
-
-        public async Task<string> GetHkrKomfortAsync(string ain)
-        {
-            return await GetAsync(ain, "gethkrkomfort");
-        }
-
-        public async Task<string> GetHkrAbsenkAsync(string ain)
-        {
-            return await GetAsync(ain, "gethkrabsenk");
-        }
-
-        public async Task<string> SetHkrtSollAsync(string ain, string value)
-        {
-            return await GetAsync(ain, "sethkrtsoll", value);
-        }
-
-        public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain)
-        {
-            string res = await GetAsync(ain, "getbasicdevicestats");
-            XmlSerializer serializer = new XmlSerializer(typeof(DeviceStats));
-            var value = (DeviceStats)serializer.Deserialize(new StringReader(res));
-            return value;
-        }
-
-        public async Task<TemplateList> GetTemplateListInfosAsync(string ain)
-        {
-            string res = await GetAsync(ain, "gettemplatelistinfos");
-            XmlSerializer serializer = new XmlSerializer(typeof(TemplateList));
-            var value = (TemplateList)serializer.Deserialize(new StringReader(res));
-            return value;
+            Get("applytemplate", ain);
         }
 
         public async Task<string> ApplyTemplateAsync(string ain)
         {
-            return await GetAsync(ain, "applytemplate");
+            return await GetStringAsync("applytemplate", ain);
         }
+
+        /*
+        setsimpleonoff
+
+            setlevel
+            setlevelpercentage 
+
+            setcolor
+            setcolortemperature
+            getcolordefaults
+            sethkrboost
+            sethkrwindowopen
+            setblind
+            setname
+            startulesubscription
+            getsubscriptionstate
+
+            getdeviceinfos
+        */
+        #endregion
+
+        #region Public Async Methods
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #endregion
 
@@ -431,6 +454,196 @@ namespace AVMHomeAutomation
         //    return info.Element("SID").Value;
         //}
 
+        private void Get(string cmd)
+        {
+            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        private void Get(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        private void Get(string cmd, string ain, string param)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&param={param}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        private async Task GetAsync(string cmd)
+        {
+            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        private async Task GetAsync(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        private async Task GetAsync(string cmd, string ain, string param)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&param={param}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        private string GetString(string cmd)
+        {
+            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        private string GetString(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        private async Task<string> GetStringAsync(string cmd)
+        {
+            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        private async Task<string> GetStringAsync(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        private bool GetBool(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                string res = response.Content.ReadAsStringAsync().Result;
+                return res == "1";
+            }
+        }
+
+        private async Task<bool> GetBoolAsync(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                string res = await response.Content.ReadAsStringAsync();
+                return res == "1";
+            }
+        }
+
+        private int GetInt(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                string res = response.Content.ReadAsStringAsync().Result;
+                return int.Parse(res);
+            }
+        }
+
+        private async Task<int> GetIntAsync(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                string res =  await response.Content.ReadAsStringAsync();
+                return int.Parse(res);
+            }
+        }
+        private T GetAs<T>(string cmd)
+        {
+            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                string res = response.Content.ReadAsStringAsync().Result;
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                T value = (T)serializer.Deserialize(new StringReader(res));
+                return value;
+            }
+        }
+
+        private T GetAs<T>(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                string res = response.Content.ReadAsStringAsync().Result;
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                T value = (T)serializer.Deserialize(new StringReader(res));
+                return value;
+            }
+        }
+
+        private async Task<T> GetAsAsync<T>(string cmd)
+        {
+            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                string res = await response.Content.ReadAsStringAsync();
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                T value = (T)serializer.Deserialize(new StringReader(res));
+                return value;
+            }
+        }
+
+        private async Task<T> GetAsAsync<T>(string cmd, string ain)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                string res = await response.Content.ReadAsStringAsync();
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                T value = (T)serializer.Deserialize(new StringReader(res));
+                return value;
+            }
+        }
+
+        /*
         private string Get(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
@@ -451,7 +664,7 @@ namespace AVMHomeAutomation
             }
         }
 
-        private string Get(string ain, string cmd)
+        private string Get(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
             using (HttpResponseMessage response = this.client.GetAsync(request).Result)
@@ -461,7 +674,7 @@ namespace AVMHomeAutomation
             }
         }
 
-        private async Task<string> GetAsync(string ain, string cmd)
+        private async Task<string> GetAsync(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
             using (HttpResponseMessage response = await this.client.GetAsync(request))
@@ -471,7 +684,7 @@ namespace AVMHomeAutomation
             }
         }
 
-        private string Get(string ain, string cmd, string param)
+        private string Get(string cmd, string ain, string param)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&param={param}&sid={this.sessionId}";
             using (HttpResponseMessage response = this.client.GetAsync(request).Result)
@@ -481,7 +694,7 @@ namespace AVMHomeAutomation
             }
         }
 
-        private async Task<string> GetAsync(string ain, string cmd, string param)
+        private async Task<string> GetAsync(string cmd, string ain, string param)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&param={param}&sid={this.sessionId}";
             using (HttpResponseMessage response = await this.client.GetAsync(request))
@@ -490,6 +703,7 @@ namespace AVMHomeAutomation
                 return await response.Content.ReadAsStringAsync();
             }
         }
+        */
 
         #endregion
     }

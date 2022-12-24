@@ -11,7 +11,7 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         public MainViewModel()
         {
-            this.client = new HomeAutomation("", "");
+            this.client = new HomeAutomation("Demo", "Demo-1234");
 
             this.Devices = this.client.GetDeviceListInfos().Devices.Select(d => new DeviceViewModel(d)).ToList();
             this.SelectedDevice = this.Devices.FirstOrDefault();

@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Alert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceStat.cs" />
