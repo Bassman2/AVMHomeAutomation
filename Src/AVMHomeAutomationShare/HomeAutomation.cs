@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,12 +91,12 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain"></param>
         /// <returns>New state of the socket</returns>
-        public bool SetsSwitchToggle(string ain)
+        public bool SetSwitchToggle(string ain)
         {
             return GetBool("setswitchtoggle", ain);
         }
 
-        public async Task<bool> SetsSwitchToggleAsync(string ain)
+        public async Task<bool> SetSwitchToggleAsync(string ain)
         {
             return await GetBoolAsync(ain, "setswitchtoggle");
         }
@@ -311,24 +312,221 @@ namespace AVMHomeAutomation
             return await GetStringAsync("applytemplate", ain);
         }
 
-        /*
-        setsimpleonoff
+        public void SetSimpleOnOff(string ain, OnOff onOff)
+        {
+            Get("setsimpleonoff", ain, $"onOff:{((int)onOff)}");
+        }
 
-            setlevel
-            setlevelpercentage 
+        public async Task SetSimpleOnOffAsync(string ain, OnOff onOff)
+        {
+            await GetAsync("setsimpleonoff", ain, $"onOff:{((int)onOff)}");
+        }
 
-            setcolor
-            setcolortemperature
-            getcolordefaults
-            sethkrboost
-            sethkrwindowopen
-            setblind
-            setname
-            startulesubscription
-            getsubscriptionstate
+        public void SetLevel(string ain, int level)
+        {
+            if (level < 0 || level > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level));
+            }
+            Get("setlevel", ain, $"level:{level}");
+        }
 
-            getdeviceinfos
-        */
+        public async Task SetLevelAsync(string ain, int level)
+        {
+            if (level < 0 || level > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level));
+            }
+            await GetAsync("setlevel", ain, $"level:{level}");
+        }
+
+        public void SetLevelPercentage(string ain, int level)
+        {
+            if (level < 0 || level > 100)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level));
+            }
+            Get("setlevelpercentage", ain, $"level:{level}");
+        }
+
+        public async Task SetLevelPercentageAsync(string ain, int level)
+        {
+            if (level < 0 || level > 100)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level));
+            }
+            await GetAsync("setlevelpercentage", ain, $"level:{level}");
+        }
+
+        public void SetColor(string ain, int hue, int saturation, int duration)
+        {
+            if (hue < 0 || hue > 359)
+            {
+                throw new ArgumentOutOfRangeException(nameof(hue));
+            }
+            if (saturation < 0 || saturation > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(saturation));
+            }
+            if (duration < 0 || duration > 100)
+            {
+                throw new ArgumentOutOfRangeException(nameof(duration));
+            }
+            Get("setcolor", ain, $"hue:{hue}&saturation:{saturation}&duration:{duration}");
+        }
+
+        public async Task SetColorAsync(string ain, int hue, int saturation, int duration)
+        {
+            if (hue < 0 || hue > 359)
+            {
+                throw new ArgumentOutOfRangeException(nameof(hue));
+            }
+            if (saturation < 0 || saturation > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(saturation));
+            }
+            if (duration < 0 || duration > 100)
+            {
+                throw new ArgumentOutOfRangeException(nameof(duration));
+            }
+            await GetAsync("setcolor", ain, $"hue:{hue}&saturation:{saturation}&duration:{duration}");
+        }
+
+        public void SetColortemperature(string ain, int temperature, int duration)
+        {
+            if (temperature < 2700 || temperature > 6500)
+            {
+                throw new ArgumentOutOfRangeException(nameof(temperature));
+            }
+            if (duration < 0 || duration > 100)
+            {
+                throw new ArgumentOutOfRangeException(nameof(duration));
+            }
+            Get("setcolortemperature", ain, $"temperature:{temperature}&&duration:{duration}");
+        }
+
+        public async Task SetColortemperatureAsync(string ain, int temperature, int duration)
+        {
+            if (temperature < 2700 || temperature > 6500)
+            {
+                throw new ArgumentOutOfRangeException(nameof(temperature));
+            }
+            if (duration < 0 || duration > 100)
+            {
+                throw new ArgumentOutOfRangeException(nameof(duration));
+            }
+            await GetAsync("setcolortemperature", ain, $"temperature:{temperature}&duration:{duration}");
+        }
+
+        public ColorDefaults GetColorDefaults()
+        {
+            return GetAs<ColorDefaults>("getcolordefaults");
+        }
+
+        public async Task<ColorDefaults> GetColorDefaultsAsync()
+        {
+            return await GetAsAsync<ColorDefaults>("getcolordefaults");
+        }
+
+        public void SetHkrBoost(string ain, DateTime? endtimestamp = null)
+        {
+            if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24,0,0)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(endtimestamp));
+            }
+            Get("sethkrboost", ain, $"endtimestamp:{endtimestamp.ToUnixTime()}");
+        }
+
+        public async Task SetHkrBoostAsync(string ain, DateTime? endtimestamp = null)
+        {
+            if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(endtimestamp));
+            }
+            await GetAsync("sethkrboost", ain, $"endtimestamp:{endtimestamp.ToUnixTime()}");
+        }
+
+        public void SetHkrWindowOpen(string ain, DateTime? endtimestamp = null)
+        {
+            if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(endtimestamp));
+            }
+            Get("sethkrwindowopen", ain, $"endtimestamp:{endtimestamp.ToUnixTime()}");
+        }
+
+        public async Task SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null)
+        {
+            if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(endtimestamp));
+            }
+            await GetAsync("sethkrwindowopen", ain, $"endtimestamp:{endtimestamp.ToUnixTime()}");
+        }
+
+
+        public void SetBlind(string ain, Target target)
+        {
+            Get("setblind", ain, $"target:{target.ToString().ToLower()}");
+        }
+
+        public async Task SetBlindAsync(string ain, Target target)
+        {
+            await GetAsync("setblind", ain, $"target.ToString().ToLower()");
+        }
+
+        public void SetName(string ain, string name)
+        {
+            if (name.Length > 40)
+            {
+                throw new ArgumentOutOfRangeException(nameof(name));
+            }
+            Get("setname", ain, $"name:{name}");
+        }
+
+        public async Task SetNameAsync(string ain, string name)
+        {
+            if (name.Length > 40)
+            {
+                throw new ArgumentOutOfRangeException(nameof(name));
+            }
+            await GetAsync("setname", ain, $"name:{name}");
+        }
+
+        public void StartUleSubscription()
+        {
+            Get("startulesubscription");
+        }
+
+        public async Task StartUleSubscriptionAsync()
+        {
+            await GetAsync("startulesubscription");
+        }
+
+        public State GetSubscriptionState()
+        {
+            return GetAs<State>("getsubscriptionstate");
+        }
+
+        public async Task<State> GetSubscriptionStateAsync()
+        {
+            return await GetAsAsync<State>("getsubscriptionstate");
+        }
+
+        /// <summary>
+        /// Provides the basic information of all SmartHome devices.
+        /// </summary>
+        /// <returns>Information of all SmartHome devices</returns>
+        public DeviceList GetDeviceInfos(string ain)
+        {
+            return GetAs<DeviceList>("getdeviceinfos", ain);
+        }
+
+        public async Task<DeviceList> GetDeviceInfosAsync(string ain)
+        {
+            return await GetAsAsync<DeviceList>("getdeviceinfos", ain);
+        }
+                
         #endregion
 
         #region Public Async Methods
@@ -474,7 +672,7 @@ namespace AVMHomeAutomation
 
         private void Get(string cmd, string ain, string param)
         {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&param={param}&sid={this.sessionId}";
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
             using (HttpResponseMessage response = this.client.GetAsync(request).Result)
             {
                 response.EnsureSuccessStatusCode();
@@ -501,7 +699,7 @@ namespace AVMHomeAutomation
 
         private async Task GetAsync(string cmd, string ain, string param)
         {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&param={param}&sid={this.sessionId}";
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
             using (HttpResponseMessage response = await this.client.GetAsync(request))
             {
                 response.EnsureSuccessStatusCode();
@@ -511,137 +709,111 @@ namespace AVMHomeAutomation
         private string GetString(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result;
-            }
+            return Request(request);
         }
 
         private string GetString(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result;
-            }
+            return Request(request);
         }
 
         private async Task<string> GetStringAsync(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = await this.client.GetAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
-            }
+            return await RequestAsync(request);
         }
 
         private async Task<string> GetStringAsync(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = await this.client.GetAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
-            }
+            return await RequestAsync(request);
         }
 
         private bool GetBool(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                string res = response.Content.ReadAsStringAsync().Result;
-                return res == "1";
-            }
+            string res = Request(request);
+            return res == "1";
         }
 
         private async Task<bool> GetBoolAsync(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = await this.client.GetAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                string res = await response.Content.ReadAsStringAsync();
-                return res == "1";
-            }
+            string res = await RequestAsync(request);
+            return res == "1";
         }
 
         private int GetInt(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                string res = response.Content.ReadAsStringAsync().Result;
-                return int.Parse(res);
-            }
+            string res = Request(request);
+            return int.Parse(res);
         }
 
         private async Task<int> GetIntAsync(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = await this.client.GetAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                string res =  await response.Content.ReadAsStringAsync();
-                return int.Parse(res);
-            }
+            string res = await RequestAsync(request);
+            return int.Parse(res);
         }
         private T GetAs<T>(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                string res = response.Content.ReadAsStringAsync().Result;
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
-                T value = (T)serializer.Deserialize(new StringReader(res));
-                return value;
-            }
+            string res = Request(request);
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            T value = (T)serializer.Deserialize(new StringReader(res));
+            return value;
         }
 
         private T GetAs<T>(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                string res = response.Content.ReadAsStringAsync().Result;
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
-                T value = (T)serializer.Deserialize(new StringReader(res));
-                return value;
-            }
+            string res = Request(request);
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            T value = (T)serializer.Deserialize(new StringReader(res));
+            return value;
         }
 
         private async Task<T> GetAsAsync<T>(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = await this.client.GetAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                string res = await response.Content.ReadAsStringAsync();
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
-                T value = (T)serializer.Deserialize(new StringReader(res));
-                return value;
-            }
+            string res = await RequestAsync(request);
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            T value = (T)serializer.Deserialize(new StringReader(res));
+            return value;
         }
 
         private async Task<T> GetAsAsync<T>(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
+            string res = await RequestAsync(request);
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            T value = (T)serializer.Deserialize(new StringReader(res));
+            return value;
+        }
+
+
+        private string Request(string request)
+        {
+            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
+            {
+                response.EnsureSuccessStatusCode();
+                return response.Content.ReadAsStringAsync().Result.TrimEnd();
+            }
+        }
+
+        private async Task<string> RequestAsync(string request)
+        {
             using (HttpResponseMessage response = await this.client.GetAsync(request))
             {
                 response.EnsureSuccessStatusCode();
                 string res = await response.Content.ReadAsStringAsync();
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
-                T value = (T)serializer.Deserialize(new StringReader(res));
-                return value;
+                return res.TrimEnd();
             }
         }
+
+        
 
         /*
         private string Get(string cmd)
