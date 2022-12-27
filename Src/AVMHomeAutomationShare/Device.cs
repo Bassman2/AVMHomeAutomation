@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 namespace AVMHomeAutomation
 {
     [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName}")]
+    [XmlRoot("device")]
     public class Device
     {
         /// <summary>

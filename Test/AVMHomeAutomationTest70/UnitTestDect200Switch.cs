@@ -79,5 +79,20 @@ namespace AVMHomeAutomationTest70
                 Assert.ThrowsException<HttpRequestException>(() => client.GetSwitchName(TestSettings.UnknownDeviceAin));
             }
         }
+
+        [TestMethod]
+        public void TestMethodGetDeviceInfos()
+        {
+            Device device;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                device = client.GetDeviceInfos(TestSettings.SwitchDeviceAin);
+            }
+
+            Assert.AreEqual(TestSettings.SwitchDeviceAin, device.Identifier);
+            Assert.AreEqual(TestSettings.SwitchDeviceName, device.Name);
+            Assert.AreEqual(TestSettings.SwitchDeviceProduct, device.ProductName);
+        }
     }
 }

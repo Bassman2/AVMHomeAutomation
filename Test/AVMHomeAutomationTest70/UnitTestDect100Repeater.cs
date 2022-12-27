@@ -1,7 +1,7 @@
 ﻿namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestHeater
+    public class UnitTestDect100Repeater
     {
         [TestMethod]
         public void TestMethod1()

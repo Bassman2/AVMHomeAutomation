@@ -36,7 +36,11 @@ namespace AVMHomeAutomation
 
         public void Dispose()
         {
-            
+            if (this.client != null)
+            {
+                this.client.Dispose();
+                this.client = null;
+            }            
         }
 
         #region Public Methods
@@ -517,55 +521,16 @@ namespace AVMHomeAutomation
         /// Provides the basic information of all SmartHome devices.
         /// </summary>
         /// <returns>Information of all SmartHome devices</returns>
-        public DeviceList GetDeviceInfos(string ain)
+        public Device GetDeviceInfos(string ain)
         {
-            return GetAs<DeviceList>("getdeviceinfos", ain);
+            return GetAs<Device>("getdeviceinfos", ain);
         }
 
-        public async Task<DeviceList> GetDeviceInfosAsync(string ain)
+        public async Task<Device> GetDeviceInfosAsync(string ain)
         {
-            return await GetAsAsync<DeviceList>("getdeviceinfos", ain);
+            return await GetAsAsync<Device>("getdeviceinfos", ain);
         }
                 
-        #endregion
-
-        #region Public Async Methods
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #endregion
 
         #region Private Methods
