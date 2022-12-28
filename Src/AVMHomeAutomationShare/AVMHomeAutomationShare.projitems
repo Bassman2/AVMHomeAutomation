@@ -15,7 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Code.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CustomNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceList.cs" />

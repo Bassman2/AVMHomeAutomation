@@ -199,15 +199,18 @@ namespace AVMHomeAutomation
         /// Last temperature information of the actuator.
         /// </summary>
         /// <param name="ain"></param>
-        /// <returns>Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C.</returns>
-        public int GetTemperature(string ain)
+        /// <returns>Temperature value.</returns>
+        public double GetTemperature(string ain)
         {
-            return GetInt("gettemperature", ain);
+            // Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C
+            return GetInt("gettemperature", ain) / 10.0;
         }
 
-        public async Task<string> GetTemperatureAsync(string ain)
+        public async Task<double> GetTemperatureAsync(string ain)
         {
-            return await GetStringAsync("gettemperature", ain);
+            // Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C
+            int temperature = await GetIntAsync("gettemperature", ain);
+            return temperature / 10.0;
         }
 
         /// <summary>

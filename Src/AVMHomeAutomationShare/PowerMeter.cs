@@ -28,6 +28,7 @@ namespace AVMHomeAutomation
         [XmlElement("energy")]
         public double Energy { get; set; }
         
+
         /*
         public XmlSchema GetSchema()
         {

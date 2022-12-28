@@ -11,13 +11,13 @@ namespace AVMHomeAutomation
         /// Actual temperature in 0.5 ° C, value range: 0x10 - 0x3816 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C ...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("tist")]
-        public CustomNullable<int> TIst { get; set; }
+        public XmlNullable<int> TIst { get; set; }
 
         /// <summary>
         /// Target temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("tsoll")]
-        public CustomNullable<int> TSoll { get; set; }
+        public XmlNullable<int> TSoll { get; set; }
                 
         /// <summary>
         /// Lowering temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF

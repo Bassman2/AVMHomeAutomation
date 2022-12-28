@@ -9,5 +9,8 @@ namespace AVMHomeAutomation
 
         [XmlAttribute("grid")]
         public int Grid { get; set; }
+
+        [XmlText]
+        public string Value { get; set; }
     }
 }

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AVMHomeAutomationTest70
+﻿namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDect440Switch
+    public class UnitTestDect210Socket
     {
-        private TestDevice testDevice = TestSettings.DeviceDect440Switch;
+        private TestDevice testDevice = TestSettings.DeviceDect210Socket;
 
         [TestMethod]
         public void TestMethodGetDeviceInfos()
@@ -40,10 +34,10 @@ namespace AVMHomeAutomationTest70
 
             Assert.IsNotNull(stats);
             Assert.IsTrue(stats.Temperature.Count > 0);
-            Assert.IsFalse(stats.Voltage.Count > 0);
-            Assert.IsFalse(stats.Power.Count > 0);
-            Assert.IsFalse(stats.Energy.Count > 0);
-            Assert.IsTrue(stats.Humidity.Count > 0);
+            Assert.IsTrue(stats.Voltage.Count > 0);
+            Assert.IsTrue(stats.Power.Count > 0);
+            Assert.IsTrue(stats.Energy.Count > 0);
+            Assert.IsFalse(stats.Humidity.Count > 0);
         }
 
         [TestMethod]
@@ -95,10 +89,13 @@ namespace AVMHomeAutomationTest70
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
                 client.SetSwitchOff(testDevice.Ain);
+                Thread.Sleep(500);
                 state1 = client.GetSwitchState(testDevice.Ain);
                 client.SetSwitchOn(testDevice.Ain);
+                Thread.Sleep(500);
                 state2 = client.GetSwitchState(testDevice.Ain);
                 client.SetSwitchToggle(testDevice.Ain);
+                Thread.Sleep(500);
                 state3 = client.GetSwitchState(testDevice.Ain);
             }
 
@@ -115,15 +112,10 @@ namespace AVMHomeAutomationTest70
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-
-
                 energy = client.GetSwitchEnergy(testDevice.Ain);
-
             }
 
-            Assert.AreEqual(0, energy);
-
-
+            Assert.IsTrue(energy >= 651090);
         }
 
         [TestMethod]

@@ -4,30 +4,56 @@ using System.Text;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Data.SqlTypes;
 
 namespace AVMHomeAutomation
 {
-    public struct CustomNullable<T> : IXmlSerializable where T : struct
+
+    public struct XmlNullable<T> : IXmlSerializable where T : struct
     {
-        private T value;
-        private bool hasValue;
+        public bool HasValue { get; private set; }
 
-        public bool HasValue
+        public T Value { get; private set; }
+
+        public XmlNullable(T value)
         {
-            get { return hasValue; }
+            this.HasValue = true;
+            this.Value = value;
         }
 
-        public T Value
+        public T GetValueOrDefault()
         {
-            get { return value; }
+            return this.Value;
+        }
+                
+        public T GetValueOrDefault(T defaultValue)
+        {
+            return this.HasValue ? this.Value : defaultValue;
         }
 
-        private CustomNullable(T value)
+        public override bool Equals(object other)
         {
-            this.hasValue = true;
-            this.value = value;
+            if (!this.HasValue)
+            {
+                return other == null;
+            }
+            if (other == null)
+            {
+                return false;
+            }
+            return this.Value.Equals(other);
         }
 
+        public override int GetHashCode()
+        {
+            return this.HasValue ? this.Value.GetHashCode() : 0;
+        }
+
+        public override string ToString()
+        {
+            return this.HasValue ? this.Value.ToString() : "";
+        }
+        
         public XmlSchema GetSchema()
         {
             return null;
@@ -38,16 +64,15 @@ namespace AVMHomeAutomation
             string strValue = reader.ReadString();
             if (String.IsNullOrEmpty(strValue))
             {
-                this.hasValue = false;
+                this.HasValue = false;
             }
             else
             {
                 T convertedValue = strValue.To<T>();
-                this.value = convertedValue;
-                this.hasValue = true;
+                this.Value = convertedValue;
+                this.HasValue = true;
             }
             reader.ReadEndElement();
-
         }
 
         public void WriteXml(XmlWriter writer)
@@ -55,11 +80,25 @@ namespace AVMHomeAutomation
             throw new NotImplementedException();
         }
 
-        public static implicit operator CustomNullable<T>(T value)
+        public static implicit operator XmlNullable<T>(T value)
         {
-            return new CustomNullable<T>(value);
+            return new XmlNullable<T>(value);
         }
 
+        public static implicit operator T(XmlNullable<T> value)
+        {
+            return value.Value;
+        }
+
+        public static implicit operator XmlNullable<T>(Nullable<T> value)
+        {
+            return value.HasValue ? new XmlNullable<T>(value.Value) : null;
+        }
+
+        public static implicit operator Nullable<T>(XmlNullable<T> value)
+        {
+            return value.HasValue ? new Nullable<T>(value.Value) : null;
+        }
     }
 
     public static class ObjectExtensions
