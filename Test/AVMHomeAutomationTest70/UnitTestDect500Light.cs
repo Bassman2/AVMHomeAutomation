@@ -7,27 +7,14 @@ using System.Threading.Tasks;
 namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDect500Light
+    public class UnitTestDect500Light : UnitTestBase
     {
-        private TestDevice testDevice = TestSettings.DeviceDect500Light;
-
-        [TestMethod]
-        public void TestMethodGetDeviceInfos()
+        [TestInitialize]
+        public void Initialize()
         {
-            Device device;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                device = client.GetDeviceInfos(testDevice.Ain);
-            }
-
-            Assert.AreEqual(testDevice.Ain, device.Identifier);
-            Assert.AreEqual(testDevice.Name, device.Name);
-            Assert.AreEqual(testDevice.Product, device.ProductName);
-            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer);
-            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion);
+            this.testDevice = TestSettings.DeviceDect500Light;
         }
-
+    
         [TestMethod]
         public void TestMethodGetBasicDeviceStats()
         {
@@ -39,24 +26,11 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsNotNull(stats);
-            Assert.IsTrue(stats.Temperature.Count > 0);
+            Assert.IsFalse(stats.Temperature.Count > 0);
             Assert.IsFalse(stats.Voltage.Count > 0);
             Assert.IsFalse(stats.Power.Count > 0);
             Assert.IsFalse(stats.Energy.Count > 0);
             Assert.IsFalse(stats.Humidity.Count > 0);
-        }
-
-        [TestMethod]
-        public void TestMethodTemperature()
-        {
-            double temperature;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                temperature = client.GetTemperature(testDevice.Ain);
-            }
-
-            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
         }
     }
 }

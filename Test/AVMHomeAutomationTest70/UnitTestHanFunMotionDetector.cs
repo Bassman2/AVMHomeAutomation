@@ -1,11 +1,12 @@
 ﻿namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestHanFunMotionDetector
+    public class UnitTestHanFunMotionDetector : UnitTestBase
     {
-        [TestMethod]
-        public void TestMethod1()
+        [TestInitialize]
+        public void Initialize()
         {
+            this.testDevice = TestSettings.DeviceHanFunMotionDetector;
         }
     }
 }

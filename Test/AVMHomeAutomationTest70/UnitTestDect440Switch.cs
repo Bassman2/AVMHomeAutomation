@@ -7,27 +7,14 @@ using System.Threading.Tasks;
 namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDect440Switch
+    public class UnitTestDect440Switch : UnitTestBase
     {
-        private TestDevice testDevice = TestSettings.DeviceDect440Switch;
-
-        [TestMethod]
-        public void TestMethodGetDeviceInfos()
+        [TestInitialize]
+        public void Initialize()
         {
-            Device device;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                device = client.GetDeviceInfos(testDevice.Ain);
-            }
-
-            Assert.AreEqual(testDevice.Ain, device.Identifier);
-            Assert.AreEqual(testDevice.Name, device.Name);
-            Assert.AreEqual(testDevice.Product, device.ProductName);
-            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer);
-            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion);
+            this.testDevice = TestSettings.DeviceDect440Switch;
         }
-
+    
         [TestMethod]
         public void TestMethodGetBasicDeviceStats()
         {
@@ -59,80 +46,27 @@ namespace AVMHomeAutomationTest70
             Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
         }
 
-        [TestMethod]
-        public void TestMethodGetSwitchList()
-        {
-            string[] devices;
+        //[TestMethod]
+        //public void TestMethodGetSwitch()
+        //{
+        //    bool state1, state2, state3;
 
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                devices = client.GetSwitchList();
-            }
+        //    using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+        //    {
+        //        //client.SetSwitchOff(testDevice.Ain);
+        //        state1 = client.GetSwitchState(testDevice.Ain);
+        //        //client.SetSwitchOn(testDevice.Ain);
+        //        state2 = client.GetSwitchState(testDevice.Ain);
+        //        //client.SetSwitchToggle(testDevice.Ain);
+        //        state3 = client.GetSwitchState(testDevice.Ain);
+        //    }
 
-            Assert.IsNotNull(devices);
-            CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
+        //    Assert.IsFalse(state1);
+        //    Assert.IsTrue(state2);
+        //    Assert.IsFalse(state3);
 
-        }
+        //}
 
-        [TestMethod]
-        public void TestMethodSwitchName()
-        {
-            string name;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                name = client.GetSwitchName(testDevice.Ain);
-            }
-
-            Assert.AreEqual(testDevice.Name, name);
-        }
-
-        [TestMethod]
-        public void TestMethodGetSwitch()
-        {
-            bool state1, state2, state3;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetSwitchOff(testDevice.Ain);
-                state1 = client.GetSwitchState(testDevice.Ain);
-                client.SetSwitchOn(testDevice.Ain);
-                state2 = client.GetSwitchState(testDevice.Ain);
-                client.SetSwitchToggle(testDevice.Ain);
-                state3 = client.GetSwitchState(testDevice.Ain);
-            }
-
-            Assert.IsFalse(state1);
-            Assert.IsTrue(state2);
-            Assert.IsFalse(state3);
-
-        }
-
-        [TestMethod]
-        public void TestMethodEnergy()
-        {
-            int energy;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-
-
-                energy = client.GetSwitchEnergy(testDevice.Ain);
-
-            }
-
-            Assert.AreEqual(0, energy);
-
-
-        }
-
-        [TestMethod]
-        public void TestMethodSwitchNameError()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                Assert.ThrowsException<HttpRequestException>(() => client.GetSwitchName(TestSettings.UnknownDeviceAin));
-            }
-        }
+       
     }
 }

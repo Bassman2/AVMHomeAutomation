@@ -1,11 +1,12 @@
 ﻿namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestHanFunWallButton
+    public class UnitTestHanFunWallButton : UnitTestBase
     {
-        [TestMethod]
-        public void TestMethod1()
+        [TestInitialize]
+        public void Initialize()
         {
+            this.testDevice = TestSettings.DeviceHanFunWallButton;
         }
     }
 }
