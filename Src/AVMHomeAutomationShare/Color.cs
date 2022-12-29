@@ -7,7 +7,7 @@ namespace AVMHomeAutomation
         [XmlAttribute("sat_index")]
         public int SatIndex { get; set; }
 
-        [XmlAttribute("hue=")]
+        [XmlAttribute("hue")]
         public int Hue { get; set; }
 
         [XmlAttribute("sat")]

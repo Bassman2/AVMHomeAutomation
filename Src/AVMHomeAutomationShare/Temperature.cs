@@ -8,12 +8,12 @@ namespace AVMHomeAutomation
         /// Value in 0.1 ° C, negative and positive values possible
         /// </summary>
         [XmlElement("celsius")]
-        public string Celsius { get; set; }
+        public XmlTemperature Celsius { get; set; }
 
         /// <summary>
         /// Value in 0.1 ° C, negative and positive values possible
         /// </summary>
         [XmlElement("offset")]
-        public string Offset { get; set; }
+        public XmlTemperature Offset { get; set; }
     }
 }

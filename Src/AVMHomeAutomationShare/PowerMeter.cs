@@ -8,79 +8,24 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Energy meter
     /// </summary>
-    public class PowerMeter //: IXmlSerializable
+    public class PowerMeter 
     {
         /// <summary>
-        /// Value in 0.001 V (current voltage, updated approximately every 2 minutes)
+        /// Voltage value in Volt
         /// </summary>
         [XmlElement("voltage")]
-        public double Voltage { get; set; }
+        public XmlKilo Voltage { get; set; }
 
         /// <summary>
-        /// Value in 0.001 W (current performance, refreshed approximately every 2 minutes)
+        /// Power value in W
         /// </summary>
         [XmlElement("power")]
-        public double Power { get; set; }
+        public XmlKilo Power { get; set; }
                 
         /// <summary>
-        /// Value in 1.0 Wh (absolute consumption since commissioning)
+        /// Energy value in kWh
         /// </summary>
         [XmlElement("energy")]
-        public double Energy { get; set; }
-        
-
-        /*
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            try
-            {
-                //reader.Read();
-                //this.Voltage = reader.ReadElementContentAsDouble("voltage", "") / 1000.0;
-                //this.Power = reader.ReadElementContentAsDouble("power", "") / 1000.0;
-                //this.Energy = reader.ReadElementContentAsDouble("energy", "");
-
-                while (reader.Read())
-                {
-                    if (reader.NodeType == XmlNodeType.Element)
-                    {
-                        switch (reader.Name)
-                        {
-                        case "voltage":
-                            // Value in 0.001 V(current voltage, updated approximately every 2 minutes)
-                            this.Voltage = reader.ReadElementContentAsDouble() / 1000.0;
-                            break;
-                        case "power":
-                            // Value in 0.001 W(current performance, refreshed approximately every 2 minutes)
-                            this.Power = reader.ReadElementContentAsDouble() / 1000.0;
-                            break;
-                        case "energy":
-                            // Value in 1.0 Wh(absolute consumption since commissioning)
-                            this.Energy = reader.ReadElementContentAsDouble();
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                }
-                //reader.Read();
-
-
-            }
-            catch (Exception ex)
-            {
-                var x = ex;
-            }
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            throw new System.NotImplementedException();
-        }
-        */
+        public XmlKilo Energy { get; set; }
     }
 }

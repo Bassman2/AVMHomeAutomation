@@ -1,14 +1,18 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    [XmlRoot("colordefaults>")]
+    [XmlRoot("colordefaults")]
     public class ColorDefaults
     {
-        [XmlElement("hsdefaults")]
-        public HSDefaults HSDefaults { get; set; }
 
-        [XmlElement("temperaturedefaults")]
-        public TemperatureDefaults TemperatureDefaults { get; set; }
+        [XmlArray("hsdefaults")]
+        [XmlArrayItem("hs")]
+        public List<HS> HSDefaults { get; set; }
+
+        [XmlArray("temperaturedefaults")]
+        [XmlArrayItem("temp")]
+        public List<Temp> TemperatureDefaults { get; set; }
     }
 }

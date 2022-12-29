@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="AVMHomeAutomationDemo.View.PowerMeterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:DoubleToUnitConverter x:Key="DoubleToUnitConverter"/>
+    </UserControl.Resources>
+    <GroupBox Header="Power Meter" >
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Power" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Power, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Power},Mode=OneWay}" Margin="3" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Energy" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Energy, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Energy},Mode=OneWay}" Margin="3" />
+            <Label Grid.Column="0" Grid.Row="2" Content="Voltage" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Voltage},Mode=OneWay}" Margin="3" />
+        </Grid>
+    </GroupBox>
+</UserControl>

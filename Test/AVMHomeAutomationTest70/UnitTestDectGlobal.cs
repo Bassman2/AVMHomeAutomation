@@ -17,7 +17,17 @@ namespace AVMHomeAutomationTest70
 
             Assert.IsNotNull(deviceList);
 
-            Assert.AreEqual(TestSettings.DeviceDect100Repeater.Name, deviceList.Devices.Single((d) => d.Id == TestSettings.DeviceDect100Repeater.Ain).Name);
+            
+            AssertDevice(TestSettings.DeviceDect100Repeater, deviceList.Devices.Single((d) => d.Identifier == TestSettings.DeviceDect100Repeater.Ain));
+        }
+
+        private void AssertDevice(TestDevice expected, Device actual)
+        {
+            Assert.AreEqual(expected.Ain, actual.Identifier);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Product, actual.ProductName);
+            Assert.AreEqual(expected.Manufacturer, actual.Manufacturer);
+            Assert.AreEqual(expected.FirmwareVersion, actual.FirmwareVersion);
         }
 
         [TestMethod]

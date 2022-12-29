@@ -21,12 +21,6 @@ namespace AVMHomeAutomation
         public string Id { get; set; }
 
         /// <summary>
-        /// Bit mask of the device function classes, starting with bit 0, several bits can be set. For internal use only. Use Functions instead.
-        /// </summary>
-        [XmlAttribute("functionbitmask")]
-        public int FunctionBitMask { get; set; }
-
-        /// <summary>
         /// Firmware version of the device
         /// </summary>
         [XmlAttribute("fwversion")]
@@ -43,6 +37,12 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlAttribute("productname")]
         public string ProductName { get; set; }
+
+        /// <summary>
+        /// Bit mask of the device function classes, starting with bit 0, several bits can be set. For internal use only. Use Functions instead.
+        /// </summary>
+        [XmlAttribute("functionbitmask")]
+        public int FunctionBitMask { get; set; }        
         
         /// <summary>
         /// Functions of the device
@@ -63,36 +63,56 @@ namespace AVMHomeAutomation
         public bool IsPresent => this.Present == "1" ? true : false; 
 
         [XmlElement("txbusy")]
-        public string TXBusy { get; set; }
-                
+        public bool IsTXBusy { get; set; }
+        
         [XmlElement("name")]
         public string Name { get; set; }
 
-        
+        [XmlElement("batterylow")]
+        public bool IsBatteryLow { get; set; }
+
+        [XmlElement("battery")]
+        public XmlNullable<int> Battery { get; set; }
+
+
+
         [XmlElement("switch", IsNullable = true)]
         public Switch Switch { get; set; }
-        
-        [XmlElement("simpleonoff", IsNullable = true)]
-        public SimpleOnOff SimpleOnOff { get; set; }
 
-        
         [XmlElement("powermeter", IsNullable = true)]
         public PowerMeter PowerMeter { get; set; }
-                
+
         [XmlElement("temperature", IsNullable = true)]
         public Temperature Temperature { get; set; }
-                
+
         [XmlElement("alert", IsNullable = true)]
         public Alert Alert { get; set; }
-                
+
         [XmlElement("button")]
         public List<Button> Buttons { get; set; }
 
-        
         [XmlElement("etsiunitinfo", IsNullable = true)]
         public EtsiUnitInfo EtsiUnitInfo { get; set; }
 
-        
+        [XmlElement("simpleonoff", IsNullable = true)]
+        public SimpleOnOff SimpleOnOff { get; set; }
+
+        [XmlElement("levelcontrol", IsNullable = true)]
+        public LevelControl LevelControl { get; set; }
+
+        [XmlElement("ColorControl", IsNullable = true)]
+        public ColorControl ColorControl { get; set; }
+
+
+
+
+
+
+
+
+
+
+
         [XmlElement("hkr", IsNullable = true)]
         public Hkr Hkr { get; set; }
         

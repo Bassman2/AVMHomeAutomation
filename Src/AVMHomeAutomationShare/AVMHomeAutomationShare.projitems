@@ -14,7 +14,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Code.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlKilo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device.cs" />
@@ -28,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Hkr.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HomeAutomation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HSDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Name.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NextChange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OnOff.cs" />
@@ -40,8 +42,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Target.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Temp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TemperatureDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateDevice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlTemperature.cs" />
   </ItemGroup>
 </Project>
