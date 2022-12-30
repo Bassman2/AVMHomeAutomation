@@ -8,9 +8,9 @@ namespace AVMHomeAutomation
         public string EtsiDeviceId { get; set; }
 
         [XmlElement("unittype")]
-        public string UnitType { get; set; }
+        public XmlEnum<UnitType> UnitType { get; set; }
 
         [XmlElement("interfaces")]
-        public string Interfaces { get; set; }
+        public XmlEnumList<Interfaces> Interfaces { get; set; }
     }
 }

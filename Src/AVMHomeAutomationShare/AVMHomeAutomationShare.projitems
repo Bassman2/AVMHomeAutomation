@@ -16,7 +16,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlEnumList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlKilo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeEx.cs" />

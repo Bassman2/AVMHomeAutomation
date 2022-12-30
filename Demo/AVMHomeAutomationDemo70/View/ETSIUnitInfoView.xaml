@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:EnumListToStringConverter x:Key="EnumListToStringConverter"/>
+    </UserControl.Resources>
     <GroupBox Header="ETSI Unit Info" >
         <Grid>
             <Grid.ColumnDefinitions>
@@ -18,11 +22,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="ETSI Device Id" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding EtsiDeviceId}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding EtsiDeviceId, Mode=OneWay}" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Unit Type" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding UnitType}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding UnitType, Mode=OneWay}" Margin="3" />
             <Label Grid.Column="0" Grid.Row="2" Content="Interfaces" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Interfaces}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Interfaces, Converter={StaticResource EnumListToStringConverter}, Mode=OneWay}" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>
