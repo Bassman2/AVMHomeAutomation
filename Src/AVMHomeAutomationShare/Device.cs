@@ -100,7 +100,7 @@ namespace AVMHomeAutomation
         [XmlElement("levelcontrol", IsNullable = true)]
         public LevelControl LevelControl { get; set; }
 
-        [XmlElement("ColorControl", IsNullable = true)]
+        [XmlElement("colorcontrol", IsNullable = true)]
         public ColorControl ColorControl { get; set; }
 
 

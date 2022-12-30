@@ -66,7 +66,7 @@ namespace AVMHomeAutomationDemo.ViewModel
         public ButtonsViewModel Buttons => this.device.Buttons != null ? new ButtonsViewModel(this.device.Buttons) : null;
         public ETSIUnitInfoViewModel EtsiUnitInfo => this.device.EtsiUnitInfo != null ? new ETSIUnitInfoViewModel(this.device.EtsiUnitInfo) : null;
         public SimpleOnOffViewModel SimpleOnOff => this.device.SimpleOnOff != null ? new SimpleOnOffViewModel(this.device.SimpleOnOff) : null;
-        public LevelControlViewModel LevelController => this.device.LevelControl != null ? new LevelControlViewModel(this.device.LevelControl) : null;
+        public LevelControlViewModel LevelControl => this.device.LevelControl != null ? new LevelControlViewModel(this.device.LevelControl) : null;
         public ColorControlViewModel ColorControl => this.device.ColorControl != null ? new ColorControlViewModel(this.device.ColorControl) : null;
         public HkrViewModel Hkr => this.device.Hkr != null ? new HkrViewModel(this.device.Hkr) : null;
         

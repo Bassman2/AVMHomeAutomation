@@ -11,5 +11,7 @@ namespace AVMHomeAutomationDemo.ViewModel
         {
             this.simpleOnOff = simpleOnOff;
         }
+
+        public bool State => this.simpleOnOff.State;
     }
 }

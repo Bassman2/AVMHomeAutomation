@@ -7,5 +7,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <GroupBox Header="Color Control" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Hue" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Hue, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Saturation" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Saturation, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <Label Grid.Column="0" Grid.Row="2" Content="Unmapped Hue" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding UnmappedHue, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <Label Grid.Column="0" Grid.Row="3" Content="Unmapped Saturation" />
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding UnmappedSaturation, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <Label Grid.Column="0" Grid.Row="4" Content="Temperature" />
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Temperature, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+        </Grid>
     </GroupBox>
 </UserControl>
