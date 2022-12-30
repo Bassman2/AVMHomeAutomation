@@ -11,38 +11,38 @@ namespace AVMHomeAutomation
         /// Actual temperature in 0.5 ° C, value range: 0x10 - 0x3816 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C ...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("tist")]
-        public XmlNullable<int> TIst { get; set; }
+        public XmlNullableHkrTemperature TIst { get; set; }
 
         /// <summary>
         /// Target temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("tsoll")]
-        public XmlNullable<int> TSoll { get; set; }
-                
+        public XmlNullableHkrTemperature TSoll { get; set; }
+
         /// <summary>
         /// Lowering temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("absenk")]
-        public int Absenk { get; set; }
+        public XmlNullableHkrTemperature Absenk { get; set; }
 
         /// <summary>
         /// Comfort temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
         /// </summary>
         [XmlElement("komfort")]
-        public int Komfort { get; set; }
+        public XmlNullableHkrTemperature Komfort { get; set; }
 
         /// <summary>
         /// 0/1 - Keylock via UI / API on no / yes (empty if unknown or error)
         /// </summary>
         [XmlElement("lock")]
-        public string Lock { get; set; }
+        public XmlNullableBool Lock { get; set; }
 
         /// <summary>
         /// 0/1 - key lock directly on the device on no / yes (empty if unknown or error)
         /// </summary>
         [XmlElement("devicelock")]
-        public string DeviceLock { get; set; }
-        
+        public XmlNullableBool DeviceLock { get; set; }
+
         /// <summary>
         /// Error codes supplied by the HKR (eg if there was a problem during the installation of the HKR):
         /// 0: no error
@@ -60,37 +60,37 @@ namespace AVMHomeAutomation
         /// 0 or 1: window oven detected
         /// </summary>
         [XmlElement("windowopenactiv")]
-        public string WindowOpenActiv { get; set; }
+        public XmlNullableBool WindowOpenActiv { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("windowopenactiveendtime")]
-        public int WindowOpenActivEndTime { get; set; }
+        public XmlNullableDateTime WindowOpenActivEndTime { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("boostactive")]
-        public int BoostActive { get; set; }
+        public XmlNullableBool BoostActive { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("boostactiveendtime")]
-        public int BoostActiveEndTime { get; set; }
+        public XmlNullableDateTime BoostActiveEndTime { get; set; }
 
         /// <summary>
         /// 0 or 1: Battery low - please change the battery
         /// </summary>
         [XmlElement("batterylow")]
-        public string BatteryLow { get; set; }
+        public XmlNullableBool BatteryLow { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("battery")]
-        public string Battery{ get; set; }
+        public XmlNullable<int> Battery{ get; set; }
 
         /// <summary>
         /// Next temperature change
@@ -102,13 +102,13 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         [XmlElement("summeractive")]
-        public string SummerActive { get; set; }
+        public XmlNullableBool SummerActive { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("holidayactive")]
-        public string HolidayActive { get; set; }
+        public XmlNullableBool HolidayActive { get; set; }
         
     }
 }

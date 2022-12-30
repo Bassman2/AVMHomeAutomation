@@ -8,6 +8,6 @@ namespace AVMHomeAutomation
     public class SimpleOnOff
     {
         [XmlElement("state")]
-        public bool State { get; set; }
+        public XmlNullableBool State { get; set; }
     }
 }

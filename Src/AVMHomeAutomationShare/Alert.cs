@@ -5,6 +5,9 @@ namespace AVMHomeAutomation
     public class Alert
     {
         [XmlElement("state")]
-        public string State { get; set; }
+        public XmlEnum<AlertState> State { get; set; }
+
+        [XmlElement("lastalertchgtimestamp")]
+        public XmlNullableDateTime LastAlertChangeTimestamp { get; set;}
     }
 }

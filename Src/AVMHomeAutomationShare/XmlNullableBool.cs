@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Xml;
+using System.Collections.Generic;
+using System.Text;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace AVMHomeAutomation
 {
-    public class XmlTemperature : IXmlSerializable
+    public class XmlNullableBool : IXmlSerializable
     {
         public bool HasValue { get; private set; }
 
-        public double Value { get; private set; }
+        public bool Value { get; private set; }
 
-        public XmlTemperature()
+        public XmlNullableBool()
         { }
 
-        public XmlTemperature(double value)
+        public XmlNullableBool(bool value)
         {
             this.HasValue = true;
             this.Value = value;
         }
 
-        public XmlTemperature(double? value)
+        public XmlNullableBool(bool? value)
         {
             this.HasValue = value.HasValue;
             this.Value = value.Value;
@@ -37,7 +39,7 @@ namespace AVMHomeAutomation
 
             if (this.HasValue = int.TryParse(strValue, out int value))
             {
-                this.Value = value / 10.0;
+                this.Value = value != 0 ? true : false;
             }
             reader.ReadEndElement();
         }
@@ -47,15 +49,14 @@ namespace AVMHomeAutomation
             throw new NotImplementedException();
         }
 
-        public static implicit operator XmlTemperature(double? value)
+        public static implicit operator XmlNullableBool(bool? value)
         {
-            return new XmlTemperature(value);
+            return new XmlNullableBool(value);
         }
 
-        public static implicit operator double?(XmlTemperature value)
+        public static implicit operator bool?(XmlNullableBool value)
         {
-            return value.HasValue ? ((double?)value.Value) : null;
+            return value.HasValue ? ((bool?)value.Value) : null;
         }
-        
     }
 }

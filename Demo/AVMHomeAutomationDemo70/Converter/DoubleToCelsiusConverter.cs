@@ -8,17 +8,23 @@ namespace AVMHomeAutomationDemo.Converter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value.GetType() == typeof(double?))
+            double? val = (double?)value;
+            if (val.HasValue)
             {
-                double? val = (double?)value;
-                return val.HasValue ? $"{val.Value:N1} °C" : "--.- °C";
+                if (val.Value == double.MaxValue)
+                {
+                    return "On";
+                }
+                else if (val.Value == double.MinValue)
+                {
+                    return "Off";
+                }
+                else
+                {
+                    return $"{val.Value:N1} °C";
+                }
             }
-            if (value.GetType() == typeof(double))
-            {
-                double val = (double)value;
-                return $"{val:N1} °C";
-            }
-            return "---";
+            return "--.- °C";            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

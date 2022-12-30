@@ -12,8 +12,8 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.levelControl = levelControl;
         }
 
-        public int Level => this.levelControl.Level;
+        public int? Level => this.levelControl.Level;
         
-        public int LevelPercentage => this.levelControl.LevelPercentage;
+        public int? LevelPercentage => this.levelControl.LevelPercentage;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
@@ -11,5 +12,9 @@ namespace AVMHomeAutomationDemo.ViewModel
         {
             this.alert = alert;
         }
+
+        public AlertState? State => this.alert.State;
+
+        public DateTime? LastAlertChangeTimestamp => this.alert.LastAlertChangeTimestamp;
     }
 }
