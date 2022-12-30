@@ -39,7 +39,15 @@ namespace AVMHomeAutomation
 
             if (this.HasValue = long.TryParse(strValue, out long value))
             {
-                this.Value = begin.AddSeconds(value).ToLocalTime();
+                if (value == 0)
+                {
+                    this.HasValue = false;
+                }
+                else
+                {
+                    this.HasValue = true;
+                    this.Value = begin.AddSeconds(value).ToLocalTime();
+                }
             }
             reader.ReadEndElement();
         }

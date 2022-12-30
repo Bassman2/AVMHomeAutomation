@@ -39,19 +39,20 @@ namespace AVMHomeAutomation
             {
                 // 0,5 °C, Wertebereich: 0x0 – 0x64
                 // 0 <= 0°C, 1 = 0,5°C......120 = 60°C, 254 = ON , 253 = OFF
-                if (value == 254)
+                switch (value)
                 {
-                    // on
+                case 254: // on
                     this.Value = double.MaxValue;
-                }
-                else if (value == 253)
-                {
-                    // off
+                    this.HasValue = true;
+                    break;
+                case 253: // off
                     this.Value = double.MinValue;
-                }
-                else
-                {
+                    this.HasValue = true;
+                    break;
+                default:
                     this.Value = value * 0.5;
+                    this.HasValue = true;
+                    break;
                 }
             }
             reader.ReadEndElement();

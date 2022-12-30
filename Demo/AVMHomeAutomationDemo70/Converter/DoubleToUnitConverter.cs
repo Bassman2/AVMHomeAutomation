@@ -13,7 +13,23 @@ namespace AVMHomeAutomationDemo.Converter
             switch (unit)
             {
             case Unit.Temperature:
-                return val.HasValue ? $"{val.Value:N1} °C" : $"--.- °C";
+                if (val.HasValue)
+                {
+                    if (val.Value == double.MaxValue)
+                    {
+                        return "On";
+                    }
+                    else if (val.Value == double.MinValue)
+                    {
+                        return "Off";
+                    }
+                    else
+                    {
+                        return $"{val.Value:N1} °C";
+                    }
+                }
+                return "--.- °C";
+                //return val.HasValue ? $"{val.Value:N1} °C" : $"--.- °C";
             case Unit.Power:
                 return val.HasValue ? $"{val.Value:N3} W" : $"--.--- W";
             case Unit.Energy:

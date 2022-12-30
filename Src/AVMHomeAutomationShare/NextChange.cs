@@ -9,6 +9,6 @@ namespace AVMHomeAutomation
         public XmlNullableDateTime EndPeriod { get; set; }
             
         [XmlElement("tchange")]
-        public int TChange { get; set; }
+        public XmlNullableHkrTemperature TChange { get; set; }
     }
 }
