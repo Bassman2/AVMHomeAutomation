@@ -5,9 +5,9 @@ namespace AVMHomeAutomation
     public class LevelControl
     {
         [XmlElement("level")]
-        public XmlNullable<int> Level { get; set; }
+        public XmlNullableInt Level { get; set; }
 
         [XmlElement("levelpercentage")]
-        public XmlNullable<int> LevelPercentage { get; set; }
+        public XmlNullableInt LevelPercentage { get; set; }
     }
 }

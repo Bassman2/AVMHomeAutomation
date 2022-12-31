@@ -72,7 +72,7 @@ namespace AVMHomeAutomation
         public bool IsBatteryLow { get; set; }
 
         [XmlElement("battery")]
-        public XmlNullable<int> Battery { get; set; }
+        public XmlNullableInt Battery { get; set; }
 
 
 

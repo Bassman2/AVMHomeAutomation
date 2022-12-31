@@ -5,18 +5,18 @@ namespace AVMHomeAutomation
     public class ColorControl
     {
         [XmlElement("hue")]
-        public XmlNullable<int> Hue { get; set; }
+        public XmlNullableInt Hue { get; set; }
 
         [XmlElement("saturation")]
-        public XmlNullable<int> Saturation { get; set; }
+        public XmlNullableInt Saturation { get; set; }
 
         [XmlElement("unmapped_hue")]
-        public XmlNullable<int> UnmappedHue { get; set; }
+        public XmlNullableInt UnmappedHue { get; set; }
 
         [XmlElement("unmapped_saturation")]
-        public XmlNullable<int> UnmappedSaturation { get; set; }
+        public XmlNullableInt UnmappedSaturation { get; set; }
 
         [XmlElement("temperature")]
-        public XmlNullable<int> Temperature { get; set; }
+        public XmlNullableInt Temperature { get; set; }
     }
 }

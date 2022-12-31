@@ -90,7 +90,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         [XmlElement("battery")]
-        public XmlNullable<int> Battery{ get; set; }
+        public XmlNullableInt Battery{ get; set; }
 
         /// <summary>
         /// Next temperature change

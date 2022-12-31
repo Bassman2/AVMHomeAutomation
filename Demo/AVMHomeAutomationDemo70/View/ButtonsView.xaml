@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
     </UserControl.Resources>
-    <ListView ItemsSource="{Binding Buttons}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" BorderThickness="0" Focusable="False" IsHitTestVisible="False" >
+    <ListView ItemsSource="{Binding Buttons}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" BorderThickness="0" Focusable="False" IsHitTestVisible="False">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <GroupBox Header="Button" Margin="-3">
