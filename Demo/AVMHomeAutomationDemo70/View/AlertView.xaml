@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Alert">
+    <GroupBox Header="Alert" Margin="3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>

@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <conv:EnumListToStringConverter x:Key="EnumListToStringConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="ETSI Unit Info" >
+    <GroupBox Header="ETSI Unit Info" Margin="3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>

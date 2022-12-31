@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <conv:BoolToOnOffConverter x:Key="BoolToOnOffConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Simple On Off" >
+    <GroupBox Header="Simple On Off" Margin="3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>

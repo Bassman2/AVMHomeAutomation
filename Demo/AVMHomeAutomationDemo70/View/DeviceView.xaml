@@ -71,7 +71,7 @@
                 <local:AlertView DataContext="{Binding Alert}" />
             </Grid>
             <Grid Visibility="{Binding ShowButtons, Converter={StaticResource BoolToVisibilityConverter}}" >
-                <local:ButtonsView DataContext="{Binding Buttons}"/>
+                <local:ButtonsView/> <!-- not setting DataContext -->
             </Grid>
             <Grid Visibility="{Binding ShowETSIUnitInfo, Converter={StaticResource BoolToVisibilityConverter}}" >
                 <local:ETSIUnitInfoView DataContext="{Binding EtsiUnitInfo}"/>

@@ -4,19 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <GroupBox Header="Button">
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Content="Last Pressed Timestamp" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding LastPressedTimestamp}" Margin="3" />
-        </Grid>
-    </GroupBox>
+    <UserControl.Resources>
+        <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+    </UserControl.Resources>
+    <ListView ItemsSource="{Binding Buttons}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" BorderThickness="0" Focusable="False" IsHitTestVisible="False" >
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <GroupBox Header="Button" Margin="-3">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" Margin="3" />
+                        
+                        <Label Grid.Column="0" Grid.Row="1" Content="Id" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id, Mode=OneWay}" Margin="3" />
+
+                        <Label Grid.Column="0" Grid.Row="2" Content="Name" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Name, Mode=OneWay}" Margin="3" />
+                        
+                        <Label Grid.Column="0" Grid.Row="3" Content="Last Pressed Timestamp" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding LastPressedTimestamp, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" Margin="3" />
+                    </Grid>
+                </GroupBox>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>    
 </UserControl>

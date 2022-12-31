@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <GroupBox Header="Level Control" >
+    <GroupBox Header="Level Control" Margin="3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>

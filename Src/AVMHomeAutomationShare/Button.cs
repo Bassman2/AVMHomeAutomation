@@ -14,6 +14,6 @@ namespace AVMHomeAutomation
         public string Name { get; set; }
 
         [XmlElement("lastpressedtimestamp")]
-        public string LastPressedTimestamp { get; set; }
+        public XmlNullableDateTime LastPressedTimestamp { get; set; }
     }
 }

@@ -13,7 +13,7 @@
         <conv:BoolToYesNoStringConverter x:Key="BoolToYesNoStringConverter"/>
         <conv:DoubleToUnitConverter x:Key="DoubleToUnitConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Radiator regulator" >
+    <GroupBox Header="Radiator regulator" Margin="3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>

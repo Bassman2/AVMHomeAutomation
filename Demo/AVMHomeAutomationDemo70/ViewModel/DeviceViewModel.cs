@@ -1,5 +1,7 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
@@ -63,7 +65,7 @@ namespace AVMHomeAutomationDemo.ViewModel
         public PowerMeterViewModel PowerMeter => this.device.PowerMeter != null ? new PowerMeterViewModel(this.device.PowerMeter) : null;
         public TemperatureViewModel Temperature => this.device.Temperature != null ? new TemperatureViewModel(this.device.Temperature) : null;
         public AlertViewModel Alert => this.device.Alert != null ? new AlertViewModel(this.device.Alert) : null;
-        public ButtonsViewModel Buttons => this.device.Buttons != null ? new ButtonsViewModel(this.device.Buttons) : null;
+        public List<ButtonViewModel> Buttons => this.device.Buttons != null ? this.device.Buttons.Select(b => new ButtonViewModel(b)).ToList() : null;
         public ETSIUnitInfoViewModel EtsiUnitInfo => this.device.EtsiUnitInfo != null ? new ETSIUnitInfoViewModel(this.device.EtsiUnitInfo) : null;
         public SimpleOnOffViewModel SimpleOnOff => this.device.SimpleOnOff != null ? new SimpleOnOffViewModel(this.device.SimpleOnOff) : null;
         public LevelControlViewModel LevelControl => this.device.LevelControl != null ? new LevelControlViewModel(this.device.LevelControl) : null;
