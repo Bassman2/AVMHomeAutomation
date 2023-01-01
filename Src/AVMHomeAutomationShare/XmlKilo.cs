@@ -7,12 +7,12 @@ using System.Xml;
 
 namespace AVMHomeAutomation
 {
-    public class XmlKilo : IXmlSerializable
+    public struct XmlKilo : IXmlSerializable
     {   
         public double Value { get; private set; }
 
-        public XmlKilo()
-        { }
+        //public XmlKilo()
+        //{ }
 
         public XmlKilo(double value)
         {

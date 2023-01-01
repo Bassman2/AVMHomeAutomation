@@ -9,18 +9,16 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:BoolToOnOffConverter x:Key="BoolToOnOffConverter"/>
         <conv:IntToFunctionBitMaskConverter x:Key="IntToFunctionBitMaskConverter"/>
-        <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
-        <conv:BoolToYesNoStringConverter x:Key="BoolToYesNoStringConverter"/>
+        <conv:IntToStringConverter x:Key="IntToStringConverter"/>
     </UserControl.Resources>
     <ScrollViewer>
         <StackPanel>
             <GroupBox Header="Device / Group" Margin="3" >
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="180"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -33,29 +31,32 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- attributes -->
                     <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     <Label Grid.Column="0" Grid.Row="1" Content="Id" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     <Label Grid.Column="0" Grid.Row="2" Content="FirmwareVersion" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Text="{Binding FirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     <Label Grid.Column="0" Grid.Row="3" Content="Manufacturer" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Text="{Binding Manufacturer, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Manufacturer, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     <Label Grid.Column="0" Grid.Row="4" Content="ProductName" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Text="{Binding ProductName, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding ProductName, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     <Label Grid.Column="0" Grid.Row="5" Content="FunctionBitMask" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="5" Text="{Binding Functions, Converter={StaticResource IntToFunctionBitMaskConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                    <!-- elements -->
-                    <CheckBox Grid.Column="1" Grid.Row="6" IsChecked="{Binding IsPresent, Mode=OneWay}" Margin="3" Content="Present" />
-                    <CheckBox Grid.Column="2" Grid.Row="6" IsChecked="{Binding IsTXBusy, Mode=OneWay}" Margin="3" Content="TX Busy" />
-                    <CheckBox Grid.Column="3" Grid.Row="6" IsChecked="{Binding IsBatteryLow, Mode=OneWay}" Margin="3" Content="Battery Low" />
-
-                    <Label Grid.Column="0" Grid.Row="7" Content="Name" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                    <Label Grid.Column="0" Grid.Row="8" Content="Battery" />
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8" Text="{Binding Battery, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Functions, Converter={StaticResource IntToFunctionBitMaskConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="6" Content="Present" />
+                    <TextBox Grid.Column="1"  Grid.Row="6" Text="{Binding IsPresent, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="7" Content="TX Busy" />
+                    <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding IsTXBusy, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="8" Content="Name" />
+                    <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="9" Content="Battery Low" />
+                    <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding IsBatteryLow, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="10" Content="Battery" />
+                    <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding Battery, Converter={StaticResource IntToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                 </Grid>
             </GroupBox>
             <Grid Visibility="{Binding ShowSwitch, Converter={StaticResource BoolToVisibilityConverter}}">

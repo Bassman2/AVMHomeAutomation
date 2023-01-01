@@ -5,14 +5,14 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    public class XmlNullableTemperature : IXmlSerializable
+    public struct XmlNullableTemperature : IXmlSerializable
     {
         public bool HasValue { get; private set; }
 
         public double Value { get; private set; }
 
-        public XmlNullableTemperature()
-        { }
+        //public XmlNullableTemperature()
+        //{ }
 
         public XmlNullableTemperature(double value)
         {

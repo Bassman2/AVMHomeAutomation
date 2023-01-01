@@ -8,12 +8,12 @@ using System.Linq;
 namespace AVMHomeAutomation
 {
     
-    public class XmlEnumList<T> : IXmlSerializable where T : System.Enum
+    public struct XmlEnumList<T> : IXmlSerializable where T : System.Enum
     {
         public List<T> Values { get; private set; }
 
-        public XmlEnumList()
-        { }
+        //public XmlEnumList()
+        //{ }
 
         public XmlEnumList(List<T> val)
         {

@@ -12,9 +12,9 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.sw = sw;
         }
 
-        public string State => this.sw.State;
-        public string Mode => this.sw.Mode;
-        public string Lock => this.sw.Lock;
-        public string DeviceLock => this.sw.DeviceLock;
+        public bool? State => this.sw.State;
+        public bool? Mode => this.sw.Mode;
+        public bool? Lock => this.sw.Lock;
+        public bool? DeviceLock => this.sw.DeviceLock;
     }
 }

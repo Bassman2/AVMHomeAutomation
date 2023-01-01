@@ -5,14 +5,14 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    public class XmlNullableBool : IXmlSerializable
+    public struct XmlNullableBool : IXmlSerializable
     {
         public bool HasValue { get; private set; }
 
         public bool Value { get; private set; }
 
-        public XmlNullableBool()
-        { }
+        //public XmlNullableBool()
+        //{ }
 
         public XmlNullableBool(bool value)
         {

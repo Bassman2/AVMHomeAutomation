@@ -16,7 +16,7 @@
                 <GroupBox Header="Button" Margin="-3">
                     <Grid >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="180"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -26,16 +26,16 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
-                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" Margin="3" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                         
                         <Label Grid.Column="0" Grid.Row="1" Content="Id" />
-                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id, Mode=OneWay}" Margin="3" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
                         <Label Grid.Column="0" Grid.Row="2" Content="Name" />
-                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Name, Mode=OneWay}" Margin="3" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                         
                         <Label Grid.Column="0" Grid.Row="3" Content="Last Pressed Timestamp" />
-                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding LastPressedTimestamp, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" Margin="3" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding LastPressedTimestamp, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
                     </Grid>
                 </GroupBox>
             </DataTemplate>

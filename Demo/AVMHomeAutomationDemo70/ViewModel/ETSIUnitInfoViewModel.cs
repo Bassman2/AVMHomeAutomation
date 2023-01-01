@@ -14,7 +14,7 @@ namespace AVMHomeAutomationDemo.ViewModel
         }
 
         public string EtsiDeviceId => this.etsiUnitInfo.EtsiDeviceId;
-        public UnitType UnitType => this.etsiUnitInfo.UnitType;
+        public UnitType? UnitType => this.etsiUnitInfo.UnitType;
         public List<Interfaces> Interfaces => this.etsiUnitInfo.Interfaces; 
     }
 }

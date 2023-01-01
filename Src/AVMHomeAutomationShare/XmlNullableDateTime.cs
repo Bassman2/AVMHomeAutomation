@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    public class XmlNullableDateTime : IXmlSerializable
+    public struct XmlNullableDateTime : IXmlSerializable
     {
         private static DateTime begin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         
@@ -13,8 +13,8 @@ namespace AVMHomeAutomation
 
         public DateTime Value { get; private set; }
 
-        public XmlNullableDateTime()
-        { }
+        //public XmlNullableDateTime()
+        //{ }
 
         public XmlNullableDateTime(DateTime value)
         {

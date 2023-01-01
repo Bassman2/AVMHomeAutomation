@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:IntToStringConverter x:Key="IntToStringConverter"/>
+    </UserControl.Resources>
     <GroupBox Header="Level Control" Margin="3">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="180"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -17,9 +21,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="Level" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Level, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Level, Converter={StaticResource IntToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Level Percentage" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LevelPercentage, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LevelPercentage, Converter={StaticResource IntToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>

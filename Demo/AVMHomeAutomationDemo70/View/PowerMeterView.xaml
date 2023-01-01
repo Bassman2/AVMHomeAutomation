@@ -13,7 +13,7 @@
     <GroupBox Header="Power Meter" Margin="3">
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="180"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -22,11 +22,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="Power" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Power, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Power},Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Power, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Power},Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Energy" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Energy, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Energy},Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Energy, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Energy},Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="2" Content="Voltage" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Voltage},Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Voltage},Mode=OneWay}" IsReadOnly="True" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>

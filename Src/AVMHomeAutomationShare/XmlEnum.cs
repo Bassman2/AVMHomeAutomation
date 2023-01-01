@@ -5,11 +5,11 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    public class XmlEnum<T> : IXmlSerializable where T : System.Enum
+    public struct XmlEnum<T> : IXmlSerializable where T : System.Enum
     {
         public T Value { get; private set; }
-        public XmlEnum() 
-        { }
+        //public XmlEnum() 
+        //{ }
 
         public XmlEnum(T val)
         {

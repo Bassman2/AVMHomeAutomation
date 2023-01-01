@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:BoolToOnOffConverter x:Key="BoolToOnOffConverter"/>
+    </UserControl.Resources>
     <GroupBox Header="Switch" Margin="3">
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="180"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -19,13 +23,13 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="State" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding State, Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding State, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Mode" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Mode, Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Mode, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="2" Content="Lock" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Lock, Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Lock, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="3" Content="DeviceLock" />
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding DeviceLock, Mode=OneWay}" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding DeviceLock, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>
