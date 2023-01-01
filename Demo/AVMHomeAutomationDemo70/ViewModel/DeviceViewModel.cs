@@ -32,13 +32,13 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         #region Single Elements
 
-        public bool IsPresent => this.device.IsPresent;
+        public bool IsPresent => this.device.IsPresent.Value;
 
-        public bool IsTXBusy => this.device.IsTXBusy;
+        public bool IsTXBusy => this.device.IsTXBusy.Value;
 
         public string Name => this.device.Name;
 
-        public bool IsBatteryLow => this.device.IsBatteryLow;
+        public bool? IsBatteryLow => this.device.IsBatteryLow;
 
         public int? Battery => this.device.Battery;
 

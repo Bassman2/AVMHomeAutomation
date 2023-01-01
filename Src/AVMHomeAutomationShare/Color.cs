@@ -5,15 +5,15 @@ namespace AVMHomeAutomation
     public class Color
     {
         [XmlAttribute("sat_index")]
-        public int SatIndex { get; set; }
+        public XmlNullableInt SatIndex { get; set; }
 
         [XmlAttribute("hue")]
-        public int Hue { get; set; }
+        public XmlNullableInt Hue { get; set; }
 
         [XmlAttribute("sat")]
-        public int Sat { get; set; }
+        public XmlNullableInt Sat { get; set; }
 
         [XmlAttribute("val")]
-        public int Val { get; set; }
+        public XmlNullableInt Val { get; set; }
     }
 }

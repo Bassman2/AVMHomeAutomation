@@ -54,24 +54,18 @@ namespace AVMHomeAutomation
         /// 0/1 - Device connected no / yes. For internal use only. Use IsPresent instead.
         /// </summary>
         [XmlElement("present")]
-        public string Present { get; set; }
+        public XmlNullableBool IsPresent { get; set; }
         
-        /// <summary>
-        /// Device connected no / yes.
-        /// </summary>
-        [XmlIgnore]
-        public bool IsPresent => this.Present == "1" ? true : false; 
-
         [XmlElement("txbusy")]
-        public bool IsTXBusy { get; set; }
+        public XmlNullableBool IsTXBusy { get; set; }
         
         [XmlElement("name")]
         public string Name { get; set; }
 
-        [XmlElement("batterylow")]
-        public bool IsBatteryLow { get; set; }
+        [XmlElement("batterylow", IsNullable=true)]
+        public XmlNullableBool IsBatteryLow { get; set; }
 
-        [XmlElement("battery")]
+        [XmlElement("battery", IsNullable = true)]
         public XmlNullableInt Battery { get; set; }
 
 
