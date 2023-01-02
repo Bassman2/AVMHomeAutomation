@@ -81,7 +81,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<bool> SetSwitchOnAsync(string ain)
         {
-            return await GetBoolAsync(ain, "setswitchon");
+            return await GetBoolAsync("setswitchon", ain);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<bool> SetSwitchOffAsync(string ain)
         {
-            return await GetBoolAsync(ain, "setswitchoff");
+            return await GetBoolAsync("setswitchoff", ain);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<bool> SetSwitchToggleAsync(string ain)
         {
-            return await GetBoolAsync(ain, "setswitchtoggle");
+            return await GetBoolAsync("setswitchtoggle", ain);
         }
 
 
@@ -142,7 +142,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<bool> GetSwitchStateAsync(string ain)
         {
-            return await GetBoolAsync(ain, "getswitchstate");
+            return await GetBoolAsync("getswitchstate", ain);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<bool> GetSwitchPresentAsync(string ain)
         {
-            return await GetBoolAsync(ain, "getswitchpresent");
+            return await GetBoolAsync("getswitchpresent", ain);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<int> GetSwitchPowerAsync(string ain)
         {
-            return await GetIntAsync(ain, "getswitchpower");
+            return await GetIntAsync("getswitchpower", ain);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<int> GetSwitchEnergyAsync(string ain)
         {
-            return await GetIntAsync(ain, "getswitchenergy");
+            return await GetIntAsync("getswitchenergy", ain);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public async Task<string> GetSwitchNameAsync(string ain)
         {
-            return await GetStringAsync(ain, "getswitchname");
+            return await GetStringAsync("getswitchname", ain);
         }
 
         /// <summary>

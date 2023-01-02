@@ -32,7 +32,24 @@ namespace AVMHomeAutomationTest70
             Assert.IsFalse(stats.Energy.Count > 0);
             Assert.IsFalse(stats.Humidity.Count > 0);
         }
-               
+
+        [TestMethod]
+        public async Task TestMethodGetBasicDeviceStatsAsync()
+        {
+            DeviceStats stats;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                stats = await client.GetBasicDeviceStatsAsync(testDevice.Ain);
+            }
+
+            Assert.IsNotNull(stats);
+            Assert.IsFalse(stats.Temperature.Count > 0);
+            Assert.IsFalse(stats.Voltage.Count > 0);
+            Assert.IsFalse(stats.Power.Count > 0);
+            Assert.IsFalse(stats.Energy.Count > 0);
+            Assert.IsFalse(stats.Humidity.Count > 0);
+        }
 
         //[TestMethod]
         //public void TestMethodGetSwitch()
@@ -58,6 +75,6 @@ namespace AVMHomeAutomationTest70
 
         //}
 
-        
+
     }
 }

@@ -15,9 +15,21 @@ namespace AVMHomeAutomationTest70
                 deviceList = client.GetDeviceListInfos();
             }
 
-            Assert.IsNotNull(deviceList);
+            Assert.IsNotNull(deviceList);            
+            AssertDevice(TestSettings.DeviceDect100Repeater, deviceList.Devices.Single((d) => d.Identifier == TestSettings.DeviceDect100Repeater.Ain));
+        }
 
-            
+        [TestMethod]
+        public async Task TestMethodGetDeviceListInfosAsync()
+        {
+            DeviceList deviceList;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                deviceList = await client.GetDeviceListInfosAsync();
+            }
+
+            Assert.IsNotNull(deviceList);
             AssertDevice(TestSettings.DeviceDect100Repeater, deviceList.Devices.Single((d) => d.Identifier == TestSettings.DeviceDect100Repeater.Ain));
         }
 
@@ -50,7 +62,28 @@ namespace AVMHomeAutomationTest70
             Assert.AreEqual(Code.NoSubscription, preState.Code);
             Assert.AreEqual(Code.NoSubscription, runState.Code);
             Assert.IsTrue(!string.IsNullOrEmpty(runState.LatestAin));
+        }
 
+        [TestMethod]
+        public async Task TestMethodSubscriptionAsync()
+        {
+            State preState;
+            State runState;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                preState = await client.GetSubscriptionStateAsync();
+                await client.StartUleSubscriptionAsync();
+                do
+                {
+                    Thread.Sleep(30000);
+                    runState = await client.GetSubscriptionStateAsync();
+                } while (runState.Code == Code.SubscriptionRunning);
+            }
+
+            Assert.AreEqual(Code.NoSubscription, preState.Code);
+            Assert.AreEqual(Code.NoSubscription, runState.Code);
+            Assert.IsTrue(!string.IsNullOrEmpty(runState.LatestAin));
         }
 
         [TestMethod]
@@ -72,6 +105,25 @@ namespace AVMHomeAutomationTest70
             Assert.AreEqual("Dummy", testName);
             Assert.AreEqual(testDevice.Name, resName);
         }
+        [TestMethod]
+        public async Task TestMethodChangeNameAsync()
+        {
+            TestDevice testDevice = TestSettings.DeviceDect400Switch;
+            string orgName, testName, resName;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                orgName = await client.GetSwitchNameAsync(testDevice.Ain);
+                await client.SetNameAsync(testDevice.Ain, "Dummy");
+                testName = await client.GetSwitchNameAsync(testDevice.Ain);
+                await client.SetNameAsync(testDevice.Ain, orgName);
+                resName = await client.GetSwitchNameAsync(testDevice.Ain);
+            }
+
+            Assert.AreEqual(testDevice.Name, orgName);
+            Assert.AreEqual("Dummy", testName);
+            Assert.AreEqual(testDevice.Name, resName);
+        }
 
         [TestMethod]
         public void TestMethodGetSwitchList()
@@ -81,6 +133,20 @@ namespace AVMHomeAutomationTest70
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
                 devices = client.GetSwitchList();
+            }
+
+            Assert.IsNotNull(devices);
+            CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
+        }
+
+        [TestMethod]
+        public async Task TestMethodGetSwitchListAsync()
+        {
+            string[] devices;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                devices = await client.GetSwitchListAsync();
             }
 
             Assert.IsNotNull(devices);

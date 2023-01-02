@@ -61,17 +61,17 @@ namespace AVMHomeAutomation
         public void ReadXml(XmlReader reader)
         {
             string strValue = reader.ReadString();
-            if (String.IsNullOrEmpty(strValue))
-            {
-                this.HasValue = false;
-            }
-            else
-            {
+            //if (String.IsNullOrEmpty(strValue))
+            //{
+            //    this.HasValue = false;
+            //}
+            //else
+            //{
                 if (this.HasValue = int.TryParse(strValue, out int val))
                 {
                     this.Value = val;
                 }
-            }
+            //}
             reader.ReadEndElement();
         }
 

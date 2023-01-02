@@ -21,7 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnitType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableEnum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlEnumList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableHkrTemperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlKilo.cs" />
