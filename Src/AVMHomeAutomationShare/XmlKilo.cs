@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
-using System.Xml.Schema;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
     public struct XmlKilo : IXmlSerializable
     {   
         public double Value { get; private set; }
-
-        //public XmlKilo()
-        //{ }
-
+                
         public XmlKilo(double value)
         {
             this.Value = value;

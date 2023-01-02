@@ -57,7 +57,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string[]> GetSwitchListAsync()
         {
             string list = await GetStringAsync("getswitchlist");
@@ -78,7 +78,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchOnAsync(string ain)
         {
             return await GetBoolAsync("setswitchon", ain);
@@ -98,7 +98,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchOffAsync(string ain)
         {
             return await GetBoolAsync("setswitchoff", ain);
@@ -118,7 +118,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchToggleAsync(string ain)
         {
             return await GetBoolAsync("setswitchtoggle", ain);
@@ -139,7 +139,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> GetSwitchStateAsync(string ain)
         {
             return await GetBoolAsync("getswitchstate", ain);
@@ -159,7 +159,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> GetSwitchPresentAsync(string ain)
         {
             return await GetBoolAsync("getswitchpresent", ain);
@@ -179,7 +179,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<int> GetSwitchPowerAsync(string ain)
         {
             return await GetIntAsync("getswitchpower", ain);
@@ -199,7 +199,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<int> GetSwitchEnergyAsync(string ain)
         {
             return await GetIntAsync("getswitchenergy", ain);
@@ -219,7 +219,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string> GetSwitchNameAsync(string ain)
         {
             return await GetStringAsync("getswitchname", ain);
@@ -237,7 +237,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
         {
             return await GetAsAsync<DeviceList>("getdevicelistinfos");
@@ -280,7 +280,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string> GetHkrtSollAsync(string ain)
         {
             return await GetStringAsync("gethkrtsoll", ain);
@@ -300,7 +300,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string> GetHkrKomfortAsync(string ain)
         {
             return await GetStringAsync("gethkrkomfort", ain);
@@ -320,7 +320,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string> GetHkrAbsenkAsync(string ain)
         {
             return await GetStringAsync("gethkrabsenk", ain);
@@ -342,7 +342,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task SetHkrtSollAsync(string ain, string value)
         {
             await GetAsync("sethkrtsoll", ain, value);
@@ -362,7 +362,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain)
         {
             return await GetAsAsync<DeviceStats>("getbasicdevicestats", ain);
@@ -382,7 +382,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<TemplateList> GetTemplateListInfosAsync(string ain)
         {
             return await GetAsAsync<TemplateList>("gettemplatelistinfos", ain);
@@ -392,7 +392,6 @@ namespace AVMHomeAutomation
         /// Returns the basic information of all templates / templates. Apply template, the ain parameter is evaluated.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
         public void ApplyTemplate(string ain)
         {
             Get("applytemplate", ain);
@@ -402,7 +401,7 @@ namespace AVMHomeAutomation
         /// 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task ApplyTemplateAsync(string ain)
         {
             await GetAsync("applytemplate", ain);
@@ -423,7 +422,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="onOff"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task SetSimpleOnOffAsync(string ain, OnOff onOff)
         {
             await GetAsync("setsimpleonoff", ain, $"onoff={((int)onOff)}");
@@ -449,7 +448,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetLevelAsync(string ain, int level)
         {
@@ -480,7 +479,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetLevelPercentageAsync(string ain, int level)
         {
@@ -523,7 +522,7 @@ namespace AVMHomeAutomation
         /// <param name="hue"></param>
         /// <param name="saturation"></param>
         /// <param name="duration"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetColorAsync(string ain, int hue, int saturation, int duration)
         {
@@ -568,7 +567,7 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature"></param>
         /// <param name="duration"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetColortemperatureAsync(string ain, int temperature, int duration)
         {
@@ -595,7 +594,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<ColorDefaults> GetColorDefaultsAsync()
         {
             return await GetAsAsync<ColorDefaults>("getcolordefaults");
@@ -621,7 +620,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetHkrBoostAsync(string ain, DateTime? endtimestamp = null)
         {
@@ -652,7 +651,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null)
         {
@@ -678,7 +677,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task SetBlindAsync(string ain, Target target)
         {
             await GetAsync("setblind", ain, $"target={target.ToString().ToLower()}");
@@ -704,7 +703,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="name"></param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetNameAsync(string ain, string name)
         {
@@ -726,7 +725,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task StartUleSubscriptionAsync()
         {
             await GetAsync("startulesubscription");
@@ -744,7 +743,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<State> GetSubscriptionStateAsync()
         {
             return await GetAsAsync<State>("getsubscriptionstate");
@@ -764,7 +763,7 @@ namespace AVMHomeAutomation
         /// Provides the basic information of one SmartHome devices.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Device> GetDeviceInfosAsync(string ain)
         {
             return await GetAsAsync<Device>("getdeviceinfos", ain);
@@ -961,6 +960,7 @@ namespace AVMHomeAutomation
             string res = await RequestAsync(request);
             return int.Parse(res);
         }
+
         private T GetAs<T>(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
@@ -996,7 +996,6 @@ namespace AVMHomeAutomation
             T value = (T)serializer.Deserialize(new StringReader(res));
             return value;
         }
-
 
         private string Request(string request)
         {
