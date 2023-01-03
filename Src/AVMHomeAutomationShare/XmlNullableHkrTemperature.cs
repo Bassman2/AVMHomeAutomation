@@ -33,7 +33,7 @@ namespace AVMHomeAutomation
 
         public void ReadXml(XmlReader reader)
         {
-            string strValue = reader.ReadString();
+            string strValue = reader.ReadElementContentAsString();
 
             if (this.HasValue = int.TryParse(strValue, out int value))
             {
@@ -55,7 +55,7 @@ namespace AVMHomeAutomation
                     break;
                 }
             }
-            reader.ReadEndElement();
+            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)

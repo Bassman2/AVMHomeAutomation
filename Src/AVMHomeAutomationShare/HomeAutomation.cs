@@ -2,11 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -55,7 +53,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Returns the AIN / MAC list of all known sockets.
         /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string[]> GetSwitchListAsync()
@@ -75,7 +73,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Turns on the socket.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -95,7 +93,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Switches off the socket.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -115,7 +113,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Toggle the power socket on / off.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -136,7 +134,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Determines the switching state of the socket.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -156,7 +154,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Determines the connection status of the actuator.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -176,7 +174,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Determines current power taken from the power outlet.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -196,7 +194,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Delivers the amount of energy taken from the socket since commissioning or resetting the energy statistics.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -216,7 +214,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Returns identifiers of the actor.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -235,7 +233,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Provides the basic information of all SmartHome devices.
         /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
@@ -271,39 +269,42 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
-        public int GetHkrtSoll(string ain)
+        public double GetHkrtSoll(string ain)
         {
-            return GetInt("gethkrtsoll", ain);
+            return HkrTemperatureToDouble(GetInt("gethkrtsoll", ain));
+            
         }
 
         /// <summary>
-        /// 
+        /// Setpoint temperature currently set for HKR.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<string> GetHkrtSollAsync(string ain)
+        public async Task<double> GetHkrtSollAsync(string ain)
         {
-            return await GetStringAsync("gethkrtsoll", ain);
+            return HkrTemperatureToDouble(await GetIntAsync("gethkrtsoll", ain));
         }
+
+        
 
         /// <summary>
         /// Comfort temperature set for HKR timer.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
-        public int GetHkrKomfort(string ain)
+        public double GetHkrKomfort(string ain)
         {
-            return GetInt("gethkrkomfort", ain);
+            return HkrTemperatureToDouble(GetInt("gethkrkomfort", ain));
         }
 
         /// <summary>
-        /// 
+        /// Comfort temperature set for HKR timer.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<string> GetHkrKomfortAsync(string ain)
+        public async Task<double> GetHkrKomfortAsync(string ain)
         {
-            return await GetStringAsync("gethkrkomfort", ain);
+            return HkrTemperatureToDouble(await GetIntAsync("gethkrkomfort", ain));
         }
 
         /// <summary>
@@ -311,19 +312,19 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
-        public int GetHkrAbsenk(string ain)
+        public double GetHkrAbsenk(string ain)
         {
-            return GetInt("gethkrabsenk", ain);
+            return HkrTemperatureToDouble(GetInt("gethkrabsenk", ain));
         }
 
         /// <summary>
-        /// 
+        /// Economy temperature set for HKR timer.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<string> GetHkrAbsenkAsync(string ain)
+        public async Task<double> GetHkrAbsenkAsync(string ain)
         {
-            return await GetStringAsync("gethkrabsenk", ain);
+            return HkrTemperatureToDouble(await GetIntAsync("gethkrabsenk", ain));
         }
 
         /// <summary>
@@ -332,20 +333,20 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="value">Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56&gt; = 28 ° C 254 = ON, 253 = OFF</param>
         /// <returns></returns>
-        public void SetHkrtSoll(string ain, string value)
+        public void SetHkrtSoll(string ain, double value)
         {
-            Get("sethkrtsoll", ain, value);
+            Get("sethkrtsoll", ain, DoubleToHkrTemperature(value).ToString());
         }
 
         /// <summary>
-        /// 
+        /// HKR set temperature. The setpoint temperature is transferred with the "param" Get parameter.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="value"></param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task SetHkrtSollAsync(string ain, string value)
+        public async Task SetHkrtSollAsync(string ain, double value)
         {
-            await GetAsync("sethkrtsoll", ain, value);
+            await GetAsync("sethkrtsoll", ain, DoubleToHkrTemperature(value).ToString());
         }
 
         /// <summary>
@@ -359,7 +360,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Provides the basic statistics (temperature, voltage, power) of the actuator.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -379,7 +380,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Returns the basic information of all templates / templates.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -398,7 +399,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Returns the basic information of all templates / templates. Apply template, the ain parameter is evaluated.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -408,7 +409,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Device/actuator/lamp switch on/off or toggle.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="onOff"></param>
@@ -418,7 +419,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Device/actuator/lamp switch on/off or toggle. 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="onOff"></param>
@@ -429,7 +430,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Set dimming, height, brightness or level.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level"></param>
@@ -444,7 +445,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Set dimming, height, brightness or level.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level"></param>
@@ -460,7 +461,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Set dimming, height, brightness or level level in percent.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level"></param>
@@ -475,7 +476,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Set dimming, height, brightness or level level in percent.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level"></param>
@@ -491,7 +492,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Adjust hue saturation color. The HSV color space is used with the hue saturation mode supports.
+        /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="hue"></param>
@@ -516,7 +518,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Adjust hue saturation color. The HSV color space is used with the hue saturation mode supports.
+        /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="hue"></param>
@@ -542,7 +545,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Adjust color temperature.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature"></param>
@@ -562,7 +565,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Adjust color temperature.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature"></param>
@@ -583,7 +586,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Provides a proposal for the color selection values.
         /// </summary>
         /// <returns></returns>
         public ColorDefaults GetColorDefaults()
@@ -592,7 +595,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Provides a proposal for the color selection values.
         /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<ColorDefaults> GetColorDefaultsAsync()
@@ -601,7 +604,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Activate HKR Boost with end time for the disable: endtimestamp = null.
+        /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
@@ -616,7 +620,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Activate HKR Boost with end time for the disable: endtimestamp = null.
+        /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
@@ -632,7 +637,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// HKR window open mode activate with end time for the disable: endtimestamp = null.
+        /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
@@ -647,7 +653,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// HKR window open mode activate with end time for the disable: endtimestamp = null.
+        /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
@@ -663,7 +670,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Close, open or stop the blind.
+        /// Blinds have the HANFUN unit type Blind (281).
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target"></param>
@@ -673,7 +681,8 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Close, open or stop the blind.
+        /// Blinds have the HANFUN unit type Blind (281).
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target"></param>
@@ -684,11 +693,13 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Change device or group name.
+        /// Attention: the user session must have the smart home and app right.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="name"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public void SetName(string ain, string name)
         {
             if (name.Length > 40)
@@ -699,12 +710,14 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Change device or group name.
+        /// Attention: the user session must have the smart home and app right.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="name"></param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public async Task SetNameAsync(string ain, string name)
         {
             if (name.Length > 40)
@@ -715,35 +728,39 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// 
+        /// Start DECT ULE device registration.
         /// </summary>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public void StartUleSubscription()
         {
             Get("startulesubscription");
         }
 
         /// <summary>
-        /// 
+        /// Start DECT ULE device registration.
         /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public async Task StartUleSubscriptionAsync()
         {
             await GetAsync("startulesubscription");
         }
 
         /// <summary>
-        /// 
+        /// Query DECT-ULE device registration status.
         /// </summary>
         /// <returns></returns>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public State GetSubscriptionState()
         {
             return GetAs<State>("getsubscriptionstate");
         }
 
         /// <summary>
-        /// 
+        /// Query DECT-ULE device registration status.
         /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public async Task<State> GetSubscriptionStateAsync()
         {
             return await GetAsAsync<State>("getsubscriptionstate");
@@ -854,6 +871,32 @@ namespace AVMHomeAutomation
         //    XElement info = doc.FirstNode as XElement;
         //    return info.Element("SID").Value;
         //}
+
+        private int DoubleToHkrTemperature(double val)
+        {
+            switch (val)
+            {
+            case double.MaxValue:
+                return 254;
+            case double.MinValue:
+                return 253;
+            default:
+                return (int)Math.Round(val * 0.5);
+            }
+        }
+
+        private double HkrTemperatureToDouble(int val)
+        {
+            switch (val)
+            {
+            case 254:
+                return double.MaxValue;
+            case 253:
+                return double.MinValue;
+            default:
+                return val / 0.5;
+            }
+        }
 
         private void Get(string cmd)
         {

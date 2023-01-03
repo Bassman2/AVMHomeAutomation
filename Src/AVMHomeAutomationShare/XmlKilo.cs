@@ -21,10 +21,10 @@ namespace AVMHomeAutomation
 
         public void ReadXml(XmlReader reader)
         {
-            string strValue = reader.ReadString();
+            string strValue = reader.ReadElementContentAsString();
             int val = int.Parse(strValue);
             this.Value = val / 1000.0;
-            reader.ReadEndElement();
+            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)

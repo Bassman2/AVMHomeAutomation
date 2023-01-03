@@ -70,6 +70,33 @@
 
             Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
         }
+
+        [TestMethod]
+        public void TestMethodGetHkrtSoll()
+        {
+            double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                temperature = client.GetHkrtSoll(testDevice.Ain);
+            }
+
+            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public async Task TestMethodGetHkrtSollAsync()
+        {
+            double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                temperature = await client.GetHkrtSollAsync(testDevice.Ain);
+            }
+
+            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+        
     }
 }
 

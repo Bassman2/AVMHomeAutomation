@@ -145,5 +145,32 @@ namespace AVMHomeAutomationTest70
 
             Assert.IsTrue(energy >= 651090);
         }
+
+        [TestMethod]
+        public void TestMethodPower()
+        {
+            int power;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                power = client.GetSwitchPower(testDevice.Ain);
+            }
+
+            Assert.IsTrue(power >= 651090);
+        }
+
+        [TestMethod]
+        public async Task TestMethodPowerAsync()
+        {
+            int power;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                power = await client.GetSwitchPowerAsync(testDevice.Ain);
+            }
+
+            Assert.IsTrue(power >= 651090);
+        }
+
     }
 }

@@ -60,7 +60,7 @@ namespace AVMHomeAutomation
 
         public void ReadXml(XmlReader reader)
         {
-            string strValue = reader.ReadString();
+            string strValue = reader.ReadElementContentAsString();
             //if (String.IsNullOrEmpty(strValue))
             //{
             //    this.HasValue = false;
@@ -72,7 +72,7 @@ namespace AVMHomeAutomation
                     this.Value = val;
                 }
             //}
-            reader.ReadEndElement();
+            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)

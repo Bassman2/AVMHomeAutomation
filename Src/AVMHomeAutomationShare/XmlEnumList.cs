@@ -27,9 +27,9 @@ namespace AVMHomeAutomation
 
         public void ReadXml(XmlReader reader)
         {
-            string strValue = reader.ReadString();
+            string strValue = reader.ReadElementContentAsString();
             this.Values = strValue.Split(',').Select((t) => (T)Enum.ToObject(typeof(T), int.Parse(t))).ToList();
-            reader.ReadEndElement();
+            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)

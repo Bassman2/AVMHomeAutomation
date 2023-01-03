@@ -35,7 +35,7 @@ namespace AVMHomeAutomation
 
         public void ReadXml(XmlReader reader)
         {
-            string strValue = reader.ReadString();
+            string strValue = reader.ReadElementContentAsString();
 
             if (this.HasValue = long.TryParse(strValue, out long value))
             {
@@ -49,7 +49,7 @@ namespace AVMHomeAutomation
                     this.Value = begin.AddSeconds(value).ToLocalTime();
                 }
             }
-            reader.ReadEndElement();
+            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)
