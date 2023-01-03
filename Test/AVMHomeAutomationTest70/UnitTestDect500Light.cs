@@ -204,7 +204,30 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public void TestMethodSetColorTemperature()
         {
+            Device device;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.SetColorTemperature(testDevice.Ain, 2700, 0);
+                Thread.Sleep(2000);
+                device = client.GetDeviceInfos(testDevice.Ain); 
+            }
         }
+
+        [TestMethod]
+        public async Task TestMethodSetColorTemperatureAsync()
+        {
+            Device device;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                await client.SetColorTemperatureAsync(testDevice.Ain, 2800, 0);
+                Thread.Sleep(2000);
+                device = await client.GetDeviceInfosAsync(testDevice.Ain);
+            }
+        }
+
+        
 
     }
 }

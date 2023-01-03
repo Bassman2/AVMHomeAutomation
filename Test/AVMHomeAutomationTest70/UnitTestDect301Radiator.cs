@@ -96,7 +96,145 @@
 
             Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
         }
-        
+
+        [TestMethod]
+        public void TestMethodGetHkrKomfort()
+        {
+            double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                temperature = client.GetHkrKomfort(testDevice.Ain);
+            }
+
+            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public async Task TestMethodGetHkrKomfortAsync()
+        {
+            double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                temperature = await client.GetHkrKomfortAsync(testDevice.Ain);
+            }
+
+            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public void TestMethodGetHkrAbsenk()
+        {
+            double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                temperature = client.GetHkrAbsenk(testDevice.Ain);
+            }
+
+            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public async Task TestMethodGetHkrAbsenkAsync()
+        {
+            double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                temperature = await client.GetHkrAbsenkAsync(testDevice.Ain);
+            }
+
+            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public void TestMethodSetHkrtSoll()
+        {
+            //double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.SetHkrtSoll(testDevice.Ain, 23.5);
+            }
+
+            //Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public async Task TestMethodSetHkrtSollAsync()
+        {
+            //double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                await client.SetHkrtSollAsync(testDevice.Ain, 23.5);
+            }
+
+            //Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public void TestMethodSetHkrBoost()
+        {
+            //double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.SetHkrBoost(testDevice.Ain, DateTime.Now + new TimeSpan(0, 10, 0));
+
+                client.SetHkrBoost(testDevice.Ain, null);
+            }
+
+            //Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public async Task TestMethodSetHkrBoostAsync()
+        {
+            //double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                await client.SetHkrBoostAsync(testDevice.Ain, DateTime.Now + new TimeSpan(0, 10, 0));
+
+                await client.SetHkrBoostAsync(testDevice.Ain, null);
+            }
+
+            //Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public void TestMethodSetHkrWindowOpen()
+        {
+            //double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.SetHkrWindowOpen(testDevice.Ain, DateTime.Now + new TimeSpan(0, 10, 0));
+
+                client.SetHkrWindowOpen(testDevice.Ain, null);
+            }
+
+            //Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
+        [TestMethod]
+        public async Task TestMethodSetHkrWindowOpenAsync()
+        {
+            //double temperature;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                await client.SetHkrWindowOpenAsync(testDevice.Ain, DateTime.Now + new TimeSpan(0, 10, 0));
+
+                await client.SetHkrWindowOpenAsync(testDevice.Ain, null);
+            }
+
+            //Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+        }
+
     }
 }
 

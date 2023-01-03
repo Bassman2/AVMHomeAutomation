@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AVMHomeAutomationTest70
+﻿namespace AVMHomeAutomationTest70
 {
     public static class TestSettings
     {
@@ -20,11 +14,8 @@ namespace AVMHomeAutomationTest70
         public static TestDevice DeviceHanFunDoorWindowContact = new() { Ain = "11934 0100883", Name = "Telekom", Product = "HAN-FUN", Manufacturer = "", FirmwareVersion = "31.20" };
         public static TestDevice DeviceHanFunMotionDetector = new();
         public static TestDevice DeviceHanFunWallButton = new();
+        public static TestDevice DeviceHanFunRollerShutter = new();
         public const string UnknownDeviceAin = "111111111111";
+        public const string TemplateAin = "111111111111";
     }
-
-    // Radiator control
-    // Switch
-    // Socket
-    // Additional devices
 }

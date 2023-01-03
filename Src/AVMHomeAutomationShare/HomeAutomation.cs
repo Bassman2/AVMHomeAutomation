@@ -284,9 +284,7 @@ namespace AVMHomeAutomation
         {
             return HkrTemperatureToDouble(await GetIntAsync("gethkrtsoll", ain));
         }
-
         
-
         /// <summary>
         /// Comfort temperature set for HKR timer.
         /// </summary>
@@ -372,25 +370,23 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Returns the basic information of all templates / templates.
         /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns></returns>
-        public TemplateList GetTemplateListInfos(string ain)
+        public TemplateList GetTemplateListInfos()
         {
-            return GetAs<TemplateList>("gettemplatelistinfos", ain);
+            return GetAs<TemplateList>("gettemplatelistinfos");
         }
 
         /// <summary>
         /// Returns the basic information of all templates / templates.
         /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<TemplateList> GetTemplateListInfosAsync(string ain)
+        public async Task<TemplateList> GetTemplateListInfosAsync()
         {
-            return await GetAsAsync<TemplateList>("gettemplatelistinfos", ain);
+            return await GetAsAsync<TemplateList>("gettemplatelistinfos");
         }
 
         /// <summary>
-        /// Returns the basic information of all templates / templates. Apply template, the ain parameter is evaluated.
+        /// Apply template, the ain parameter is evaluated.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         public void ApplyTemplate(string ain)
@@ -399,7 +395,7 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// Returns the basic information of all templates / templates. Apply template, the ain parameter is evaluated.
+        /// Apply template, the ain parameter is evaluated.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -551,7 +547,7 @@ namespace AVMHomeAutomation
         /// <param name="temperature"></param>
         /// <param name="duration"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetColortemperature(string ain, int temperature, int duration)
+        public void SetColorTemperature(string ain, int temperature, int duration)
         {
             if (temperature < 2700 || temperature > 6500)
             {
@@ -572,7 +568,7 @@ namespace AVMHomeAutomation
         /// <param name="duration"></param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetColortemperatureAsync(string ain, int temperature, int duration)
+        public async Task SetColorTemperatureAsync(string ain, int temperature, int duration)
         {
             if (temperature < 2700 || temperature > 6500)
             {

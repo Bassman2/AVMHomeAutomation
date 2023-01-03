@@ -154,6 +154,61 @@ namespace AVMHomeAutomationTest70
         }
 
         [TestMethod]
+        public void TestMethodGetTemplateListInfos()
+        {
+            TemplateList templateList;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                templateList = client.GetTemplateListInfos();
+            }
+
+            Assert.IsNotNull(templateList);
+            //CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
+        }
+
+        [TestMethod]
+        public async Task TestMethodGetTemplateListInfosAsync()
+        {
+            TemplateList templateList;
+            
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                templateList = await client.GetTemplateListInfosAsync();
+            }
+
+            Assert.IsNotNull(templateList);
+            //CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
+        }
+
+        [TestMethod]
+        public void TestMethodApplyTemplate()
+        {
+            
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.ApplyTemplate(TestSettings.TemplateAin);
+            }
+
+            //Assert.IsNotNull(templateList);
+            //CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
+        }
+
+        [TestMethod]
+        public async Task TestMethodApplyTemplateAsync()
+        {
+            //TemplateList templateList;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                await client.ApplyTemplateAsync(TestSettings.TemplateAin);
+            }
+
+            //Assert.IsNotNull(templateList);
+            //CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
+        }
+
+        [TestMethod]
         public void TestMethodSwitchNameError()
         {
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
