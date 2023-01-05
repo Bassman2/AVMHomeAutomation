@@ -11,13 +11,24 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// AVM Home Automation service class.
+    /// </summary>
     public class HomeAutomation : IDisposable
     {
+        public const double On = double.MaxValue;
+        public const double Off = double.MinValue;
+
         private Uri host = new Uri("http://fritz.box");
         private HttpClientHandler handler;
         private HttpClient client;
         private string sessionId;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="login">Login name.</param>
+        /// <param name="password">Login password.</param>
         public HomeAutomation(string login, string password)
         {
             // connect
@@ -32,6 +43,9 @@ namespace AVMHomeAutomation
             this.sessionId = GetSessionId(login, password);
         }
 
+        /// <summary>
+        /// Dispose the service.
+        /// </summary>
         public void Dispose()
         {
             if (this.client != null)
@@ -49,7 +63,7 @@ namespace AVMHomeAutomation
         /// <returns>AIN / MAC list</returns>
         public string[] GetSwitchList()
         {
-            return GetString("getswitchlist").TrimEnd().Split(',');
+            return GetString("getswitchlist").SplitList();
         }
 
         /// <summary>
@@ -58,8 +72,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string[]> GetSwitchListAsync()
         {
-            string list = await GetStringAsync("getswitchlist");
-            return list.TrimEnd().Split(',');
+            return (await GetStringAsync("getswitchlist")).SplitList();
         }
 
         /// <summary>
@@ -167,10 +180,10 @@ namespace AVMHomeAutomation
         /// Determines current power taken from the power outlet.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Power in mW, "inval" if unknown.</returns>
-        public int GetSwitchPower(string ain)
+        /// <returns>Power in mW, null if unknown.</returns>
+        public int? GetSwitchPower(string ain)
         {
-            return GetInt("getswitchpower", ain);
+            return GetString("getswitchpower", ain).ToPower();
         }
 
         /// <summary>
@@ -178,19 +191,19 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<int> GetSwitchPowerAsync(string ain)
+        public async Task<int?> GetSwitchPowerAsync(string ain)
         {
-            return await GetIntAsync("getswitchpower", ain);
+            return (await GetStringAsync("getswitchpower", ain)).ToPower();
         }
 
         /// <summary>
         /// Delivers the amount of energy taken from the socket since commissioning or resetting the energy statistics.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Energy in Wh, "inval" if unknown.</returns>
-        public int GetSwitchEnergy(string ain)
+        /// <returns>Energy in Wh, null if unknown.</returns>
+        public int? GetSwitchEnergy(string ain)
         {
-            return GetInt("getswitchenergy", ain);
+            return GetString("getswitchenergy", ain).ToPower();
         }
 
         /// <summary>
@@ -198,9 +211,9 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<int> GetSwitchEnergyAsync(string ain)
+        public async Task<int?> GetSwitchEnergyAsync(string ain)
         {
-            return await GetIntAsync("getswitchenergy", ain);
+            return (await GetStringAsync("getswitchenergy", ain)).ToPower();
         }
 
         /// <summary>
@@ -248,8 +261,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value in C.</returns>
         public double GetTemperature(string ain)
         {
-            // Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C
-            return GetInt("gettemperature", ain) / 10.0;
+            return GetInt("gettemperature", ain).ToTemperature();
         }
 
         /// <summary>
@@ -259,19 +271,17 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetTemperatureAsync(string ain)
         {
-            // Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C
-            int temperature = await GetIntAsync("gettemperature", ain);
-            return temperature / 10.0;
+            return (await GetIntAsync("gettemperature", ain)).ToTemperature();
         }
 
         /// <summary>
         /// Setpoint temperature currently set for HKR.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
+        /// <returns>Temperature value °C, On or Off.</returns>
         public double GetHkrtSoll(string ain)
         {
-            return HkrTemperatureToDouble(GetInt("gethkrtsoll", ain));
+            return GetInt("gethkrtsoll", ain).ToHkrTemperature();
             
         }
 
@@ -282,17 +292,17 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrtSollAsync(string ain)
         {
-            return HkrTemperatureToDouble(await GetIntAsync("gethkrtsoll", ain));
+            return (await GetIntAsync("gethkrtsoll", ain)).ToHkrTemperature();
         }
-        
+
         /// <summary>
         /// Comfort temperature set for HKR timer.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
+        /// <returns>TTemperature value °C, On or Off.</returns>
         public double GetHkrKomfort(string ain)
         {
-            return HkrTemperatureToDouble(GetInt("gethkrkomfort", ain));
+            return GetInt("gethkrkomfort", ain).ToHkrTemperature();
         }
 
         /// <summary>
@@ -302,17 +312,17 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrKomfortAsync(string ain)
         {
-            return HkrTemperatureToDouble(await GetIntAsync("gethkrkomfort", ain));
+            return (await GetIntAsync("gethkrkomfort", ain)).ToHkrTemperature();
         }
 
         /// <summary>
         /// Economy temperature set for HKR timer.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.</returns>
+        /// <returns>Temperature value °C, On or Off.</returns>
         public double GetHkrAbsenk(string ain)
         {
-            return HkrTemperatureToDouble(GetInt("gethkrabsenk", ain));
+            return GetInt("gethkrabsenk", ain).ToHkrTemperature();
         }
 
         /// <summary>
@@ -322,29 +332,29 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrAbsenkAsync(string ain)
         {
-            return HkrTemperatureToDouble(await GetIntAsync("gethkrabsenk", ain));
+            return (await GetIntAsync("gethkrabsenk", ain)).ToHkrTemperature();
         }
 
         /// <summary>
         /// HKR set temperature. The setpoint temperature is transferred with the "param" Get parameter.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="value">Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56&gt; = 28 ° C 254 = ON, 253 = OFF</param>
+        /// <param name="temperature">Temperature value °C, On or Off.</param>
         /// <returns></returns>
-        public void SetHkrtSoll(string ain, double value)
+        public void SetHkrtSoll(string ain, double temperature)
         {
-            Get("sethkrtsoll", ain, DoubleToHkrTemperature(value).ToString());
+            Get("sethkrtsoll", ain, $"param={temperature.ToHkrTemperature()}");
         }
 
         /// <summary>
         /// HKR set temperature. The setpoint temperature is transferred with the "param" Get parameter.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="value"></param>
+        /// <param name="temperature">Temperature value °C, On or Off.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task SetHkrtSollAsync(string ain, double value)
+        public async Task SetHkrtSollAsync(string ain, double temperature)
         {
-            await GetAsync("sethkrtsoll", ain, DoubleToHkrTemperature(value).ToString());
+            await GetAsync("sethkrtsoll", ain, $"param={temperature.ToHkrTemperature()}");
         }
 
         /// <summary>
@@ -408,7 +418,7 @@ namespace AVMHomeAutomation
         /// Device/actuator/lamp switch on/off or toggle.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="onOff"></param>
+        /// <param name="onOff">Switch on, off or toggle.</param>
         public void SetSimpleOnOff(string ain, OnOff onOff)
         {
             Get("setsimpleonoff", ain, $"onoff={((int)onOff)}");
@@ -418,7 +428,7 @@ namespace AVMHomeAutomation
         /// Device/actuator/lamp switch on/off or toggle. 
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="onOff"></param>
+        /// <param name="onOff">Switch on, off or toggle.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task SetSimpleOnOffAsync(string ain, OnOff onOff)
         {
@@ -429,7 +439,7 @@ namespace AVMHomeAutomation
         /// Set dimming, height, brightness or level.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="level"></param>
+        /// <param name="level">Level (0 - 255) to set.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void SetLevel(string ain, int level)
         {
@@ -444,7 +454,7 @@ namespace AVMHomeAutomation
         /// Set dimming, height, brightness or level.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="level"></param>
+        /// <param name="level">Level (0 - 255) to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetLevelAsync(string ain, int level)
@@ -460,7 +470,7 @@ namespace AVMHomeAutomation
         /// Set dimming, height, brightness or level level in percent.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="level"></param>
+        /// <param name="level">Level in percent (0 - 100) to set.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void SetLevelPercentage(string ain, int level)
         {
@@ -475,7 +485,7 @@ namespace AVMHomeAutomation
         /// Set dimming, height, brightness or level level in percent.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="level"></param>
+        /// <param name="level">Level in percent (0 - 100) to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task SetLevelPercentageAsync(string ain, int level)
@@ -492,11 +502,11 @@ namespace AVMHomeAutomation
         /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="hue"></param>
-        /// <param name="saturation"></param>
-        /// <param name="duration"></param>
+        /// <param name="hue">Hue value of the color.</param>
+        /// <param name="saturation">Saturation value of the color.</param>
+        /// <param name="duration">Speed of the change.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetColor(string ain, int hue, int saturation, int duration)
+        public void SetColor(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
             if (hue < 0 || hue > 359)
             {
@@ -506,11 +516,8 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
-            if (duration < 0 || duration > 100)
-            {
-                throw new ArgumentOutOfRangeException(nameof(duration));
-            }
-            Get("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration}");
+            
+            Get("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}");
         }
 
         /// <summary>
@@ -518,12 +525,12 @@ namespace AVMHomeAutomation
         /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="hue"></param>
-        /// <param name="saturation"></param>
-        /// <param name="duration"></param>
+        /// <param name="hue">Hue value of the color.</param>
+        /// <param name="saturation">Saturation value of the color.</param>
+        /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetColorAsync(string ain, int hue, int saturation, int duration)
+        public async Task SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
             if (hue < 0 || hue > 359)
             {
@@ -533,11 +540,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
-            if (duration < 0 || duration > 100)
-            {
-                throw new ArgumentOutOfRangeException(nameof(duration));
-            }
-            await GetAsync("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration}");
+            await GetAsync("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}");
         }
 
         /// <summary>
@@ -545,19 +548,15 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature"></param>
-        /// <param name="duration"></param>
+        /// <param name="duration">Speed of the change.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetColorTemperature(string ain, int temperature, int duration)
+        public void SetColorTemperature(string ain, int temperature, TimeSpan? duration = null)
         {
             if (temperature < 2700 || temperature > 6500)
             {
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
-            if (duration < 0 || duration > 100)
-            {
-                throw new ArgumentOutOfRangeException(nameof(duration));
-            }
-            Get("setcolortemperature", ain, $"temperature={temperature}&&duration={duration}");
+            Get("setcolortemperature", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}");
         }
 
         /// <summary>
@@ -565,20 +564,16 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature"></param>
-        /// <param name="duration"></param>
+        /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetColorTemperatureAsync(string ain, int temperature, int duration)
+        public async Task SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null)
         {
             if (temperature < 2700 || temperature > 6500)
             {
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
-            if (duration < 0 || duration > 100)
-            {
-                throw new ArgumentOutOfRangeException(nameof(duration));
-            }
-            await GetAsync("setcolortemperature", ain, $"temperature={temperature}&duration={duration}");
+            await GetAsync("setcolortemperature", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}");
         }
 
         /// <summary>
@@ -867,33 +862,7 @@ namespace AVMHomeAutomation
         //    XElement info = doc.FirstNode as XElement;
         //    return info.Element("SID").Value;
         //}
-
-        private int DoubleToHkrTemperature(double val)
-        {
-            switch (val)
-            {
-            case double.MaxValue:
-                return 254;
-            case double.MinValue:
-                return 253;
-            default:
-                return (int)Math.Round(val * 0.5);
-            }
-        }
-
-        private double HkrTemperatureToDouble(int val)
-        {
-            switch (val)
-            {
-            case 254:
-                return double.MaxValue;
-            case 253:
-                return double.MinValue;
-            default:
-                return val / 0.5;
-            }
-        }
-
+        
         private void Get(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";

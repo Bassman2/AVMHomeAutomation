@@ -174,12 +174,12 @@ namespace AVMHomeAutomationTest70
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                client.SetColor(testDevice.Ain, 212, 169, 0);
+                client.SetColor(testDevice.Ain, 212, 169, new TimeSpan(0, 0, 10));
                 Thread.Sleep(2000);
                 client.SetLevel(testDevice.Ain, 255);
                 device = client.GetDeviceInfos(testDevice.Ain);
 
-                client.SetColor(testDevice.Ain, 358, 180, 0);
+                client.SetColor(testDevice.Ain, 358, 180);
 
             }
         }
@@ -191,12 +191,12 @@ namespace AVMHomeAutomationTest70
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                await client.SetColorAsync(testDevice.Ain, 212, 169, 0);
+                await client.SetColorAsync(testDevice.Ain, 212, 169);
                 Thread.Sleep(2000);
                 await client.SetLevelAsync(testDevice.Ain, 255);
                 device = await client.GetDeviceInfosAsync(testDevice.Ain);
 
-                await client.SetColorAsync(testDevice.Ain, 358, 180, 0);
+                await client.SetColorAsync(testDevice.Ain, 358, 180);
 
             }
         }
@@ -208,7 +208,7 @@ namespace AVMHomeAutomationTest70
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                client.SetColorTemperature(testDevice.Ain, 2700, 0);
+                client.SetColorTemperature(testDevice.Ain, 2700);
                 Thread.Sleep(2000);
                 device = client.GetDeviceInfos(testDevice.Ain); 
             }
@@ -221,7 +221,7 @@ namespace AVMHomeAutomationTest70
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                await client.SetColorTemperatureAsync(testDevice.Ain, 2800, 0);
+                await client.SetColorTemperatureAsync(testDevice.Ain, 2800);
                 Thread.Sleep(2000);
                 device = await client.GetDeviceInfosAsync(testDevice.Ain);
             }

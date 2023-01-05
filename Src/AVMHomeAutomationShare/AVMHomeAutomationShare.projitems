@@ -53,5 +53,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableBool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableInt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableTemperature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HAConverter.cs" />
   </ItemGroup>
 </Project>

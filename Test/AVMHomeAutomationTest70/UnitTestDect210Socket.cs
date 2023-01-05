@@ -121,7 +121,7 @@
         [TestMethod]
         public void TestMethodEnergy()
         {
-            int energy;
+            int? energy;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -134,7 +134,7 @@
         [TestMethod]
         public async Task TestMethodEnergyAsync()
         {
-            int energy;
+            int? energy;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -147,7 +147,7 @@
         [TestMethod]
         public void TestMethodPower()
         {
-            int power;
+            int? power;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -160,7 +160,7 @@
         [TestMethod]
         public async Task TestMethodPowerAsync()
         {
-            int power;
+            int? power;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {

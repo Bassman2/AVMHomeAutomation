@@ -11,9 +11,6 @@ namespace AVMHomeAutomation
 
         public double Value { get; private set; }
 
-        //public XmlNullableTemperature()
-        //{ }
-
         public XmlNullableTemperature(double value)
         {
             this.HasValue = true;
@@ -37,9 +34,8 @@ namespace AVMHomeAutomation
 
             if (this.HasValue = int.TryParse(strValue, out int value))
             {
-                this.Value = value / 10.0;
+                this.Value = value.ToTemperature();
             }
-            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)

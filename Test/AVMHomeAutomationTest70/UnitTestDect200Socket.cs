@@ -123,7 +123,7 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public void TestMethodEnergy()
         {
-            int energy;
+            int? energy;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -136,7 +136,7 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public async Task TestMethodEnergyAsnc()
         {
-            int energy;
+            int? energy;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -149,7 +149,7 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public void TestMethodPower()
         {
-            int power;
+            int? power;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -162,7 +162,7 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public async Task TestMethodPowerAsync()
         {
-            int power;
+            int? power;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
