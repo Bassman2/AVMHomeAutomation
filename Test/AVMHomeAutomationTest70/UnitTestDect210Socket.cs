@@ -74,7 +74,7 @@
         [TestMethod]
         public void TestMethodGetSwitch()
         {
-            bool state1, state2, state3;
+            bool? state1, state2, state3;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -89,16 +89,16 @@
                 state3 = client.GetSwitchState(testDevice.Ain);
             }
 
-            Assert.IsFalse(state1);
-            Assert.IsTrue(state2);
-            Assert.IsFalse(state3);
+            Assert.IsFalse(state1.Value);
+            Assert.IsTrue(state2.Value);
+            Assert.IsFalse(state3.Value);
 
         }
 
         [TestMethod]
         public async Task TestMethodGetSwitchAsync()
         {
-            bool state1, state2, state3;
+            bool? state1, state2, state3;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -113,9 +113,9 @@
                 state3 = await client.GetSwitchStateAsync(testDevice.Ain);
             }
 
-            Assert.IsFalse(state1);
-            Assert.IsTrue(state2);
-            Assert.IsFalse(state3);
+            Assert.IsFalse(state1.Value);
+            Assert.IsTrue(state2.Value);
+            Assert.IsFalse(state3.Value);
         }
 
         [TestMethod]

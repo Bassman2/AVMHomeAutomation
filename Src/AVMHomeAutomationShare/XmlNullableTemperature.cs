@@ -31,10 +31,9 @@ namespace AVMHomeAutomation
         public void ReadXml(XmlReader reader)
         {
             string strValue = reader.ReadElementContentAsString();
-
             if (this.HasValue = int.TryParse(strValue, out int value))
             {
-                this.Value = value.ToTemperature();
+                this.Value = value / 10.0;
             }
         }
 

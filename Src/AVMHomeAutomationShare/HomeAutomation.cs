@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 
 namespace AVMHomeAutomation
@@ -39,7 +38,6 @@ namespace AVMHomeAutomation
             this.client.BaseAddress = host;
 
             // get session id
-            //this.sessionId = GetSessionIdAsync(login, password).Result;
             this.sessionId = GetSessionId(login, password);
         }
 
@@ -82,7 +80,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchOn(string ain)
         {
-            return GetBool("setswitchon", ain);
+            return GetString("setswitchon", ain).ToBool();
         }
 
         /// <summary>
@@ -92,7 +90,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchOnAsync(string ain)
         {
-            return await GetBoolAsync("setswitchon", ain);
+            return (await GetStringAsync("setswitchon", ain)).ToBool();
         }
 
         /// <summary>
@@ -102,7 +100,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchOff(string ain)
         {
-            return GetBool("setswitchoff", ain);
+            return GetString("setswitchoff", ain).ToBool();
         }
 
         /// <summary>
@@ -112,7 +110,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchOffAsync(string ain)
         {
-            return await GetBoolAsync("setswitchoff", ain);
+            return (await GetStringAsync("setswitchoff", ain)).ToBool();
         }
 
         /// <summary>
@@ -122,7 +120,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchToggle(string ain)
         {
-            return GetBool("setswitchtoggle", ain);
+            return GetString("setswitchtoggle", ain).ToBool();
         }
 
         /// <summary>
@@ -132,7 +130,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchToggleAsync(string ain)
         {
-            return await GetBoolAsync("setswitchtoggle", ain);
+            return (await GetStringAsync("setswitchtoggle", ain)).ToBool();
         }
 
 
@@ -141,9 +139,10 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>State of the socket</returns>
-        public bool GetSwitchState(string ain)
+        /// <remarks>Changes if the connection is lost the condition only with some Minutes delay to false.</remarks>
+        public bool? GetSwitchState(string ain)
         {
-            return GetBool("getswitchstate", ain);
+            return GetString("getswitchstate", ain).ToNullableBool();
         }
 
         /// <summary>
@@ -151,9 +150,10 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<bool> GetSwitchStateAsync(string ain)
+        /// <remarks>Changes if the connection is lost the condition only with some Minutes delay to false.</remarks>
+        public async Task<bool?> GetSwitchStateAsync(string ain)
         {
-            return await GetBoolAsync("getswitchstate", ain);
+            return (await GetStringAsync("getswitchstate", ain)).ToNullableBool();
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace AVMHomeAutomation
         /// <returns>True if connected; false if not</returns>
         public bool GetSwitchPresent(string ain)
         {
-            return GetBool("getswitchpresent", ain);
+            return GetString("getswitchpresent", ain).ToBool();
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> GetSwitchPresentAsync(string ain)
         {
-            return await GetBoolAsync("getswitchpresent", ain);
+            return (await GetStringAsync("getswitchpresent", ain)).ToBool();
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace AVMHomeAutomation
         /// <returns>Information of all SmartHome devices</returns>
         public DeviceList GetDeviceListInfos()
         {
-            return GetAs<DeviceList>("getdevicelistinfos");
+            return GetString("getdevicelistinfos").ToAs<DeviceList>();
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
         {
-            return await GetAsAsync<DeviceList>("getdevicelistinfos");
+            return (await GetStringAsync("getdevicelistinfos")).ToAs<DeviceList>();
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value in C.</returns>
         public double GetTemperature(string ain)
         {
-            return GetInt("gettemperature", ain).ToTemperature();
+            return GetString("gettemperature", ain).ToTemperature();
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetTemperatureAsync(string ain)
         {
-            return (await GetIntAsync("gettemperature", ain)).ToTemperature();
+            return (await GetStringAsync("gettemperature", ain)).ToTemperature();
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value °C, On or Off.</returns>
         public double GetHkrtSoll(string ain)
         {
-            return GetInt("gethkrtsoll", ain).ToHkrTemperature();
+            return GetString("gethkrtsoll", ain).ToHkrTemperature();
             
         }
 
@@ -292,7 +292,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrtSollAsync(string ain)
         {
-            return (await GetIntAsync("gethkrtsoll", ain)).ToHkrTemperature();
+            return (await GetStringAsync("gethkrtsoll", ain)).ToHkrTemperature();
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace AVMHomeAutomation
         /// <returns>TTemperature value °C, On or Off.</returns>
         public double GetHkrKomfort(string ain)
         {
-            return GetInt("gethkrkomfort", ain).ToHkrTemperature();
+            return GetString("gethkrkomfort", ain).ToHkrTemperature();
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrKomfortAsync(string ain)
         {
-            return (await GetIntAsync("gethkrkomfort", ain)).ToHkrTemperature();
+            return (await GetStringAsync("gethkrkomfort", ain)).ToHkrTemperature();
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value °C, On or Off.</returns>
         public double GetHkrAbsenk(string ain)
         {
-            return GetInt("gethkrabsenk", ain).ToHkrTemperature();
+            return GetString("gethkrabsenk", ain).ToHkrTemperature();
         }
 
         /// <summary>
@@ -332,7 +332,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrAbsenkAsync(string ain)
         {
-            return (await GetIntAsync("gethkrabsenk", ain)).ToHkrTemperature();
+            return (await GetStringAsync("gethkrabsenk", ain)).ToHkrTemperature();
         }
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public DeviceStats GetBasicDeviceStats(string ain)
         {
-            return GetAs<DeviceStats>("getbasicdevicestats", ain);
+            return GetString("getbasicdevicestats", ain).ToAs<DeviceStats>();
         }
 
         /// <summary>
@@ -374,7 +374,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain)
         {
-            return await GetAsAsync<DeviceStats>("getbasicdevicestats", ain);
+            return (await GetStringAsync("getbasicdevicestats", ain)).ToAs<DeviceStats>();
         }
 
         /// <summary>
@@ -383,7 +383,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public TemplateList GetTemplateListInfos()
         {
-            return GetAs<TemplateList>("gettemplatelistinfos");
+            return GetString("gettemplatelistinfos").ToAs<TemplateList>();
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<TemplateList> GetTemplateListInfosAsync()
         {
-            return await GetAsAsync<TemplateList>("gettemplatelistinfos");
+            return (await GetStringAsync("gettemplatelistinfos")).ToAs<TemplateList>();
         }
 
         /// <summary>
@@ -582,7 +582,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public ColorDefaults GetColorDefaults()
         {
-            return GetAs<ColorDefaults>("getcolordefaults");
+            return GetString("getcolordefaults").ToAs<ColorDefaults>();
         }
 
         /// <summary>
@@ -591,7 +591,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<ColorDefaults> GetColorDefaultsAsync()
         {
-            return await GetAsAsync<ColorDefaults>("getcolordefaults");
+            return (await GetStringAsync("getcolordefaults")).ToAs<ColorDefaults>();
         }
 
         /// <summary>
@@ -601,13 +601,13 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetHkrBoost(string ain, DateTime? endtimestamp = null)
+        public DateTime? SetHkrBoost(string ain, DateTime? endtimestamp = null)
         {
             if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24,0,0)))
             {
                 throw new ArgumentOutOfRangeException(nameof(endtimestamp));
             }
-            Get("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}");
+            return GetString("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}").ToNullableDateTime();
         }
 
         /// <summary>
@@ -618,13 +618,13 @@ namespace AVMHomeAutomation
         /// <param name="endtimestamp"></param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetHkrBoostAsync(string ain, DateTime? endtimestamp = null)
+        public async Task<DateTime?> SetHkrBoostAsync(string ain, DateTime? endtimestamp = null)
         {
             if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
             {
                 throw new ArgumentOutOfRangeException(nameof(endtimestamp));
             }
-            await GetAsync("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}");
+            return (await GetStringAsync("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}")).ToNullableDateTime();
         }
 
         /// <summary>
@@ -634,13 +634,13 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="endtimestamp"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetHkrWindowOpen(string ain, DateTime? endtimestamp = null)
+        public DateTime? SetHkrWindowOpen(string ain, DateTime? endtimestamp = null)
         {
             if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
             {
                 throw new ArgumentOutOfRangeException(nameof(endtimestamp));
             }
-            Get("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}");
+            return GetString("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}").ToNullableDateTime();
         }
 
         /// <summary>
@@ -651,13 +651,13 @@ namespace AVMHomeAutomation
         /// <param name="endtimestamp"></param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null)
+        public async Task<DateTime?> SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null)
         {
             if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
             {
                 throw new ArgumentOutOfRangeException(nameof(endtimestamp));
             }
-            await GetAsync("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}");
+            return (await GetStringAsync("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}")).ToNullableDateTime();
         }
 
         /// <summary>
@@ -744,7 +744,7 @@ namespace AVMHomeAutomation
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public State GetSubscriptionState()
         {
-            return GetAs<State>("getsubscriptionstate");
+            return GetString("getsubscriptionstate").ToAs<State>();
         }
 
         /// <summary>
@@ -754,7 +754,7 @@ namespace AVMHomeAutomation
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public async Task<State> GetSubscriptionStateAsync()
         {
-            return await GetAsAsync<State>("getsubscriptionstate");
+            return (await GetStringAsync("getsubscriptionstate")).ToAs<State>();
         }
 
         /// <summary>
@@ -764,7 +764,7 @@ namespace AVMHomeAutomation
         /// <returns>Information of one SmartHome devices</returns>
         public Device GetDeviceInfos(string ain)
         {
-            return GetAs<Device>("getdeviceinfos", ain);
+            return GetString("getdeviceinfos", ain).ToAs<Device>();
         }
 
         /// <summary>
@@ -774,7 +774,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Device> GetDeviceInfosAsync(string ain)
         {
-            return await GetAsAsync<Device>("getdeviceinfos", ain);
+            return (await GetStringAsync("getdeviceinfos", ain)).ToAs<Device>();
         }
                 
         #endregion
@@ -812,57 +812,13 @@ namespace AVMHomeAutomation
             return sessionId;
         }
 
-        //private async Task<string> GetSessionIdAsync(string login, string password)
-        //{
-        //    string sessionId;
-        //    string challenge;
-
-        //    using (HttpResponseMessage response = await this.client.GetAsync("login_sid.lua"))
-        //    {
-        //        response.EnsureSuccessStatusCode();
-        //        Stream stream = await response.Content.ReadAsStreamAsync();
-        //        XDocument doc = XDocument.Load(stream);
-        //        XElement info = doc.FirstNode as XElement;
-        //        sessionId = info.Element("SID").Value;
-        //        challenge = info.Element("Challenge").Value;
-        //    }
-
-        //    if (sessionId == "0000000000000000")
-        //    {
-        //        string resp = $"{challenge}-{GetMD5Hash(challenge + "-" + password)}";
-        //        string request = $"login_sid.lua?username={login}&response={resp}";
-        //        using (HttpResponseMessage response = await this.client.GetAsync(request))
-        //        {
-        //            response.EnsureSuccessStatusCode();
-        //            Stream stream = await response.Content.ReadAsStreamAsync();
-        //            XDocument doc = XDocument.Load(stream);
-        //            XElement info = doc.FirstNode as XElement;
-        //            sessionId = info.Element("SID").Value;
-        //        }
-        //    }
-        //    return sessionId;
-        //}
-
         private string GetMD5Hash(string input)
         {
             MD5 md5Hasher = MD5.Create();
             byte[] data = md5Hasher.ComputeHash(Encoding.Unicode.GetBytes(input));
-            //StringBuilder sb = new StringBuilder();
-            //for (int i = 0; i < data.Length; i++)
-            //{
-            //    sb.Append(data[i].ToString("x2"));
-            //}
-            //return sb.ToString();
             return data.Select(d => d.ToString("x2")).Aggregate((a, b) => a + b);
         }
 
-        //private string GetSessionId(string login, string password)
-        //{
-        //    XDocument doc = XDocument.Load(new Uri(this.host, "login_sid.lua").ToString());
-        //    XElement info = doc.FirstNode as XElement;
-        //    return info.Element("SID").Value;
-        //}
-        
         private void Get(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
@@ -929,6 +885,12 @@ namespace AVMHomeAutomation
             return Request(request);
         }
 
+        private string GetString(string cmd, string ain, string param)
+        {
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
+            return Request(request);
+        }
+
         private async Task<string> GetStringAsync(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
@@ -941,69 +903,13 @@ namespace AVMHomeAutomation
             return await RequestAsync(request);
         }
 
-        private bool GetBool(string cmd, string ain)
+        private async Task<string> GetStringAsync(string cmd, string ain, string param)
         {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            string res = Request(request);
-            return res == "1";
+            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
+            return await RequestAsync(request);
         }
 
-        private async Task<bool> GetBoolAsync(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            string res = await RequestAsync(request);
-            return res == "1";
-        }
-
-        private int GetInt(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            string res = Request(request);
-            return int.Parse(res);
-        }
-
-        private async Task<int> GetIntAsync(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            string res = await RequestAsync(request);
-            return int.Parse(res);
-        }
-
-        private T GetAs<T>(string cmd)
-        {
-            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            string res = Request(request);
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            T value = (T)serializer.Deserialize(new StringReader(res));
-            return value;
-        }
-
-        private T GetAs<T>(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            string res = Request(request);
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            T value = (T)serializer.Deserialize(new StringReader(res));
-            return value;
-        }
-
-        private async Task<T> GetAsAsync<T>(string cmd)
-        {
-            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            string res = await RequestAsync(request);
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            T value = (T)serializer.Deserialize(new StringReader(res));
-            return value;
-        }
-
-        private async Task<T> GetAsAsync<T>(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            string res = await RequestAsync(request);
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            T value = (T)serializer.Deserialize(new StringReader(res));
-            return value;
-        }
+        
 
         private string Request(string request)
         {
