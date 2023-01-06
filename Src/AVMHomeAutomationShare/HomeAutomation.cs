@@ -61,7 +61,7 @@ namespace AVMHomeAutomation
         /// <returns>AIN / MAC list</returns>
         public string[] GetSwitchList()
         {
-            return GetString("getswitchlist").SplitList();
+            return GetStringAsync("getswitchlist").Result.SplitList();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchOn(string ain)
         {
-            return GetString("setswitchon", ain).ToBool();
+            return GetStringAsync("setswitchon", ain).Result.ToBool();
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchOff(string ain)
         {
-            return GetString("setswitchoff", ain).ToBool();
+            return GetStringAsync("setswitchoff", ain).Result.ToBool();
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchToggle(string ain)
         {
-            return GetString("setswitchtoggle", ain).ToBool();
+            return GetStringAsync("setswitchtoggle", ain).Result.ToBool();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace AVMHomeAutomation
         /// <remarks>Changes if the connection is lost the condition only with some Minutes delay to false.</remarks>
         public bool? GetSwitchState(string ain)
         {
-            return GetString("getswitchstate", ain).ToNullableBool();
+            return GetStringAsync("getswitchstate", ain).Result.ToNullableBool();
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace AVMHomeAutomation
         /// <returns>True if connected; false if not</returns>
         public bool GetSwitchPresent(string ain)
         {
-            return GetString("getswitchpresent", ain).ToBool();
+            return GetStringAsync("getswitchpresent", ain).Result.ToBool();
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace AVMHomeAutomation
         /// <returns>Power in mW, null if unknown.</returns>
         public int? GetSwitchPower(string ain)
         {
-            return GetString("getswitchpower", ain).ToPower();
+            return GetStringAsync("getswitchpower", ain).Result.ToPower();
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace AVMHomeAutomation
         /// <returns>Energy in Wh, null if unknown.</returns>
         public int? GetSwitchEnergy(string ain)
         {
-            return GetString("getswitchenergy", ain).ToPower();
+            return GetStringAsync("getswitchenergy", ain).Result.ToPower();
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace AVMHomeAutomation
         /// <returns>Name of the actor</returns>
         public string GetSwitchName(string ain)
         {
-            return GetString("getswitchname", ain);
+            return GetStringAsync("getswitchname", ain).Result;
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace AVMHomeAutomation
         /// <returns>Information of all SmartHome devices</returns>
         public DeviceList GetDeviceListInfos()
         {
-            return GetString("getdevicelistinfos").ToAs<DeviceList>();
+            return GetStringAsync("getdevicelistinfos").Result.ToAs<DeviceList>();
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value in C.</returns>
         public double GetTemperature(string ain)
         {
-            return GetString("gettemperature", ain).ToTemperature();
+            return GetStringAsync("gettemperature", ain).Result.ToTemperature();
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value °C, On or Off.</returns>
         public double GetHkrtSoll(string ain)
         {
-            return GetString("gethkrtsoll", ain).ToHkrTemperature();
+            return GetStringAsync("gethkrtsoll", ain).Result.ToHkrTemperature();
             
         }
 
@@ -302,7 +302,7 @@ namespace AVMHomeAutomation
         /// <returns>TTemperature value °C, On or Off.</returns>
         public double GetHkrKomfort(string ain)
         {
-            return GetString("gethkrkomfort", ain).ToHkrTemperature();
+            return GetStringAsync("gethkrkomfort", ain).Result.ToHkrTemperature();
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value °C, On or Off.</returns>
         public double GetHkrAbsenk(string ain)
         {
-            return GetString("gethkrabsenk", ain).ToHkrTemperature();
+            return GetStringAsync("gethkrabsenk", ain).Result.ToHkrTemperature();
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public void SetHkrtSoll(string ain, double temperature)
         {
-            Get("sethkrtsoll", ain, $"param={temperature.ToHkrTemperature()}");
+            GetAsync("sethkrtsoll", ain, $"param={temperature.ToHkrTemperature()}").Wait();
         }
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public DeviceStats GetBasicDeviceStats(string ain)
         {
-            return GetString("getbasicdevicestats", ain).ToAs<DeviceStats>();
+            return GetStringAsync("getbasicdevicestats", ain).Result.ToAs<DeviceStats>();
         }
 
         /// <summary>
@@ -383,7 +383,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public TemplateList GetTemplateListInfos()
         {
-            return GetString("gettemplatelistinfos").ToAs<TemplateList>();
+            return GetStringAsync("gettemplatelistinfos").Result.ToAs<TemplateList>();
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         public void ApplyTemplate(string ain)
         {
-            Get("applytemplate", ain);
+            GetAsync("applytemplate", ain).Wait();
         }
 
         /// <summary>
@@ -421,7 +421,7 @@ namespace AVMHomeAutomation
         /// <param name="onOff">Switch on, off or toggle.</param>
         public void SetSimpleOnOff(string ain, OnOff onOff)
         {
-            Get("setsimpleonoff", ain, $"onoff={((int)onOff)}");
+            GetAsync("setsimpleonoff", ain, $"onoff={((int)onOff)}").Wait();
         }
 
         /// <summary>
@@ -447,7 +447,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
-            Get("setlevel", ain, $"level={level}");
+            GetAsync("setlevel", ain, $"level={level}").Wait();
         }
 
         /// <summary>
@@ -478,7 +478,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
-            Get("setlevelpercentage", ain, $"level={level}");
+            GetAsync("setlevelpercentage", ain, $"level={level}").Wait();
         }
 
         /// <summary>
@@ -517,7 +517,7 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
             
-            Get("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}");
+            GetAsync("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}").Wait();
         }
 
         /// <summary>
@@ -556,7 +556,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
-            Get("setcolortemperature", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}");
+            GetAsync("setcolortemperature", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}").Wait();
         }
 
         /// <summary>
@@ -582,7 +582,7 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public ColorDefaults GetColorDefaults()
         {
-            return GetString("getcolordefaults").ToAs<ColorDefaults>();
+            return GetStringAsync("getcolordefaults").Result.ToAs<ColorDefaults>();
         }
 
         /// <summary>
@@ -607,7 +607,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(endtimestamp));
             }
-            return GetString("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}").ToNullableDateTime();
+            return GetStringAsync("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}").Result.ToNullableDateTime();
         }
 
         /// <summary>
@@ -640,7 +640,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(endtimestamp));
             }
-            return GetString("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}").ToNullableDateTime();
+            return GetStringAsync("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}").Result.ToNullableDateTime();
         }
 
         /// <summary>
@@ -668,7 +668,7 @@ namespace AVMHomeAutomation
         /// <param name="target"></param>
         public void SetBlind(string ain, Target target)
         {
-            Get("setblind", ain, $"target={target.ToString().ToLower()}");
+            GetAsync("setblind", ain, $"target={target.ToString().ToLower()}").Wait();
         }
 
         /// <summary>
@@ -697,7 +697,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(name));
             }
-            Get("setname", ain, $"name={name}");
+            GetAsync("setname", ain, $"name={name}").Wait();
         }
 
         /// <summary>
@@ -724,7 +724,7 @@ namespace AVMHomeAutomation
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public void StartUleSubscription()
         {
-            Get("startulesubscription");
+            GetAsync("startulesubscription").Wait();
         }
 
         /// <summary>
@@ -744,7 +744,7 @@ namespace AVMHomeAutomation
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public State GetSubscriptionState()
         {
-            return GetString("getsubscriptionstate").ToAs<State>();
+            return GetStringAsync("getsubscriptionstate").Result.ToAs<State>();
         }
 
         /// <summary>
@@ -764,7 +764,7 @@ namespace AVMHomeAutomation
         /// <returns>Information of one SmartHome devices</returns>
         public Device GetDeviceInfos(string ain)
         {
-            return GetString("getdeviceinfos", ain).ToAs<Device>();
+            return GetStringAsync("getdeviceinfos", ain).Result.ToAs<Device>();
         }
 
         /// <summary>
@@ -819,33 +819,6 @@ namespace AVMHomeAutomation
             return data.Select(d => d.ToString("x2")).Aggregate((a, b) => a + b);
         }
 
-        private void Get(string cmd)
-        {
-            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-            }
-        }
-
-        private void Get(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-            }
-        }
-
-        private void Get(string cmd, string ain, string param)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-            }
-        }
-
         private async Task GetAsync(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
@@ -873,60 +846,33 @@ namespace AVMHomeAutomation
             }
         }
 
-        private string GetString(string cmd)
-        {
-            string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            return Request(request);
-        }
-
-        private string GetString(string cmd, string ain)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            return Request(request);
-        }
-
-        private string GetString(string cmd, string ain, string param)
-        {
-            string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
-            return Request(request);
-        }
-
         private async Task<string> GetStringAsync(string cmd)
         {
             string request = $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
-            return await RequestAsync(request);
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
         }
 
         private async Task<string> GetStringAsync(string cmd, string ain)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}";
-            return await RequestAsync(request);
+            using (HttpResponseMessage response = await this.client.GetAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
         }
 
         private async Task<string> GetStringAsync(string cmd, string ain, string param)
         {
             string request = $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
-            return await RequestAsync(request);
-        }
-
-        
-
-        private string Request(string request)
-        {
-            using (HttpResponseMessage response = this.client.GetAsync(request).Result)
-            {
-                response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result.TrimEnd();
-            }
-        }
-
-        private async Task<string> RequestAsync(string request)
-        {
             using (HttpResponseMessage response = await this.client.GetAsync(request))
             {
                 response.EnsureSuccessStatusCode();
-                string res = await response.Content.ReadAsStringAsync();
-                return res.TrimEnd();
+                return await response.Content.ReadAsStringAsync();
             }
         }
 
