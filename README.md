@@ -6,8 +6,8 @@ API for the AVM Home Automation Service
 
 |                      | Fritz!Dect 100 | Fritz!Dect 200 | Fritz!Dect 210 | Fritz!Dect 301 | Fritz!Dect 302 | Fritz!Dect 400 | Fritz!Dect 440 | Fritz!Dect 500 |
 | -------------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- |
-| GetSwitchList        | (x)              | [/]              | X              | X              | X              | X              | X              | X              |
-| SetSwitchOn          | X              | X              | X              | X              | X              | X              | X              | X              |
+| GetSwitchList        | (x)              | [/]              | X              | X              | X          | :heavy_minus_sign:|:heavy_multiplication_x:|:x:|
+| SetSwitchOn          |:heavy_check_mark:| X              | X              | X              | X              | X              | X              | X              |
 | SetSwitchOff         | X              | X              | X              | X              | X              | X              | X              | X              |
 | SetSwitchToggle      | X              | X              | X              | X              | X              | X              | X              | X              |
 | GetSwitchState       | X              | X              | X              | X              | X              | X              | X              | X              |
