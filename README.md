@@ -6,7 +6,7 @@ API for the AVM Home Automation Service
 
 |                      | Fritz!Dect 100 | Fritz!Dect 200 | Fritz!Dect 210 | Fritz!Dect 301 | Fritz!Dect 302 | Fritz!Dect 400 | Fritz!Dect 440 | Fritz!Dect 500 |
 | -------------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- |
-| GetSwitchList        | X              | X              | X              | X              | X              | X              | X              | X              |
+| GetSwitchList        | (x)              | [/]              | X              | X              | X              | X              | X              | X              |
 | SetSwitchOn          | X              | X              | X              | X              | X              | X              | X              | X              |
 | SetSwitchOff         | X              | X              | X              | X              | X              | X              | X              | X              |
 | SetSwitchToggle      | X              | X              | X              | X              | X              | X              | X              | X              |
@@ -17,7 +17,7 @@ API for the AVM Home Automation Service
 | GetSwitchName        | X              | X              | X              | X              | X              | X              | X              | X              |
 | GetDeviceListInfos   | X              | X              | X              | X              | X              | X              | X              | X              |
 | GetTemperature       | X              | X              | X              | X              | X              | X              | X              | X              |
-| GetHkrtSoll          | X              | X              | X              | X              | X              | X              | X              | X              |
+| GetHkrtSoll          | #739           | X              | X              | X              | X              | X              | X              | X              |
 | GetHkrKomfort        | X              | X              | X              | X              | X              | X              | X              | X              |
 | GetHkrAbsenk         | X              | X              | X              | X              | X              | X              | X              | X              |
 | SetHkrtSoll          | X              | X              | X              | X              | X              | X              | X              | X              |
@@ -36,5 +36,5 @@ API for the AVM Home Automation Service
 | SetName              | X              | X              | X              | X              | X              | X              | X              | X              |
 | StartUleSubscription | X              | X              | X              | X              | X              | X              | X              | X              |
 | GetSubscriptionState | X              | X              | X              | X              | X              | X              | X              | X              |
-| GetDeviceInfos       | X              | X              | X              | X              | X              | X              | X              | X              |
+| GetDeviceInfos       |:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:       |:white_check_mark:|
 
