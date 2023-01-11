@@ -6,7 +6,7 @@ namespace AVMHomeAutomation
     public class HS
     {
         [XmlAttribute("hue_index")]
-        public XmlNullableInt HueIndex { get; set; }
+        public int HueIndex { get; set; }
 
         [XmlElement("name")]
         public Name Name {  get; set;}

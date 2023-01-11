@@ -14,18 +14,18 @@ namespace AVMHomeAutomation
         /// Voltage value in Volt
         /// </summary>
         [XmlElement("voltage")]
-        public XmlKilo Voltage { get; set; }
+        public XmlNullableKilo Voltage { get; set; }
 
         /// <summary>
         /// Power value in W
         /// </summary>
         [XmlElement("power")]
-        public XmlKilo Power { get; set; }
+        public XmlNullableKilo Power { get; set; }
                 
         /// <summary>
         /// Energy value in kWh
         /// </summary>
         [XmlElement("energy")]
-        public XmlKilo Energy { get; set; }
+        public XmlNullableKilo Energy { get; set; }
     }
 }

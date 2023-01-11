@@ -46,15 +46,42 @@ namespace AVMHomeAutomation
                 else
                 {
                     this.HasValue = true;
-                    this.Value = begin.AddSeconds(value).ToLocalTime();
+                    this.Value = begin.AddSeconds(value); //.ToLocalTime();
                 }
             }
-            //reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Equals(object other)
+        {
+            if (!this.HasValue)
+            {
+                return other == null;
+            }
+            //if (other.GetType() == typeof(DateTime))
+            //{
+            //    return false;
+            //}
+            return this.Value.Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.HasValue ? this.Value.GetHashCode() : 0;
+        }
+
+        public static implicit operator XmlNullableDateTime(DateTime value)
+        {
+            return new XmlNullableDateTime(value);
+        }
+
+        public static implicit operator DateTime(XmlNullableDateTime value)
+        {
+            return value.Value;
         }
 
         public static implicit operator XmlNullableDateTime(DateTime? value)

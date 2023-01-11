@@ -17,7 +17,7 @@ namespace AVMHomeAutomation
             case double.MinValue:
                 return "253";      // OFF
             default:
-                return ((int)Math.Round(val * 0.5)).ToString();
+                return ((int)Math.Round(val * 2.0)).ToString();
             }
         }
 
@@ -36,7 +36,7 @@ namespace AVMHomeAutomation
             case 253:   
                 return HomeAutomation.Off;
             default:
-                return val / 0.5;
+                return val / 2.0;
             }
         }
 
@@ -69,11 +69,11 @@ namespace AVMHomeAutomation
             return duration.HasValue ? (int)(duration.Value.Ticks / (TimeSpan.TicksPerSecond / 10)) : 0;
         }
 
-        public static int? ToPower(this string value)
+        public static double? ToPower(this string value)
         {
             if (int.TryParse(value, out int res))
             {
-                return res;
+                return res / 1000.0;
             }
             return null;
         }
@@ -126,7 +126,7 @@ namespace AVMHomeAutomation
         {
             if (long.TryParse(value, out long val))
             {
-                return UnixDateTimeStart.AddSeconds(val);
+                return val == 0 ? null : (DateTime?)(UnixDateTimeStart.AddSeconds(val));
             }
             return null;
         }

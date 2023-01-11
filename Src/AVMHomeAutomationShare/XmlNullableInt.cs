@@ -22,7 +22,7 @@ namespace AVMHomeAutomation
 
         public int GetValueOrDefault()
         {
-            return this.Value;
+            return this.HasValue ? this.Value : default;
         }
 
         public int GetValueOrDefault(int defaultValue)
@@ -61,18 +61,10 @@ namespace AVMHomeAutomation
         public void ReadXml(XmlReader reader)
         {
             string strValue = reader.ReadElementContentAsString();
-            //if (String.IsNullOrEmpty(strValue))
-            //{
-            //    this.HasValue = false;
-            //}
-            //else
-            //{
-                if (this.HasValue = int.TryParse(strValue, out int val))
-                {
-                    this.Value = val;
-                }
-            //}
-            //reader.ReadEndElement();
+            if (this.HasValue = int.TryParse(strValue, out int val))
+            {
+                this.Value = val;
+            }
         }
 
         public void WriteXml(XmlWriter writer)
