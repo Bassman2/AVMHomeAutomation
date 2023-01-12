@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-
 namespace AVMHomeAutomation
 {
     /// <summary>
@@ -15,13 +14,22 @@ namespace AVMHomeAutomation
     /// </summary>
     public class HomeAutomation : IDisposable
     {
+        /// <summary>
+        /// On value for heater.
+        /// </summary>
+        /// <remarks>Use for SetHkrtSoll</remarks>
         public const double On = double.MaxValue;
+
+        /// <summary>
+        /// Off value for heater
+        /// </summary>
+        /// <remarks>Use for SetHkrtSoll</remarks>
         public const double Off = double.MinValue;
 
-        private Uri host = new Uri("http://fritz.box");
-        private HttpClientHandler handler;
+        private readonly Uri host = new Uri("http://fritz.box");
+        private readonly HttpClientHandler handler;
         private HttpClient client;
-        private string sessionId;
+        private readonly string sessionId;
 
         /// <summary>
         /// Constructor
@@ -31,12 +39,16 @@ namespace AVMHomeAutomation
         public HomeAutomation(string login, string password)
         {
             // connect
-            this.handler = new HttpClientHandler();
-            this.handler.CookieContainer = new System.Net.CookieContainer();
-            this.handler.UseCookies = true;
-            this.client = new HttpClient(this.handler);
-            this.client.BaseAddress = host;
-            this.client.Timeout = new TimeSpan(0, 2, 0);
+            this.handler = new HttpClientHandler
+            {
+                CookieContainer = new System.Net.CookieContainer(),
+                UseCookies = true
+            };
+            this.client = new HttpClient(this.handler)
+            {
+                BaseAddress = host,
+                Timeout = new TimeSpan(0, 2, 0)
+            };
 
             // get session id
             this.sessionId = GetSessionId(login, password);
@@ -221,7 +233,7 @@ namespace AVMHomeAutomation
         /// Returns identifiers of the actor.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Name of the actor</returns>
+        /// <returns>ColorName of the actor</returns>
         public string GetSwitchName(string ain)
         {
             //return GetStringAsync("getswitchname", ain).Result;
@@ -374,7 +386,7 @@ namespace AVMHomeAutomation
         /// Provides the basic statistics (temperature, voltage, power) of the actuator.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns></returns>
+        /// <returns>Device stats.</returns>
         public DeviceStats GetBasicDeviceStats(string ain)
         {
             return this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain)).Result.ToAs<DeviceStats>();
@@ -393,7 +405,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Returns the basic information of all templates / templates.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Template list.</returns>
         public TemplateList GetTemplateListInfos()
         {
             return this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result.ToAs<TemplateList>();
@@ -560,7 +572,7 @@ namespace AVMHomeAutomation
         /// Adjust color temperature.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="temperature"></param>
+        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
         /// <param name="duration">Speed of the change.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void SetColorTemperature(string ain, int temperature, TimeSpan? duration = null)
@@ -576,7 +588,7 @@ namespace AVMHomeAutomation
         /// Adjust color temperature.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="temperature"></param>
+        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
         /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
@@ -592,7 +604,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Provides a proposal for the color selection values.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Color defaults class.</returns>
         public ColorDefaults GetColorDefaults()
         {
             return this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result.ToAs<ColorDefaults>();
@@ -612,7 +624,8 @@ namespace AVMHomeAutomation
         /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="endtimestamp"></param>
+        /// <param name="endtimestamp">End time to set.</param>
+        /// <returns>End time</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public DateTime? SetHkrBoost(string ain, DateTime? endtimestamp = null)
         {
@@ -628,7 +641,7 @@ namespace AVMHomeAutomation
         /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="endtimestamp"></param>
+        /// <param name="endtimestamp">End time to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task<DateTime?> SetHkrBoostAsync(string ain, DateTime? endtimestamp = null)
@@ -645,7 +658,8 @@ namespace AVMHomeAutomation
         /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="endtimestamp"></param>
+        /// <param name="endtimestamp">End time to set.</param>
+        /// <returns>End time to set.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public DateTime? SetHkrWindowOpen(string ain, DateTime? endtimestamp = null)
         {
@@ -661,7 +675,7 @@ namespace AVMHomeAutomation
         /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="endtimestamp"></param>
+        /// <param name="endtimestamp">End time to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task<DateTime?> SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null)
@@ -678,7 +692,7 @@ namespace AVMHomeAutomation
         /// Blinds have the HANFUN unit type Blind (281).
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="target"></param>
+        /// <param name="target">Target to set.</param>
         public void SetBlind(string ain, Target target)
         {
             this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}")).Wait();
@@ -689,7 +703,7 @@ namespace AVMHomeAutomation
         /// Blinds have the HANFUN unit type Blind (281).
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="target"></param>
+        /// <param name="target">Target to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task SetBlindAsync(string ain, Target target)
         {
@@ -701,7 +715,7 @@ namespace AVMHomeAutomation
         /// Attention: the user session must have the smart home and app right.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="name"></param>
+        /// <param name="name">New name, maximum 40 characters.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public void SetName(string ain, string name)
@@ -718,7 +732,7 @@ namespace AVMHomeAutomation
         /// Attention: the user session must have the smart home and app right.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="name"></param>
+        /// <param name="name">New name, maximum 40 characters.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
@@ -753,11 +767,11 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Query DECT-ULE device registration status.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Return the subscription state</returns>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public State GetSubscriptionState()
+        public SubscriptionState GetSubscriptionState()
         {
-            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.ToAs<State>();
+            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.ToAs<SubscriptionState>();
         }
 
         /// <summary>
@@ -765,9 +779,9 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public async Task<State> GetSubscriptionStateAsync()
+        public async Task<SubscriptionState> GetSubscriptionStateAsync()
         {
-            return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).ToAs<State>();
+            return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).ToAs<SubscriptionState>();
         }
 
         /// <summary>

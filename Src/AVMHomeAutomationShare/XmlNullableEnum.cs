@@ -8,11 +8,16 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Class for nullable Enum serilization.
     /// </summary>
+    /// <typeparam name="T">Underlying enum type.</typeparam>
     public struct XmlNullableEnum<T> : IXmlSerializable where T : struct 
     {
         private bool hasValue;
         private T value;
 
+        /// <summary>
+        /// Initializes a new instance of the XmlNullableEnum structure to the specified value.
+        /// </summary>
+        /// <param name="value">A int value.</param>
         public XmlNullableEnum(T value)
         {
             this.hasValue = true;
@@ -69,6 +74,7 @@ namespace AVMHomeAutomation
         /// Creates a new object initialized to a specified value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>New instance.</returns>
         public static implicit operator XmlNullableEnum<T>(T value)
         {
             return new XmlNullableEnum<T>(value);
@@ -78,7 +84,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling value.
         /// </summary>
         /// <param name="value">A value.</param>
-
+        /// <returns>The value.</returns>
         public static implicit operator T(XmlNullableEnum<T> value)
         {
             return value.Value;
@@ -88,6 +94,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling nullable value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator Nullable<T>(XmlNullableEnum<T> value)
         {
             return value.hasValue ? ((Nullable<T>)value.value) : null;

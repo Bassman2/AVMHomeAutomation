@@ -2,6 +2,9 @@
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// Device functions
+    /// </summary>
     [Flags]
     public enum Functions
     {
@@ -67,12 +70,24 @@ namespace AVMHomeAutomation
 
         //x = 0x4000 ,                  // Bit 14
         
+        /// <summary>
+        /// Switch
+        /// </summary>
         Switch = 0x8000,                // Bit 15    
 
+        /// <summary>
+        /// Level
+        /// </summary>
         Level = 0x10000,                // Bit 16
 
+        /// <summary>
+        /// Light color
+        /// </summary>
         LightColor = 0x20000,           // Bit 17
 
+        /// <summary>
+        /// Blind
+        /// </summary>
         Blind = 0x40000,                // Bit 18
         
         //z = 0x80000,            // Bit 19

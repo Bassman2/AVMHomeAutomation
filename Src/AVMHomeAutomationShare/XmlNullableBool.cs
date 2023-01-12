@@ -73,6 +73,7 @@ namespace AVMHomeAutomation
         /// Creates a new object initialized to a specified value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>New instance.</returns>
         public static implicit operator XmlNullableBool(bool value)
         {
             return new XmlNullableBool(value);
@@ -82,6 +83,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator bool(XmlNullableBool value)
         {
             return value.Value;
@@ -91,6 +93,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling nullable value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator bool?(XmlNullableBool value)
         {
             return value.hasValue ? (bool?)value.value : null;

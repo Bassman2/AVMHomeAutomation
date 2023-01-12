@@ -33,7 +33,7 @@ namespace AVMHomeAutomationTest70
             AssertDevice(TestSettings.DeviceDect100Repeater, deviceList.Devices.Single((d) => d.Identifier == TestSettings.DeviceDect100Repeater.Ain));
         }
 
-        private void AssertDevice(TestDevice expected, Device actual)
+        private static void AssertDevice(TestDevice expected, Device actual)
         {
             Assert.AreEqual(expected.Ain, actual.Identifier);
             Assert.AreEqual(expected.Name, actual.Name);
@@ -45,8 +45,8 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public void TestMethodSubscription()
         {
-            State preState;
-            State runState;
+            SubscriptionState preState;
+            SubscriptionState runState;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -56,19 +56,19 @@ namespace AVMHomeAutomationTest70
                 {
                     Thread.Sleep(30000);
                     runState = client.GetSubscriptionState();
-                } while (runState.Code == Code.SubscriptionRunning);
+                } while (runState.Code == SubscriptionCode.SubscriptionRunning);
             }
 
-            Assert.AreEqual(Code.NoSubscription, preState.Code);
-            Assert.AreEqual(Code.NoSubscription, runState.Code);
+            Assert.AreEqual(SubscriptionCode.NoSubscription, preState.Code);
+            Assert.AreEqual(SubscriptionCode.NoSubscription, runState.Code);
             Assert.IsTrue(!string.IsNullOrEmpty(runState.LatestAin));
         }
 
         [TestMethod]
         public async Task TestMethodSubscriptionAsync()
         {
-            State preState;
-            State runState;
+            SubscriptionState preState;
+            SubscriptionState runState;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -78,11 +78,11 @@ namespace AVMHomeAutomationTest70
                 {
                     Thread.Sleep(30000);
                     runState = await client.GetSubscriptionStateAsync();
-                } while (runState.Code == Code.SubscriptionRunning);
+                } while (runState.Code == SubscriptionCode.SubscriptionRunning);
             }
 
-            Assert.AreEqual(Code.NoSubscription, preState.Code);
-            Assert.AreEqual(Code.NoSubscription, runState.Code);
+            Assert.AreEqual(SubscriptionCode.NoSubscription, preState.Code);
+            Assert.AreEqual(SubscriptionCode.NoSubscription, runState.Code);
             Assert.IsTrue(!string.IsNullOrEmpty(runState.LatestAin));
         }
 

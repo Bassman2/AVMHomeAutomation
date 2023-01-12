@@ -2,28 +2,31 @@
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// Data for switch socket.
+    /// </summary>
     public class Switch
     {
         /// <summary>
-        /// 0/1 - Switching state off / on (empty if unknown or error)
+        /// Switching state off / on 
         /// </summary>
         [XmlElement("state")]
         public XmlNullableBool State { get; set; }
 
         /// <summary>
-        /// "auto" or "manual" -> automatic time switching or manual switching (empty if unknown or error)
+        /// Automatic time switching (false) or manual switching (true)
         /// </summary>
         [XmlElement("mode")]
         public XmlNullableBool Mode { get; set; }
 
         /// <summary>
-        /// 0/1 - Switch lock via UI / API on no / yes (empty if unknown or error)
+        /// Switch lock via UI / API on no / yes 
         /// </summary>
         [XmlElement("lock")]
         public XmlNullableBool Lock { get; set; }
 
         /// <summary>
-        /// 0/1 - Switching lock directly on the device on no / yes (empty if unknown or error)
+        /// Switching lock directly on the device on no / yes 
         /// </summary>
         [XmlElement("devicelock")]
         public XmlNullableBool DeviceLock { get; set; }

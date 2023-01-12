@@ -3,13 +3,21 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    [DebuggerDisplay("Group: {Name} -  {Manufacturer} - {ProductName}")]
-
+    /// <summary>
+    /// Group of devices
+    /// </summary>
+    [DebuggerDisplay("Group: {ColorName} -  {Manufacturer} - {ProductName}")]     
     public class Group : Device
     {
+        /// <summary>
+        /// Is synchronized?
+        /// </summary>
         [XmlAttribute("synchronized")]
-        public string Synchronized { get; set; }
+        public bool Synchronized { get; set; }
 
+        /// <summary>
+        /// Group information
+        /// </summary>
         [XmlElement("groupinfo")]
         public GroupInfo GroupInfo { get; set; }
     }

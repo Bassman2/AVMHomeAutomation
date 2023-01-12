@@ -8,37 +8,37 @@ namespace AVMHomeAutomation
     public class Hkr
     {
         /// <summary>
-        /// Actual temperature in 0.5 ° C, value range: 0x10 - 0x3816 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C ...... 56> = 28 ° C, 254 = ON, 253 = OFF
+        /// Actual temperature in ° C. (8 to 28 ° C or ON / OFF)
         /// </summary>
         [XmlElement("tist")]
         public XmlNullableHkrTemperature TIst { get; set; }
 
         /// <summary>
-        /// Target temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
+        /// Target temperature in ° C. (8 to 28 ° C or ON / OFF)
         /// </summary>
         [XmlElement("tsoll")]
         public XmlNullableHkrTemperature TSoll { get; set; }
 
         /// <summary>
-        /// Lowering temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
+        /// Lowering temperature in ° C. (8 to 28 ° C or ON / OFF)
         /// </summary>
         [XmlElement("absenk")]
         public XmlNullableHkrTemperature Absenk { get; set; }
 
         /// <summary>
-        /// Comfort temperature in 0.5 ° C, value range: 0x10 - 0x38 16 - 56 (8 to 28 ° C), 16 &lt;= 8 ° C, 17 = 8.5 ° C...... 56> = 28 ° C, 254 = ON, 253 = OFF
+        /// Comfort temperature in ° C. (8 to 28 ° C or ON / OFF)
         /// </summary>
         [XmlElement("komfort")]
         public XmlNullableHkrTemperature Komfort { get; set; }
 
         /// <summary>
-        /// 0/1 - Keylock via UI / API on no / yes (empty if unknown or error)
+        /// Keylock via UI / API on no / yes 
         /// </summary>
         [XmlElement("lock")]
         public XmlNullableBool Lock { get; set; }
 
         /// <summary>
-        /// 0/1 - key lock directly on the device on no / yes (empty if unknown or error)
+        /// Key lock directly on the device on no / yes 
         /// </summary>
         [XmlElement("devicelock")]
         public XmlNullableBool DeviceLock { get; set; }
@@ -57,37 +57,37 @@ namespace AVMHomeAutomation
         public int ErrorCode { get; set; }
 
         /// <summary>
-        /// 0 or 1: window oven detected
+        /// Window oven detected
         /// </summary>
         [XmlElement("windowopenactiv")]
         public XmlNullableBool WindowOpenActiv { get; set; }
 
         /// <summary>
-        /// 
+        /// Window open end time
         /// </summary>
         [XmlElement("windowopenactiveendtime")]
         public XmlNullableDateTime WindowOpenActivEndTime { get; set; }
 
         /// <summary>
-        /// 
+        ///  Boost active
         /// </summary>
         [XmlElement("boostactive")]
         public XmlNullableBool BoostActive { get; set; }
 
         /// <summary>
-        /// 
+        /// Boost active end time.
         /// </summary>
         [XmlElement("boostactiveendtime")]
         public XmlNullableDateTime BoostActiveEndTime { get; set; }
 
         /// <summary>
-        /// 0 or 1: Battery low - please change the battery
+        /// Battery low - please change the battery
         /// </summary>
         [XmlElement("batterylow")]
         public XmlNullableBool BatteryLow { get; set; }
 
         /// <summary>
-        /// 
+        /// Battery state of charge in percent. (0 - 100)
         /// </summary>
         [XmlElement("battery")]
         public XmlNullableInt Battery{ get; set; }
@@ -99,16 +99,15 @@ namespace AVMHomeAutomation
         public NextChange NextChange { get; set; }
 
         /// <summary>
-        /// 
+        /// Is the HKR currently in a vacation period?
         /// </summary>
         [XmlElement("summeractive")]
         public XmlNullableBool SummerActive { get; set; }
 
         /// <summary>
-        /// 
+        /// Is the HKR currently in a Holiday period?
         /// </summary>
         [XmlElement("holidayactive")]
-        public XmlNullableBool HolidayActive { get; set; }
-        
+        public XmlNullableBool HolidayActive { get; set; }        
     }
 }

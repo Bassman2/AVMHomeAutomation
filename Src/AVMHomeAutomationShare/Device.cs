@@ -4,7 +4,10 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName}")]
+    /// <summary>
+    /// Device data.
+    /// </summary>
+    [DebuggerDisplay("Device: {ColorName} -  {Manufacturer} - {ProductName}")]
     [XmlRoot("device")]
     public class Device
     {
@@ -55,58 +58,88 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlElement("present")]
         public XmlNullableBool IsPresent { get; set; }
-        
+
+        /// <summary>
+        /// A command (such as a switching command or change brightness) is running.
+        /// </summary>
         [XmlElement("txbusy")]
         public XmlNullableBool IsTXBusy { get; set; }
         
+        /// <summary>
+        /// ColorName of the device.
+        /// </summary>
         [XmlElement("name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Battery charge level low - please change battery.
+        /// </summary>
         [XmlElement("batterylow", IsNullable=true)]
         public XmlNullableBool IsBatteryLow { get; set; }
 
+        /// <summary>
+        /// Battery state of charge in percent. (0 - 100)
+        /// </summary>
         [XmlElement("battery", IsNullable = true)]
         public XmlNullableInt Battery { get; set; }
 
-
-
+        /// <summary>
+        /// Data for switch socket.
+        /// </summary>
         [XmlElement("switch", IsNullable = true)]
         public Switch Switch { get; set; }
 
+        /// <summary>
+        /// Energy gauge data
+        /// </summary>
         [XmlElement("powermeter", IsNullable = true)]
         public PowerMeter PowerMeter { get; set; }
 
+        /// <summary>
+        /// Temperature sensor data.
+        /// </summary>
         [XmlElement("temperature", IsNullable = true)]
         public Temperature Temperature { get; set; }
 
+        /// <summary>
+        /// Alarm sensor data.
+        /// </summary>
         [XmlElement("alert", IsNullable = true)]
         public Alert Alert { get; set; }
 
+        /// <summary>
+        /// Button data.
+        /// </summary>
         [XmlElement("button")]
         public List<Button> Buttons { get; set; }
 
+        /// <summary>
+        /// HAN-FUN / ETSI unit data
+        /// </summary>
         [XmlElement("etsiunitinfo", IsNullable = true)]
         public EtsiUnitInfo EtsiUnitInfo { get; set; }
 
+        /// <summary>
+        /// Device/socket/lamp/actuator that can be switched on/off.
+        /// </summary>
         [XmlElement("simpleonoff", IsNullable = true)]
         public SimpleOnOff SimpleOnOff { get; set; }
 
+        /// <summary>
+        /// Device with adjustable dimming, height, brightness or level.
+        /// </summary>
         [XmlElement("levelcontrol", IsNullable = true)]
         public LevelControl LevelControl { get; set; }
 
+        /// <summary>
+        /// Lamp with adjustable colour/colour temperature.
+        /// </summary>
         [XmlElement("colorcontrol", IsNullable = true)]
         public ColorControl ColorControl { get; set; }
 
-
-
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// Radiator control data
+        /// </summary>
         [XmlElement("hkr", IsNullable = true)]
         public Hkr Hkr { get; set; }
         

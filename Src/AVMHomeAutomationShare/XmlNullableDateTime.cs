@@ -75,6 +75,7 @@ namespace AVMHomeAutomation
         /// Creates a new object initialized to a specified value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>New instance.</returns>
         public static implicit operator XmlNullableDateTime(DateTime value)
         {
             return new XmlNullableDateTime(value);
@@ -84,6 +85,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator DateTime(XmlNullableDateTime value)
         {
             return value.Value;
@@ -93,6 +95,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling nullable value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator DateTime?(XmlNullableDateTime value)
         {
             return value.hasValue ? ((DateTime?)value.value) : null;

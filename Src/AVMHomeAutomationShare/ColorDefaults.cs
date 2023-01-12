@@ -3,16 +3,24 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// Color defaults.
+    /// </summary>
     [XmlRoot("colordefaults")]
     public class ColorDefaults
     {
-
+        /// <summary>
+        /// Hue and saturation values
+        /// </summary>
         [XmlArray("hsdefaults")]
         [XmlArrayItem("hs")]
-        public List<HS> HSDefaults { get; set; }
+        public List<ColorDefaultHS> HSDefaults { get; set; }
 
+        /// <summary>
+        /// Temperature values
+        /// </summary>
         [XmlArray("temperaturedefaults")]
         [XmlArrayItem("temp")]
-        public List<Temp> TemperatureDefaults { get; set; }
+        public List<ColorDefaultTemperature> TemperatureDefaults { get; set; }
     }
 }

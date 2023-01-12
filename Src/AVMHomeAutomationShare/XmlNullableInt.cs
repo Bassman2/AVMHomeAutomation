@@ -76,6 +76,7 @@ namespace AVMHomeAutomation
         /// Creates a new object initialized to a specified value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>New instance.</returns>
         public static implicit operator XmlNullableInt(int value)
         {
             return new XmlNullableInt(value);
@@ -85,6 +86,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator int(XmlNullableInt value)
         {
             return value.Value;
@@ -94,6 +96,7 @@ namespace AVMHomeAutomation
         /// Defines an conversion of a instance to its underlyling nullable value.
         /// </summary>
         /// <param name="value">A value.</param>
+        /// <returns>The value.</returns>
         public static implicit operator int?(XmlNullableInt value)
         {
             return value.hasValue ? (int?)value.value : null;

@@ -2,16 +2,19 @@
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// Temperature sensor data.
+    /// </summary>
     public class Temperature
     {
         /// <summary>
-        /// Value in 0.1 ° C, negative and positive values possible
+        /// Temperatur value in ° Celsius
         /// </summary>
         [XmlElement("celsius")]
         public XmlNullableTemperature Celsius { get; set; }
 
         /// <summary>
-        /// Value in 0.1 ° C, negative and positive values possible
+        /// Temperatur offset value in ° Celsius
         /// </summary>
         [XmlElement("offset")]
         public XmlNullableTemperature Offset { get; set; }

@@ -13,13 +13,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Code.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EtsiInterfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UnitType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableEnum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlEnumList.cs" />
@@ -27,7 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableKilo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DeviceStat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Functions.cs" />
@@ -35,17 +34,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)GroupInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hkr.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HomeAutomation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Name.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorDefaultHS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NextChange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OnOff.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PowerMeter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SimpleOnOff.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)State.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SubscriptionState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Stats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Switch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Target.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Temp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorDefaultTemperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateDevice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
@@ -53,5 +52,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableInt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableTemperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HAConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlList.cs" />
   </ItemGroup>
 </Project>
