@@ -24,7 +24,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Temperature value in 0.5 ° C, value range: 16 - 56 8 to 28 ° C, 16 &lt;= 8 ° C, 17 =, 5 ° C ...... 56 &gt;= 28 ° C 254 = ON, 253 = OFF.
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static double ToHkrTemperature(this string value)
         {
@@ -43,7 +43,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static double ToTemperature(this string value)
         {

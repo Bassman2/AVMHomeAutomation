@@ -7,32 +7,43 @@ using System.Xml;
 
 namespace AVMHomeAutomation
 {
-    
+
+    /// <summary>
+    /// Class for nullable int serilization.
+    /// </summary>
     public struct XmlNullableInt : IXmlSerializable 
     {
-        public bool HasValue { get; private set; }
+        private bool hasValue;
+        private int value;
 
-        public int Value { get; private set; }
-
+        /// <summary>
+        /// Initializes a new instance of the XmlNullableInt structure to the specified value.
+        /// </summary>
+        /// <param name="value">A int value.</param>
         public XmlNullableInt(int value)
         {
-            this.HasValue = true;
-            this.Value = value;
+            this.hasValue = true;
+            this.value = value;
         }
 
-        public int GetValueOrDefault()
-        {
-            return this.HasValue ? this.Value : default;
-        }
+        /// <summary>
+        /// Gets a value indicating whether the current object has a valid value.
+        /// </summary>
+        public bool HasValue { get => hasValue; }
 
-        public int GetValueOrDefault(int defaultValue)
-        {
-            return this.HasValue ? this.Value : defaultValue;
-        }
+        /// <summary>
+        /// Gets the value of the current object if it has been assigned a valid underlying value.
+        /// </summary>
+        public int Value { get { if (!hasValue) throw new InvalidOperationException("No value"); return value; } }
 
+        /// <summary>
+        /// Indicates whether the current object is equal to a specified object.
+        /// </summary>
+        /// <param name="other">An object.</param>
+        /// <returns>true if the other parameter is equal to the current object; otherwise, false.</returns>
         public override bool Equals(object other)
         {
-            if (!this.HasValue)
+            if (!this.hasValue)
             {
                 return other == null;
             }
@@ -40,56 +51,88 @@ namespace AVMHomeAutomation
             {
                 return false;
             }
-            return this.Value.Equals(other);
+            return this.value.Equals(other);
         }
 
+        /// <summary>
+        ///  Retrieves the hash code of the object returned by the Value property.
+        /// </summary>
+        /// <returns>The hash code of the object returned by the Value property.</returns>
         public override int GetHashCode()
         {
-            return this.HasValue ? this.Value.GetHashCode() : 0;
+            return this.hasValue ? this.value.GetHashCode() : 0;
         }
 
+        /// <summary>
+        /// Returns the text representation of the value of the current object.
+        /// </summary>
+        /// <returns>The text representation of the value of the current object</returns>
         public override string ToString()
         {
-            return this.HasValue ? this.Value.ToString() : "";
+            return this.hasValue ? this.value.ToString() : string.Empty;
         }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            string strValue = reader.ReadElementContentAsString();
-            if (this.HasValue = int.TryParse(strValue, out int val))
-            {
-                this.Value = val;
-            }
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Creates a new object initialized to a specified value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator XmlNullableInt(int value)
         {
             return new XmlNullableInt(value);
         }
 
+        /// <summary>
+        /// Defines an conversion of a instance to its underlyling value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator int(XmlNullableInt value)
         {
             return value.Value;
         }
 
-        public static implicit operator XmlNullableInt(int? value)
-        {
-            return value.HasValue ? new XmlNullableInt(value.Value) : null;
-        }
-
+        /// <summary>
+        /// Defines an conversion of a instance to its underlyling nullable value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator int?(XmlNullableInt value)
         {
-            return value.HasValue ? new int?(value.Value) : null;
+            return value.hasValue ? (int?)value.value : null;
         }
+
+        #region IXmlSerializable
+
+        /// <summary>
+        /// This method is reserved and should not be used.
+        /// </summary>
+        /// <returns>Return null.</returns>
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Generates an object from its XML representation.
+        /// </summary>
+        /// <param name="reader">The XmlReader stream from which the object is deserialized.</param>
+        public void ReadXml(XmlReader reader)
+        {
+            string str = reader.ReadElementContentAsString();
+            if (this.hasValue = int.TryParse(str, out int val))
+            {
+                this.value = val;
+            }
+        }
+
+        /// <summary>
+        /// Converts an object into its XML representation.
+        /// </summary>
+        /// <param name="writer">The XmlWriter stream to which the object is serialized.</param>
+        /// <exception cref="NotImplementedException">Not implemented in this class.</exception>
+        public void WriteXml(XmlWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

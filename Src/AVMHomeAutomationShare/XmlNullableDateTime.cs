@@ -5,93 +5,142 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// Class for nullable DateTime serilization.
+    /// </summary>
     public struct XmlNullableDateTime : IXmlSerializable
     {
         private static DateTime begin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-        
-        public bool HasValue { get; private set; }
 
-        public DateTime Value { get; private set; }
+        private bool hasValue;
+        private DateTime value;
 
-        //public XmlNullableDateTime()
-        //{ }
-
+        /// <summary>
+        /// Initializes a new instance of the XmlNullableDateTime structure to the specified value.
+        /// </summary>
+        /// <param name="value">A DateTime value.</param>
         public XmlNullableDateTime(DateTime value)
         {
-            this.HasValue = true;
-            this.Value = value;
+            this.hasValue = true;
+            this.value = value;
         }
 
-        public XmlNullableDateTime(DateTime? value)
-        {
-            this.HasValue = value.HasValue;
-            this.Value = value.Value;
-        }
+        /// <summary>
+        /// Gets a value indicating whether the current object has a valid value.
+        /// </summary>
+        public bool HasValue { get => hasValue; }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        /// <summary>
+        /// Gets the value of the current object if it has been assigned a valid underlying value.
+        /// </summary>
+        public DateTime Value { get { if (!hasValue) throw new InvalidOperationException("No value"); return value; } }
 
-        public void ReadXml(XmlReader reader)
-        {
-            string strValue = reader.ReadElementContentAsString();
-
-            if (this.HasValue = long.TryParse(strValue, out long value))
-            {
-                if (value == 0)
-                {
-                    this.HasValue = false;
-                }
-                else
-                {
-                    this.HasValue = true;
-                    this.Value = begin.AddSeconds(value); //.ToLocalTime();
-                }
-            }
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Indicates whether the current object is equal to a specified object.
+        /// </summary>
+        /// <param name="other">An object.</param>
+        /// <returns>true if the other parameter is equal to the current object; otherwise, false.</returns>
         public override bool Equals(object other)
         {
-            if (!this.HasValue)
+            if (!this.hasValue)
             {
                 return other == null;
             }
-            //if (other.GetType() == typeof(DateTime))
-            //{
-            //    return false;
-            //}
-            return this.Value.Equals(other);
+            if (other == null)
+            {
+                return false;
+            }
+            return this.value.Equals(other);
         }
 
+        /// <summary>
+        ///  Retrieves the hash code of the object returned by the Value property.
+        /// </summary>
+        /// <returns>The hash code of the object returned by the Value property.</returns>
         public override int GetHashCode()
         {
-            return this.HasValue ? this.Value.GetHashCode() : 0;
+            return this.hasValue ? this.value.GetHashCode() : 0;
         }
 
+        /// <summary>
+        /// Returns the text representation of the value of the current object.
+        /// </summary>
+        /// <returns>The text representation of the value of the current object</returns>
+        public override string ToString()
+        {
+            return this.hasValue ? this.value.ToString() : string.Empty;
+        }
+
+        /// <summary>
+        /// Creates a new object initialized to a specified value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator XmlNullableDateTime(DateTime value)
         {
             return new XmlNullableDateTime(value);
         }
 
+        /// <summary>
+        /// Defines an conversion of a instance to its underlyling value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator DateTime(XmlNullableDateTime value)
         {
             return value.Value;
         }
 
-        public static implicit operator XmlNullableDateTime(DateTime? value)
-        {
-            return new XmlNullableDateTime(value);
-        }
-
+        /// <summary>
+        /// Defines an conversion of a instance to its underlyling nullable value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator DateTime?(XmlNullableDateTime value)
         {
-            return value.HasValue ? ((DateTime?)value.Value) : null;
+            return value.hasValue ? ((DateTime?)value.value) : null;
         }
+
+        #region IXmlSerializable
+
+        /// <summary>
+        /// This method is reserved and should not be used.
+        /// </summary>
+        /// <returns>Return null.</returns>
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Generates an object from its XML representation.
+        /// </summary>
+        /// <param name="reader">The XmlReader stream from which the object is deserialized.</param>
+        public void ReadXml(XmlReader reader)
+        {
+            string str = reader.ReadElementContentAsString();
+
+            if (this.hasValue = long.TryParse(str, out long val))
+            {
+                if (val == 0)
+                {
+                    this.hasValue = false;
+                }
+                else
+                {
+                    this.hasValue = true;
+                    this.value = begin.AddSeconds(val); //.ToLocalTime();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts an object into its XML representation.
+        /// </summary>
+        /// <param name="writer">The XmlWriter stream to which the object is serialized.</param>
+        /// <exception cref="NotImplementedException">Not implemented in this class.</exception>
+        public void WriteXml(XmlWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

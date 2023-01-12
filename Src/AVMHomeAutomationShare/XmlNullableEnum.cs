@@ -5,56 +5,128 @@ using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
-    public struct XmlNullableEnum<T> : IXmlSerializable where T : struct //System.Enum
+    /// <summary>
+    /// Class for nullable Enum serilization.
+    /// </summary>
+    public struct XmlNullableEnum<T> : IXmlSerializable where T : struct 
     {
-        public bool HasValue { get; private set; }
+        private bool hasValue;
+        private T value;
 
-        public T Value { get; private set; }
-
-        public XmlNullableEnum(T val)
+        public XmlNullableEnum(T value)
         {
-            this.HasValue = true;
-            this.Value = val;
+            this.hasValue = true;
+            this.value = value;
         }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        /// <summary>
+        /// Gets a value indicating whether the current object has a valid value.
+        /// </summary>
+        public bool HasValue { get => hasValue; }
 
-        public void ReadXml(XmlReader reader)
+        /// <summary>
+        /// Gets the value of the current object if it has been assigned a valid underlying value.
+        /// </summary>
+        public T Value { get { if (!hasValue) throw new InvalidOperationException("No value"); return value; } }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to a specified object.
+        /// </summary>
+        /// <param name="other">An object.</param>
+        /// <returns>true if the other parameter is equal to the current object; otherwise, false.</returns>
+        public override bool Equals(object other)
         {
-            string strValue = reader.ReadElementContentAsString();
-            if (this.HasValue = int.TryParse(strValue, out int value))
+            if (!this.hasValue)
             {
-                this.Value = (T)Enum.ToObject(typeof(T), value);
+                return other == null;
             }
-            //reader.ReadEndElement();
+            if (other == null)
+            {
+                return false;
+            }
+            return this.value.Equals(other);
         }
 
-        public void WriteXml(XmlWriter writer)
+        /// <summary>
+        ///  Retrieves the hash code of the object returned by the Value property.
+        /// </summary>
+        /// <returns>The hash code of the object returned by the Value property.</returns>
+        public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            return this.HasValue ? this.Value.GetHashCode() : 0;
         }
 
+        /// <summary>
+        /// Returns the text representation of the value of the current object.
+        /// </summary>
+        /// <returns>The text representation of the value of the current object</returns>
+        public override string ToString()
+        {
+            return this.hasValue ? this.value.ToString() : string.Empty;
+        }
+
+        /// <summary>
+        /// Creates a new object initialized to a specified value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator XmlNullableEnum<T>(T value)
         {
             return new XmlNullableEnum<T>(value);
         }
+
+        /// <summary>
+        /// Defines an conversion of a instance to its underlyling value.
+        /// </summary>
+        /// <param name="value">A value.</param>
 
         public static implicit operator T(XmlNullableEnum<T> value)
         {
             return value.Value;
         }
 
-        public static implicit operator XmlNullableEnum<T>(Nullable<T> value)
-        {
-            return value.HasValue ? new XmlNullableEnum<T>(value.Value) : null;
-        }
-
+        /// <summary>
+        /// Defines an conversion of a instance to its underlyling nullable value.
+        /// </summary>
+        /// <param name="value">A value.</param>
         public static implicit operator Nullable<T>(XmlNullableEnum<T> value)
         {
-            return value.HasValue ? ((Nullable<T>)value.Value) : null;
+            return value.hasValue ? ((Nullable<T>)value.value) : null;
         }
+
+        #region IXmlSerializable
+
+        /// <summary>
+        /// This method is reserved and should not be used.
+        /// </summary>
+        /// <returns>Return null.</returns>
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Generates an object from its XML representation.
+        /// </summary>
+        /// <param name="reader">The XmlReader stream from which the object is deserialized.</param>
+        public void ReadXml(XmlReader reader)
+        {
+            string str = reader.ReadElementContentAsString();
+            if (this.hasValue = int.TryParse(str, out int val))
+            {
+                this.value = (T)Enum.ToObject(typeof(T), val);
+            }
+        }
+
+        /// <summary>
+        /// Converts an object into its XML representation.
+        /// </summary>
+        /// <param name="writer">The XmlWriter stream to which the object is serialized.</param>
+        /// <exception cref="NotImplementedException">Not implemented in this class.</exception>
+        public void WriteXml(XmlWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion        
     }
 }
