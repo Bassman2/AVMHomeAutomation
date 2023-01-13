@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EtsiInterfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Template.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableEnum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlEnumList.cs" />

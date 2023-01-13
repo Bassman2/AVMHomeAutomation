@@ -236,7 +236,6 @@ namespace AVMHomeAutomation
         /// <returns>ColorName of the actor</returns>
         public string GetSwitchName(string ain)
         {
-            //return GetStringAsync("getswitchname", ain).Result;
             return this.client.GetStringAsync(BuildUrl("getswitchname", ain)).Result.TrimEnd();
         }
 
@@ -247,7 +246,6 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string> GetSwitchNameAsync(string ain)
         {
-            //return await GetStringAsync("getswitchname", ain);
             return (await this.client.GetStringAsync(BuildUrl("getswitchname", ain))).TrimEnd();
         }
 
@@ -257,7 +255,6 @@ namespace AVMHomeAutomation
         /// <returns>Information of all SmartHome devices</returns>
         public DeviceList GetDeviceListInfos()
         {
-            //return GetStringAsync("getdevicelistinfos").Result.ToAs<DeviceList>();
             return this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result.ToAs<DeviceList>();
         }
 
@@ -267,7 +264,6 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
         {
-            //return (await GetStringAsync("getdevicelistinfos")).ToAs<DeviceList>();
             return (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).ToAs<DeviceList>();
         }
 
@@ -278,8 +274,7 @@ namespace AVMHomeAutomation
         /// <returns>Temperature value in C.</returns>
         public double GetTemperature(string ain)
         {
-            string res = this.client.GetStringAsync(BuildUrl("gettemperature", ain)).Result;
-            return res.ToTemperature();
+            return this.client.GetStringAsync(BuildUrl("gettemperature", ain)).Result.ToTemperature();
         }
 
         /// <summary>

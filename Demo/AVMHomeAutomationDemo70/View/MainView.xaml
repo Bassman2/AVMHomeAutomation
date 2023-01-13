@@ -7,6 +7,9 @@
         xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
         mc:Ignorable="d"
         Title="AVM Home Automation" Height="600" Width="980">
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
+    </Window.InputBindings>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="DarkGray">
             <StatusBar.ItemsPanel>
@@ -24,20 +27,41 @@
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0" Content="" />
         </StatusBar>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Present" Binding="{Binding IsPresent}" />
-                    <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
-                    <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <local:DeviceView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
-        </Grid>
+        <TabControl>
+            <TabItem Header="Devices / Groups">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Present" Binding="{Binding IsPresent}" />
+                            <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
+                            <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <local:DeviceView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Templates">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Grid.Column="0" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <!--<DataGridTextColumn Header="Present" Binding="{Binding IsPresent}" />
+                            <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
+                            <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />-->
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <local:TemplateView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedTemplate}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>

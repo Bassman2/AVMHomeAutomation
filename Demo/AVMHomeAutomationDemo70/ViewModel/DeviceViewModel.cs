@@ -7,7 +7,7 @@ namespace AVMHomeAutomationDemo.ViewModel
 {
     public class DeviceViewModel : ObservableObject
     {
-        private Device device;
+        private readonly Device device;
 
         public DeviceViewModel(Device device)
         {

@@ -16,40 +16,9 @@ namespace AVMHomeAutomation
         public string Version { get; set; }
 
         /// <summary>
-        /// Identifier of the template.
+        /// Devices and groups
         /// </summary>
-        [XmlAttribute("identifier")]
-        public string Identifier { get; set; }
-
-        /// <summary>
-        /// ID of the template.
-        /// </summary>
-        [XmlAttribute("id")]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Functional bitmask of the template.
-        /// </summary>
-        [XmlAttribute("functionbitmask")]
-        public int FunctionBitMask { get; set; }
-
-        /// <summary>
-        /// Name of the template
-        /// </summary>
-        [XmlElement("name")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// List of devices 
-        /// </summary>
-        [XmlArray("devices")]
-        [XmlArrayItem("device")]
-        public List<TemplateDevice> Devices { get; set; }
-
-        /// <summary>
-        /// Subnodes depending on which configuration is set.
-        /// </summary>
-        [XmlElement("applymask")]
-        public ApplyMask ApplyMask { get; set; }
+        [XmlElement("template")]
+        public List<Template> Templates { get; set; }        
     }
 }

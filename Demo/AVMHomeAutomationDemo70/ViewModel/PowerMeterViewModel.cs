@@ -1,10 +1,5 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
@@ -17,9 +12,9 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.powerMeter = powerMeter;
         }
 
-        public double Voltage => this.powerMeter.Voltage;
-        public double Power => this.powerMeter.Power;
-        public double Energy => this.powerMeter.Energy;
+        public double? Voltage => this.powerMeter.Voltage;
+        public double? Power => this.powerMeter.Power;
+        public double? Energy => this.powerMeter.Energy;
 
     }
 }
