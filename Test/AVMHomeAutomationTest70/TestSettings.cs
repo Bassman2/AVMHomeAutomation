@@ -11,9 +11,9 @@
         public static TestDevice DeviceDect400Switch = new()            { Ain = "13096 0015206",   Name = "Taster",           Product = "FRITZ!DECT 400",             Manufacturer = "AVM", FirmwareVersion = "04.92" };
         public static TestDevice DeviceDect440Switch = new()            { Ain = "09995 0964673",   Name = "Control",          Product = "FRITZ!DECT 440",             Manufacturer = "AVM", FirmwareVersion = "05.25" };
         public static TestDevice DeviceDect500Light = new()             { Ain = "13077 0294352-1", Name = "Light",            Product = "FRITZ!DECT 500",             Manufacturer = "AVM", FirmwareVersion = "0.0" };
-        public static TestDevice DeviceHanFunDoorWindowContact = new()  { Ain = "11934 0100883",   Name = "DoorContact",      Product = "HAN-FUN",                    Manufacturer = "",    FirmwareVersion = "31.20" };
-        public static TestDevice DeviceHanFunMotionDetector = new()     { Ain = "11324 0770838",   Name = "MotionDetector",   Product = "HAN-FUN",                    Manufacturer = "", FirmwareVersion = "30.17.01.01.017" };
-        public static TestDevice DeviceHanFunWallButton = new()         { Ain = "11934 0037013",   Name = "WallButton",       Product = "HAN-FUN",                    Manufacturer = "", FirmwareVersion = "31.20" };
+        public static TestDevice DeviceHanFunDoorWindowContact = new()  { Ain = "11934 0100883",   Name = "DoorContact",      Product = "HAN-FUN",                    Manufacturer = "0x0feb", FirmwareVersion = "31.20" };
+        public static TestDevice DeviceHanFunMotionDetector = new()     { Ain = "11324 0770838",   Name = "MotionDetector",   Product = "HAN-FUN",                    Manufacturer = "0x2c3c", FirmwareVersion = "30.17.01.01.017" };
+        public static TestDevice DeviceHanFunWallButton = new()         { Ain = "11934 0037013",   Name = "WallButton",       Product = "HAN-FUN",                    Manufacturer = "0x0feb", FirmwareVersion = "31.20" };
         public static TestDevice DeviceHanFunRollerShutter = new()      { Ain = "",                Name = "Telekom",          Product = "HAN-FUN",                    Manufacturer = "", FirmwareVersion = "31.20" };
         public const string UnknownDeviceAin = "111111111111";
         public const string TemplateAin = "111111111111";

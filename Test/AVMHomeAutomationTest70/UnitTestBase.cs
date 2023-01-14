@@ -23,11 +23,11 @@ namespace AVMHomeAutomationTest70
             }
 
             // Assert
-            Assert.AreEqual(testDevice.Ain, device.Identifier);
-            Assert.AreEqual(testDevice.Name, device.Name);
-            Assert.AreEqual(testDevice.Product, device.ProductName);
-            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer);
-            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion);
+            Assert.AreEqual(testDevice.Ain, device.Identifier, "Identifier");
+            Assert.AreEqual(testDevice.Name, device.Name, "Name");
+            Assert.AreEqual(testDevice.Product, device.ProductName, "ProductName");
+            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer, "Manufacturer");
+            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion, "FirmwareVersion");
         }
 
         [TestMethod]
@@ -43,11 +43,11 @@ namespace AVMHomeAutomationTest70
             }
 
             // Assert
-            Assert.AreEqual(testDevice.Ain, device.Identifier);
-            Assert.AreEqual(testDevice.Name, device.Name);
-            Assert.AreEqual(testDevice.Product, device.ProductName);
-            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer);
-            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion);
+            Assert.AreEqual(testDevice.Ain, device.Identifier, "Identifier");
+            Assert.AreEqual(testDevice.Name, device.Name, "Name");
+            Assert.AreEqual(testDevice.Product, device.ProductName, "ProductName");
+            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer, "Manufacturer");
+            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion, "FirmwareVersion");
         }
 
         [TestMethod]

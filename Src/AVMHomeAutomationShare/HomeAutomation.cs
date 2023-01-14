@@ -398,6 +398,49 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
+        /// Provides the basics information of all routines/triggers.
+        /// </summary>
+        /// <returns>Trigger list.</returns>
+        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
+        public TriggerList GetTriggerListInfos()
+        {
+            return this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result.ToAs<TriggerList>();
+        }
+
+        /// <summary>
+        /// Provides the basics information of all routines/triggers.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
+        public async Task<TriggerList> GetTriggerListInfosAsync()
+        {
+            return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).ToAs<TriggerList>();
+        }
+
+        /// <summary>
+        /// Activate or deactivate trigger.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="active">True to activate, false to deactivate.</param>
+        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
+        public void SetTriggerActive(string ain, bool active)
+        {
+            this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}")).Wait();
+        }
+
+        /// <summary>
+        /// Activate or deactivate trigger.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="active">True to activate, false to deactivate.</param>
+        /// <returns></returns>
+        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
+        public async Task SetTriggerActiveAsync(string ain, bool active)
+        {
+            await this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}"));
+        }
+
+        /// <summary>
         /// Returns the basic information of all templates / templates.
         /// </summary>
         /// <returns>Template list.</returns>
@@ -564,6 +607,52 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
+        /// Adjust hue saturation color. 
+        /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="hue">Hue value of the color.</param>
+        /// <param name="saturation">Saturation value of the color.</param>
+        /// <param name="duration">Speed of the change.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public void SetUnmappedColor(string ain, int hue, int saturation, TimeSpan? duration = null)
+        {
+            if (hue < 0 || hue > 359)
+            {
+                throw new ArgumentOutOfRangeException(nameof(hue));
+            }
+            if (saturation < 0 || saturation > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(saturation));
+            }
+
+            this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Wait();
+        }
+
+        /// <summary>
+        /// Adjust hue saturation color. 
+        /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="hue">Hue value of the color.</param>
+        /// <param name="saturation">Saturation value of the color.</param>
+        /// <param name="duration">Speed of the change.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public async Task SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
+        {
+            if (hue < 0 || hue > 359)
+            {
+                throw new ArgumentOutOfRangeException(nameof(hue));
+            }
+            if (saturation < 0 || saturation > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(saturation));
+            }
+            await this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"));
+        }
+
+        /// <summary>
         /// Adjust color temperature.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
@@ -594,6 +683,39 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
             await this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"));
+        }
+
+        /// <summary>
+        /// Adjust color temperature.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
+        /// <param name="duration">Speed of the change.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public void SetColorLevelTemperature(string ain, int temperature, TimeSpan? duration = null)
+        {
+            if (temperature < 2700 || temperature > 6500)
+            {
+                throw new ArgumentOutOfRangeException(nameof(temperature));
+            }
+            this.client.GetStringAsync(BuildUrl("addcolorleveltemplate", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}")).Wait();
+        }
+
+        /// <summary>
+        /// Adjust color temperature.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
+        /// <param name="duration">Speed of the change.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public async Task SetColorLevelTemperatureAsync(string ain, int temperature, TimeSpan? duration = null)
+        {
+            if (temperature < 2700 || temperature > 6500)
+            {
+                throw new ArgumentOutOfRangeException(nameof(temperature));
+            }
+            await this.client.GetStringAsync(BuildUrl("addcolorleveltemplate", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"));
         }
 
         /// <summary>
@@ -722,6 +844,8 @@ namespace AVMHomeAutomation
             this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}")).Wait();
         }
 
+
+
         /// <summary>
         /// Change device or group name.
         /// Attention: the user session must have the smart home and app right.
@@ -738,6 +862,33 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(name));
             }
             await this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}"));
+        }
+
+        /// <summary>
+        /// json metadata of the template or change/set empty string
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="name">New name, maximum 40 characters.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
+        public void SetMetaData(string ain)
+        {
+            
+            this.client.GetStringAsync(BuildUrl("setmetadata", ain)).Wait();
+        }
+
+        /// <summary>
+        /// json metadata of the template or change/set empty string
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <param name="name">New name, maximum 40 characters.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
+        public async Task SetMetaDataAsync(string ain)
+        {
+            
+            await this.client.GetStringAsync(BuildUrl("setmetadata", ain));
         }
 
         /// <summary>
@@ -812,6 +963,12 @@ namespace AVMHomeAutomation
                 file.WriteLine(this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
                 file.WriteLine(this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
                 file.WriteLine(this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result);
+                try
+                {
+                    file.WriteLine(this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result);
+                }
+                catch
+                { }
                 file.WriteLine("</Report>");
             }
         }
