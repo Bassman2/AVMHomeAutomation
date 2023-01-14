@@ -36,7 +36,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="login">Login name.</param>
         /// <param name="password">Login password.</param>
-        public HomeAutomation(string login, string password)
+        public HomeAutomation(string login, string password, Uri host = null)
         {
             // connect
             this.handler = new HttpClientHandler
@@ -46,7 +46,7 @@ namespace AVMHomeAutomation
             };
             this.client = new HttpClient(this.handler)
             {
-                BaseAddress = host,
+                BaseAddress = host ?? this.host,
                 Timeout = new TimeSpan(0, 2, 0)
             };
 
@@ -797,6 +797,23 @@ namespace AVMHomeAutomation
         public async Task<Device> GetDeviceInfosAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).ToAs<Device>();
+        }
+
+        /// <summary>
+        /// Create a bug report file.
+        /// </summary>
+        public void CreateBugReportFile()
+        {
+//            string fileName = $"BugReport-{DateTime.Now.ToString("yyy-MM-dd-HH-mm-ss")}.xml";
+            string fileName = $"BugReport-{DateTime.Now:yyy-MM-dd-HH-mm-ss}.xml";
+            using (var file = File.CreateText(fileName))
+            {
+                file.WriteLine("<Report>");
+                file.WriteLine(this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
+                file.WriteLine(this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
+                file.WriteLine(this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result);
+                file.WriteLine("</Report>");
+            }
         }
                 
         #endregion

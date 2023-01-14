@@ -10,16 +10,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\GrayBall.png" />
+    <None Remove="Images\GreenBall.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Images\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\GrayBall.png" />
+    <Resource Include="Images\GreenBall.png" />
   </ItemGroup>
 
 </Project>

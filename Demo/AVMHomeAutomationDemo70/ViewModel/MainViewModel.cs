@@ -16,20 +16,28 @@ namespace AVMHomeAutomationDemo.ViewModel
         [RelayCommand]
         public void OnRefresh()
         {
-            using HomeAutomation client = new HomeAutomation("Demo", "Demo-1234");
+            using var client = new HomeAutomation("Demo", "Demo-1234");
 
-            this.Devices = client.GetDeviceListInfos().Devices.Select(d => new DeviceViewModel(d)).ToList();
+            this.DeviceList = client.GetDeviceListInfos();
+            this.Devices = this.DeviceList.Devices.Select(d => new DeviceViewModel(d)).ToList();
             this.SelectedDevice = this.Devices.FirstOrDefault();
 
-            this.Templates = client.GetTemplateListInfos().Templates.Select(t => new TemplateViewModel(t)).ToList();
+            this.TemplateList = client.GetTemplateListInfos();
+            this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices)).ToList();
             this.selectedTemplate = this.Templates.FirstOrDefault();
         }
+
+        [ObservableProperty]
+        public DeviceList deviceList;
 
         [ObservableProperty]
         public List<DeviceViewModel> devices;
 
         [ObservableProperty]
         private DeviceViewModel selectedDevice;
+
+        [ObservableProperty]
+        public TemplateList templateList;
 
         [ObservableProperty]
         public List<TemplateViewModel> templates;

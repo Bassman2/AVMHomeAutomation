@@ -7,6 +7,9 @@
         xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
         mc:Ignorable="d"
         Title="AVM Home Automation" Height="600" Width="980">
+    <Window.Resources>
+        <conv:BoolToBallImageConverter x:Key="BoolToBallImageConverter"/>
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
     </Window.InputBindings>
@@ -30,36 +33,77 @@
         <TabControl>
             <TabItem Header="Devices / Groups">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Present" Binding="{Binding IsPresent}" />
-                            <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
-                            <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <local:DeviceView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Version" />
+                        <TextBox Grid.Column="1" Text="{Binding DeviceList.Version, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                        <Label Grid.Column="2" Content="Firmware" />
+                        <TextBox Grid.Column="3" Text="{Binding DeviceList.FirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="540"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Name">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <Image Source="{Binding IsPresent, Converter={StaticResource BoolToBallImageConverter}}" />
+                                                <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                                <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
+                                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <local:DeviceView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Templates">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Column="0" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                            <!--<DataGridTextColumn Header="Present" Binding="{Binding IsPresent}" />
-                            <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
-                            <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />-->
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <local:TemplateView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedTemplate}"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Version" />
+                        <TextBox Grid.Column="1" Text="{Binding DeviceList.Version, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="540"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <DataGrid Grid.Column="0" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <local:TemplateView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedTemplate}"/>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>
