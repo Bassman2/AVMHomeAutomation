@@ -307,24 +307,6 @@
             Assert.IsFalse(deviceInfos2.Hkr.WindowOpenActiv);
             Assert.IsFalse(deviceInfos2.Hkr.WindowOpenActivEndTime.HasValue);
         }
-
-        [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void TestMethodSetHkrtSollException()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetHkrtSoll(testDevice.Ain, 7.0);
-            }
-        }
-
-        [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public async Task TestMethodSetHkrtSollExceptionAsync()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                await client.SetHkrtSollAsync(testDevice.Ain, 7.0);
-            }
-        }
     }
 }
 

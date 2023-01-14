@@ -16,6 +16,6 @@
         public static TestDevice DeviceHanFunWallButton = new()         { Ain = "11934 0037013",   Name = "WallButton",       Product = "HAN-FUN",                    Manufacturer = "0x0feb", FirmwareVersion = "31.20" };
         public static TestDevice DeviceHanFunRollerShutter = new()      { Ain = "",                Name = "Telekom",          Product = "HAN-FUN",                    Manufacturer = "", FirmwareVersion = "31.20" };
         public const string UnknownDeviceAin = "111111111111";
-        public const string TemplateAin = "111111111111";
+        public const string TemplateAin = "tmp280D89-3E4719303";
     }
 }
