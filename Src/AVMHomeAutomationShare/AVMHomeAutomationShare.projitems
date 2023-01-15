@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorControl.cs" />
@@ -21,7 +22,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Template.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Trigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TriggerList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlAvailable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableEnum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlEnumList.cs" />

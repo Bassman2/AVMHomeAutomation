@@ -26,7 +26,7 @@ namespace AVMHomeAutomation
         /// <remarks>Use for SetHkrtSoll</remarks>
         public const double Off = double.MinValue;
 
-        private readonly Uri host = new Uri("http://fritz.box");
+        private readonly Uri defaultHost = new Uri("http://fritz.box");
         private readonly HttpClientHandler handler;
         private HttpClient client;
         private readonly string sessionId;
@@ -36,6 +36,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="login">Login name.</param>
         /// <param name="password">Login password.</param>
+        /// <param name="host">Host name.</param>
         public HomeAutomation(string login, string password, Uri host = null)
         {
             // connect
@@ -46,7 +47,7 @@ namespace AVMHomeAutomation
             };
             this.client = new HttpClient(this.handler)
             {
-                BaseAddress = host ?? this.host,
+                BaseAddress = host ?? this.defaultHost,
                 Timeout = new TimeSpan(0, 2, 0)
             };
 
@@ -255,7 +256,7 @@ namespace AVMHomeAutomation
         /// <returns>Information of all SmartHome devices</returns>
         public DeviceList GetDeviceListInfos()
         {
-            return this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result.ToAs<DeviceList>();
+            return this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result.XmlToAs<DeviceList>();
         }
 
         /// <summary>
@@ -264,7 +265,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
         {
-            return (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).ToAs<DeviceList>();
+            return (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).XmlToAs<DeviceList>();
         }
 
         /// <summary>
@@ -384,7 +385,7 @@ namespace AVMHomeAutomation
         /// <returns>Device stats.</returns>
         public DeviceStats GetBasicDeviceStats(string ain)
         {
-            return this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain)).Result.ToAs<DeviceStats>();
+            return this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain)).Result.XmlToAs<DeviceStats>();
         }
 
         /// <summary>
@@ -394,7 +395,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain)
         {
-            return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).ToAs<DeviceStats>();
+            return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).XmlToAs<DeviceStats>();
         }
 
         /// <summary>
@@ -404,7 +405,7 @@ namespace AVMHomeAutomation
         /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
         public TriggerList GetTriggerListInfos()
         {
-            return this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result.ToAs<TriggerList>();
+            return this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result.XmlToAs<TriggerList>();
         }
 
         /// <summary>
@@ -414,7 +415,7 @@ namespace AVMHomeAutomation
         /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
         public async Task<TriggerList> GetTriggerListInfosAsync()
         {
-            return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).ToAs<TriggerList>();
+            return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).XmlToAs<TriggerList>();
         }
 
         /// <summary>
@@ -446,7 +447,7 @@ namespace AVMHomeAutomation
         /// <returns>Template list.</returns>
         public TemplateList GetTemplateListInfos()
         {
-            return this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result.ToAs<TemplateList>();
+            return this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result.XmlToAs<TemplateList>();
         }
 
         /// <summary>
@@ -455,7 +456,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<TemplateList> GetTemplateListInfosAsync()
         {
-            return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).ToAs<TemplateList>();
+            return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).XmlToAs<TemplateList>();
         }
 
         /// <summary>
@@ -724,7 +725,7 @@ namespace AVMHomeAutomation
         /// <returns>Color defaults class.</returns>
         public ColorDefaults GetColorDefaults()
         {
-            return this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result.ToAs<ColorDefaults>();
+            return this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result.XmlToAs<ColorDefaults>();
         }
 
         /// <summary>
@@ -733,7 +734,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<ColorDefaults> GetColorDefaultsAsync()
         {
-            return (await this.client.GetStringAsync(BuildUrl("getcolordefaults"))).ToAs<ColorDefaults>();
+            return (await this.client.GetStringAsync(BuildUrl("getcolordefaults"))).XmlToAs<ColorDefaults>();
         }
 
         /// <summary>
@@ -868,27 +869,26 @@ namespace AVMHomeAutomation
         /// json metadata of the template or change/set empty string
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="name">New name, maximum 40 characters.</param>
+        /// <param name="metaData">Metadata to set.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public void SetMetaData(string ain)
+        /// <remarks>New in Fritz!OS 7.39</remarks>
+        public void SetMetaData(string ain, MetaData metaData)
         {
             
-            this.client.GetStringAsync(BuildUrl("setmetadata", ain)).Wait();
+            this.client.GetStringAsync(BuildUrl("setmetadata", ain, $"metadata={metaData.AsToJson()}")).Wait();
         }
 
         /// <summary>
         /// json metadata of the template or change/set empty string
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="name">New name, maximum 40 characters.</param>
+        /// <param name="metaData">Metadata to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public async Task SetMetaDataAsync(string ain)
+        /// <remarks>New in Fritz!OS 7.39</remarks>
+        public async Task SetMetaDataAsync(string ain, MetaData metaData)
         {
             
-            await this.client.GetStringAsync(BuildUrl("setmetadata", ain));
+            await this.client.GetStringAsync(BuildUrl("setmetadata", ain, $"metadata={metaData.AsToJson()}"));
         }
 
         /// <summary>
@@ -917,7 +917,7 @@ namespace AVMHomeAutomation
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public SubscriptionState GetSubscriptionState()
         {
-            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.ToAs<SubscriptionState>();
+            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.XmlToAs<SubscriptionState>();
         }
 
         /// <summary>
@@ -927,7 +927,7 @@ namespace AVMHomeAutomation
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public async Task<SubscriptionState> GetSubscriptionStateAsync()
         {
-            return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).ToAs<SubscriptionState>();
+            return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).XmlToAs<SubscriptionState>();
         }
 
         /// <summary>
@@ -937,7 +937,7 @@ namespace AVMHomeAutomation
         /// <returns>Information of one SmartHome devices</returns>
         public Device GetDeviceInfos(string ain)
         {
-            return this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain)).Result.ToAs<Device>();
+            return this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain)).Result.XmlToAs<Device>();
         }
 
         /// <summary>
@@ -947,7 +947,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Device> GetDeviceInfosAsync(string ain)
         {
-            return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).ToAs<Device>();
+            return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).XmlToAs<Device>();
         }
 
         /// <summary>

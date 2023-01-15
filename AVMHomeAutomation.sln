@@ -40,7 +40,9 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "AVMHomeAutomationDoc", "Doc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{F6B4B28F-9527-4AD6-831E-F05352B0782C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationReport70", "Report\AVMHomeAutomationReport70\AVMHomeAutomationReport70.csproj", "{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVMHomeAutomationReport70", "Report\AVMHomeAutomationReport70\AVMHomeAutomationReport70.csproj", "{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationFramework461", "Src\AVMHomeAutomationFramework461\AVMHomeAutomationFramework461.csproj", "{8B553820-B0BF-42A5-9201-739248114357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -295,6 +297,26 @@ Global
 		{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE}.Release|x64.Build.0 = Release|Any CPU
 		{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE}.Release|x86.Build.0 = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|x64.Build.0 = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|ARM.Build.0 = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|ARM64.Build.0 = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|x64.ActiveCfg = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|x64.Build.0 = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B553820-B0BF-42A5-9201-739248114357}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -313,6 +335,7 @@ Global
 		{151A5CCC-C7AA-482A-9A25-2B6131D649D9} = {6BBFABC6-1D46-4ECE-A9A0-D4F98E5EFD2E}
 		{7A0F58B4-D1BD-4F0D-B62A-63BE67F9F5DC} = {7B950365-049E-4729-8810-1B9826FEA9D0}
 		{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE} = {F6B4B28F-9527-4AD6-831E-F05352B0782C}
+		{8B553820-B0BF-42A5-9201-739248114357} = {E29B4D4A-76AE-454F-8CD8-90148AA01D52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA554914-5C65-43F3-ADFB-C436CCD65309}
@@ -323,8 +346,8 @@ Global
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{556f3062-2219-4105-a7a4-9e03c985037b}*SharedItemsImports = 5
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{6f59b257-cfe6-4ab3-a35d-0675c6936e4a}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{86ea7632-dbf9-406d-9fd3-ae118733d3c8}*SharedItemsImports = 5
+		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{8b553820-b0bf-42a5-9201-739248114357}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{ab16ac34-84e0-410b-bd72-9a338d8e8cef}*SharedItemsImports = 5
-		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{d03422f2-d4fa-4720-bb70-4b035a753e50}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{ebdfc47c-f18a-4368-b40f-94f92ae67848}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{f5df3beb-95c6-4764-8485-a24ec59e8282}*SharedItemsImports = 5
 	EndGlobalSection

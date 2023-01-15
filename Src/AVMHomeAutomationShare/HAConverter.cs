@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
@@ -93,7 +95,7 @@ namespace AVMHomeAutomation
             }
         }
 
-        public static T ToAs<T>(this string value)
+        public static T XmlToAs<T>(this string value)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
             using (StringReader reader = new StringReader(value))
@@ -103,6 +105,27 @@ namespace AVMHomeAutomation
             }
         }
 
+        public static T JsonToAs<T>(this string value)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Converters = { new JsonStringEnumConverter() }
+            };
+
+            return JsonSerializer.Deserialize<T>(value, options);
+        }
+
+        public static string AsToJson<T>(this T value)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters = { new JsonStringEnumConverter() }
+            };
+
+            return JsonSerializer.Serialize(value, options);
+        }
+        
         public static long ToUnixTime(this DateTime dateTime)
         {
             // return ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
