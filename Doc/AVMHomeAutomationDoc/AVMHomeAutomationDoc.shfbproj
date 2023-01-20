@@ -57,7 +57,8 @@
     <ComponentConfigurations />
     <NamespaceSummaries>
       <NamespaceSummaryItem name="(global)" isDocumented="True">AVM Home Automation Namespace</NamespaceSummaryItem>
-<NamespaceSummaryItem name="AVMHomeAutomation" isDocumented="True">AVM Home Automation Namespace</NamespaceSummaryItem></NamespaceSummaries>
+      <NamespaceSummaryItem name="AVMHomeAutomation" isDocumented="True">AVM Home Automation Namespace</NamespaceSummaryItem>
+    </NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
@@ -83,6 +84,8 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Devices.aml" />
+    <None Include="Content\FunctionalClasses.aml" />
     <None Include="Content\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>

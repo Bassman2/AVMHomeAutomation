@@ -50,31 +50,41 @@ namespace AVMHomeAutomationTest70
             Assert.IsFalse(stats.Energy.Count > 0);
             Assert.IsTrue(stats.Humidity.Count > 0);
         }
-
+        
         [TestMethod]
         public void TestMethodTemperature()
         {
+            Device deviceInfos;
             double temperature;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
+                deviceInfos = client.GetDeviceInfos(testDevice.Ain);
                 temperature = client.GetTemperature(testDevice.Ain);
             }
 
-            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+            Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
+            Assert.IsNotNull(deviceInfos, "deviceInfo");
+            Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
+            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
         }
 
         [TestMethod]
         public async Task TestMethodTemperatureAsync()
         {
+            Device deviceInfos;
             double temperature;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
+                deviceInfos = await client.GetDeviceInfosAsync(testDevice.Ain);
                 temperature = await client.GetTemperatureAsync(testDevice.Ain);
             }
 
-            Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
+            Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
+            Assert.IsNotNull(deviceInfos, "deviceInfo");
+            Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
+            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
         }
 
         //[TestMethod]
@@ -98,6 +108,6 @@ namespace AVMHomeAutomationTest70
 
         //}
 
-       
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
@@ -95,6 +97,22 @@ namespace AVMHomeAutomation
             }
         }
 
+        public static OnOff ToOnOff(this string value)
+        {
+            switch (value.TrimEnd())
+            {
+            case "0": return OnOff.Off;
+            case "1": return OnOff.On;
+            case "2": return OnOff.Toggle;
+            default: throw new ArgumentOutOfRangeException(nameof(value), value);
+            }
+        }
+
+        public static int ToInt(this string value)
+        {
+            return int.Parse(value);
+        }
+
         public static T XmlToAs<T>(this string value)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
@@ -152,6 +170,27 @@ namespace AVMHomeAutomation
                 return val == 0 ? null : (DateTime?)(UnixDateTimeStart.AddSeconds(val));
             }
             return null;
+        }
+
+        /// <summary>
+        /// Fix bug in Fritz!OS
+        /// </summary>
+        /// <param name="value">Result string.</param>
+        /// <returns>Result string</returns>
+        /// <exception cref="HttpRequestException">Throw exception is result string starts with HTTP error.</exception>
+
+        public static string CheckStatusCode(this string value)
+        {
+            // "HTTP/1.0 500 Internal Server Error\r\nContent-Length: 0\r\nContent-Type: text/plain; charset=utf-8\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nExpires: -1"
+            if (value.StartsWith("HTTP/1.0 500"))
+            {
+#if NET
+                throw new HttpRequestException("Internal Server Error", null, HttpStatusCode.InternalServerError);
+#else
+                throw new HttpRequestException("Internal Server Error", null);
+#endif
+            }
+            return value;
         }
     }
 }

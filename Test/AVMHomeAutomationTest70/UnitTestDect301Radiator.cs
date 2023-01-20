@@ -57,10 +57,10 @@
                 temperature = client.GetTemperature(testDevice.Ain);
             }
 
-            Assert.IsTrue(temperature > 14.0 && temperature < 25.0);
-            Assert.IsNotNull(deviceInfos);
-            Assert.IsNotNull(deviceInfos.Temperature);
-            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature);
+            Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
+            Assert.IsNotNull(deviceInfos, "deviceInfo");
+            Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
+            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
         }
 
         [TestMethod]
@@ -75,10 +75,10 @@
                 temperature = await client.GetTemperatureAsync(testDevice.Ain);
             }
 
-            Assert.IsTrue(temperature > 14.0 && temperature < 25.0);
-            Assert.IsNotNull(deviceInfos);
-            Assert.IsNotNull(deviceInfos.Temperature);
-            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature);
+            Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
+            Assert.IsNotNull(deviceInfos, "deviceInfo");
+            Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
+            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
         }
 
         [TestMethod]

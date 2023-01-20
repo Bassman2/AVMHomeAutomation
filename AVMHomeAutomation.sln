@@ -348,6 +348,7 @@ Global
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{86ea7632-dbf9-406d-9fd3-ae118733d3c8}*SharedItemsImports = 5
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{8b553820-b0bf-42a5-9201-739248114357}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{ab16ac34-84e0-410b-bd72-9a338d8e8cef}*SharedItemsImports = 5
+		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{d03422f2-d4fa-4720-bb70-4b035a753e50}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{ebdfc47c-f18a-4368-b40f-94f92ae67848}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{f5df3beb-95c6-4764-8485-a24ec59e8282}*SharedItemsImports = 5
 	EndGlobalSection

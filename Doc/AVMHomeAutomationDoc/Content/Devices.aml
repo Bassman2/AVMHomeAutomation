@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="286ea9c6-8251-4e52-8daa-5ffc3391b6bb" revisionNumber="1">
+	<developerSampleDocument
+	  xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+		<summary>
+			<para>Devices</para>
+		</summary>
+
+
+		<introduction>
+			<!-- Uncomment this to generate an outline of the section and sub-section
+           titles.  Specify a numeric value as the inner text to limit it to
+           a specific number of sub-topics when creating the outline.  Specify
+           zero (0) to limit it to top-level sections only.  -->
+			<!-- <autoOutline /> -->
+
+			<para>Required introduction</para>
+		</introduction>
+
+		<section address="Dect100">
+			<title>FRITZ!DECT Repeater 100</title>
+			<content>
+				<para>Features: Temperature, AVMDECTRepeater</para>
+		        <autoOutline />
+				<para>Add one or more sections with content</para>
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect200">
+			<title>FRITZ!DECT 200</title>
+			<content>
+				<para>Features: Energy, Temperature, SwitchOutlet, Microphone, Switch</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect210">
+			<title>FRITZ!DECT 210</title>
+			<content>
+				<para>Features: Energy, Temperature, SwitchOutlet, Microphone, Switch</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect301">
+			<title>FRITZ!DECT 301</title>
+			<content>
+				<para>Features: Heater, Temperature</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect302">
+			<title>FRITZ!DECT 302</title>
+			<content>
+				<para>Features: Heater, Temperature</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect400">
+			<title>FRITZ!DECT 400</title>
+			<content>
+				<para>Features: AVMButton</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect440">
+			<title>FRITZ!DECT 440</title>
+			<content>
+				<para>Features: ????</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Dect500">
+			<title>FRITZ!DECT 500</title>
+			<content>
+				<para>Features device: HANFUNDevice</para>
+				<autoOutline />
+				<para>Features unit: Light, HANFUNUnit, Switch, Level, LightColor</para>
+				<autoOutline />
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<section address="Blind">
+			<title>Blind</title>
+			<content>
+				<!-- Uncomment this to create a sub-section outline
+        <autoOutline /> -->
+				<para>Add one or more sections with content</para>
+			</content>
+		</section>
+
+		<relatedTopics>
+			<!-- One or more of the following:
+           - A local link
+           - An external link
+           - A code entity reference
+
+      <link xlink:href="Other Topic's ID">Link text</link>
+      <externalLink>
+          <linkText>Link text</linkText>
+          <linkAlternateText>Optional alternate link text</linkAlternateText>
+          <linkUri>URI</linkUri>
+      </externalLink>
+      <codeEntityReference>API member ID</codeEntityReference>
+
+      Examples:
+
+      <link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
+
+      <externalLink>
+          <linkText>SHFB on GitHub</linkText>
+          <linkAlternateText>Go to GitHub</linkAlternateText>
+          <linkUri>https://GitHub.com/EWSoftware/SHFB</linkUri>
+      </externalLink>
+
+      <codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
+      <codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
+      -->
+		</relatedTopics>
+	</developerSampleDocument>
+</topic>

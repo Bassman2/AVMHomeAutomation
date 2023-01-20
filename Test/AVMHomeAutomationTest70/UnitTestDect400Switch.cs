@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace AVMHomeAutomationTest70
 {
@@ -75,6 +71,15 @@ namespace AVMHomeAutomationTest70
 
         //}
 
+        [TestMethod]
+        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
+        public void TestMethodTemperatureException()
+        {
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.GetTemperature(testDevice.Ain);
+            }
+        }
 
     }
 }

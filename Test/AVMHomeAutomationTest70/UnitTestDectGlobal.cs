@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 
 namespace AVMHomeAutomationTest70
 {
@@ -209,11 +210,12 @@ namespace AVMHomeAutomationTest70
         }
 
         [TestMethod]
+        [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
         public void TestMethodSwitchNameError()
         {
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                Assert.ThrowsException<HttpRequestException>(() => client.GetSwitchName(TestSettings.UnknownDeviceAin));
+                client.GetSwitchName(TestSettings.UnknownDeviceAin);
             }
         }
     }

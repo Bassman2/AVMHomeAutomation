@@ -134,7 +134,7 @@ namespace AVMHomeAutomation
         /// <returns>New state of the socket</returns>
         public bool SetSwitchToggle(string ain)
         {
-            return this.client.GetStringAsync(BuildUrl("setswitchtoggle", ain)).Result.ToBool();
+            return this.client.GetStringAsync(BuildUrl("setswitchtoggle", ain)).Result.CheckStatusCode().ToBool();
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchToggleAsync(string ain)
         {
-            return (await this.client.GetStringAsync(BuildUrl("setswitchtoggle", ain))).ToBool();
+            return (await this.client.GetStringAsync(BuildUrl("setswitchtoggle", ain))).CheckStatusCode().ToBool();
         }
 
 
@@ -434,7 +434,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="active">True to activate, false to deactivate.</param>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
         public async Task SetTriggerActiveAsync(string ain, bool active)
         {
@@ -483,9 +483,9 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="onOff">Switch on, off or toggle.</param>
-        public void SetSimpleOnOff(string ain, OnOff onOff)
+        public OnOff SetSimpleOnOff(string ain, OnOff onOff)
         {
-            this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}")).Result.ToOnOff();
         }
 
         /// <summary>
@@ -494,9 +494,9 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="onOff">Switch on, off or toggle.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task SetSimpleOnOffAsync(string ain, OnOff onOff)
+        public async Task<OnOff> SetSimpleOnOffAsync(string ain, OnOff onOff)
         {
-            await this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}"));
+            return (await this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}"))).ToOnOff();
         }
 
         /// <summary>
@@ -505,13 +505,13 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level">Level (0 - 255) to set.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetLevel(string ain, int level)
+        public int SetLevel(string ain, int level)
         {
             if (level < 0 || level > 255)
             {
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
-            this.client.GetStringAsync(BuildUrl("setlevel", ain, $"level={level}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setlevel", ain, $"level={level}")).Result.ToInt();
         }
 
         /// <summary>
@@ -521,13 +521,13 @@ namespace AVMHomeAutomation
         /// <param name="level">Level (0 - 255) to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetLevelAsync(string ain, int level)
+        public async Task<int> SetLevelAsync(string ain, int level)
         {
             if (level < 0 || level > 255)
             {
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
-            await this.client.GetStringAsync(BuildUrl("setlevel", ain, $"level={level}"));
+            return (await this.client.GetStringAsync(BuildUrl("setlevel", ain, $"level={level}"))).ToInt();
         }
 
         /// <summary>
@@ -536,13 +536,13 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level">Level in percent (0 - 100) to set.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetLevelPercentage(string ain, int level)
+        public int SetLevelPercentage(string ain, int level)
         {
             if (level < 0 || level > 100)
             {
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
-            this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}")).Result.ToInt();
         }
 
         /// <summary>
@@ -552,13 +552,13 @@ namespace AVMHomeAutomation
         /// <param name="level">Level in percent (0 - 100) to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetLevelPercentageAsync(string ain, int level)
+        public async Task<int> SetLevelPercentageAsync(string ain, int level)
         {
             if (level < 0 || level > 100)
             {
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
-            await this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}"));
+            return (await this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}"))).ToInt();
         }
 
         /// <summary>
@@ -569,8 +569,9 @@ namespace AVMHomeAutomation
         /// <param name="hue">Hue value of the color.</param>
         /// <param name="saturation">Saturation value of the color.</param>
         /// <param name="duration">Speed of the change.</param>
+        /// <returns>Hue value of the color.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetColor(string ain, int hue, int saturation, TimeSpan? duration = null)
+        public int SetColor(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
             if (hue < 0 || hue > 359)
             {
@@ -581,7 +582,7 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
 
-            this.client.GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Result.ToInt();
         }
 
         /// <summary>
@@ -594,7 +595,7 @@ namespace AVMHomeAutomation
         /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
+        public async Task<int> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
             if (hue < 0 || hue > 359)
             {
@@ -604,7 +605,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
-            await this.client.GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"));
+            return (await this.client.GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"))).ToInt();
         }
 
         /// <summary>
@@ -616,7 +617,7 @@ namespace AVMHomeAutomation
         /// <param name="saturation">Saturation value of the color.</param>
         /// <param name="duration">Speed of the change.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetUnmappedColor(string ain, int hue, int saturation, TimeSpan? duration = null)
+        public int SetUnmappedColor(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
             if (hue < 0 || hue > 359)
             {
@@ -627,7 +628,7 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
 
-            this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Result.ToInt();
         }
 
         /// <summary>
@@ -640,7 +641,7 @@ namespace AVMHomeAutomation
         /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
+        public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
             if (hue < 0 || hue > 359)
             {
@@ -650,7 +651,7 @@ namespace AVMHomeAutomation
             {
                 throw new ArgumentOutOfRangeException(nameof(saturation));
             }
-            await this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"));
+            return (await this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"))).ToInt();
         }
 
         /// <summary>
@@ -660,13 +661,13 @@ namespace AVMHomeAutomation
         /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
         /// <param name="duration">Speed of the change.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetColorTemperature(string ain, int temperature, TimeSpan? duration = null)
+        public int SetColorTemperature(string ain, int temperature, TimeSpan? duration = null)
         {
             if (temperature < 2700 || temperature > 6500)
             {
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
-            this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}")).Result.ToInt();
         }
 
         /// <summary>
@@ -677,13 +678,13 @@ namespace AVMHomeAutomation
         /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null)
+        public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null)
         {
             if (temperature < 2700 || temperature > 6500)
             {
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
-            await this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"));
+            return (await this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"))).ToInt();
         }
 
         /// <summary>
@@ -1028,6 +1029,16 @@ namespace AVMHomeAutomation
         private string BuildUrl(string cmd, string ain, string param)
         {
             return $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
+        }
+
+        private async Task<string> GetStringAsync(string p)
+        {
+            using (HttpResponseMessage response = await this.client.GetAsync(p))  // .ConfigureAwait(false)
+            {
+                response.EnsureSuccessStatusCode();
+                string str = await response.Content.ReadAsStringAsync();
+                return str;
+            }
         }
 
         #endregion
