@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDect440Switch : UnitTestBase
+    public partial class UnitTestDect440Switch : UnitTestBase
     {
         [TestInitialize]
         public void Initialize()
@@ -51,41 +51,41 @@ namespace AVMHomeAutomationTest70
             Assert.IsTrue(stats.Humidity.Count > 0);
         }
         
-        [TestMethod]
-        public void TestMethodTemperature()
-        {
-            Device deviceInfos;
-            double temperature;
+        //[TestMethod]
+        //public void TestMethodTemperature()
+        //{
+        //    Device deviceInfos;
+        //    double temperature;
 
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                deviceInfos = client.GetDeviceInfos(testDevice.Ain);
-                temperature = client.GetTemperature(testDevice.Ain);
-            }
+        //    using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+        //    {
+        //        deviceInfos = client.GetDeviceInfos(testDevice.Ain);
+        //        temperature = client.GetTemperature(testDevice.Ain);
+        //    }
 
-            Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
-            Assert.IsNotNull(deviceInfos, "deviceInfo");
-            Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
-            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
-        }
+        //    Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
+        //    Assert.IsNotNull(deviceInfos, "deviceInfo");
+        //    Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
+        //    Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
+        //}
 
-        [TestMethod]
-        public async Task TestMethodTemperatureAsync()
-        {
-            Device deviceInfos;
-            double temperature;
+        //[TestMethod]
+        //public async Task TestMethodTemperatureAsync()
+        //{
+        //    Device deviceInfos;
+        //    double temperature;
 
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                deviceInfos = await client.GetDeviceInfosAsync(testDevice.Ain);
-                temperature = await client.GetTemperatureAsync(testDevice.Ain);
-            }
+        //    using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+        //    {
+        //        deviceInfos = await client.GetDeviceInfosAsync(testDevice.Ain);
+        //        temperature = await client.GetTemperatureAsync(testDevice.Ain);
+        //    }
 
-            Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
-            Assert.IsNotNull(deviceInfos, "deviceInfo");
-            Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
-            Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
-        }
+        //    Assert.IsTrue(temperature > 14.0 && temperature < 25.0, "Range");
+        //    Assert.IsNotNull(deviceInfos, "deviceInfo");
+        //    Assert.IsNotNull(deviceInfos.Temperature, "Temperature");
+        //    Assert.AreEqual(deviceInfos.Temperature.Celsius, temperature, "Compare");
+        //}
 
         //[TestMethod]
         //public void TestMethodGetSwitch()

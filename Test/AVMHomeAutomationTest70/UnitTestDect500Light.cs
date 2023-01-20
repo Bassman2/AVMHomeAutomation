@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDect500Light : UnitTestBase
+    public partial class UnitTestDect500Light : UnitTestBase
     {
         [TestInitialize]
         public void Initialize()

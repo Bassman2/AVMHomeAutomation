@@ -3,7 +3,7 @@
 namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDect400Switch : UnitTestBase
+    public partial class UnitTestDect400Switch : UnitTestBase
     {
         [TestInitialize]
         public void Initialize()
