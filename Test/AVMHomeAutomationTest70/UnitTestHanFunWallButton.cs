@@ -1,7 +1,7 @@
 ﻿namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestHanFunWallButton : UnitTestBase
+    public partial class UnitTestHanFunWallButton : UnitTestBase
     {
         [TestInitialize]
         public void Initialize()

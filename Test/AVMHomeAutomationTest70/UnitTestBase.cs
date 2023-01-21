@@ -10,6 +10,11 @@ namespace AVMHomeAutomationTest70
     {
         protected TestDevice testDevice;
 
+        protected static void Sleep()
+        {
+            Thread.Sleep(1000);
+        }
+
         [TestMethod]
         public void TestMethodGetDeviceInfos()
         {

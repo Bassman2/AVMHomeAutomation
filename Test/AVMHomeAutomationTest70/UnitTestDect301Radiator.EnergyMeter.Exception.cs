@@ -3,72 +3,56 @@ using System.Net;
 
 namespace AVMHomeAutomationTest70
 {
-    public partial class UnitTestDect500Light : UnitTestBase
+    public partial class UnitTestDect301Radiator : UnitTestBase
     {
         #region Energy Meter
 
         [TestMethod]
-        public void TestMethodEnergy()
+        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
+        public void TestMethodEnergyError()
         {
-            Device device;
             double? energy;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                device = client.GetDeviceInfos(testDevice.Ain);
                 energy = client.GetSwitchEnergy(testDevice.Ain);
             }
-
-            Assert.IsTrue(energy.HasValue);
-            Assert.AreEqual(device.PowerMeter.Energy, energy.Value);
         }
 
         [TestMethod]
-        public async Task TestMethodEnergyAsync()
+        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
+        public async Task TestMethodEnergyAsyncError()
         {
-            Device device;
             double? energy;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                device = await client.GetDeviceInfosAsync(testDevice.Ain);
                 energy = await client.GetSwitchEnergyAsync(testDevice.Ain);
             }
-
-            Assert.IsTrue(energy.HasValue);
-            Assert.AreEqual(device.PowerMeter.Energy, energy.Value);
         }
 
         [TestMethod]
-        public void TestMethodPower()
+        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
+        public void TestMethodPowerError()
         {
-            Device device;
             double? power;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                device = client.GetDeviceInfos(testDevice.Ain);
                 power = client.GetSwitchPower(testDevice.Ain);
             }
-
-            Assert.IsTrue(power.HasValue);
-            Assert.AreEqual(device.PowerMeter.Power, power.Value);
         }
 
         [TestMethod]
-        public async Task TestMethodPowerAsync()
+        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
+        public async Task TestMethodPowerAsyncError()
         {
-            Device device;
             double? power;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                device = await client.GetDeviceInfosAsync(testDevice.Ain);
                 power = await client.GetSwitchPowerAsync(testDevice.Ain);
             }
-
-            Assert.IsTrue(power.HasValue);
-            Assert.AreEqual(device.PowerMeter.Power, power.Value);
         }
 
         #endregion
