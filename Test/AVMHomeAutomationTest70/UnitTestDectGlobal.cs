@@ -4,7 +4,7 @@ using System.Net;
 namespace AVMHomeAutomationTest70
 {
     [TestClass]
-    public class UnitTestDectGlobal
+    public partial class UnitTestDectGlobal
     {
         [TestMethod]
         public void TestMethodGetDeviceListInfos()
@@ -210,13 +210,29 @@ namespace AVMHomeAutomationTest70
         }
 
         [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
-        public void TestMethodSwitchNameError()
+        public void TestMethodGetTriggerListInfos()
         {
+            TriggerList triggerList;
+
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                client.GetSwitchName(TestSettings.UnknownDeviceAin);
+                triggerList = client.GetTriggerListInfos();
             }
+
+            Assert.IsNotNull(triggerList);
+        }
+
+        [TestMethod]
+        public async Task TestMethodGetTriggerListInfosAsync()
+        {
+            TriggerList triggerList;
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                triggerList = await client.GetTriggerListInfosAsync();
+            }
+
+            Assert.IsNotNull(triggerList);
         }
     }
 }
