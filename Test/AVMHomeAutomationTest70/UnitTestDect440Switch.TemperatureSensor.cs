@@ -10,7 +10,7 @@ namespace AVMHomeAutomationTest70
         public void TestMethodTemperature()
         {
             Device deviceInfos;
-            double temperature;
+            double? temperature;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -28,7 +28,7 @@ namespace AVMHomeAutomationTest70
         public async Task TestMethodTemperatureAsync()
         {
             Device deviceInfos;
-            double temperature;
+            double? temperature;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {

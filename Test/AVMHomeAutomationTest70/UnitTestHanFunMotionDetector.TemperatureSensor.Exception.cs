@@ -10,7 +10,7 @@ namespace AVMHomeAutomationTest70
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public void TestMethodTemperatureError()
         {
-            double temperature;
+            double? temperature;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
@@ -22,7 +22,7 @@ namespace AVMHomeAutomationTest70
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodTemperatureErrorAsync()
         {
-            double temperature;
+            double? temperature;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {

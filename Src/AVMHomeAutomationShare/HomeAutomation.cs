@@ -273,9 +273,9 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>Temperature value in C.</returns>
-        public double GetTemperature(string ain)
+        public double? GetTemperature(string ain)
         {
-            return this.client.GetStringAsync(BuildUrl("gettemperature", ain)).Result.ToTemperature();
+            return this.client.GetStringAsync(BuildUrl("gettemperature", ain)).Result.ToNullableTemperature();
         }
 
         /// <summary>
@@ -283,9 +283,9 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<double> GetTemperatureAsync(string ain)
+        public async Task<double?> GetTemperatureAsync(string ain)
         {
-            return (await this.client.GetStringAsync(BuildUrl("gettemperature", ain))).ToTemperature();
+            return (await this.client.GetStringAsync(BuildUrl("gettemperature", ain))).ToNullableTemperature();
         }
 
         /// <summary>

@@ -32,35 +32,37 @@ namespace AVMHomeAutomation
         /// <returns></returns>
         public static double ToHkrTemperature(this string value)
         {
-            int val = int.Parse(value);
-            switch (val)
+            if (int.TryParse(value, out int val))
             {
-            case 254:   
-                return HomeAutomation.On;
-            case 253:   
-                return HomeAutomation.Off;
-            default:
-                return val / 2.0;
+                switch (val)
+                {
+                case 254:
+                    return HomeAutomation.On;
+                case 253:
+                    return HomeAutomation.Off;
+                default:
+                    return val / 2.0;
+                }
             }
+            throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
         }
 
         /// <summary>
         /// Temperature value in 0.1 ° C, negative and positive values possible Ex. "200" means 20 ° C
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
-        public static double ToTemperature(this string value)
-        {
-            return int.Parse(value) / 10.0;
-        }
-
+        /// <returns>Temeratur in °C or null</returns>
         public static double? ToNullableTemperature(this string value)
         {
+            if (value == "inval\n")
+            { 
+                return null; 
+            }
             if (int.TryParse(value, out int val))
             {
                 return val / 10.0;
             }
-            return null;
+            throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
         }
 
         public static string[] SplitList(this string str)
@@ -75,26 +77,41 @@ namespace AVMHomeAutomation
 
         public static double? ToPower(this string value)
         {
+            if (value == "inval\n")
+            {
+                return null;
+            }
             if (int.TryParse(value, out int res))
             {
                 return res / 1000.0;
             }
-            return null;
+            throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
         }
 
         public static bool ToBool(this string value)
         {
-            return value.TrimEnd() == "1";
+            switch (value)
+            {
+            case "0\n":
+                return false;
+            case "1\n":
+                return true;
+            }
+            throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
         }
 
         public static bool? ToNullableBool(this string value)
         {
-            switch (value.TrimEnd())
+            switch (value)
             {
-            case "0": return false;
-            case "1": return true;
-            default: return null;
+            case "0\n":
+                return false;
+            case "1\n":
+                return true;
+            case "inval\n":
+                return null;
             }
+            throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
         }
 
         public static OnOff ToOnOff(this string value)
