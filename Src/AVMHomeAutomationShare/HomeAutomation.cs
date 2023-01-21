@@ -1031,15 +1031,15 @@ namespace AVMHomeAutomation
             return $"webservices/homeautoswitch.lua?ain={ain}&switchcmd={cmd}&sid={this.sessionId}&{param}";
         }
 
-        private async Task<string> GetStringAsync(string p)
-        {
-            using (HttpResponseMessage response = await this.client.GetAsync(p))  // .ConfigureAwait(false)
-            {
-                response.EnsureSuccessStatusCode();
-                string str = await response.Content.ReadAsStringAsync();
-                return str;
-            }
-        }
+        //private async Task<string> GetStringAsync(string p)
+        //{
+        //    using (HttpResponseMessage response = await this.client.GetAsync(p))  // .ConfigureAwait(false)
+        //    {
+        //        response.EnsureSuccessStatusCode();
+        //        string str = await response.Content.ReadAsStringAsync();
+        //        return str;
+        //    }
+        //}
 
         #endregion
     }
