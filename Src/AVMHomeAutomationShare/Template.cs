@@ -91,6 +91,6 @@ namespace AVMHomeAutomation
         /// <remarks>New in Fritz!OS 7.39</remarks>
         [XmlArray("triggers")]
         [XmlArrayItem("trigger>")]
-        public List<Trigger> Triggers { get; set; }
+        public List<TemplateTrigger> Triggers { get; set; }
     }
 }

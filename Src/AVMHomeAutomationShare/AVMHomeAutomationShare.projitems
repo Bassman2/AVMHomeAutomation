@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Template.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TemplateTrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TriggerList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlAvailable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />

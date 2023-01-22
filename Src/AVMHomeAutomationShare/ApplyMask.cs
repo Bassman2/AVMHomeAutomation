@@ -118,7 +118,7 @@ namespace AVMHomeAutomation
         public XmlAvailable SwitchMaster { get; set; }
 
         /// <summary>
-        /// Trigger pushmail/app notification.
+        /// TemplateTrigger pushmail/app notification.
         /// </summary>
         /// <remarks>New in Fritz!OS 7.39</remarks>
         [XmlElement("custom_notification")]

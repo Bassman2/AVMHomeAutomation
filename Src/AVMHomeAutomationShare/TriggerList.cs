@@ -11,5 +11,17 @@ namespace AVMHomeAutomation
     [XmlRoot("triggerlist")]
     public class TriggerList
     {
+        /// <summary>
+        /// Version of template list
+        /// </summary>
+        [XmlAttribute("version")]
+        public string Version { get; set; }
+
+        /// <summary>
+        /// Devices and groups
+        /// </summary>
+        [XmlElement("trigger")]
+        public List<Trigger> Triggers { get; set; }
+
     }
 }

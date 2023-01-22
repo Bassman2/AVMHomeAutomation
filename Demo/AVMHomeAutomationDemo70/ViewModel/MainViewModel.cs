@@ -1,6 +1,7 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,15 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.TemplateList = client.GetTemplateListInfos();
             this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices)).ToList();
             this.selectedTemplate = this.Templates.FirstOrDefault();
+
+            try
+            {
+                this.TriggerList = client.GetTriggerListInfos();
+                this.Triggers = this.TriggerList.Triggers.Select(t => new TriggerViewModel(t)).ToList();
+                this.SelectedTrigger = this.Triggers.FirstOrDefault();
+            }
+            catch (AggregateException)
+            { }
         }
 
         [ObservableProperty]
@@ -44,6 +54,15 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         [ObservableProperty]
         private TemplateViewModel selectedTemplate;
+
+        [ObservableProperty]
+        public TriggerList triggerList;
+
+        [ObservableProperty]
+        public List<TriggerViewModel> triggers;
+
+        [ObservableProperty]
+        private TriggerViewModel selectedTrigger;
 
     }
 }
