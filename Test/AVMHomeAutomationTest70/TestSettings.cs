@@ -17,5 +17,6 @@
         public static TestDevice DeviceHanFunRollerShutter = new()      { Ain = "",                Name = "Telekom",          Product = "HAN-FUN",                    Manufacturer = "", FirmwareVersion = "31.20" };
         public const string UnknownDeviceAin = "111111111111";
         public const string TemplateAin = "tmp280D89-3E4719303";
+        public const string TriggerAin = "trg0000000000000000";
     }
 }

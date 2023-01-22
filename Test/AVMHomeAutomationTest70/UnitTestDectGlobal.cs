@@ -208,32 +208,6 @@ namespace AVMHomeAutomationTest70
             //Assert.IsNotNull(templateList);
             //CollectionAssert.AreEquivalent(new string[] { "087610500005", "116300323828", "116570143095", "grp280D89-3E4209CD1" }, devices);
         }
-
-        [TestMethod]
-        public void TestMethodGetTriggerListInfos()
-        {
-            TriggerList triggerList;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                triggerList = client.GetTriggerListInfos();
-            }
-
-            Assert.IsNotNull(triggerList);
-        }
-
-        [TestMethod]
-        public async Task TestMethodGetTriggerListInfosAsync()
-        {
-            TriggerList triggerList;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                triggerList = await client.GetTriggerListInfosAsync();
-            }
-
-            Assert.IsNotNull(triggerList);
-        }
     }
 }
 

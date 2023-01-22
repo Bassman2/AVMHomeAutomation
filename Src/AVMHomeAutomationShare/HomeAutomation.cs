@@ -424,9 +424,9 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="active">True to activate, false to deactivate.</param>
         /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-        public void SetTriggerActive(string ain, bool active)
+        public bool SetTriggerActive(string ain, bool active)
         {
-            this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}")).Result.ToBool();
         }
 
         /// <summary>
@@ -436,9 +436,9 @@ namespace AVMHomeAutomation
         /// <param name="active">True to activate, false to deactivate.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-        public async Task SetTriggerActiveAsync(string ain, bool active)
+        public async Task<bool> SetTriggerActiveAsync(string ain, bool active)
         {
-            await this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}"));
+            return (await this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}"))).ToBool();
         }
 
         /// <summary>
