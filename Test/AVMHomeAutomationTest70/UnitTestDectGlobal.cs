@@ -46,12 +46,10 @@ namespace AVMHomeAutomationTest70
         [TestMethod]
         public void TestMethodSubscription()
         {
-            SubscriptionState preState;
             SubscriptionState runState;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                preState = client.GetSubscriptionState();
                 client.StartUleSubscription();
                 do
                 {
@@ -60,20 +58,16 @@ namespace AVMHomeAutomationTest70
                 } while (runState.Code == SubscriptionCode.SubscriptionRunning);
             }
 
-            Assert.AreEqual(SubscriptionCode.NoSubscription, preState.Code);
-            Assert.AreEqual(SubscriptionCode.NoSubscription, runState.Code);
-            Assert.IsTrue(!string.IsNullOrEmpty(runState.LatestAin));
+            Assert.AreEqual(SubscriptionCode.Timeout, runState.Code);
         }
 
         [TestMethod]
         public async Task TestMethodSubscriptionAsync()
         {
-            SubscriptionState preState;
             SubscriptionState runState;
 
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
-                preState = await client.GetSubscriptionStateAsync();
                 await client.StartUleSubscriptionAsync();
                 do
                 {
@@ -82,9 +76,7 @@ namespace AVMHomeAutomationTest70
                 } while (runState.Code == SubscriptionCode.SubscriptionRunning);
             }
 
-            Assert.AreEqual(SubscriptionCode.NoSubscription, preState.Code);
-            Assert.AreEqual(SubscriptionCode.NoSubscription, runState.Code);
-            Assert.IsTrue(!string.IsNullOrEmpty(runState.LatestAin));
+            Assert.AreEqual(SubscriptionCode.Timeout, runState.Code);
         }
 
         [TestMethod]

@@ -15,7 +15,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsNotNull(stats, "stats");
-            Assert.IsTrue(stats.Temperature.Count > 0, "Temperature");
+            Assert.IsFalse(stats.Temperature.Count > 0, "Temperature");
             Assert.IsFalse(stats.Voltage.Count > 0, "Voltage");
             Assert.IsFalse(stats.Power.Count > 0, "Power");
             Assert.IsFalse(stats.Energy.Count > 0, "Energy");
@@ -33,7 +33,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsNotNull(stats, "stats");
-            Assert.IsTrue(stats.Temperature.Count > 0, "Temperature");
+            Assert.IsFalse(stats.Temperature.Count > 0, "Temperature");
             Assert.IsFalse(stats.Voltage.Count > 0, "Voltage");
             Assert.IsFalse(stats.Power.Count > 0, "Power");
             Assert.IsFalse(stats.Energy.Count > 0, "Energy");

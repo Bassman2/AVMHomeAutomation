@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -688,36 +689,111 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
-        /// Adjust color temperature.
+        /// Creates a color template for lamps.
         /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
-        /// <param name="duration">Speed of the change.</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetColorLevelTemperature(string ain, int temperature, TimeSpan? duration = null)
+        /// <param name="name">Name of the template to create.</param>
+        /// <param name="levelPercentage">Level Percentage of the light.</param>
+        /// <param name="hue">Hue value.</param>
+        /// <param name="saturation">Saturation value.</param>
+        /// <param name="ains">List of lamp devices.</param>
+        /// <param name="colorpreset">User color preset or not.</param>
+        /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
+        public void AddColorLevelTemplate(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
         {
-            if (temperature < 2700 || temperature > 6500)
+            if (levelPercentage < 0 || levelPercentage > 1000)
             {
-                throw new ArgumentOutOfRangeException(nameof(temperature));
+                throw new ArgumentOutOfRangeException(nameof(levelPercentage));
             }
-            this.client.GetStringAsync(BuildUrl("addcolorleveltemplate", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}")).Wait();
+            if (hue < 0 || levelPercentage > 359)
+            {
+                throw new ArgumentOutOfRangeException(nameof(hue));
+            }
+            if (saturation < 0 || saturation > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(saturation));
+            }
+            string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
+            string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&hue={hue}&saturation={saturation}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
+            this.client.GetStringAsync(req).Wait();
         }
 
         /// <summary>
-        /// Adjust color temperature.
+        /// Creates a color template for lamps.
         /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
-        /// <param name="duration">Speed of the change.</param>
+        /// <param name="name">Name of the template to create.</param>
+        /// <param name="levelPercentage">Level Percentage of the light.</param>
+        /// <param name="hue">Hue value.</param>
+        /// <param name="saturation">Saturation value.</param>
+        /// <param name="ains">List of lamp devices.</param>
+        /// <param name="colorpreset">User color preset or not.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task SetColorLevelTemperatureAsync(string ain, int temperature, TimeSpan? duration = null)
+        /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
+        public async Task AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
         {
+            if (levelPercentage < 0 || levelPercentage > 1000)
+            {
+                throw new ArgumentOutOfRangeException(nameof(levelPercentage));
+            }
+            if (hue < 0 || levelPercentage > 359)
+            {
+                throw new ArgumentOutOfRangeException(nameof(hue));
+            }
+            if (saturation < 0 || saturation > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(saturation));
+            }
+            string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
+            string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&hue={hue}&saturation={saturation}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
+            await this.client.GetStringAsync(req);
+        }
+
+        /// <summary>
+        /// Creates a color template for lamps
+        /// </summary>
+        /// <param name="name">Name of the template to create.</param>
+        /// <param name="levelPercentage">Level Percentage of the light.</param>
+        /// <param name="temperature">Color temperature of the light.</param>
+        /// <param name="ains">List of lamp devices.</param>
+        /// <param name="colorpreset">>User color preset or not.</param>
+        /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
+        public void AddColorLevelTemplate(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
+        {
+            if (levelPercentage < 0 || levelPercentage > 1000)
+            {
+                throw new ArgumentOutOfRangeException(nameof(levelPercentage));
+            }
             if (temperature < 2700 || temperature > 6500)
             {
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
-            await this.client.GetStringAsync(BuildUrl("addcolorleveltemplate", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"));
+            string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
+            string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
+            this.client.GetStringAsync(req).Wait();
+        }
+
+        /// <summary>
+        /// Creates a color template for lamps
+        /// </summary>
+        /// <param name="name">Name of the template to create.</param>
+        /// <param name="levelPercentage">Level Percentage of the light.</param>
+        /// <param name="temperature">Color temperature of the light.</param>
+        /// <param name="ains">List of lamp devices.</param>
+        /// <param name="colorpreset">>User color preset or not.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
+        public async Task AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
+        {
+            if (levelPercentage < 0 || levelPercentage > 1000)
+            {
+                throw new ArgumentOutOfRangeException(nameof(levelPercentage));
+            }
+            if (temperature < 2700 || temperature > 6500)
+            {
+                throw new ArgumentOutOfRangeException(nameof(temperature));
+            }
+            string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}"); 
+            string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
+            await this.client.GetStringAsync(req);
         }
 
         /// <summary>
@@ -812,9 +888,10 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target">Target to set.</param>
-        public void SetBlind(string ain, Target target)
+        public Target SetBlind(string ain, Target target)
         {
-            this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}")).Wait();
+
+            return this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}")).Result.ToTarget();
         }
 
         /// <summary>
@@ -824,9 +901,9 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target">Target to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task SetBlindAsync(string ain, Target target)
+        public async Task<Target> SetBlindAsync(string ain, Target target)
         {
-            await this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}"));
+            return (await this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}"))).ToTarget();
         }
 
         /// <summary>

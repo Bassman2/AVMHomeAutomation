@@ -125,6 +125,17 @@ namespace AVMHomeAutomation
             }
         }
 
+        public static Target ToTarget(this string value)
+        {
+            switch (value.TrimEnd())
+            {
+            case "close": return Target.Close;
+            case "open": return Target.Open;
+            case "stop": return Target.Stop;
+            default: throw new ArgumentOutOfRangeException(nameof(value), value);
+            }
+        }
+
         public static int ToInt(this string value)
         {
             return int.Parse(value);
