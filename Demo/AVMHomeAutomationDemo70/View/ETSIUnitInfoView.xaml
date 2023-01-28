@@ -11,7 +11,7 @@
         <conv:EnumListToStringConverter x:Key="EnumListToStringConverter"/>
         <conv:EnumToStringConverter x:Key="EnumToStringConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="ETSI Unit Info" Margin="3">
+    <GroupBox Header="ETSI Unit Info" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>

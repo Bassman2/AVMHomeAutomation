@@ -51,10 +51,11 @@
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="540"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3,3,0,3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Name">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -72,7 +73,8 @@
                                 <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
                             </DataGrid.Columns>
                         </DataGrid>
-                        <local:DeviceView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                        <local:DeviceView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -92,17 +94,19 @@
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="540"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <DataGrid Grid.Column="0" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid Grid.Column="0" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" Margin="3,3,0,3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                                 <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
                             </DataGrid.Columns>
                         </DataGrid>
-                        <local:TemplateView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedTemplate}"/>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                        <local:TemplateView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedTemplate}"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -122,10 +126,11 @@
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="540"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <DataGrid Grid.Column="0" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid Grid.Column="0" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" Margin="3,3,0,3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Name">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -140,7 +145,8 @@
                                 <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
                             </DataGrid.Columns>
                         </DataGrid>
-                        <local:TriggerView Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedTrigger}"/>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                        <local:TriggerView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedTrigger}"/>
                     </Grid>
                 </Grid>
             </TabItem>

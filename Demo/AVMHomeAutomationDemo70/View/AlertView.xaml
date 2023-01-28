@@ -11,7 +11,7 @@
         <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
         <conv:EnumToStringConverter x:Key="EnumToStringConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Alert" Margin="3">
+    <GroupBox Header="Alert" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>

@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <conv:IntToStringConverter x:Key="IntToStringConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Level Control" Margin="3">
+    <GroupBox Header="Level Control" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>

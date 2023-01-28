@@ -15,7 +15,7 @@
         <conv:BoolToOnOffConverter x:Key="BoolToOnOffConverter"/>
         <conv:IntToStringConverter x:Key="IntToStringConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Radiator regulator" Margin="3">
+    <GroupBox Header="Radiator regulator" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>

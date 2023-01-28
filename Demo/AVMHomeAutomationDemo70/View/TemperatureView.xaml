@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <conv:DoubleToUnitConverter x:Key="DoubleToUnitConverter"/>
     </UserControl.Resources>
-    <GroupBox Header="Temperature" Margin="3">
+    <GroupBox Header="Temperature" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>

@@ -16,12 +16,13 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer Grid.Column="0">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <GroupBox Header="Device / Group" Margin="3" >
+                <GroupBox Header="Device / Group" Margin="0,3,0,3" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="180"/>
@@ -98,6 +99,7 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        <TextBox Grid.Column="1" Text="{Binding Text, Mode=OneWay}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" Margin="3"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <TextBox Grid.Column="2" Text="{Binding Text, Mode=OneWay}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" Margin="0,3,3,3"/>
     </Grid>
 </UserControl>
