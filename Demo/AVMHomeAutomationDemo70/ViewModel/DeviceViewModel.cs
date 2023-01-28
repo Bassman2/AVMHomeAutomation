@@ -1,7 +1,9 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
@@ -9,10 +11,18 @@ namespace AVMHomeAutomationDemo.ViewModel
     {
         private readonly Device device;
 
-        public DeviceViewModel(Device device)
+        public DeviceViewModel(Device device, XmlDocument devicesXml)
         {
             this.device = device;
+
+            StringWriter strWriter = new();
+            XmlTextWriter xmlWriter = new(strWriter) { Formatting = Formatting.Indented }; 
+            devicesXml.SelectSingleNode($"/devicelist/*[@id='{device.Id}']")?.WriteTo(xmlWriter);
+            this.Text = strWriter.ToString();
         }
+
+        public string Text { get; }
+
 
         #region Device Attributes
 

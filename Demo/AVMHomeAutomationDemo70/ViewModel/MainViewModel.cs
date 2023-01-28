@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
@@ -20,17 +21,20 @@ namespace AVMHomeAutomationDemo.ViewModel
             using var client = new HomeAutomation("Demo", "Demo-1234");
 
             this.DeviceList = client.GetDeviceListInfos();
-            this.Devices = this.DeviceList.Devices.Select(d => new DeviceViewModel(d)).ToList();
+            XmlDocument devicesXml = client.GetDeviceListInfosXml();
+            this.Devices = this.DeviceList.Devices.Select(d => new DeviceViewModel(d, devicesXml)).ToList();
             this.SelectedDevice = this.Devices.FirstOrDefault();
 
             this.TemplateList = client.GetTemplateListInfos();
-            this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices)).ToList();
+            XmlDocument templatesXml = client.GetTemplateListInfosXml();
+            this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, templatesXml)).ToList();
             this.selectedTemplate = this.Templates.FirstOrDefault();
 
             try
             {
                 this.TriggerList = client.GetTriggerListInfos();
-                this.Triggers = this.TriggerList.Triggers.Select(t => new TriggerViewModel(t)).ToList();
+                XmlDocument triggersXml = client.GetTriggerListInfosXml();
+                this.Triggers = this.TriggerList.Triggers.Select(t => new TriggerViewModel(t, triggersXml)).ToList();
                 this.SelectedTrigger = this.Triggers.FirstOrDefault();
             }
             catch (AggregateException)

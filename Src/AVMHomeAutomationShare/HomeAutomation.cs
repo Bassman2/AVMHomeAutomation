@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace AVMHomeAutomation
@@ -270,6 +271,24 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
+        /// Provides the basic information of all SmartHome devices as XML.
+        /// </summary>
+        /// <returns>Information of all SmartHome devices as XML</returns>
+        public XmlDocument GetDeviceListInfosXml()
+        {
+            return this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Provides the basic information of all SmartHome devices as XML.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<XmlDocument> GetDeviceListInfosXmlAsync()
+        {
+            return (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).ToXml();
+        }
+
+        /// <summary>
         /// Last temperature information of the actuator.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
@@ -400,6 +419,26 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
+        /// Provides the basic statistics (temperature, voltage, power) of the actuator as XML.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <returns>Device stats as XML.</returns>
+        public XmlDocument GetBasicDeviceStatsXml(string ain)
+        {
+            return this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain)).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Provides the basic statistics (temperature, voltage, power) of the actuator as XML.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<XmlDocument> GetBasicDeviceStatsXmlAsync(string ain)
+        {
+            return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).ToXml();
+        }
+
+        /// <summary>
         /// Provides the basics information of all routines/triggers.
         /// </summary>
         /// <returns>Trigger list.</returns>
@@ -417,6 +456,26 @@ namespace AVMHomeAutomation
         public async Task<TriggerList> GetTriggerListInfosAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).XmlToAs<TriggerList>();
+        }
+
+        /// <summary>
+        /// Provides the basics information of all routines/triggers as XML.
+        /// </summary>
+        /// <returns>Trigger list as XML.</returns>
+        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
+        public XmlDocument GetTriggerListInfosXml()
+        {
+            return this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Provides the basics information of all routines/triggers as XML.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
+        public async Task<XmlDocument> GetTriggerListInfosXmlAsync()
+        {
+            return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).ToXml();
         }
 
         /// <summary>
@@ -458,6 +517,24 @@ namespace AVMHomeAutomation
         public async Task<TemplateList> GetTemplateListInfosAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).XmlToAs<TemplateList>();
+        }
+
+        /// <summary>
+        /// Returns the basic information of all templates / templates as XML.
+        /// </summary>
+        /// <returns>Template list as XML.</returns>
+        public XmlDocument GetTemplateListInfosXml()
+        {
+            return this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Returns the basic information of all templates / templates as XML.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<XmlDocument> GetTemplateListInfosXmlAsync()
+        {
+            return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).ToXml();
         }
 
         /// <summary>
@@ -815,6 +892,24 @@ namespace AVMHomeAutomation
         }
 
         /// <summary>
+        /// Provides a proposal for the color selection values as XML.
+        /// </summary>
+        /// <returns>Color defaults class as XML.</returns>
+        public XmlDocument GetColorDefaultsXml()
+        {
+            return this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Provides a proposal for the color selection values as XML.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<XmlDocument> GetColorDefaultsXmlAsync()
+        {
+            return (await this.client.GetStringAsync(BuildUrl("getcolordefaults"))).ToXml();
+        }
+
+        /// <summary>
         /// Activate HKR Boost with end time for the disable: endtimestamp = null.
         /// The end time may not exceed to 24 hours in the future lie.
         /// </summary>
@@ -991,7 +1086,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Query DECT-ULE device registration status.
         /// </summary>
-        /// <returns>Return the subscription state</returns>
+        /// <returns>Return the subscription state.</returns>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public SubscriptionState GetSubscriptionState()
         {
@@ -1006,6 +1101,26 @@ namespace AVMHomeAutomation
         public async Task<SubscriptionState> GetSubscriptionStateAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).XmlToAs<SubscriptionState>();
+        }
+
+        /// <summary>
+        /// Query DECT-ULE device registration status as XML.
+        /// </summary>
+        /// <returns>Return the subscription state as XML.</returns>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
+        public XmlDocument GetSubscriptionStateXml()
+        {
+            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Query DECT-ULE device registration status as XML.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
+        public async Task<XmlDocument> GetSubscriptionStateXmlAsync()
+        {
+            return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).ToXml();
         }
 
         /// <summary>
@@ -1026,6 +1141,26 @@ namespace AVMHomeAutomation
         public async Task<Device> GetDeviceInfosAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).XmlToAs<Device>();
+        }
+
+        /// <summary>
+        /// Provides the basic information of one SmartHome devices as XML.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <returns>Information of one SmartHome devices as XML</returns>
+        public XmlDocument GetDeviceInfosXml(string ain)
+        {
+            return this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain)).Result.ToXml();
+        }
+
+        /// <summary>
+        /// Provides the basic information of one SmartHome devices.
+        /// </summary>
+        /// <param name="ain">Identification of the actor or template.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<XmlDocument> GetDeviceInfosXmlAsync(string ain)
+        {
+            return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).ToXml();
         }
 
         /// <summary>

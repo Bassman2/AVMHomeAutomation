@@ -1,5 +1,8 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
+using System.Xml;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
@@ -7,10 +10,17 @@ namespace AVMHomeAutomationDemo.ViewModel
     {
         private readonly Trigger trigger;
 
-        public TriggerViewModel(Trigger trigger)
+        public TriggerViewModel(Trigger trigger, XmlDocument triggerXml)
         {
             this.trigger = trigger;
+         
+            StringWriter strWriter = new();
+            XmlTextWriter xmlWriter = new(strWriter) { Formatting = Formatting.Indented };
+            triggerXml.SelectSingleNode($"/triggerlist/trigger[@identifier='{trigger.Identifier}']")?.WriteTo(xmlWriter);
+            this.Text = strWriter.ToString();
         }
+
+        public string Text { get; }
 
         public string Identifier => this.trigger.Identifier;
 

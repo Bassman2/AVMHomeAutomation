@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
@@ -55,8 +56,8 @@ namespace AVMHomeAutomation
         public static double? ToNullableTemperature(this string value)
         {
             if (value == "inval\n")
-            { 
-                return null; 
+            {
+                return null;
             }
             if (int.TryParse(value, out int val))
             {
@@ -134,6 +135,13 @@ namespace AVMHomeAutomation
             case "stop": return Target.Stop;
             default: throw new ArgumentOutOfRangeException(nameof(value), value);
             }
+        }
+
+        public static XmlDocument ToXml(this string value)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(value);
+            return doc;
         }
 
         public static int ToInt(this string value)
