@@ -483,6 +483,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="active">True to activate, false to deactivate.</param>
+        /// <returns>New trigger value.</returns>
         /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
         public bool SetTriggerActive(string ain, bool active)
         {
@@ -562,6 +563,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="onOff">Switch on, off or toggle.</param>
+        /// <returns>New on off value.</returns>
         public OnOff SetSimpleOnOff(string ain, OnOff onOff)
         {
             return this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}")).Result.ToOnOff();
@@ -583,6 +585,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level">Level (0 - 255) to set.</param>
+        /// <returns>New level.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public int SetLevel(string ain, int level)
         {
@@ -614,6 +617,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level">Level in percent (0 - 100) to set.</param>
+        /// <returns>New level percentage.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public int SetLevelPercentage(string ain, int level)
         {
@@ -695,6 +699,7 @@ namespace AVMHomeAutomation
         /// <param name="hue">Hue value of the color.</param>
         /// <param name="saturation">Saturation value of the color.</param>
         /// <param name="duration">Speed of the change.</param>
+        /// <returns>New hue value.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public int SetUnmappedColor(string ain, int hue, int saturation, TimeSpan? duration = null)
         {
@@ -739,6 +744,7 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
         /// <param name="duration">Speed of the change.</param>
+        /// <returns>New color temperature.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public int SetColorTemperature(string ain, int temperature, TimeSpan? duration = null)
         {
@@ -986,6 +992,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target">Target to set.</param>
+        /// <returns>New target.</returns>
         public Target SetBlind(string ain, Target target)
         {
 

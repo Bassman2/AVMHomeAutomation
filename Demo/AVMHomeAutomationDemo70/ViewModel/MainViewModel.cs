@@ -1,6 +1,6 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using MVVMAppBase.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +8,15 @@ using System.Xml;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
-    public partial class MainViewModel : ObservableObject
+    public partial class MainViewModel : AppViewModel
     {
         public MainViewModel()
         {
             OnRefresh();
         }
 
-        [RelayCommand]
-        public void OnRefresh()
+        //[RelayCommand]
+        protected override void OnRefresh()
         {
             using var client = new HomeAutomation("Demo", "Demo-1234");
 
@@ -28,7 +28,7 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.TemplateList = client.GetTemplateListInfos();
             XmlDocument templatesXml = client.GetTemplateListInfosXml();
             this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, templatesXml)).ToList();
-            this.selectedTemplate = this.Templates.FirstOrDefault();
+            this.SelectedTemplate = this.Templates.FirstOrDefault();
 
             try
             {
