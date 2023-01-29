@@ -14,6 +14,17 @@
         <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
     </Window.InputBindings>
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Login" Command="{Binding LoginCommand}"/>
+                <MenuItem Header="_Report" Command="{Binding ReportCommand}"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="Refresh" Command="{Binding RefreshCommand}"/>
+            </MenuItem>
+        </Menu>
         <StatusBar DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="DarkGray">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>

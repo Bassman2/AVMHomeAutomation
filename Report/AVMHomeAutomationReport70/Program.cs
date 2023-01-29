@@ -1,5 +1,4 @@
 ﻿using AVMHomeAutomation;
-using System.Net;
 
 namespace AVMHomeAutomationReport
 {
@@ -8,7 +7,7 @@ namespace AVMHomeAutomationReport
         static void Main(string[] args)
         {
             Console.WriteLine("AVM Home Automation Report");
-            Console.WriteLine("AVMHomeAutomationReport -login:Demo -passwd:Password {-url:http://fritz.box}");
+            Console.WriteLine("AVMHomeAutomationReport -login:login -passwd:Password {-url:http://fritz.box}");
             Uri host =  new("http://fritz.box");
             string login = "Demo";
             string password = "Demo-1234";
@@ -30,9 +29,15 @@ namespace AVMHomeAutomationReport
                 }
             }
 
-            using var client = new HomeAutomation(login, password, host);
-            client.CreateBugReportFile();
-
+            try
+            {
+                using var client = new HomeAutomation(login, password, host);
+                client.CreateBugReportFile();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

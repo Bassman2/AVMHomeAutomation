@@ -541,9 +541,10 @@ namespace AVMHomeAutomation
         /// Apply template, the ain parameter is evaluated.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        public void ApplyTemplate(string ain)
+        /// <returns>Id of the template.</returns>
+        public int ApplyTemplate(string ain)
         {
-            this.client.GetStringAsync(BuildUrl("applytemplate", ain)).Wait();
+            return this.client.GetStringAsync(BuildUrl("applytemplate", ain)).Result.ToInt();
         }
 
         /// <summary>
@@ -551,9 +552,9 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task ApplyTemplateAsync(string ain)
+        public async Task<int> ApplyTemplateAsync(string ain)
         {
-            await this.client.GetStringAsync(BuildUrl("applytemplate", ain));
+            return (await this.client.GetStringAsync(BuildUrl("applytemplate", ain))).ToInt();
         }
 
         /// <summary>
@@ -774,8 +775,9 @@ namespace AVMHomeAutomation
         /// <param name="saturation">Saturation value.</param>
         /// <param name="ains">List of lamp devices.</param>
         /// <param name="colorpreset">User color preset or not.</param>
+        /// <returns>Id of the template</returns>
         /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-        public void AddColorLevelTemplate(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
+        public int AddColorLevelTemplate(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
         {
             if (levelPercentage < 0 || levelPercentage > 1000)
             {
@@ -791,7 +793,7 @@ namespace AVMHomeAutomation
             }
             string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
             string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&hue={hue}&saturation={saturation}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-            this.client.GetStringAsync(req).Wait();
+            return this.client.GetStringAsync(req).Result.ToInt();
         }
 
         /// <summary>
@@ -805,7 +807,7 @@ namespace AVMHomeAutomation
         /// <param name="colorpreset">User color preset or not.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-        public async Task AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
+        public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
         {
             if (levelPercentage < 0 || levelPercentage > 1000)
             {
@@ -821,7 +823,7 @@ namespace AVMHomeAutomation
             }
             string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
             string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&hue={hue}&saturation={saturation}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-            await this.client.GetStringAsync(req);
+            return (await this.client.GetStringAsync(req)).ToInt();
         }
 
         /// <summary>
@@ -832,8 +834,9 @@ namespace AVMHomeAutomation
         /// <param name="temperature">Color temperature of the light.</param>
         /// <param name="ains">List of lamp devices.</param>
         /// <param name="colorpreset">>User color preset or not.</param>
+        /// <returns>Id of the template.</returns>
         /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-        public void AddColorLevelTemplate(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
+        public int AddColorLevelTemplate(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
         {
             if (levelPercentage < 0 || levelPercentage > 1000)
             {
@@ -845,7 +848,7 @@ namespace AVMHomeAutomation
             }
             string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
             string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-            this.client.GetStringAsync(req).Wait();
+            return this.client.GetStringAsync(req).Result.ToInt();
         }
 
         /// <summary>
@@ -858,7 +861,7 @@ namespace AVMHomeAutomation
         /// <param name="colorpreset">>User color preset or not.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-        public async Task AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
+        public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
         {
             if (levelPercentage < 0 || levelPercentage > 1000)
             {
@@ -870,7 +873,7 @@ namespace AVMHomeAutomation
             }
             string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}"); 
             string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-            await this.client.GetStringAsync(req);
+            return (await this.client.GetStringAsync(req)).ToInt();
         }
 
         /// <summary>
@@ -1007,15 +1010,16 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="name">New name, maximum 40 characters.</param>
+        /// <returns>New name of the device.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public void SetName(string ain, string name)
+        public string SetName(string ain, string name)
         {
             if (name.Length > 40)
             {
                 throw new ArgumentOutOfRangeException(nameof(name));
             }
-            this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}")).Wait();
+            return this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}")).Result.TrimEnd();
         }
 
 
@@ -1029,13 +1033,13 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public async Task SetNameAsync(string ain, string name)
+        public async Task<string> SetNameAsync(string ain, string name)
         {
             if (name.Length > 40)
             {
                 throw new ArgumentOutOfRangeException(nameof(name));
             }
-            await this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}"));
+            return (await this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}"))).TrimEnd();
         }
 
         /// <summary>

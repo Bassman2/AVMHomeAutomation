@@ -23,6 +23,32 @@ namespace AVMHomeAutomationTest70
                 await client.GetSwitchNameAsync(TestSettings.UnknownDeviceAin);
             }
         }
+
+        // Exception with old Fritz!OS 
+        [TestMethod]
+        [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
+        public void TestMethodSetMetaDataError()
+        {
+            MetaData metaData = new MetaData() { Icon = 1, Type = TypeEnum.Generic };
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                client.SetMetaData(TestSettings.TemplateAin, metaData);
+            }
+        }
+
+        // Exception with old Fritz!OS 
+        [TestMethod]
+        [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
+        public async Task TestMethodSetMetaDataErrorAsync()
+        {
+            MetaData metaData = new MetaData() { Icon = 1, Type = TypeEnum.Generic };
+
+            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+            {
+                await client.SetMetaDataAsync(TestSettings.TemplateAin, metaData);
+            }
+        }
     }
 }
 
