@@ -5,6 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>Bassman.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <Import Project="..\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems" Label="Shared" />

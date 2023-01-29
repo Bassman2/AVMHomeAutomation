@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>Bassman.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <Import Project="..\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems" Label="Shared" />
