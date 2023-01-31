@@ -20,10 +20,10 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
-#   - name: Install SHFB
-#     uses: Bassman2/setup-SHFB@v1
-#     with:
-#       version: v2021.11.7.0
+    - name: Install SHFB
+      uses: Bassman2/setup-SHFB@v2
+      with:
+        version: 2022.12.30.0
 
     - name: Copy dummy key for signing
       run: |

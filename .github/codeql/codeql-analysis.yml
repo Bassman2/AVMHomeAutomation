@@ -24,6 +24,11 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.3
 
+    - name: Install SHFB
+      uses: Bassman2/setup-SHFB@v2
+      with:
+        version: 2022.12.30.0
+        
     - name: copy dummy key for signing
       working-directory: .
       run: |
