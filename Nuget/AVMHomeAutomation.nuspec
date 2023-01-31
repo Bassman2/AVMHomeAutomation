@@ -20,7 +20,7 @@
       <group targetFramework=".NET6.0" />
       <group targetFramework=".NET5.0" />
       <group targetFramework=".NETFramework4.8" />
-      <group targetFramework=".NETFramework4.6.1" />
+      <group targetFramework=".NETFramework4.6.2" />
     </dependencies>
   </metadata>
   <files>
@@ -28,7 +28,7 @@
     <file src="..\Src\AVMHomeAutomation60\bin\Release\net6.0\**" target="lib/net6.0" />
     <file src="..\Src\AVMHomeAutomation50\bin\Release\net5.0\**" target="lib/net5.0" />
     <file src="..\Src\AVMHomeAutomationFramework48\bin\Release\**" target="lib/net48" />	
-    <file src="..\Src\AVMHomeAutomationFramework461\bin\Release\**" target="lib/net461" />	
+    <file src="..\Src\AVMHomeAutomationFramework462\bin\Release\**" target="lib/net462" />	
     <file src="..\Doc\AVMHomeAutomationDoc\Help\AVMHomeAutomation.chm" target="content" />
     <file src="AVMHomeAutomationLicense.txt" target="content" />
   </files>

@@ -17,16 +17,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-#      with:
-#        fetch-depth: 2
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1.0.15
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.3
-      with:
-        vs-prerelease: true 
 
     - name: copy dummy key for signing
       working-directory: .
@@ -35,11 +31,14 @@ jobs:
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation461\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation462\Bassman.snk
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
 
-    - name: restore
+    - name: Nuget restore
       run: nuget restore AVMHomeAutomation.sln
+
+    - name: Dotnet restore
+      run: dotnet restore AVMHomeAutomation.sln
 
     - name: MSBuild of solution
       run: msbuild AVMHomeAutomation.sln /p:configuration="Release" /verbosity:minimal

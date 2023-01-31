@@ -16,9 +16,7 @@ jobs:
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1.3
-      with:
-        vs-prerelease: true 
-
+      
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
@@ -33,7 +31,7 @@ jobs:
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation461\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation462\Bassman.snk
            Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
 
     - name: Nuget restore solution

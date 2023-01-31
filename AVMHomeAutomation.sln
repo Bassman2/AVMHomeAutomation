@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVMHomeAutomationReport70",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomation48", "Src\AVMHomeAutomation48\AVMHomeAutomation48.csproj", "{83F27F9F-8AF7-46AF-934B-BC5F65290028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomation461", "Src\AVMHomeAutomation461\AVMHomeAutomation461.csproj", "{BF30B41B-6500-4AFE-A646-59FA108167AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomation462", "Src\AVMHomeAutomation462\AVMHomeAutomation462.csproj", "{BF30B41B-6500-4AFE-A646-59FA108167AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

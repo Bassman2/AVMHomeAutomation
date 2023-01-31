@@ -21,7 +21,7 @@ namespace AVMHomeAutomationTest70
             Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
             Assert.IsNotNull(deviceInfos);
             Assert.IsNotNull(deviceInfos.Hkr);
-            Assert.AreEqual(deviceInfos.Hkr.Komfort, temperature);
+            Assert.AreEqual((double)deviceInfos.Hkr.Komfort, temperature);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace AVMHomeAutomationTest70
             Assert.IsTrue(temperature > 18.0 && temperature < 23.0);
             Assert.IsNotNull(deviceInfos);
             Assert.IsNotNull(deviceInfos.Hkr);
-            Assert.AreEqual(deviceInfos.Hkr.Komfort, temperature);
+            Assert.AreEqual((double)deviceInfos.Hkr.Komfort, temperature);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace AVMHomeAutomationTest70
             Assert.IsTrue(temperature > 13.0 && temperature < 17.0);
             Assert.IsNotNull(deviceInfos);
             Assert.IsNotNull(deviceInfos.Hkr);
-            Assert.AreEqual(deviceInfos.Hkr.Absenk, temperature);
+            Assert.AreEqual((double?)deviceInfos.Hkr.Absenk, temperature);
 
         }
 
@@ -76,7 +76,7 @@ namespace AVMHomeAutomationTest70
             Assert.IsTrue(temperature > 13.0 && temperature < 17.0);
             Assert.IsNotNull(deviceInfos);
             Assert.IsNotNull(deviceInfos.Hkr);
-            Assert.AreEqual(deviceInfos.Hkr.Absenk, temperature);
+            Assert.AreEqual((double?)deviceInfos.Hkr.Absenk, temperature);
         }
 
         [TestMethod]

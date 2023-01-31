@@ -20,7 +20,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsTrue(energy.HasValue);
-            Assert.AreEqual(device.PowerMeter.Energy, energy.Value);
+            Assert.AreEqual((double?)device.PowerMeter.Energy, energy.Value);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsTrue(energy.HasValue);
-            Assert.AreEqual(device.PowerMeter.Energy, energy.Value);
+            Assert.AreEqual((double?)device.PowerMeter.Energy, energy.Value);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsTrue(power.HasValue);
-            Assert.AreEqual(device.PowerMeter.Power, power.Value);
+            Assert.AreEqual((double?)device.PowerMeter.Power, power.Value);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsTrue(power.HasValue);
-            Assert.AreEqual(device.PowerMeter.Power, power.Value);
+            Assert.AreEqual((double?)device.PowerMeter.Power, power.Value);
         }
 
         #endregion
