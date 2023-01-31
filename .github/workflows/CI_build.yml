@@ -1,0 +1,43 @@
+name: Continuous Integration 
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-2022
+    strategy:
+      max-parallel: 2
+      matrix:
+        build_configuration: [Release, Debug]
+        
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1.3
+      with:
+        vs-prerelease: true 
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+
+#   - name: Install SHFB
+#     uses: Bassman2/setup-SHFB@v1
+#     with:
+#       version: v2021.11.7.0
+
+    - name: Copy dummy key for signing
+      run: |
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation70\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation461\Bassman.snk
+           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
+
+    - name: Nuget restore solution
+      run: nuget restore AVMHomeAutomation.sln
+
+    - name: MSBuild of solution
+      run: msbuild AVMHomeAutomation.sln /p:configuration="${{ matrix.build_configuration }}" /m /verbosity:minimal

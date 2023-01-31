@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EBDFC47C-F18A-4368-B40F-94F92AE67848}</ProjectGuid>
+    <ProjectGuid>{83F27F9F-8AF7-46AF-934B-BC5F65290028}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AVMHomeAutomationFramework48</RootNamespace>
