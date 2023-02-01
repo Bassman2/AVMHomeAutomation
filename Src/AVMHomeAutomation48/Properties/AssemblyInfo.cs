@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AVMHomeAutomationFramework48")]
+[assembly: AssemblyTitle("AVMHomeAutomation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AVMHomeAutomationFramework48")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyProduct("AVMHomeAutomation")]
+[assembly: AssemblyCopyright("Copyright ©  2022 - 2003")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: windows-2022
+    environment: sign
     strategy:
       max-parallel: 2
       matrix:
@@ -20,19 +21,24 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
+    - name: Get Signkey 
+      shell: pwsh
+      run: |
+        $signing_keys_payload = [System.Convert]::FromBase64String("${{ secrets.SIGNKEY }}")
+        $currentDirectory = Get-Location
+        $certificatePath = Join-Path -Path $currentDirectory -ChildPath "Bassman.snk"
+        [IO.File]::WriteAllBytes("$certificatePath", $signing_keys_payload)
+        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation70\Bassman.snk
+        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
+        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
+        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
+        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation462\Bassman.snk
+        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
+
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v2
       with:
         version: 2022.12.30.0
-
-    - name: Copy dummy key for signing
-      run: |
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation70\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation462\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
 
     - name: Nuget restore solution
       run: nuget restore AVMHomeAutomation.sln

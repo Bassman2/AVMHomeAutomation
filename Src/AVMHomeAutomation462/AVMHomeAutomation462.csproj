@@ -7,8 +7,8 @@
     <ProjectGuid>{BF30B41B-6500-4AFE-A646-59FA108167AA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AVMHomeAutomationFramewor</RootNamespace>
-    <AssemblyName>AVMHomeAutomationFramework461</AssemblyName>
+    <RootNamespace>AVMHomeAutomation</RootNamespace>
+    <AssemblyName>AVMHomeAutomation</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
