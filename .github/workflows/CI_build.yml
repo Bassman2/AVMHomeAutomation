@@ -32,7 +32,7 @@ jobs:
 #        version: 2022.12.30.0
         
     - name: Install SHFB
-      uses: Bassman2/setup-SHFB2@v1
+      uses: Bassman2/setup-SHFB@v1
       with:
         version: 2022.12.30.0
 
