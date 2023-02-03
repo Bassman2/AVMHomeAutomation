@@ -1,4 +1,4 @@
-name: Continuous Integration 
+name: Continuous Integration
 
 on: [push, pull_request]
 
@@ -10,30 +10,36 @@ jobs:
       max-parallel: 2
       matrix:
         build_configuration: [Release, Debug]
-        
+
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1.3
-      
+
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
-    - name: Get Signkey 
+    - name: Get Signkey
       shell: pwsh
       run: |
         $signing_keys_payload = [System.Convert]::FromBase64String("${{ secrets.SIGNKEY }}")
         $currentDirectory = Get-Location
-        $certificatePath = Join-Path -Path $currentDirectory -ChildPath "Bassman.snk"
+        $keyFilename = "Bassman.snk"
+        $certificatePath = Join-Path -Path $currentDirectory -ChildPath $keyFilename
         [IO.File]::WriteAllBytes("$certificatePath", $signing_keys_payload)
-        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation70\Bassman.snk
-        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
-        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
-        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
-        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomation462\Bassman.snk
-        Copy-Item  Bassman.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
+        # fallback to DummySignKey.snk for forks without secrets.SIGNKEY defined
+        if ( [string]::IsNullOrEmpty($signing_keys_payload) )
+        {
+             $keyFilename = "DummySignKey.snk"
+        }
+        Copy-Item  $keyFilename -Destination Src\AVMHomeAutomation70\Bassman.snk
+        Copy-Item  $keyFilename -Destination Src\AVMHomeAutomation60\Bassman.snk
+        Copy-Item  $keyFilename -Destination Src\AVMHomeAutomation50\Bassman.snk
+        Copy-Item  $keyFilename -Destination Src\AVMHomeAutomation48\Bassman.snk
+        Copy-Item  $keyFilename -Destination Src\AVMHomeAutomation462\Bassman.snk
+        Copy-Item  $keyFilename -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
 
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v2
@@ -42,9 +48,9 @@ jobs:
 
     - name: Nuget restore solution
       run: nuget restore AVMHomeAutomation.sln
-      
+
     - name: Dotnet restore solution
-      run: dotnet restore AVMHomeAutomation.sln      
+      run: dotnet restore AVMHomeAutomation.sln
 
     - name: MSBuild of solution
       run: msbuild AVMHomeAutomation.sln /p:configuration="${{ matrix.build_configuration }}" /m /verbosity:minimal
