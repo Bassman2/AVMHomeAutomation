@@ -13,7 +13,8 @@ jobs:
   analyze:
     name: Analyze
     runs-on: windows-2022
-
+    environment: sign
+    
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
@@ -33,15 +34,10 @@ jobs:
       with:
         version: 2022.12.30.0
 
-    - name: copy dummy key for signing
-      working-directory: .
-      run: |
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation70\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation60\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation50\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation48\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomation462\Bassman.snk
-           Copy-Item  DummySignKey.snk -Destination Src\AVMHomeAutomationStandard20\Bassman.snk
+    - uses: Bassman2/SignKey@v1
+      with:
+        file: Bassman.snk
+        key: ${{ secrets.SIGNKEY }}
 
     - name: Nuget restore solution
       run: nuget restore AVMHomeAutomation.sln
