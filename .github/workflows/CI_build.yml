@@ -26,8 +26,13 @@ jobs:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
 
+#    - name: Install SHFB
+#      uses: Bassman2/setup-SHFB@v2
+#      with:
+#        version: 2022.12.30.0
+        
     - name: Install SHFB
-      uses: Bassman2/setup-SHFB@v2
+      uses: Bassman2/setup-SHFB2@v1
       with:
         version: 2022.12.30.0
 
