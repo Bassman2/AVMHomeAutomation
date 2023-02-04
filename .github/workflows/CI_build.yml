@@ -30,6 +30,9 @@ jobs:
       uses: Bassman2/setup-SHFB@v1
       with:
         version: 2022.12.30.0
+        
+    - name: Test
+      run: echo $SHFBROOT
 
     - name: Nuget restore solution
       run: nuget restore AVMHomeAutomation.sln
@@ -39,6 +42,7 @@ jobs:
 
     - name: MSBuild of solution
       run: msbuild AVMHomeAutomation.sln /p:configuration="${{ matrix.build_configuration }}" /m /verbosity:minimal
+      
  #     env:
  #       SHFBROOT: C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
         
