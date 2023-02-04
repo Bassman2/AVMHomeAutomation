@@ -25,11 +25,6 @@ jobs:
       with:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
-
-#    - name: Install SHFB
-#      uses: Bassman2/setup-SHFB@v2
-#      with:
-#        version: 2022.12.30.0
         
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v1
@@ -44,6 +39,6 @@ jobs:
 
     - name: MSBuild of solution
       run: msbuild AVMHomeAutomation.sln /p:configuration="${{ matrix.build_configuration }}" /m /verbosity:minimal
-      env:
-        SHFBROOT: C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
+ #     env:
+ #       SHFBROOT: C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
         
