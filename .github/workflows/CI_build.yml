@@ -31,8 +31,11 @@ jobs:
       with:
         version: 2022.12.30.0
         
+    - name: Test set
+      run: echo "SHFBROOT=C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\" >> $GITHUB_ENV
+      
     - name: Test
-      run: echo $SHFBROOT
+      run: echo "$SHFBROOT"
 
     - name: Nuget restore solution
       run: nuget restore AVMHomeAutomation.sln
