@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AVMHomeAutomation</id>
-    <version>1.0.0-beta.1</version>
+    <version>1.0.0-beta.2</version>
     <title>AVM Home Automation</title>
     <authors>Ralf Beckers</authors>
     <owners>Ralf Beckers</owners>
@@ -27,8 +27,8 @@
     <file src="..\Src\AVMHomeAutomation70\bin\Release\net7.0\**" target="lib/net7.0" />
     <file src="..\Src\AVMHomeAutomation60\bin\Release\net6.0\**" target="lib/net6.0" />
     <file src="..\Src\AVMHomeAutomation50\bin\Release\net5.0\**" target="lib/net5.0" />
-    <file src="..\Src\AVMHomeAutomationFramework48\bin\Release\**" target="lib/net48" />	
-    <file src="..\Src\AVMHomeAutomationFramework462\bin\Release\**" target="lib/net462" />	
+    <file src="..\Src\AVMHomeAutomation48\bin\Release\**" target="lib/net48" />	
+    <file src="..\Src\AVMHomeAutomation462\bin\Release\**" target="lib/net462" />	
     <file src="..\Doc\AVMHomeAutomationDoc\Help\AVMHomeAutomation.chm" target="content" />
     <file src="AVMHomeAutomationLicense.txt" target="content" />
   </files>
