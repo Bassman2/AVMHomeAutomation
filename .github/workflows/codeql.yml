@@ -15,7 +15,6 @@ jobs:
     environment: sign
     env:
       Solution: AVMHomeAutomation.sln
-      NugetSpc: AVMHomeAutomation.nuspec
       SHFBROOT: C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
     
     steps:
