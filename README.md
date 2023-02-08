@@ -14,4 +14,4 @@ API for the AVM Home Automation Service
 
 You are welcome to support this project. 
 
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.me/GBassman)
+[![Donate](https://raw.githubusercontent.com/Bassman2/AVMHomeAutomation/master/.github/images/donate.gif)](https://www.paypal.me/GBassman)
