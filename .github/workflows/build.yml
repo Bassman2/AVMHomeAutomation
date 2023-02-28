@@ -58,3 +58,17 @@ jobs:
       if: matrix.build_configuration == 'Release'
       working-directory: .\Nuget\
       run: nuget pack $env:NugetSpc -properties Configuration=Release
+      
+    - name: Upload documentation artifact     
+      if: matrix.build_configuration == 'Release'
+      uses: actions/upload-artifact@v3
+      with:
+        name: AVMHomeAutomation.chm
+        path: Doc/AVMHomeAutomationDoc/Help/AVMHomeAutomation.chm
+        
+    - name: Upload nuget pack artifact     
+      if: matrix.build_configuration == 'Release'
+      uses: actions/upload-artifact@v3
+      with:
+        name: AVMHomeAutomation.nupkg
+        path: Nuget/AVMHomeAutomation.*.nupkg
