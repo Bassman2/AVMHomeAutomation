@@ -85,10 +85,10 @@ jobs:
         dotnet-version: 7.0.x
         
     - name: Restore dependencies
-      run: dotnet restore Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj
+      run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
     
     - name: Build
-      run: dotnet build Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj --no-restore
+      run: dotnet build Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj --no-restore
      
        
   buildMac:
@@ -107,7 +107,7 @@ jobs:
         dotnet-version: 7.0.x
         
     - name: Restore dependencies
-      run: dotnet restore Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj
+      run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
     
     - name: Build
-      run: dotnet build Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj --no-restore
+      run: dotnet build Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj --no-restore
