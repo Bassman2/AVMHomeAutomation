@@ -82,7 +82,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: [ '6.0.x', '7.0.x' ] 
         
     - name: Add SignKeys
       uses: Bassman2/SignKey@v1
@@ -90,10 +90,23 @@ jobs:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
         
-    - name: Restore dependencies
+    - name: Cache packages  
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: ${{ runner.os }}-nuget-        
+        
+    - name: Restore dependencies .NET 6.0
+      run: dotnet restore ./Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj
+ 
+    - name: Restore dependencies .NET 7.0
       run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
     
-    - name: Build
+    - name: Build .NET 6.0
+      run: dotnet build Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj --no-restore
+    
+    - name: Build .NET 7.0
       run: dotnet build Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj --no-restore
      
        
@@ -110,16 +123,29 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: [ '6.0.x', '7.0.x' ] 
         
     - name: Add SignKeys
       uses: Bassman2/SignKey@v1
       with:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
+        
+    - name: Cache packages  
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: ${{ runner.os }}-nuget-
 
-    - name: Restore dependencies
+    - name: Restore dependencies .NET 6.0
+      run: dotnet restore ./Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj
+      
+    - name: Restore dependencies .NET 7.0
       run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
     
-    - name: Build
+    - name: Build  .NET 6.0
+      run: dotnet build Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj --no-restore    
+      
+    - name: Build  .NET 7.0
       run: dotnet build Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj --no-restore
