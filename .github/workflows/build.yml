@@ -7,17 +7,13 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    name: Build
+  buildWindows:
+    name: Windows Build
     runs-on: windows-2022
     environment: sign
     env:
       Solution: AVMHomeAutomation.sln
       NugetSpc: AVMHomeAutomation.nuspec
-    strategy:
-      max-parallel: 2
-      matrix:
-        build_configuration: [Release, Debug]
 
     steps:
     - name: Checkout
@@ -52,23 +48,61 @@ jobs:
       run: dotnet restore $env:Solution
 
     - name: MSBuild of solution
-      run: msbuild $env:Solution /p:configuration="${{ matrix.build_configuration }}" /verbosity:minimal   
+      run: msbuild $env:Solution /p:configuration="Debug" /verbosity:minimal   
+
+    - name: MSBuild of solution
+      run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal   
         
     - name: Nuget pack nuspec
-      if: matrix.build_configuration == 'Release'
       working-directory: .\Nuget\
       run: nuget pack $env:NugetSpc -properties Configuration=Release
       
     - name: Upload documentation artifact     
-      if: matrix.build_configuration == 'Release'
       uses: actions/upload-artifact@v3
       with:
-        name: AVMHomeAutomation.chm
+        name: Documentation.zip
         path: Doc/AVMHomeAutomationDoc/Help/AVMHomeAutomation.chm
         
     - name: Upload nuget pack artifact     
-      if: matrix.build_configuration == 'Release'
       uses: actions/upload-artifact@v3
       with:
-        name: AVMHomeAutomation.nupkg
+        name: NugetPackage.zip
         path: Nuget/AVMHomeAutomation.*.nupkg
+        
+  buildLinux:
+    name: Linux Build
+    runs-on: ubuntu-22.04
+    environment: sign
+    env:
+      Solution: AVMHomeAutomation.sln
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore
+     
+       
+  buildMac:
+    name: MacOS Build
+    runs-on: macos-12
+    environment: sign
+    env:
+      Solution: AVMHomeAutomation.sln
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.3
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
