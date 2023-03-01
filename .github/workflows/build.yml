@@ -84,6 +84,12 @@ jobs:
       with:
         dotnet-version: 7.0.x
         
+    - name: Add SignKeys
+      uses: Bassman2/SignKey@v1
+      with:
+        file: Bassman.snk
+        key: ${{ secrets.SIGNKEY }}
+        
     - name: Restore dependencies
       run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
     
@@ -106,6 +112,12 @@ jobs:
       with:
         dotnet-version: 7.0.x
         
+    - name: Add SignKeys
+      uses: Bassman2/SignKey@v1
+      with:
+        file: Bassman.snk
+        key: ${{ secrets.SIGNKEY }}
+
     - name: Restore dependencies
       run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
     
