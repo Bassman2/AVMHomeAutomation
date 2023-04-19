@@ -5,21 +5,6 @@ namespace AVMHomeAutomationTest70
 {
     public partial class UnitTestDectGlobal
     {
-        
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
-        public void TestMethodGetTriggerListInfos()
-        {
-            TriggerList triggerList;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                triggerList = client.GetTriggerListInfos();
-            }
-
-            Assert.IsNotNull(triggerList);
-        }
 
         [TestMethod]
         [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
@@ -33,16 +18,6 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsNotNull(triggerList);
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.BadRequest)]
-        public void TestMethodSetTriggerActive()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetTriggerActive(TestSettings.TriggerAin, true);
-            }
         }
 
         [TestMethod]

@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Threading;
@@ -111,17 +112,19 @@ namespace MVVMAppBase.ViewModel
         #region command methods
 
         [RelayCommand]
-        public virtual void OnStartup()
+        public virtual async Task OnStartup()
         {
-            if (Application.Current == null)
-            {
-                // for testing
-                OnActivate();
-            }
-            else
-            {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => OnActivate()), DispatcherPriority.ContextIdle, null);
-            }
+            await Task.Run(() => { });
+
+            //if (Application.Current == null)
+            //{
+            //    // for testing
+            //    OnActivate();
+            //}
+            //else
+            //{
+            //    Application.Current.Dispatcher.BeginInvoke(new Action(() => OnActivate()), DispatcherPriority.ContextIdle, null);
+            //}
         }
 
         //[RelayCommand]

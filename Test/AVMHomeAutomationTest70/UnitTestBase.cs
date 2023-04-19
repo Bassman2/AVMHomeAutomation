@@ -16,26 +16,6 @@ namespace AVMHomeAutomationTest70
         }
 
         [TestMethod]
-        public void TestMethodGetDeviceInfos()
-        {
-            // Arrange
-            Device device;
-
-            // Act
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                device = client.GetDeviceInfos(testDevice.Ain);
-            }
-
-            // Assert
-            Assert.AreEqual(testDevice.Ain, device.Identifier, "Identifier");
-            Assert.AreEqual(testDevice.Name, device.Name, "Name");
-            Assert.AreEqual(testDevice.Product, device.ProductName, "ProductName");
-            Assert.AreEqual(testDevice.Manufacturer, device.Manufacturer, "Manufacturer");
-            Assert.AreEqual(testDevice.FirmwareVersion, device.FirmwareVersion, "FirmwareVersion");
-        }
-
-        [TestMethod]
         public async Task TestMethodGetDeviceInfosAsync()
         {
             // Arrange
@@ -56,22 +36,6 @@ namespace AVMHomeAutomationTest70
         }
 
         [TestMethod]
-        public void TestMethodGetName()
-        {
-            // Arrange
-            string name;
-
-            // Act
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                name = client.GetSwitchName(testDevice.Ain);
-            }
-
-            // Assert
-            Assert.AreEqual(testDevice.Name, name);
-        }
-
-        [TestMethod]
         public async Task TestMethodGetNameAsync()
         {
             // Arrange
@@ -85,22 +49,6 @@ namespace AVMHomeAutomationTest70
 
             // Assert
             Assert.AreEqual(testDevice.Name, name);
-        }
-
-        [TestMethod]
-        public void TestMethodPresent()
-        {
-            // Arrange
-            bool isPresent;
-
-            // Act
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                isPresent = client.GetSwitchPresent(testDevice.Ain);
-            }
-
-            // Assert
-            Assert.IsTrue(isPresent);
         }
 
         [TestMethod]

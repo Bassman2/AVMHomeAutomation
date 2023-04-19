@@ -8,16 +8,6 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetBlindError()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetBlind(testDevice.Ain, Target.Stop);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodSetBlindAsyncError()
         {
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))

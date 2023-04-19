@@ -10,20 +10,6 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetSimpleOnOffError()
-        {
-            OnOff onOff;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                onOff = client.SetSimpleOnOff(testDevice.Ain, OnOff.On);
-            }
-
-            Assert.AreEqual(OnOff.On, onOff);
-        }
-
-        [TestMethod]
-        //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodSetSimpleOnOffErrorAsync()
         {
             OnOff onOff;
@@ -34,20 +20,6 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.AreEqual(OnOff.On, onOff);
-        }
-
-        [TestMethod]
-        //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetLevelError()
-        {
-            int level;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                level = client.SetLevel(testDevice.Ain, 200);
-            }
-
-            Assert.AreEqual(200, level);
         }
 
         [TestMethod]
@@ -66,20 +38,6 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetLevelPercentageError()
-        {
-            int percent;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                percent = client.SetLevelPercentage(testDevice.Ain, 70);
-            }
-
-            Assert.AreEqual(70, percent);
-        }
-
-        [TestMethod]
-        //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodSetLevelPercentageErrorAsync()
         {
             int percent;
@@ -90,20 +48,6 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.AreEqual(70, percent);
-        }
-
-        [TestMethod]
-        //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetColorError()
-        {
-            int hue;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                hue = client.SetColor(testDevice.Ain, 200, 210);
-            }
-
-            Assert.AreEqual(200, hue);
         }
 
         [TestMethod]
@@ -122,20 +66,6 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetUnmappedColorError()
-        {
-            int hue;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                hue = client.SetUnmappedColor(testDevice.Ain, 200, 200);
-            }
-
-            Assert.AreEqual(200, hue);
-        }
-
-        [TestMethod]
-        //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodSetUnmappedColorErrorAsync()
         {
             int hue;
@@ -146,20 +76,6 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.AreEqual(200, hue);
-        }
-
-        [TestMethod]
-        //[ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetColorTemperatureError()
-        {
-            int temp;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                temp = client.SetColorTemperature(testDevice.Ain, 5000);
-            }
-
-            Assert.AreEqual(5000, temp);
         }
 
         [TestMethod]

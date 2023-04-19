@@ -8,18 +8,6 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodEnergyError()
-        {
-            double? energy;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                energy = client.GetSwitchEnergy(testDevice.Ain);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodEnergyErrorAsync()
         {
             double? energy;
@@ -27,18 +15,6 @@ namespace AVMHomeAutomationTest70
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
                 energy = await client.GetSwitchEnergyAsync(testDevice.Ain);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodPowerError()
-        {
-            double? power;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                power = client.GetSwitchPower(testDevice.Ain);
             }
         }
 

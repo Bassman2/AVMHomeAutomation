@@ -74,31 +74,12 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Returns the AIN / MAC list of all known sockets.
         /// </summary>
-        /// <returns>AIN / MAC list</returns>
-        public string[] GetSwitchList()
-        {
-            return this.client.GetStringAsync(BuildUrl("getswitchlist")).Result.SplitList();
-        }
-
-        /// <summary>
-        /// Returns the AIN / MAC list of all known sockets.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<string[]> GetSwitchListAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("getswitchlist"))).SplitList();
         }
-
-        /// <summary>
-        /// Turns on the socket.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>New state of the socket</returns>
-        public bool SetSwitchOn(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("setswitchon", ain)).Result.ToBool();
-        }
-
+        
         /// <summary>
         /// Turns on the socket.
         /// </summary>
@@ -108,17 +89,7 @@ namespace AVMHomeAutomation
         {
             return (await this.client.GetStringAsync(BuildUrl("setswitchon", ain))).ToBool();
         }
-
-        /// <summary>
-        /// Switches off the socket.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>New state of the socket</returns>
-        public bool SetSwitchOff(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("setswitchoff", ain)).Result.ToBool();
-        }
-
+        
         /// <summary>
         /// Switches off the socket.
         /// </summary>
@@ -133,32 +104,10 @@ namespace AVMHomeAutomation
         /// Toggle the power socket on / off.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>New state of the socket</returns>
-        public bool SetSwitchToggle(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("setswitchtoggle", ain)).Result.CheckStatusCode().ToBool();
-        }
-
-        /// <summary>
-        /// Toggle the power socket on / off.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> SetSwitchToggleAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("setswitchtoggle", ain))).CheckStatusCode().ToBool();
-        }
-
-
-        /// <summary>
-        /// Determines the switching state of the socket.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>State of the socket</returns>
-        /// <remarks>Changes if the connection is lost the condition only with some Minutes delay to false.</remarks>
-        public bool? GetSwitchState(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getswitchstate", ain)).Result.ToNullableBool();
         }
 
         /// <summary>
@@ -171,17 +120,7 @@ namespace AVMHomeAutomation
         {
             return (await this.client.GetStringAsync(BuildUrl("getswitchstate", ain))).ToNullableBool();
         }
-
-        /// <summary>
-        /// Determines the connection status of the actuator.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>True if connected; false if not</returns>
-        public bool GetSwitchPresent(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getswitchpresent", ain)).Result.ToBool();
-        }
-
+        
         /// <summary>
         /// Determines the connection status of the actuator.
         /// </summary>
@@ -190,16 +129,6 @@ namespace AVMHomeAutomation
         public async Task<bool> GetSwitchPresentAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("getswitchpresent", ain))).ToBool();
-        }
-
-        /// <summary>
-        /// Determines current power taken from the power outlet.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Power in W, null if unknown.</returns>
-        public double? GetSwitchPower(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getswitchpower", ain)).Result.ToPower();
         }
 
         /// <summary>
@@ -216,30 +145,10 @@ namespace AVMHomeAutomation
         /// Delivers the amount of energy taken from the socket since commissioning or resetting the energy statistics.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Energy in kWh, null if unknown.</returns>
-        public double? GetSwitchEnergy(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getswitchenergy", ain)).Result.ToPower();
-        }
-
-        /// <summary>
-        /// Delivers the amount of energy taken from the socket since commissioning or resetting the energy statistics.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double?> GetSwitchEnergyAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("getswitchenergy", ain))).ToPower();
-        }
-
-        /// <summary>
-        /// Returns identifiers of the actor.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>ColorName of the actor</returns>
-        public string GetSwitchName(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getswitchname", ain)).Result.TrimEnd();
         }
 
         /// <summary>
@@ -255,15 +164,6 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Provides the basic information of all SmartHome devices.
         /// </summary>
-        /// <returns>Information of all SmartHome devices</returns>
-        public DeviceList GetDeviceListInfos()
-        {
-            return this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result.XmlToAs<DeviceList>();
-        }
-
-        /// <summary>
-        /// Provides the basic information of all SmartHome devices.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
         {
@@ -273,29 +173,10 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Provides the basic information of all SmartHome devices as XML.
         /// </summary>
-        /// <returns>Information of all SmartHome devices as XML</returns>
-        public XmlDocument GetDeviceListInfosXml()
-        {
-            return this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result.ToXml();
-        }
-
-        /// <summary>
-        /// Provides the basic information of all SmartHome devices as XML.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<XmlDocument> GetDeviceListInfosXmlAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).ToXml();
-        }
-
-        /// <summary>
-        /// Last temperature information of the actuator.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Temperature value in C.</returns>
-        public double? GetTemperature(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("gettemperature", ain)).Result.ToNullableTemperature();
         }
 
         /// <summary>
@@ -312,30 +193,10 @@ namespace AVMHomeAutomation
         /// Setpoint temperature currently set for HKR.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Temperature value °C, On or Off.</returns>
-        public double GetHkrtSoll(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("gethkrtsoll", ain)).Result.ToHkrTemperature();
-        }
-
-        /// <summary>
-        /// Setpoint temperature currently set for HKR.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrtSollAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("gethkrtsoll", ain))).ToHkrTemperature();
-        }
-
-        /// <summary>
-        /// Comfort temperature set for HKR timer.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>TTemperature value °C, On or Off.</returns>
-        public double GetHkrKomfort(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("gethkrkomfort", ain)).Result.ToHkrTemperature();
         }
 
         /// <summary>
@@ -352,35 +213,10 @@ namespace AVMHomeAutomation
         /// Economy temperature set for HKR timer.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Temperature value °C, On or Off.</returns>
-        public double GetHkrAbsenk(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("gethkrabsenk", ain)).Result.ToHkrTemperature();
-        }
-
-        /// <summary>
-        /// Economy temperature set for HKR timer.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<double> GetHkrAbsenkAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("gethkrabsenk", ain))).ToHkrTemperature();
-        }
-
-        /// <summary>
-        /// HKR set temperature. The setpoint temperature is transferred with the "param" Get parameter.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="temperature">Temperature value °C (8°C - 28°C), On or Off.</param>
-        /// <returns>Temperature value °C, On or Off.</returns>
-        public double SetHkrtSoll(string ain, double temperature)
-        {
-            if ((temperature < 8 || temperature > 28) && (temperature != On) && (temperature != Off))
-            {
-                throw new ArgumentOutOfRangeException(nameof(temperature));
-            }
-            return this.client.GetStringAsync(BuildUrl("sethkrtsoll", ain, $"param={temperature.ToHkrTemperature()}")).Result.ToHkrTemperature(); 
         }
 
         /// <summary>
@@ -402,32 +238,12 @@ namespace AVMHomeAutomation
         /// Provides the basic statistics (temperature, voltage, power) of the actuator.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Device stats.</returns>
-        public DeviceStats GetBasicDeviceStats(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain)).Result.XmlToAs<DeviceStats>();
-        }
-
-        /// <summary>
-        /// Provides the basic statistics (temperature, voltage, power) of the actuator.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).XmlToAs<DeviceStats>();
         }
-
-        /// <summary>
-        /// Provides the basic statistics (temperature, voltage, power) of the actuator as XML.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Device stats as XML.</returns>
-        public XmlDocument GetBasicDeviceStatsXml(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain)).Result.ToXml();
-        }
-
+        
         /// <summary>
         /// Provides the basic statistics (temperature, voltage, power) of the actuator as XML.
         /// </summary>
@@ -437,17 +253,7 @@ namespace AVMHomeAutomation
         {
             return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).ToXml();
         }
-
-        /// <summary>
-        /// Provides the basics information of all routines/triggers.
-        /// </summary>
-        /// <returns>Trigger list.</returns>
-        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-        public TriggerList GetTriggerListInfos()
-        {
-            return this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result.XmlToAs<TriggerList>();
-        }
-
+        
         /// <summary>
         /// Provides the basics information of all routines/triggers.
         /// </summary>
@@ -457,17 +263,7 @@ namespace AVMHomeAutomation
         {
             return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).XmlToAs<TriggerList>();
         }
-
-        /// <summary>
-        /// Provides the basics information of all routines/triggers as XML.
-        /// </summary>
-        /// <returns>Trigger list as XML.</returns>
-        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-        public XmlDocument GetTriggerListInfosXml()
-        {
-            return this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result.ToXml();
-        }
-
+        
         /// <summary>
         /// Provides the basics information of all routines/triggers as XML.
         /// </summary>
@@ -476,18 +272,6 @@ namespace AVMHomeAutomation
         public async Task<XmlDocument> GetTriggerListInfosXmlAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).ToXml();
-        }
-
-        /// <summary>
-        /// Activate or deactivate trigger.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="active">True to activate, false to deactivate.</param>
-        /// <returns>New trigger value.</returns>
-        /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-        public bool SetTriggerActive(string ain, bool active)
-        {
-            return this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}")).Result.ToBool();
         }
 
         /// <summary>
@@ -505,28 +289,10 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Returns the basic information of all templates / templates.
         /// </summary>
-        /// <returns>Template list.</returns>
-        public TemplateList GetTemplateListInfos()
-        {
-            return this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result.XmlToAs<TemplateList>();
-        }
-
-        /// <summary>
-        /// Returns the basic information of all templates / templates.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<TemplateList> GetTemplateListInfosAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).XmlToAs<TemplateList>();
-        }
-
-        /// <summary>
-        /// Returns the basic information of all templates / templates as XML.
-        /// </summary>
-        /// <returns>Template list as XML.</returns>
-        public XmlDocument GetTemplateListInfosXml()
-        {
-            return this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result.ToXml();
         }
 
         /// <summary>
@@ -542,31 +308,10 @@ namespace AVMHomeAutomation
         /// Apply template, the ain parameter is evaluated.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Id of the template.</returns>
-        public int ApplyTemplate(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("applytemplate", ain)).Result.ToInt();
-        }
-
-        /// <summary>
-        /// Apply template, the ain parameter is evaluated.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<int> ApplyTemplateAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("applytemplate", ain))).ToInt();
-        }
-
-        /// <summary>
-        /// Device/actuator/lamp switch on/off or toggle.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="onOff">Switch on, off or toggle.</param>
-        /// <returns>New on off value.</returns>
-        public OnOff SetSimpleOnOff(string ain, OnOff onOff)
-        {
-            return this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}")).Result.ToOnOff();
         }
 
         /// <summary>
@@ -578,22 +323,6 @@ namespace AVMHomeAutomation
         public async Task<OnOff> SetSimpleOnOffAsync(string ain, OnOff onOff)
         {
             return (await this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}"))).ToOnOff();
-        }
-
-        /// <summary>
-        /// Set dimming, height, brightness or level.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="level">Level (0 - 255) to set.</param>
-        /// <returns>New level.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int SetLevel(string ain, int level)
-        {
-            if (level < 0 || level > 255)
-            {
-                throw new ArgumentOutOfRangeException(nameof(level));
-            }
-            return this.client.GetStringAsync(BuildUrl("setlevel", ain, $"level={level}")).Result.ToInt();
         }
 
         /// <summary>
@@ -617,22 +346,6 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="level">Level in percent (0 - 100) to set.</param>
-        /// <returns>New level percentage.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int SetLevelPercentage(string ain, int level)
-        {
-            if (level < 0 || level > 100)
-            {
-                throw new ArgumentOutOfRangeException(nameof(level));
-            }
-            return this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}")).Result.ToInt();
-        }
-
-        /// <summary>
-        /// Set dimming, height, brightness or level level in percent.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="level">Level in percent (0 - 100) to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task<int> SetLevelPercentageAsync(string ain, int level)
@@ -642,30 +355,6 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(level));
             }
             return (await this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}"))).ToInt();
-        }
-
-        /// <summary>
-        /// Adjust hue saturation color. The HSV color space is used with the hue saturation mode supports.
-        /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="hue">Hue value of the color.</param>
-        /// <param name="saturation">Saturation value of the color.</param>
-        /// <param name="duration">Speed of the change.</param>
-        /// <returns>Hue value of the color.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int SetColor(string ain, int hue, int saturation, TimeSpan? duration = null)
-        {
-            if (hue < 0 || hue > 359)
-            {
-                throw new ArgumentOutOfRangeException(nameof(hue));
-            }
-            if (saturation < 0 || saturation > 255)
-            {
-                throw new ArgumentOutOfRangeException(nameof(saturation));
-            }
-
-            return this.client.GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Result.ToInt();
         }
 
         /// <summary>
@@ -699,30 +388,6 @@ namespace AVMHomeAutomation
         /// <param name="hue">Hue value of the color.</param>
         /// <param name="saturation">Saturation value of the color.</param>
         /// <param name="duration">Speed of the change.</param>
-        /// <returns>New hue value.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int SetUnmappedColor(string ain, int hue, int saturation, TimeSpan? duration = null)
-        {
-            if (hue < 0 || hue > 359)
-            {
-                throw new ArgumentOutOfRangeException(nameof(hue));
-            }
-            if (saturation < 0 || saturation > 255)
-            {
-                throw new ArgumentOutOfRangeException(nameof(saturation));
-            }
-
-            return this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}")).Result.ToInt();
-        }
-
-        /// <summary>
-        /// Adjust hue saturation color. 
-        /// Of the brightness (value) can be over setlevel/setlevelpercentage be configured, the hue and saturation values are here configurable.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="hue">Hue value of the color.</param>
-        /// <param name="saturation">Saturation value of the color.</param>
-        /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null)
@@ -744,23 +409,6 @@ namespace AVMHomeAutomation
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
         /// <param name="duration">Speed of the change.</param>
-        /// <returns>New color temperature.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int SetColorTemperature(string ain, int temperature, TimeSpan? duration = null)
-        {
-            if (temperature < 2700 || temperature > 6500)
-            {
-                throw new ArgumentOutOfRangeException(nameof(temperature));
-            }
-            return this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&&duration={duration.ToDeciseconds()}")).Result.ToInt();
-        }
-
-        /// <summary>
-        /// Adjust color temperature.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="temperature">Color temperature in °Kelvin (2700° bis 6500°)</param>
-        /// <param name="duration">Speed of the change.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null)
@@ -770,36 +418,6 @@ namespace AVMHomeAutomation
                 throw new ArgumentOutOfRangeException(nameof(temperature));
             }
             return (await this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"))).ToInt();
-        }
-
-        /// <summary>
-        /// Creates a color template for lamps.
-        /// </summary>
-        /// <param name="name">Name of the template to create.</param>
-        /// <param name="levelPercentage">Level Percentage of the light.</param>
-        /// <param name="hue">Hue value.</param>
-        /// <param name="saturation">Saturation value.</param>
-        /// <param name="ains">List of lamp devices.</param>
-        /// <param name="colorpreset">User color preset or not.</param>
-        /// <returns>Id of the template</returns>
-        /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-        public int AddColorLevelTemplate(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false)
-        {
-            if (levelPercentage < 0 || levelPercentage > 1000)
-            {
-                throw new ArgumentOutOfRangeException(nameof(levelPercentage));
-            }
-            if (hue < 0 || levelPercentage > 359)
-            {
-                throw new ArgumentOutOfRangeException(nameof(hue));
-            }
-            if (saturation < 0 || saturation > 255)
-            {
-                throw new ArgumentOutOfRangeException(nameof(saturation));
-            }
-            string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
-            string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&hue={hue}&saturation={saturation}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-            return this.client.GetStringAsync(req).Result.ToInt();
         }
 
         /// <summary>
@@ -840,31 +458,6 @@ namespace AVMHomeAutomation
         /// <param name="temperature">Color temperature of the light.</param>
         /// <param name="ains">List of lamp devices.</param>
         /// <param name="colorpreset">>User color preset or not.</param>
-        /// <returns>Id of the template.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-        public int AddColorLevelTemplate(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
-        {
-            if (levelPercentage < 0 || levelPercentage > 1000)
-            {
-                throw new ArgumentOutOfRangeException(nameof(levelPercentage));
-            }
-            if (temperature < 2700 || temperature > 6500)
-            {
-                throw new ArgumentOutOfRangeException(nameof(temperature));
-            }
-            string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
-            string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-            return this.client.GetStringAsync(req).Result.ToInt();
-        }
-
-        /// <summary>
-        /// Creates a color template for lamps
-        /// </summary>
-        /// <param name="name">Name of the template to create.</param>
-        /// <param name="levelPercentage">Level Percentage of the light.</param>
-        /// <param name="temperature">Color temperature of the light.</param>
-        /// <param name="ains">List of lamp devices.</param>
-        /// <param name="colorpreset">>User color preset or not.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
         public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false)
@@ -885,15 +478,6 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Provides a proposal for the color selection values.
         /// </summary>
-        /// <returns>Color defaults class.</returns>
-        public ColorDefaults GetColorDefaults()
-        {
-            return this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result.XmlToAs<ColorDefaults>();
-        }
-
-        /// <summary>
-        /// Provides a proposal for the color selection values.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<ColorDefaults> GetColorDefaultsAsync()
         {
@@ -903,36 +487,10 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Provides a proposal for the color selection values as XML.
         /// </summary>
-        /// <returns>Color defaults class as XML.</returns>
-        public XmlDocument GetColorDefaultsXml()
-        {
-            return this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result.ToXml();
-        }
-
-        /// <summary>
-        /// Provides a proposal for the color selection values as XML.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<XmlDocument> GetColorDefaultsXmlAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("getcolordefaults"))).ToXml();
-        }
-
-        /// <summary>
-        /// Activate HKR Boost with end time for the disable: endtimestamp = null.
-        /// The end time may not exceed to 24 hours in the future lie.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="endtimestamp">End time to set.</param>
-        /// <returns>End time</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public DateTime? SetHkrBoost(string ain, DateTime? endtimestamp = null)
-        {
-            if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24,0,0)))
-            {
-                throw new ArgumentOutOfRangeException(nameof(endtimestamp));
-            }
-            return this.client.GetStringAsync(BuildUrl("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}")).Result.ToNullableDateTime();
         }
 
         /// <summary>
@@ -951,24 +509,7 @@ namespace AVMHomeAutomation
             }
             return (await this.client.GetStringAsync(BuildUrl("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}"))).ToNullableDateTime();
         }
-
-        /// <summary>
-        /// HKR window open mode activate with end time for the disable: endtimestamp = null.
-        /// The end time may not exceed to 24 hours in the future lie.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="endtimestamp">End time to set.</param>
-        /// <returns>End time to set.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public DateTime? SetHkrWindowOpen(string ain, DateTime? endtimestamp = null)
-        {
-            if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
-            {
-                throw new ArgumentOutOfRangeException(nameof(endtimestamp));
-            }
-            return this.client.GetStringAsync(BuildUrl("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}")).Result.ToNullableDateTime();
-        }
-
+        
         /// <summary>
         /// HKR window open mode activate with end time for the disable: endtimestamp = null.
         /// The end time may not exceed to 24 hours in the future lie.
@@ -992,45 +533,12 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
         /// <param name="target">Target to set.</param>
-        /// <returns>New target.</returns>
-        public Target SetBlind(string ain, Target target)
-        {
-
-            return this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}")).Result.ToTarget();
-        }
-
-        /// <summary>
-        /// Close, open or stop the blind.
-        /// Blinds have the HANFUN unit type Blind (281).
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="target">Target to set.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Target> SetBlindAsync(string ain, Target target)
         {
             return (await this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}"))).ToTarget();
         }
-
-        /// <summary>
-        /// Change device or group name.
-        /// Attention: the user session must have the smart home and app right.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="name">New name, maximum 40 characters.</param>
-        /// <returns>New name of the device.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public string SetName(string ain, string name)
-        {
-            if (name.Length > 40)
-            {
-                throw new ArgumentOutOfRangeException(nameof(name));
-            }
-            return this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}")).Result.TrimEnd();
-        }
-
-
-
+        
         /// <summary>
         /// Change device or group name.
         /// Attention: the user session must have the smart home and app right.
@@ -1048,20 +556,7 @@ namespace AVMHomeAutomation
             }
             return (await this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}"))).TrimEnd();
         }
-
-        /// <summary>
-        /// json metadata of the template or change/set empty string
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <param name="metaData">Metadata to set.</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <remarks>New in Fritz!OS 7.39</remarks>
-        public void SetMetaData(string ain, MetaData metaData)
-        {
-            
-            this.client.GetStringAsync(BuildUrl("setmetadata", ain, $"metadata={metaData.AsToJson()}")).Wait();
-        }
-
+        
         /// <summary>
         /// json metadata of the template or change/set empty string
         /// </summary>
@@ -1071,17 +566,7 @@ namespace AVMHomeAutomation
         /// <remarks>New in Fritz!OS 7.39</remarks>
         public async Task SetMetaDataAsync(string ain, MetaData metaData)
         {
-            
             await this.client.GetStringAsync(BuildUrl("setmetadata", ain, $"metadata={metaData.AsToJson()}"));
-        }
-
-        /// <summary>
-        /// Start DECT ULE device registration.
-        /// </summary>
-        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public void StartUleSubscription()
-        {
-            this.client.GetStringAsync(BuildUrl("startulesubscription")).Wait();
         }
 
         /// <summary>
@@ -1097,31 +582,11 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Query DECT-ULE device registration status.
         /// </summary>
-        /// <returns>Return the subscription state.</returns>
-        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public SubscriptionState GetSubscriptionState()
-        {
-            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.XmlToAs<SubscriptionState>();
-        }
-
-        /// <summary>
-        /// Query DECT-ULE device registration status.
-        /// </summary>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
         public async Task<SubscriptionState> GetSubscriptionStateAsync()
         {
             return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).XmlToAs<SubscriptionState>();
-        }
-
-        /// <summary>
-        /// Query DECT-ULE device registration status as XML.
-        /// </summary>
-        /// <returns>Return the subscription state as XML.</returns>
-        /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-        public XmlDocument GetSubscriptionStateXml()
-        {
-            return this.client.GetStringAsync(BuildUrl("getsubscriptionstate")).Result.ToXml();
         }
 
         /// <summary>
@@ -1138,30 +603,10 @@ namespace AVMHomeAutomation
         /// Provides the basic information of one SmartHome devices.
         /// </summary>
         /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Information of one SmartHome devices</returns>
-        public Device GetDeviceInfos(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain)).Result.XmlToAs<Device>();
-        }
-
-        /// <summary>
-        /// Provides the basic information of one SmartHome devices.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Device> GetDeviceInfosAsync(string ain)
         {
             return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).XmlToAs<Device>();
-        }
-
-        /// <summary>
-        /// Provides the basic information of one SmartHome devices as XML.
-        /// </summary>
-        /// <param name="ain">Identification of the actor or template.</param>
-        /// <returns>Information of one SmartHome devices as XML</returns>
-        public XmlDocument GetDeviceInfosXml(string ain)
-        {
-            return this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain)).Result.ToXml();
         }
 
         /// <summary>
@@ -1179,7 +624,6 @@ namespace AVMHomeAutomation
         /// </summary>
         public void CreateBugReportFile()
         {
-//            string fileName = $"BugReport-{DateTime.Now.ToString("yyy-MM-dd-HH-mm-ss")}.xml";
             string fileName = $"BugReport-{DateTime.Now:yyy-MM-dd-HH-mm-ss}.xml";
             using (var file = File.CreateText(fileName))
             {

@@ -1,20 +1,8 @@
-﻿using System.Net;
-
-namespace AVMHomeAutomationTest70
+﻿namespace AVMHomeAutomationTest70
 {
     public partial class UnitTestDect400Switch : UnitTestBase
     {
         #region Switch Socket
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetSwitchOnError()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetSwitchOn(testDevice.Ain);
-            }
-        }
 
         [TestMethod]
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
@@ -23,16 +11,6 @@ namespace AVMHomeAutomationTest70
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
                 await client.SetSwitchOnAsync(testDevice.Ain);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetSwitchOffError()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetSwitchOff(testDevice.Ain);
             }
         }
 
@@ -48,32 +26,11 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodSetSwitchToggleError()
-        {
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                client.SetSwitchToggle(testDevice.Ain);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodSetSwitchToggleAsyncError()
         {
             using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
             {
                 await client.SetSwitchToggleAsync(testDevice.Ain);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodGetSwitchStateError()
-        {
-            bool? val;
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                val = client.GetSwitchState(testDevice.Ain);
             }
         }
 

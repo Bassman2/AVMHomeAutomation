@@ -8,18 +8,6 @@ namespace AVMHomeAutomationTest70
 
         [TestMethod]
         [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
-        public void TestMethodTemperatureError()
-        {
-            double? temperature;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                temperature = client.GetTemperature(testDevice.Ain);
-            }
-        }
-
-        [TestMethod]
-        [ExpectedHttpRequestException(HttpStatusCode.InternalServerError)]
         public async Task TestMethodTemperatureErrorAsync()
         {
             double? temperature;
