@@ -7,9 +7,6 @@
              xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <conv:DoubleToUnitConverter x:Key="DoubleToUnitConverter"/>
-    </UserControl.Resources>
     <GroupBox Header="Power Meter" Margin="0,3,0,3">
         <Grid >
             <Grid.ColumnDefinitions>
@@ -22,11 +19,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="Power" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Power, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Power},Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Power, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Power}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Energy" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Energy, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Energy},Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Energy, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Energy}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="2" Content="Voltage" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Voltage},Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Voltage, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Voltage}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>

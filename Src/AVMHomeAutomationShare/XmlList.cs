@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -11,7 +12,7 @@ namespace AVMHomeAutomation
     /// Class for string list serilization.
     /// </summary>
     /// <typeparam name="T">Underlying type.</typeparam>
-    public struct XmlList<T> : IXmlSerializable
+    public struct XmlList<T> : IXmlSerializable, IEnumerable
     {
         /// <summary>
         /// Initializes a new instance of the XmlStringList structure to the specified value.
@@ -91,6 +92,15 @@ namespace AVMHomeAutomation
         public void WriteXml(XmlWriter writer)
         {
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IEnumerable
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.Values.GetEnumerator();
         }
 
         #endregion

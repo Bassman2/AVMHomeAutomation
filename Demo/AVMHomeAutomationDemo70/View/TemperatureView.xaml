@@ -7,9 +7,6 @@
              xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <conv:DoubleToUnitConverter x:Key="DoubleToUnitConverter"/>
-    </UserControl.Resources>
     <GroupBox Header="Temperature" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -21,9 +18,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="Current Temperature" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Celsius, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Celsius, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Temperature Offset" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Offset, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Offset, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>

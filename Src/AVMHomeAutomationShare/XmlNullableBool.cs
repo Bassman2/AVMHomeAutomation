@@ -8,7 +8,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Class for nullable bool serilization.
     /// </summary>
-    public struct XmlNullableBool : IXmlSerializable
+    public struct XmlNullableBool : IXmlNullable, IXmlSerializable
     {
         private bool hasValue;
         private bool value;

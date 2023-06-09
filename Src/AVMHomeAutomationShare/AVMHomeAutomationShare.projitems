@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IXmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />

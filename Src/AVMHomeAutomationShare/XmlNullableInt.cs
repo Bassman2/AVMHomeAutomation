@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using System.Xml;
 
 namespace AVMHomeAutomation
 {
@@ -11,7 +9,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Class for nullable int serilization.
     /// </summary>
-    public struct XmlNullableInt : IXmlSerializable 
+    public struct XmlNullableInt : IXmlNullable, IXmlSerializable
     {
         private bool hasValue;
         private int value;

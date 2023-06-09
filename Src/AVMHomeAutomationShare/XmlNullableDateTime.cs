@@ -8,7 +8,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Class for nullable DateTime serilization.
     /// </summary>
-    public struct XmlNullableDateTime : IXmlSerializable
+    public struct XmlNullableDateTime : IXmlNullable, IXmlSerializable
     {
         private static DateTime begin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 

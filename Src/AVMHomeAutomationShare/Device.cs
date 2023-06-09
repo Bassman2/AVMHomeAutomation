@@ -7,7 +7,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Device data.
     /// </summary>
-    [DebuggerDisplay("Device: {ColorName} -  {Manufacturer} - {ProductName}")]
+    [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName}")]
     [XmlRoot("device")]
     public class Device
     {
@@ -66,7 +66,7 @@ namespace AVMHomeAutomation
         public XmlNullableBool IsTXBusy { get; set; }
         
         /// <summary>
-        /// ColorName of the device.
+        /// Name of the device.
         /// </summary>
         [XmlElement("name")]
         public string Name { get; set; }

@@ -20,7 +20,21 @@ namespace AVMHomeAutomationDemo.ViewModel
         {
             using var client = new HomeAutomation("Demo", "Demo-1234");
             await Task.WhenAll(
-                client.GetDeviceListInfosAsync().ContinueWith(items => this.DeviceList = items.Result),
+                Task.Run(async () => 
+                {
+                    XmlDocument xmlDocument = await client.GetDeviceListInfosXmlAsync();
+                    DeviceList deviceList = await client.GetDeviceListInfosAsync();
+                    this.Version = deviceList.Version;
+                    this.FirmwareVersion = deviceList.FirmwareVersion;
+                    this.Devices = deviceList.Devices.Select(d => new DeviceViewModel(d, xmlDocument)).ToList();
+                }),
+                //client.GetDeviceListInfosAsync().ContinueWith(items => 
+                //{
+                //    this.Version = items.Result.Version;
+                //    this.FirmwareVersion = items.Result.FirmwareVersion;
+                //    this.Devices = items.Result?.Devices.Select(d => new DeviceViewModel(d, null)).ToList();
+                //    //this.DeviceList = items.Result; this.Devices = items.Result
+                //}),
                 client.GetTemplateListInfosAsync().ContinueWith(items => this.TemplateList = items.Result)
                 );
             //this.DeviceList = await client.GetDeviceListInfosAsync();
@@ -95,13 +109,19 @@ namespace AVMHomeAutomationDemo.ViewModel
         }
 
         [ObservableProperty]
-        public DeviceList deviceList;
+        public string version;
+
+        [ObservableProperty]
+        public string firmwareVersion;
+
+        //[ObservableProperty]
+        //public DeviceList deviceList;
 
         [ObservableProperty]
         public List<DeviceViewModel> devices;
 
-        [ObservableProperty]
-        private DeviceViewModel selectedDevice;
+        //[ObservableProperty]
+        //private DeviceViewModel selectedDevice;
 
         [ObservableProperty]
         public TemplateList templateList;

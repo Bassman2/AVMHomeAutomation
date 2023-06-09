@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
-    public class DeviceViewModel : ObservableObject
+    public partial class DeviceViewModel : ObservableObject
     {
         private readonly Device device;
 
@@ -21,7 +21,8 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.Text = strWriter.ToString();
         }
 
-        public string Text { get; }
+        [ObservableProperty]
+        public string text;
 
 
         #region Device Attributes

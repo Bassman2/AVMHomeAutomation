@@ -8,7 +8,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Class for nullable Hkr Temperature serilization.
     /// </summary>
-    public struct XmlNullableHkrTemperature : IXmlSerializable
+    public struct XmlNullableHkrTemperature : IXmlNullable, IXmlSerializable
     {
         private bool hasValue;
         private double value;

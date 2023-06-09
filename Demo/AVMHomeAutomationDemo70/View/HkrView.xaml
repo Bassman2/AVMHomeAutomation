@@ -7,14 +7,7 @@
              xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
-        <conv:DoubleToUnitConverter x:Key="DoubleToUnitConverter"/>
-        <conv:EnumToStringConverter x:Key="EnumToStringConverter"/>
-        <conv:BoolToOnOffConverter x:Key="BoolToOnOffConverter"/>
-        <conv:IntToStringConverter x:Key="IntToStringConverter"/>
-    </UserControl.Resources>
+    
     <GroupBox Header="Radiator regulator" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -41,55 +34,55 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Content="T Ist" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TIst, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TIst, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
            
             <Label Grid.Column="0" Grid.Row="1" Content="T Soll" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TSoll, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TSoll, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             
             <Label Grid.Column="0" Grid.Row="2" Content="Absenk" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Absenk, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Absenk, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="3" Content="Komfort" />
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Komfort, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Komfort, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="4" Content="Lock" />
-            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Lock, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Lock, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="5" Content="Device Lock" />
-            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding DeviceLock, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding DeviceLock, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="6" Content="Error Code" />
             <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding ErrorCode, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="7" Content="Window Open Activ" />
-            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding WindowOpenActiv, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding WindowOpenActiv, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="8" Content="Window Open Activ End Time" />
-            <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding WindowOpenActivEndTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding WindowOpenActivEndTime, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="9" Content="Boost Active" />
-            <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding BoostActive, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding BoostActive, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="10" Content="Boost Active End Time" />
-            <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding BoostActiveEndTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding BoostActiveEndTime, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="11" Content="Battery Low" />
-            <TextBox Grid.Column="1" Grid.Row="11" Text="{Binding BatteryLow, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="11" Text="{Binding BatteryLow, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="12" Content="Battery" />
-            <TextBox Grid.Column="1" Grid.Row="12" Text="{Binding Battery, Converter={StaticResource IntToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="12" Text="{Binding Battery, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="13" Content="Next Change End Period" />
-            <TextBox Grid.Column="1" Grid.Row="13" Text="{Binding NextChangeEndPeriod, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="13" Text="{Binding NextChangeEndPeriod, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             
             <Label Grid.Column="0" Grid.Row="14" Content="Next Change T Change" />
-            <TextBox Grid.Column="1" Grid.Row="14" Text="{Binding NextChangeTChange, Converter={StaticResource DoubleToUnitConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="14" Text="{Binding NextChangeTChange, Converter={StaticResource ValueToStringConverter}, ConverterParameter={x:Static conv:Unit.Temperature}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="15" Content="Summer Active" />
-            <TextBox Grid.Column="1" Grid.Row="15" Text="{Binding SummerActive, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="15" Text="{Binding SummerActive, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
             <Label Grid.Column="0" Grid.Row="16" Content="Holiday Active" />
-            <TextBox Grid.Column="1" Grid.Row="16" Text="{Binding HolidayActive, Converter={StaticResource BoolToOnOffConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="16" Text="{Binding HolidayActive, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
 
         </Grid>
     </GroupBox>
