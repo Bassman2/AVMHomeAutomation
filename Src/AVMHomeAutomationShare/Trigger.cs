@@ -19,7 +19,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Identifier of the trigger.
         /// </summary>
-        [XmlAttribute("active:")]
+        [XmlAttribute("active")]
         public int Active { get; set; }
 
         /// <summary>

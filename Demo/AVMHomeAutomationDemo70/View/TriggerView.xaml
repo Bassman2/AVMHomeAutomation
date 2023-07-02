@@ -6,39 +6,32 @@
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <GroupBox Header="Trigger" Margin="0,3,0,3" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
 
-        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <GroupBox Header="Trigger" Margin="0,3,0,3" >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="180"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-
-                        </Grid.RowDefinitions>
-                        <!-- attributes -->
-                        <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
-                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="1" Content="Active" />
-                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding IsActive, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                        <Label Grid.Column="0" Grid.Row="2" Content="Name" />
-                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                    </Grid>
-                </GroupBox>
-                <!--<GroupBox Header="Devices" Margin="3">
+                    </Grid.RowDefinitions>
+                    <!-- attributes -->
+                    <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Active" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding IsActive, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="Name" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                </Grid>
+            </GroupBox>
+            <!--<GroupBox Header="Devices" Margin="3">
                 <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" Margin="3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
@@ -48,7 +41,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>-->
-                <!--
+            <!--
             <Grid Visibility="{Binding ShowSwitch, Converter={StaticResource BoolToVisibilityConverter}}">
                 <local:SwitchView DataContext="{Binding Switch}"  />
             </Grid>
@@ -81,9 +74,6 @@
                 <local:HkrView DataContext="{Binding Hkr}"/>
             </Grid>
             -->
-            </StackPanel>
-        </ScrollViewer>
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-        <TextBox Grid.Column="2" Text="{Binding Text, Mode=OneWay}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" Margin="0,3,3,3"/>
-    </Grid>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

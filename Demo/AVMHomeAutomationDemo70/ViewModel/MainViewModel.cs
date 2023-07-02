@@ -18,113 +18,67 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         public override async Task OnStartup()
         {
-            using var client = new HomeAutomation("Demo", "Demo-1234");
-            await Task.WhenAll(
-                Task.Run(async () => 
-                {
-                    XmlDocument xmlDocument = await client.GetDeviceListInfosXmlAsync();
-                    DeviceList deviceList = await client.GetDeviceListInfosAsync();
-                    this.Version = deviceList.Version;
-                    this.FirmwareVersion = deviceList.FirmwareVersion;
-                    this.Devices = deviceList.Devices.Select(d => new DeviceViewModel(d, xmlDocument)).ToList();
-                }),
-                //client.GetDeviceListInfosAsync().ContinueWith(items => 
-                //{
-                //    this.Version = items.Result.Version;
-                //    this.FirmwareVersion = items.Result.FirmwareVersion;
-                //    this.Devices = items.Result?.Devices.Select(d => new DeviceViewModel(d, null)).ToList();
-                //    //this.DeviceList = items.Result; this.Devices = items.Result
-                //}),
-                client.GetTemplateListInfosAsync().ContinueWith(items => this.TemplateList = items.Result)
-                );
-            //this.DeviceList = await client.GetDeviceListInfosAsync();
-            //XmlDocument devicesXml = client.GetDeviceListInfosXml();
-            //this.Devices = this.DeviceList.Devices.Select(d => new DeviceViewModel(d, devicesXml)).ToList();
-            //this.SelectedDevice = this.Devices.FirstOrDefault();
-
-            //this.TemplateList = client.GetTemplateListInfos();
-            //XmlDocument templatesXml = client.GetTemplateListInfosXml();
-            //this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, templatesXml)).ToList();
-            //this.SelectedTemplate = this.Templates.FirstOrDefault();
-
-            //try
-            //{
-            //    this.TriggerList = client.GetTriggerListInfos();
-            //    XmlDocument triggersXml = client.GetTriggerListInfosXml();
-            //    this.Triggers = this.TriggerList.Triggers.Select(t => new TriggerViewModel(t, triggersXml)).ToList();
-            //    this.SelectedTrigger = this.Triggers.FirstOrDefault();
-            //}
-            //catch (AggregateException)
-            //{ }
+            await FillAsync();
         }
 
-        //[RelayCommand]
-        protected override void OnRefresh()
+        protected override async Task OnRefresh()
         {
-            //Task.Run(async () =>
-            //{
-            //    using var client = new HomeAutomation("Demo", "Demo-1234");
-            //    //this.DeviceList = await client.GetDeviceListInfosAsync();
-            //    //XmlDocument devicesXml = client.GetDeviceListInfosXml();
-            //    //this.Devices = this.DeviceList.Devices.Select(d => new DeviceViewModel(d, devicesXml)).ToList();
-            //    //this.SelectedDevice = this.Devices.FirstOrDefault();
+            await FillAsync();
+        }
 
-            //    //this.TemplateList = client.GetTemplateListInfos();
-            //    //XmlDocument templatesXml = client.GetTemplateListInfosXml();
-            //    //this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, templatesXml)).ToList();
-            //    //this.SelectedTemplate = this.Templates.FirstOrDefault();
+        private async Task FillAsync()
+        {
+            using var client = new HomeAutomation("Demo", "Demo-1234");
 
-            //    //try
-            //    //{
-            //    //    this.TriggerList = client.GetTriggerListInfos();
-            //    //    XmlDocument triggersXml = client.GetTriggerListInfosXml();
-            //    //    this.Triggers = this.TriggerList.Triggers.Select(t => new TriggerViewModel(t, triggersXml)).ToList();
-            //    //    this.SelectedTrigger = this.Triggers.FirstOrDefault();
-            //    //}
-            //    //catch (AggregateException)
-            //    //{ }
+            XmlDocument deviceListXml = await client.GetDeviceListInfosXmlAsync();
+            DeviceList deviceList = await client.GetDeviceListInfosAsync();
 
-            //});
-            
+            XmlDocument templateListXml = await client.GetTemplateListInfosXmlAsync();
+            TemplateList templateList = await client.GetTemplateListInfosAsync();
 
-            //this.DeviceList = await client.GetDeviceListInfosAsync();
-            //XmlDocument devicesXml = client.GetDeviceListInfosXml();
-            //this.Devices = this.DeviceList.Devices.Select(d => new DeviceViewModel(d, devicesXml)).ToList();
-            //this.SelectedDevice = this.Devices.FirstOrDefault();
+            XmlDocument triggerListXml = await client.GetTriggerListInfosXmlAsync();
+            TriggerList triggerList = await client.GetTriggerListInfosAsync();
 
-            //this.TemplateList = client.GetTemplateListInfos();
-            //XmlDocument templatesXml = client.GetTemplateListInfosXml();
-            //this.Templates = this.TemplateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, templatesXml)).ToList();
-            //this.SelectedTemplate = this.Templates.FirstOrDefault();
 
-            //try
-            //{
-            //    this.TriggerList = client.GetTriggerListInfos();
-            //    XmlDocument triggersXml = client.GetTriggerListInfosXml();
-            //    this.Triggers = this.TriggerList.Triggers.Select(t => new TriggerViewModel(t, triggersXml)).ToList();
-            //    this.SelectedTrigger = this.Triggers.FirstOrDefault();
-            //}
-            //catch (AggregateException)
-            //{ }
+            this.DeviceListVersion = deviceList.Version;
+            this.DeviceListFirmwareVersion = deviceList.FirmwareVersion;
+            this.Devices = deviceList.DevicesTree.Select(d => new DeviceViewModel(d, deviceListXml)).ToList();
+            this.SelectedDevice = this.Devices.FirstOrDefault();
+
+            this.Groups = deviceList.GroupsTree.Select(g => new GroupViewModel(g, deviceListXml)).ToList();
+            this.SelectedGroup = this.Groups.FirstOrDefault();
+
+            this.TriggerListVersion = triggerList.Version;
+            this.Triggers = triggerList.Triggers.Select(t => new TriggerViewModel(t, triggerListXml)).ToList();
+
+            this.TemplateListVersion = templateList.Version;
+            this.Templates = templateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, this.Templates, this.Triggers, templateListXml)).ToList();
         }
 
         [ObservableProperty]
-        public string version;
+        public string deviceListVersion;
 
         [ObservableProperty]
-        public string firmwareVersion;
-
-        //[ObservableProperty]
-        //public DeviceList deviceList;
+        public string deviceListFirmwareVersion;        
 
         [ObservableProperty]
         public List<DeviceViewModel> devices;
 
-        //[ObservableProperty]
-        //private DeviceViewModel selectedDevice;
+        [ObservableProperty]
+        private DeviceViewModel selectedDevice;
+
+
 
         [ObservableProperty]
-        public TemplateList templateList;
+        public List<GroupViewModel> groups;
+
+        [ObservableProperty]
+        private DeviceViewModel selectedGroup;
+
+
+
+        [ObservableProperty]
+        public string templateListVersion;
 
         [ObservableProperty]
         public List<TemplateViewModel> templates;
@@ -132,8 +86,10 @@ namespace AVMHomeAutomationDemo.ViewModel
         [ObservableProperty]
         private TemplateViewModel selectedTemplate;
 
+
+
         [ObservableProperty]
-        public TriggerList triggerList;
+        public string triggerListVersion;
 
         [ObservableProperty]
         public List<TriggerViewModel> triggers;

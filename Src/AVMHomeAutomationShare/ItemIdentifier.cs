@@ -5,7 +5,8 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Template device
     /// </summary>
-    public class TemplateDevice
+    public class ItemIdentifier
+
     {
         /// <summary>
         /// Identifier

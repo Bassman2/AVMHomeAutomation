@@ -6,9 +6,11 @@
              Startup="OnApplicationStartup">
     <Application.Resources>
         <conv:ValueToStringConverter x:Key="ValueToStringConverter"/>
+        <conv:DebugConverter x:Key="DebugConverter"/>
         <conv:BoolToBallImageConverter x:Key="BoolToBallImageConverter"/>
         <conv:EnumToStringConverter x:Key="EnumToStringConverter"/>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <conv:IntToFunctionBitMaskConverter x:Key="IntToFunctionBitMaskConverter"/>
+        <conv:DeviceTypeToImageConverter x:Key="DeviceTypeToImageConverter"/>
     </Application.Resources>
 </Application>

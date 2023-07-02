@@ -1,29 +1,40 @@
 ﻿using AVMHomeAutomation;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
 
 namespace AVMHomeAutomationDemo.ViewModel
 {
-    public partial class DeviceViewModel : ObservableObject
+    public partial class DeviceViewModel : ItemViewModel
     {
-        private readonly Device device;
+        private readonly Device device;        
 
         public DeviceViewModel(Device device, XmlDocument devicesXml)
         {
             this.device = device;
+            this.IsPresent = device.IsPresent;
+            this.Name = device.Name;
+
+            
+            this.Children = this.device.Children?.Select(c => new DeviceViewModel(c, devicesXml)).ToList<ItemViewModel>();
 
             StringWriter strWriter = new();
             XmlTextWriter xmlWriter = new(strWriter) { Formatting = Formatting.Indented }; 
             devicesXml.SelectSingleNode($"/devicelist/*[@id='{device.Id}']")?.WriteTo(xmlWriter);
-            this.Text = strWriter.ToString();
+            this.Xml = strWriter.ToString();
         }
 
-        [ObservableProperty]
-        public string text;
+        public static DeviceViewModel Create(Device device, XmlDocument devicesXml)
+        {
+            return device.GetType() == typeof(Group) ? new GroupViewModel(device, devicesXml) : new DeviceViewModel(device, devicesXml);
+         }
 
+        //public List<DeviceViewModel> Children { get; }
+
+        //[ObservableProperty]
+        //public string text;
+
+        public DeviceType DeviceType => this.device.DeviceType;
 
         #region Device Attributes
 
@@ -43,11 +54,11 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         #region Single Elements
 
-        public bool IsPresent => this.device.IsPresent.Value;
+        //public bool IsPresent => this.device.IsPresent.Value;
 
         public bool IsTXBusy => this.device.IsTXBusy.Value;
 
-        public string Name => this.device.Name;
+        //public string Name => this.device.Name;
 
         public bool? IsBatteryLow => this.device.IsBatteryLow;
 
@@ -82,7 +93,22 @@ namespace AVMHomeAutomationDemo.ViewModel
         public LevelControlViewModel LevelControl => this.device.LevelControl != null ? new LevelControlViewModel(this.device.LevelControl) : null;
         public ColorControlViewModel ColorControl => this.device.ColorControl != null ? new ColorControlViewModel(this.device.ColorControl) : null;
         public HkrViewModel Hkr => this.device.Hkr != null ? new HkrViewModel(this.device.Hkr) : null;
-        
+
+        #endregion
+
+        #region Object
+
+        public override bool Equals(object obj)
+        {
+            DeviceViewModel device = obj as DeviceViewModel; 
+            return this.Identifier == device?.Identifier;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Identifier.GetHashCode();
+        }
+
         #endregion
     }
 }

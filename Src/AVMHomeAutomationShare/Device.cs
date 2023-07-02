@@ -7,7 +7,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Device data.
     /// </summary>
-    [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName}")]
+    [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName} - {Identifier}")]
     [XmlRoot("device")]
     public class Device
     {
@@ -142,6 +142,100 @@ namespace AVMHomeAutomation
         /// </summary>
         [XmlElement("hkr", IsNullable = true)]
         public Hkr Hkr { get; set; }
-        
+
+        [XmlIgnore]
+        public List<Device> Children { get; internal set; }
+
+        [XmlIgnore]
+        public DeviceType DeviceType { get; internal set; }
+        //{ 
+        //    get 
+        //    {
+        //        DeviceType deviceType = DeviceType.Unknown;
+        //        switch (this.ProductName)
+        //        {
+        //        case "FRITZ!DECT Repeater 100":
+        //            deviceType = DeviceType.Repeater;
+        //            break;
+
+        //        case "FRITZ!DECT 200":
+        //        case "FRITZ!DECT 210":
+        //            deviceType = DeviceType.Socket;
+        //            break;
+
+        //        case "FRITZ!DECT 300":
+        //        case "FRITZ!DECT 301":
+        //        case "FRITZ!DECT 302":
+        //            deviceType = DeviceType.Heater;
+        //            break;
+
+        //        case "FRITZ!DECT 400":
+        //            deviceType = DeviceType.Button;
+        //            break;
+
+        //        case "FRITZ!DECT 440":
+        //            deviceType = DeviceType.Control;
+        //            break;
+
+        //        case "FRITZ!DECT 500":
+        //            deviceType = DeviceType.Light;
+        //            break;
+
+        //        default:
+        //            if (this.Functions.HasFlag(Functions.Light) || this.Functions.HasFlag(Functions.LightColor))
+        //            {
+        //                deviceType = DeviceType.Light;
+        //            }
+        //            else if (this.Functions.HasFlag(Functions.AVMButton) || this.Functions.HasFlag(Functions.Switch))
+        //            {
+        //                deviceType = DeviceType.Button;
+        //            }
+        //            //else if (this.Functions.HasFlag(Functions.AVMButton) || this.Functions.HasFlag(Functions.Switch))
+        //            //{
+        //            //    deviceType = DeviceType.Button;
+        //            //}
+        //            else if (this.Functions.HasFlag(Functions.AVMHeater))
+        //            {
+        //                deviceType = DeviceType.Heater;
+        //            }
+        //            else if (this.Functions.HasFlag(Functions.AVMSwitchOutlet))
+        //            {
+        //                deviceType = DeviceType.Socket;
+        //            }
+        //            else if (this.Functions.HasFlag(Functions.Blind))
+        //            {
+        //                deviceType = DeviceType.Rollotron;
+        //            }
+        //            break;
+        //        }
+        //        if (this.EtsiUnitInfo != null && this.EtsiUnitInfo.UnitType.HasValue) 
+        //        {
+        //            switch (this.EtsiUnitInfo.UnitType.Value)
+        //            {
+        //            case EtsiUnitType.SimpleButton:
+        //            case EtsiUnitType.SimpleOnOffSwitchable:
+        //            case EtsiUnitType.SimpleOnOffSwitch:
+        //            case EtsiUnitType.ACOutletSimplePowerMetering:
+        //            case EtsiUnitType.SimpleLight:
+        //            case EtsiUnitType.DimmableLight:
+        //            case EtsiUnitType.DimmerSwitch:
+        //            case EtsiUnitType.ColorBulb:
+        //            case EtsiUnitType.DimmableColorBulb:
+        //            case EtsiUnitType.Blind:
+        //            case EtsiUnitType.Lamellar:
+        //            case EtsiUnitType.SimpleDetector:
+        //            case EtsiUnitType.DoorOpenCloseDetector:
+        //            case EtsiUnitType.WindowOpenCloseDetector:
+        //            case EtsiUnitType.MotionDetector:
+        //            case EtsiUnitType.FloodDetector:
+        //            case EtsiUnitType.GlasBreakDetector:
+        //            case EtsiUnitType.VibrationDetector:
+        //            case EtsiUnitType.Siren:
+        //                break;
+        //            }
+        //        }
+        //        return deviceType;
+        //    }
+        //}        
     }
 }
