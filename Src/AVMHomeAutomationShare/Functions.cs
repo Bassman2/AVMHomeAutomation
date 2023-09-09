@@ -31,12 +31,12 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Heater
         /// </summary>
-        Heater = 0x0040,                // Bit 6
+        AVMHeater = 0x0040,             // Bit 6
 
         /// <summary>
         /// Energy
         /// </summary>
-        Energy = 0x0080,                // Bit 7
+        AVMEnergy = 0x0080,             // Bit 7
 
         /// <summary>
         /// Temperature
@@ -46,7 +46,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Switch outlet
         /// </summary>
-        SwitchOutlet = 0x0200,                // Bit 9
+        AVMSwitchOutlet = 0x0200,       // Bit 9
 
         /// <summary>
         /// AVM DECT Repeater
@@ -56,20 +56,18 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Microphone
         /// </summary>
-        Microphone = 0x0800,            // Bit 11
+        AVMMicrophone = 0x0800,        // Bit 11
 
-        /// <summary>
-        /// Group
-        /// </summary>
-        Group = 0x1000,                 // Bit 12
+        // <summary>
+        // Group
+        // </summary>
+        //Group = 0x1000,                 // Bit 12
 
         /// <summary>
         /// HANFUN Unit
         /// </summary>
         HANFUNUnit = 0x2000,            // Bit 13
 
-        //x = 0x4000 ,                  // Bit 14
-        
         /// <summary>
         /// Switch
         /// </summary>
@@ -89,7 +87,10 @@ namespace AVMHomeAutomation
         /// Blind
         /// </summary>
         Blind = 0x40000,                // Bit 18
-        
-        //z = 0x80000,            // Bit 19
+
+        /// <summary>
+        /// Humidity sensor
+        /// </summary>
+        Humidity = 0x100000,            // Bit 20
     }
 }

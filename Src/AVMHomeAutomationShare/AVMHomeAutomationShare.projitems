@@ -13,6 +13,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IXmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
@@ -52,7 +54,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Target.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaultTemperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TemplateDevice.cs" />
+    <Compile Include="..\AVMHomeAutomationShare\ItemIdentifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableBool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableInt.cs" />

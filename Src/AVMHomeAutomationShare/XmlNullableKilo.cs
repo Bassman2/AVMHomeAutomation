@@ -8,7 +8,7 @@ namespace AVMHomeAutomation
     /// <summary>
     /// Class for nullable double serilization. Value divided by 1000.
     /// </summary>
-    public struct XmlNullableKilo : IXmlSerializable
+    public struct XmlNullableKilo : IXmlNullable, IXmlSerializable
     {
         private bool hasValue;
         private double value;

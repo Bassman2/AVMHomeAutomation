@@ -17,7 +17,7 @@ namespace AVMHomeAutomationTest70
             }
 
             Assert.IsNotNull(deviceList);
-            AssertDevice(TestSettings.DeviceDect100Repeater, deviceList.Devices.Single((d) => d.Identifier == TestSettings.DeviceDect100Repeater.Ain));
+            AssertDevice(TestSettings.DeviceDect100Repeater, deviceList.DevicesList.Single((d) => d.Identifier == TestSettings.DeviceDect100Repeater.Ain));
         }
 
         private static void AssertDevice(TestDevice expected, Device actual)

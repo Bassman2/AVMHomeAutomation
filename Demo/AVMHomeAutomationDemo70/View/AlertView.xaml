@@ -4,13 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
-             xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
-        <conv:EnumToStringConverter x:Key="EnumToStringConverter"/>
-    </UserControl.Resources>
     <GroupBox Header="Alert" Margin="0,3,0,3">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -24,7 +19,7 @@
             <Label Grid.Column="0" Grid.Row="0" Content="State" />
             <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding State, Converter={StaticResource EnumToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
             <Label Grid.Column="0" Grid.Row="1" Content="Last Alert Change Timestamp" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LastAlertChangeTimestamp, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LastAlertChangeTimestamp, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
         </Grid>
     </GroupBox>
 </UserControl>

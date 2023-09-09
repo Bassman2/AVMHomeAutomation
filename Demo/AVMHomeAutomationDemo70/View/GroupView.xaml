@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="AVMHomeAutomationDemo.View.GroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:vm="clr-namespace:AVMHomeAutomationDemo.ViewModel"
+             d:DataContext="{d:DesignInstance Type=vm:DeviceViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <GroupBox Header="Group" Margin="0,3,0,3" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- attributes -->
+                    <Label Grid.Column="0" Grid.Row="0" Content="Identifier" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Identifier, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Id" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="FirmwareVersion" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="3" Content="Manufacturer" />
+                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Manufacturer, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="4" Content="ProductName" />
+                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding ProductName, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="5" Content="FunctionBitMask" />
+                    <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Functions, Converter={StaticResource IntToFunctionBitMaskConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="6" Content="Present" />
+                    <TextBox Grid.Column="1"  Grid.Row="6" Text="{Binding IsPresent, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="7" Content="TX Busy" />
+                    <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding IsTXBusy, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="8" Content="Name" />
+                    <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="9" Content="Battery Low" />
+                    <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding IsBatteryLow, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                    <Label Grid.Column="0" Grid.Row="10" Content="Battery" />
+                    <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding Battery, Converter={StaticResource ValueToStringConverter}, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+                </Grid>
+            </GroupBox>
+            <Grid Visibility="{Binding ShowSwitch, Converter={StaticResource BoolToVisibilityConverter}}">
+                <local:SwitchView DataContext="{Binding Switch}"  />
+            </Grid>
+            <Grid Visibility="{Binding ShowPowerMeter, Converter={StaticResource BoolToVisibilityConverter}}" >
+                <local:PowerMeterView DataContext="{Binding PowerMeter}"/>
+            </Grid>
+            <Grid Visibility="{Binding ShowTemperature, Converter={StaticResource BoolToVisibilityConverter}}">
+                <local:TemperatureView DataContext="{Binding Temperature}" />
+            </Grid>
+            <Grid Visibility="{Binding ShowAlert, Converter={StaticResource BoolToVisibilityConverter}}">
+                <local:AlertView DataContext="{Binding Alert}" />
+            </Grid>
+            <Grid Visibility="{Binding ShowButtons, Converter={StaticResource BoolToVisibilityConverter}}" >
+                <local:ButtonsView/>
+                <!-- not setting DataContext -->
+            </Grid>
+            <Grid Visibility="{Binding ShowETSIUnitInfo, Converter={StaticResource BoolToVisibilityConverter}}" >
+                <local:ETSIUnitInfoView DataContext="{Binding EtsiUnitInfo}"/>
+            </Grid>
+            <Grid Visibility="{Binding ShowSimpleOnOff, Converter={StaticResource BoolToVisibilityConverter}}">
+                <local:SimpleOnOffView DataContext="{Binding SimpleOnOff}" />
+            </Grid>
+            <Grid Visibility="{Binding ShowLevelControl, Converter={StaticResource BoolToVisibilityConverter}}" >
+                <local:LevelControlView DataContext="{Binding LevelControl}"/>
+            </Grid>
+            <Grid Visibility="{Binding ShowColorControl, Converter={StaticResource BoolToVisibilityConverter}}" >
+                <local:ColorControlView DataContext="{Binding ColorControl}"/>
+            </Grid>
+            <Grid Visibility="{Binding ShowHkr, Converter={StaticResource BoolToVisibilityConverter}}">
+                <local:HkrView DataContext="{Binding Hkr}"/>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

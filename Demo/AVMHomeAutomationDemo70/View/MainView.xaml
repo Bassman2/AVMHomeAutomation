@@ -4,12 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
-        xmlns:conv="clr-namespace:AVMHomeAutomationDemo.Converter"
+        xmlns:crl="clr-namespace:AVMHomeAutomationDemo.Controls"
+        xmlns:vm="clr-namespace:AVMHomeAutomationDemo.ViewModel"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         mc:Ignorable="d"
         Height="600" Width="980">
-    <Window.Resources>
-        <conv:BoolToBallImageConverter x:Key="BoolToBallImageConverter"/>
-    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
     </Window.InputBindings>
@@ -42,124 +41,32 @@
             <StatusBarItem Grid.Column="0" Content="" />
         </StatusBar>
         <TabControl>
-            <TabItem Header="Devices / Groups">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="Version" />
-                        <TextBox Grid.Column="1" Text="{Binding DeviceList.Version, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                        <Label Grid.Column="2" Content="Firmware" />
-                        <TextBox Grid.Column="3" Text="{Binding DeviceList.FirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <DataGrid Grid.Column="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" Margin="3,3,0,3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Name">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" >
-                                                <Image Source="{Binding IsPresent, Converter={StaticResource BoolToBallImageConverter}}" />
-                                                <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
-                                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                                <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
-                                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-                        <local:DeviceView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedDevice}"/>
-                    </Grid>
-                </Grid>
+            <TabItem Header="Devices">
+                <local:DevicesView/>
+            </TabItem>
+            <TabItem Header="Groups">
+                <local:GroupsView/>
             </TabItem>
             <TabItem Header="Templates">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="Version" />
-                        <TextBox Grid.Column="1" Text="{Binding DeviceList.Version, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <DataGrid Grid.Column="0" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" Margin="3,3,0,3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                                <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
-                                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-                        <local:TemplateView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedTemplate}"/>
-                    </Grid>
-                </Grid>
+                <local:TemplatesView/>
             </TabItem>
             <TabItem Header="Triggers">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="Version" />
-                        <TextBox Grid.Column="1" Text="{Binding TriggerList.Version, Mode=OneWay}" IsReadOnly="True" Margin="3" />
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <DataGrid Grid.Column="0" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" Margin="3,3,0,3" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Name">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" >
-                                                <Image Source="{Binding IsActive, Converter={StaticResource BoolToBallImageConverter}}" />
-                                                <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-                        <local:TriggerView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedTrigger}"/>
-                    </Grid>
-                </Grid>
+                <local:TriggersView/>
+            </TabItem>
+            
+            <!-- -->
+            
+            <TabItem Header="Devices">
+                <local:ItemsTreeView DataContext="{Binding Devices}"/>
+            </TabItem>
+            <TabItem Header="Groups">
+                <local:ItemsTreeView DataContext="{Binding Groups}"/>
+            </TabItem>
+            <TabItem Header="Templates">
+                <local:ItemsTreeView DataContext="{Binding Templates}"/>
+            </TabItem>
+            <TabItem Header="Triggers">
+                <local:ItemsTreeView DataContext="{Binding Triggers}"/>
             </TabItem>
         </TabControl>
     </DockPanel>

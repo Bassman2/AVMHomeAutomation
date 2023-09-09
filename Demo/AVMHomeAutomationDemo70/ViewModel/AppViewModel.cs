@@ -134,8 +134,10 @@ namespace MVVMAppBase.ViewModel
         protected virtual bool OnCanRefresh() => true;
         
         [RelayCommand(CanExecute = nameof(OnCanRefresh))]
-        protected virtual void OnRefresh()
-        { }
+        protected virtual async Task OnRefresh()
+        {
+            await Task.Run(() => { });
+        }
 
         protected virtual bool OnCanImport() => this.ProgressState == TaskbarItemProgressState.None;
 

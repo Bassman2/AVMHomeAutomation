@@ -9,7 +9,7 @@ namespace AVMHomeAutomation
     /// Class for nullable Enum serilization.
     /// </summary>
     /// <typeparam name="T">Underlying enum type.</typeparam>
-    public struct XmlNullableEnum<T> : IXmlSerializable where T : struct 
+    public struct XmlNullableEnum<T> : IXmlNullable, IXmlSerializable where T : struct 
     {
         private bool hasValue;
         private T value;

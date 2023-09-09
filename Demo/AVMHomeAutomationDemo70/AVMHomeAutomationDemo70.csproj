@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -11,12 +11,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Button.png" />
+    <None Remove="Images\Control.png" />
+    <None Remove="Images\DoorContact.png" />
     <None Remove="Images\GrayBall.png" />
     <None Remove="Images\GreenBall.png" />
+    <None Remove="Images\Heater.png" />
+    <None Remove="Images\Light.png" />
+    <None Remove="Images\MotionDetector.png" />
+    <None Remove="Images\Repeater.png" />
+    <None Remove="Images\Rollotron.png" />
+    <None Remove="Images\Socket.png" />
+    <None Remove="Images\Wallbutton.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
@@ -29,8 +39,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Button.png" />
+    <Resource Include="Images\Control.png" />
+    <Resource Include="Images\DoorContact.png" />
     <Resource Include="Images\GrayBall.png" />
     <Resource Include="Images\GreenBall.png" />
+    <Resource Include="Images\Heater.png" />
+    <Resource Include="Images\Light.png" />
+    <Resource Include="Images\MotionDetector.png" />
+    <Resource Include="Images\Repeater.png" />
+    <Resource Include="Images\Rollotron.png" />
+    <Resource Include="Images\Socket.png" />
+    <Resource Include="Images\Wallbutton.png" />
   </ItemGroup>
 
 </Project>

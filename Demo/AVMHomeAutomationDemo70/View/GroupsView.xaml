@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="AVMHomeAutomationDemo.View.GroupsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AVMHomeAutomationDemo.View"
+             xmlns:crl="clr-namespace:AVMHomeAutomationDemo.Controls"
+             xmlns:vm="clr-namespace:AVMHomeAutomationDemo.ViewModel"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Version" />
+            <TextBox Grid.Column="1" Text="{Binding DeviceListVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+            <Label Grid.Column="2" Content="Firmware" />
+            <TextBox Grid.Column="3" Text="{Binding DeviceListFirmwareVersion, Mode=OneWay}" IsReadOnly="True" Margin="3" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TabControl Grid.Column="0" Margin="3,3,0,3" >
+                <TabItem Header="List">
+                    <DataGrid x:Name="deviceList" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" HeadersVisibility="Column" GridLinesVisibility="None" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="{Binding IsPresent, Converter={StaticResource BoolToBallImageConverter}}" />
+                                            <Image Source="{Binding DeviceType, Converter={StaticResource DeviceTypeToImageConverter}}" />
+                                            <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}" />
+                            <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Tree">
+                    <crl:SelectableTreeView ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" >
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Children}"  DataType="{x:Type vm:DeviceViewModel}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <Image Source="{Binding IsPresent, Converter={StaticResource BoolToBallImageConverter}}" />
+                                    <Image Source="{Binding DeviceType, Converter={StaticResource DeviceTypeToImageConverter}}" />
+                                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </crl:SelectableTreeView>
+                </TabItem>
+            </TabControl>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+            <local:DeviceView Grid.Column="2" Grid.Row="0" DataContext="{Binding SelectedGroup}"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,4 +1,6 @@
-﻿namespace AVMHomeAutomation
+﻿using System.Xml.Serialization;
+
+namespace AVMHomeAutomation
 {
     /// <summary>
     /// HAN-FUN interfaces
@@ -8,46 +10,55 @@
         /// <summary>
         /// Keep alive
         /// </summary>
-        KEEP_ALIVE = 277,
+        [XmlEnum("KEEP_ALIVE")] 
+        KeepAlive = 277,
 
         /// <summary>
         /// Alert
         /// </summary>
-        ALERT = 256,
+        [XmlEnum("ALERT")] 
+        Alert = 256,
 
         /// <summary>
         /// On off
         /// </summary>
-        ON_OFF = 512,
+        [XmlEnum("ON_OFF")] 
+        OnOff = 512,
 
         /// <summary>
         /// Level control
         /// </summary>
-        LEVEL_CTRL = 513,
+        [XmlEnum("LEVEL_CTRL")] 
+        LevelCtrl = 513,
 
         /// <summary>
         /// Color control
         /// </summary>
-        COLOR_CTRL = 514,
+        [XmlEnum("COLOR_CTRL")] 
+        ColorCtrl = 514,
 
         /// <summary>
         /// Open close
         /// </summary>
-        OPEN_CLOSE = 516,
+        [XmlEnum("OPEN_CLOSE")] 
+        OpenClose = 516,
 
         /// <summary>
         /// Open close configuration
         /// </summary>
-        OPEN_CLOSE_CONFIG = 517,
+        [XmlEnum("OPEN_CLOSE_CONFIG")] 
+        OpenCloseConfig = 517,
 
         /// <summary>
         /// Simple button
         /// </summary>
-        SIMPLE_BUTTON = 772,
+        [XmlEnum("SIMPLE_BUTTON")] 
+        SimpleButton = 772,
 
         /// <summary>
         /// SUOTA Update
         /// </summary>
-        SUOTA_Update = 1024,
+        [XmlEnum("SUOTA_Update")] 
+        SUOTAUpdate = 1024,
     }
 }
