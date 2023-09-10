@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
@@ -17,12 +18,12 @@ namespace AVMHomeAutomation
         /// HAN-FUN unit typ
         /// </summary>
         [XmlElement("unittype")]
-        public XmlNullableEnum<EtsiUnitType> UnitType { get; set; }
+        public EtsiUnitType? UnitType { get; set; }
 
         /// <summary>
         /// HAN-FUN interfaces
         /// </summary>
         [XmlElement("interfaces")]
-        public XmlList<EtsiInterfaces> Interfaces { get; set; }
+        public List<EtsiInterfaces> Interfaces { get; set; }
     }
 }

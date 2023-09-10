@@ -11,6 +11,6 @@ namespace AVMHomeAutomation
         /// Current switching status.
         /// </summary>
         [XmlElement("state")]
-        public XmlNullableBool State { get; set; }
+        public bool? State { get; set; }
     }
 }

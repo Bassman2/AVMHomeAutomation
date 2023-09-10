@@ -66,7 +66,7 @@ namespace AVMHomeAutomation
             {
                 this.client.Dispose();
                 this.client = null;
-            }            
+            }
         }
 
         #region Public Methods
@@ -167,8 +167,8 @@ namespace AVMHomeAutomation
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<DeviceList> GetDeviceListInfosAsync()
         {
-            DeviceList deviceList = (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).XmlToAs<DeviceList>(); 
-            deviceList.Fill();
+            DeviceList deviceList = (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).XmlToAs<DeviceList>();
+            //DeviceList deviceList = new DeviceList(deviceListInternal);
             return deviceList;
         }
 

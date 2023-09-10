@@ -151,12 +151,14 @@ namespace AVMHomeAutomation
 
         public static T XmlToAs<T>(this string value)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            using (StringReader reader = new StringReader(value))
-            {
-                T val = (T)serializer.Deserialize(reader);
-                return val;
-            }
+            //XmlSerializer serializer = new XmlSerializer(typeof(T));
+            //using (StringReader reader = new StringReader(value))
+            //{
+            //    T val = (T)serializer.Deserialize(reader);
+            //    return val;
+            //}
+
+            return (T)GeneratedXSerialiser.Deserialize(value, typeof(T));
         }
 
         public static T JsonToAs<T>(this string value)

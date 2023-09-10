@@ -11,12 +11,12 @@ namespace AVMHomeAutomation
         /// Level (0 - 255)
         /// </summary>
         [XmlElement("level")]
-        public XmlNullableInt Level { get; set; }
+        public int? Level { get; set; }
 
         /// <summary>
         /// Percentage level (0% to 100%)
         /// </summary>
         [XmlElement("levelpercentage")]
-        public XmlNullableInt LevelPercentage { get; set; }
+        public int? LevelPercentage { get; set; }
     }
 }

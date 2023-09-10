@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
@@ -17,6 +18,6 @@ namespace AVMHomeAutomation
         /// Internal ids of group members
         /// </summary>
         [XmlElement("members")]
-        public XmlList<string> Members { get; set; }
+        public List<string> Members { get; set; }
     }
 }

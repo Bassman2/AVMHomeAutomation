@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
@@ -11,12 +12,12 @@ namespace AVMHomeAutomation
         /// End of the time period.
         /// </summary>
         [XmlElement("endperiod")]
-        public XmlNullableDateTime EndPeriod { get; set; }
+        public DateTime? EndPeriod { get; set; }
 
         /// <summary>
         /// Target temperatur in °C or Off.
         /// </summary>           
         [XmlElement("tchange")]
-        public XmlNullableHkrTemperature TChange { get; set; }
+        public double? TChange { get; set; }
     }
 }

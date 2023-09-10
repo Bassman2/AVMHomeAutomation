@@ -1,4 +1,6 @@
 ﻿using System.Xml.Serialization;
+using XSerializer;
+using AVMHomeAutomation.Converter;
 
 namespace AVMHomeAutomation
 {
@@ -11,12 +13,14 @@ namespace AVMHomeAutomation
         /// Temperatur value in ° Celsius
         /// </summary>
         [XmlElement("celsius")]
-        public XmlNullableTemperature Celsius { get; set; }
+        [XmlConverter(typeof(DeciConverter))]
+        public double? Celsius { get; set; }
 
         /// <summary>
         /// Temperatur offset value in ° Celsius
         /// </summary>
         [XmlElement("offset")]
-        public XmlNullableTemperature Offset { get; set; }
+        [XmlConverter(typeof(DeciConverter))]
+        public double? Offset { get; set; }
     }
 }

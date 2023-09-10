@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
@@ -29,6 +30,6 @@ namespace AVMHomeAutomation
         /// Time of the last key press.
         /// </summary>
         [XmlElement("lastpressedtimestamp")]
-        public XmlNullableDateTime LastPressedTimestamp { get; set; }
+        public DateTime? LastPressedTimestamp { get; set; }
     }
 }

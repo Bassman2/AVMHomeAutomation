@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace AVMHomeAutomationDemo.Converter
 {
-    [ValueConversion(typeof(bool), typeof(ImageSource))]
+    [ValueConversion(typeof(bool?), typeof(ImageSource))]
     public class BoolToBallImageConverter : IValueConverter
     {
         private static readonly ImageSource greenBall;
@@ -18,8 +18,12 @@ namespace AVMHomeAutomationDemo.Converter
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            bool val = (bool)value;
-            return val ? greenBall : grayBall;
+            bool? val = (bool?)value;
+            if (val.HasValue)
+            {
+                return val.Value ? greenBall : grayBall;
+            }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

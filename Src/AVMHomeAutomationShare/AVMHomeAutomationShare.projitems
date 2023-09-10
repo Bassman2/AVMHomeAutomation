@@ -13,7 +13,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\DeciConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\KiloConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generated\GeneratedXSerialiser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generated\IXmlConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generated\XmlConverterAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IXmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
@@ -27,12 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Trigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateTrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TriggerList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlAvailable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableEnum.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlEnumList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableHkrTemperature.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableKilo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceStats.cs" />
@@ -56,10 +56,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
     <Compile Include="..\AVMHomeAutomationShare\ItemIdentifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableBool.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableInt.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlNullableTemperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HAConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlList.cs" />
   </ItemGroup>
 </Project>

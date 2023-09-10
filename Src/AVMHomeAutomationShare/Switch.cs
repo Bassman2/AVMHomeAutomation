@@ -11,24 +11,24 @@ namespace AVMHomeAutomation
         /// Switching state off / on 
         /// </summary>
         [XmlElement("state")]
-        public XmlNullableBool State { get; set; }
+        public bool? State { get; set; }
 
         /// <summary>
         /// Automatic time switching (false) or manual switching (true)
         /// </summary>
         [XmlElement("mode")]
-        public XmlNullableBool Mode { get; set; }
+        public bool? Mode { get; set; }
 
         /// <summary>
         /// Switch lock via UI / API on no / yes 
         /// </summary>
         [XmlElement("lock")]
-        public XmlNullableBool Lock { get; set; }
+        public bool? Lock { get; set; }
 
         /// <summary>
         /// Switching lock directly on the device on no / yes 
         /// </summary>
         [XmlElement("devicelock")]
-        public XmlNullableBool DeviceLock { get; set; }
+        public bool? DeviceLock { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
@@ -10,13 +11,13 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Last reported alarm condition.
         /// </summary>
-        [XmlElement("state", IsNullable = true)]
-        public XmlNullableEnum<AlertState> State { get; set; }
+        [XmlElement("state")]
+        public AlertState? State { get; set; }
 
         /// <summary>
         /// Time of last alarm status change.
         /// </summary>
         [XmlElement("lastalertchgtimestamp")]
-        public XmlNullableDateTime LastAlertChangeTimestamp { get; set;}
+        public DateTime? LastAlertChangeTimestamp { get; set;}
     }
 }

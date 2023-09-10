@@ -1,5 +1,6 @@
-﻿using System.Xml;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
+using XSerializer;
+using AVMHomeAutomation.Converter;
 
 namespace AVMHomeAutomation
 {
@@ -12,18 +13,21 @@ namespace AVMHomeAutomation
         /// Voltage value in Volt
         /// </summary>
         [XmlElement("voltage")]
-        public XmlNullableKilo Voltage { get; set; }
+        [XmlConverter(typeof(KiloConverter))]
+        public double? Voltage { get; set; }
 
         /// <summary>
         /// Power value in W
         /// </summary>
         [XmlElement("power")]
-        public XmlNullableKilo Power { get; set; }
+        [XmlConverter(typeof(KiloConverter))]
+        public double? Power { get; set; }
                 
         /// <summary>
         /// Energy value in kWh
         /// </summary>
         [XmlElement("energy")]
-        public XmlNullableKilo Energy { get; set; }
+        [XmlConverter(typeof(KiloConverter))]
+        public double? Energy { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace AVMHomeAutomationDemo.ViewModel
             this.Name = device.Name;
 
             
-            this.Children = this.device.Children?.Select(c => new DeviceViewModel(c, devicesXml)).ToList<ItemViewModel>();
+            //this.Children = this.device.Children?.Select(c => new DeviceViewModel(c, devicesXml)).ToList<ItemViewModel>();
 
             StringWriter strWriter = new();
             XmlTextWriter xmlWriter = new(strWriter) { Formatting = Formatting.Indented }; 
@@ -34,7 +34,7 @@ namespace AVMHomeAutomationDemo.ViewModel
         //[ObservableProperty]
         //public string text;
 
-        public DeviceType DeviceType => this.device.DeviceType;
+        //public DeviceType DeviceType => this.device.DeviceType;
 
         #region Device Attributes
 
@@ -48,7 +48,7 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         public string ProductName => this.device.ProductName;
 
-        public Functions Functions => this.device.Functions;
+        //public Functions Functions => this.device.Functions;
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         //public bool IsPresent => this.device.IsPresent.Value;
 
-        public bool IsTXBusy => this.device.IsTXBusy.Value;
+        public bool? IsTXBusy => this.device.IsTXBusy;
 
         //public string Name => this.device.Name;
 

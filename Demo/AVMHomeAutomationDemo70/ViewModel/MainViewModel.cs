@@ -33,26 +33,26 @@ namespace AVMHomeAutomationDemo.ViewModel
             XmlDocument deviceListXml = await client.GetDeviceListInfosXmlAsync();
             DeviceList deviceList = await client.GetDeviceListInfosAsync();
 
-            XmlDocument templateListXml = await client.GetTemplateListInfosXmlAsync();
-            TemplateList templateList = await client.GetTemplateListInfosAsync();
+            //    XmlDocument templateListXml = await client.GetTemplateListInfosXmlAsync();
+            //    TemplateList templateList = await client.GetTemplateListInfosAsync();
 
-            XmlDocument triggerListXml = await client.GetTriggerListInfosXmlAsync();
-            TriggerList triggerList = await client.GetTriggerListInfosAsync();
+            //    XmlDocument triggerListXml = await client.GetTriggerListInfosXmlAsync();
+            //    TriggerList triggerList = await client.GetTriggerListInfosAsync();
 
 
             this.DeviceListVersion = deviceList.Version;
             this.DeviceListFirmwareVersion = deviceList.FirmwareVersion;
-            this.Devices = deviceList.DevicesTree.Select(d => new DeviceViewModel(d, deviceListXml)).ToList();
+            this.Devices = deviceList.Devices.Select(d => new DeviceViewModel(d, deviceListXml)).ToList();
             this.SelectedDevice = this.Devices.FirstOrDefault();
 
-            this.Groups = deviceList.GroupsTree.Select(g => new GroupViewModel(g, deviceListXml)).ToList();
-            this.SelectedGroup = this.Groups.FirstOrDefault();
+        //    //this.Groups = deviceList.GroupsTree.Select(g => new GroupViewModel(g, deviceListXml)).ToList();
+        //    this.SelectedGroup = this.Groups.FirstOrDefault();
 
-            this.TriggerListVersion = triggerList.Version;
-            this.Triggers = triggerList.Triggers.Select(t => new TriggerViewModel(t, triggerListXml)).ToList();
+        //    this.TriggerListVersion = triggerList.Version;
+        //    this.Triggers = triggerList.Triggers.Select(t => new TriggerViewModel(t, triggerListXml)).ToList();
 
-            this.TemplateListVersion = templateList.Version;
-            this.Templates = templateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, this.Templates, this.Triggers, templateListXml)).ToList();
+        //    this.TemplateListVersion = templateList.Version;
+        //    this.Templates = templateList.Templates.Select(t => new TemplateViewModel(t, this.Devices, this.Templates, this.Triggers, templateListXml)).ToList();
         }
 
         [ObservableProperty]
