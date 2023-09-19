@@ -1,11 +1,20 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.Xml;
-using XSerializer;
 
 namespace AVMHomeAutomation.Converter
 {
+    /// <summary>
+    /// Converts string to decimal number
+    /// </summary>
     public class DeciConverter : IXmlConverter
     {
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="typeToConvert"></param>
+        /// <returns></returns>
         public object Read(XmlReader reader, Type typeToConvert)
         {
             string value = reader.Value;
@@ -16,6 +25,13 @@ namespace AVMHomeAutomation.Converter
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="elementName"></param>
+        /// <param name="value"></param>
+        /// <param name="typeToConvert"></param>
         public void Write(XmlWriter writer, string elementName, object value, Type typeToConvert)
         {
             if (value != null)

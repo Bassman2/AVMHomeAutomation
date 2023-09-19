@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
+using Serialization;
 
 namespace AVMHomeAutomation
 {
@@ -158,7 +159,7 @@ namespace AVMHomeAutomation
             //    return val;
             //}
 
-            return (T)GeneratedXSerialiser.Deserialize(value, typeof(T));
+            return (T)XSerializer.Deserialize(value, typeof(T));
         }
 
         public static T JsonToAs<T>(this string value)

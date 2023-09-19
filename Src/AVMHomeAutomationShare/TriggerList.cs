@@ -15,7 +15,7 @@ namespace AVMHomeAutomation
         /// Version of template list
         /// </summary>
         [XmlAttribute("version")]
-        public string Version { get; set; }
+        public Version Version { get; set; }
 
         /// <summary>
         /// Devices and groups

@@ -43,11 +43,9 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         public string Id => this.template.Id;
 
-        public Functions Functions => this.template.Functions;
-
+        public FunctionBitMask FunctionBitMask => this.template.FunctionBitMask;
 
         public string Name => this.template.Name;
-
         
         public List<DeviceViewModel> Devices { get; }
 

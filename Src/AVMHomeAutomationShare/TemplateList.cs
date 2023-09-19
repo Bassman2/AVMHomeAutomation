@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
@@ -13,7 +14,7 @@ namespace AVMHomeAutomation
         /// Version of template list
         /// </summary>
         [XmlAttribute("version")]
-        public string Version { get; set; }
+        public Version Version { get; set; }
 
         /// <summary>
         /// Devices and groups

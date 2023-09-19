@@ -83,6 +83,12 @@
     <None Include="Bassman.snk" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\XSerializer\XSerializer.csproj">
+      <Project>{8ab459a2-6b8b-4bee-ae84-15627378384e}</Project>
+      <Name>XSerializer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

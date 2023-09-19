@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-namespace XSerializer
+namespace Serialization
 {
     //
     // Summary:

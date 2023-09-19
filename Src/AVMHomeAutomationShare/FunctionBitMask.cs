@@ -3,10 +3,10 @@
 namespace AVMHomeAutomation
 {
     /// <summary>
-    /// Device functions
+    /// Device FunctionBitMask
     /// </summary>
     [Flags]
-    public enum Functions
+    public enum FunctionBitMask
     {
         /// <summary>
         /// HANFUN Device

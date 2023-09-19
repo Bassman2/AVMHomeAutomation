@@ -1,6 +1,6 @@
-﻿using System.Xml.Serialization;
-using XSerializer;
-using AVMHomeAutomation.Converter;
+﻿using AVMHomeAutomation.Converter;
+using Serialization;
+using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {

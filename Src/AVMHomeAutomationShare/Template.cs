@@ -24,25 +24,13 @@ namespace AVMHomeAutomation
         /// Functional bitmask of the template.
         /// </summary>
         [XmlAttribute("functionbitmask")]
-        public int FunctionBitMask { get; set; }
-
-        /// <summary>
-        /// Functions of the template
-        /// </summary>
-        [XmlIgnore]
-        public Functions Functions { get => (Functions)FunctionBitMask;  }
+        public FunctionBitMask FunctionBitMask { get; set; }
 
         /// <summary>
         /// Subnodes depending on which configuration is set.
         /// </summary>
         [XmlAttribute("applymask")]
         public int ApplyBitMask { get; set; }
-
-        /// <summary>
-        /// Functions of the template
-        /// </summary>
-        [XmlIgnore]
-        public int Applies { get => ApplyBitMask; }
 
         /// <summary>
         /// Was template generated automatically?
@@ -91,6 +79,6 @@ namespace AVMHomeAutomation
         /// <remarks>New in Fritz!OS 7.39</remarks>
         [XmlArray("triggers")]
         [XmlArrayItem("trigger>")]
-        public List<TemplateTrigger> Triggers { get; set; }
+        public List<ItemIdentifier> Triggers { get; set; }
     }
 }

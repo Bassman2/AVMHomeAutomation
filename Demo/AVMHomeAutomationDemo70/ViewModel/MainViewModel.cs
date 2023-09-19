@@ -56,10 +56,10 @@ namespace AVMHomeAutomationDemo.ViewModel
         }
 
         [ObservableProperty]
-        public string deviceListVersion;
+        public Version deviceListVersion;
 
         [ObservableProperty]
-        public string deviceListFirmwareVersion;        
+        public Version deviceListFirmwareVersion;        
 
         [ObservableProperty]
         public List<DeviceViewModel> devices;
@@ -78,7 +78,7 @@ namespace AVMHomeAutomationDemo.ViewModel
 
 
         [ObservableProperty]
-        public string templateListVersion;
+        public Version templateListVersion;
 
         [ObservableProperty]
         public List<TemplateViewModel> templates;
@@ -89,7 +89,7 @@ namespace AVMHomeAutomationDemo.ViewModel
 
 
         [ObservableProperty]
-        public string triggerListVersion;
+        public Version triggerListVersion;
 
         [ObservableProperty]
         public List<TriggerViewModel> triggers;

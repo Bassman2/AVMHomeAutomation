@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace XSerializer
+namespace Serialization
 {
     public interface IXmlConverter
     {

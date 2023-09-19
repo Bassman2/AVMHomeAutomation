@@ -16,4 +16,8 @@
     <PackageReference Include="System.Text.Json" Version="7.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\XSerializer\XSerializer.csproj" />
+  </ItemGroup>
+
 </Project>

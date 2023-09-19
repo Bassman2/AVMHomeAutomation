@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
@@ -27,6 +28,7 @@ namespace AVMHomeAutomation
         /// <summary>
         /// Firmware version of the device
         /// </summary>
+        /// <remarks>Not a Version format.</remarks>
         [XmlAttribute("fwversion")]
         public string FirmwareVersion { get; set; }
 
@@ -46,7 +48,7 @@ namespace AVMHomeAutomation
         /// Bit mask of the device function classes, starting with bit 0, several bits can be set. For internal use only. Use Functions instead.
         /// </summary>
         [XmlAttribute("functionbitmask")]
-        public Functions FunctionBitMask { get; set; }
+        public FunctionBitMask FunctionBitMask { get; set; }
 
         /// <summary>
         /// 0/1 - Device connected no / yes. For internal use only. Use IsPresent instead.

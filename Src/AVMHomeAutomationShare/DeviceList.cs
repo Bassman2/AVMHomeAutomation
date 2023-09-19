@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace AVMHomeAutomation
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [XmlRoot("devicelist")]
     public class DeviceList
     {
@@ -10,17 +14,23 @@ namespace AVMHomeAutomation
         /// Version of the device list.
         /// </summary>
         [XmlAttribute("version")]
-        public string Version { get; set; }
+        public Version Version { get; set; }
 
         /// <summary>
         /// Firmware version
         /// </summary>
         [XmlAttribute("fwversion")]
-        public string FirmwareVersion { get; set; }
+        public Version FirmwareVersion { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlElement("device")]
         public List<Device> Devices { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlElement("group")]
         public List<Group> Groups { get; set; }
     }

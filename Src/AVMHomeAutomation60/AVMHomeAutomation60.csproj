@@ -10,4 +10,8 @@
 
   <Import Project="..\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\XSerializer\XSerializer.csproj" />
+  </ItemGroup>
+
 </Project>
