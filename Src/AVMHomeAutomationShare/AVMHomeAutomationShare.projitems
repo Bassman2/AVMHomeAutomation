@@ -16,8 +16,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converter\DeciConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter\KiloConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceType.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Generated\XSerialiser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Generated\XSerializer.Helper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generated\GenerationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GenerationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />

@@ -159,7 +159,7 @@ namespace AVMHomeAutomation
             //    return val;
             //}
 
-            return (T)XSerializer.Deserialize(value, typeof(T));
+            return (T)XSerializer.Deserialize(value, typeof(T), new GenerationContext());
         }
 
         public static T JsonToAs<T>(this string value)

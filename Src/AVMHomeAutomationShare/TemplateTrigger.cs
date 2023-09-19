@@ -2,9 +2,9 @@
 
 namespace AVMHomeAutomation
 {
-    /// <summary>
-    /// Data for template trigger.
-    /// </summary>
+    // /// <summary>
+    // /// Data for template trigger.
+    // /// </summary>
     //public class TemplateTrigger
     //{
     //    /// <summary>

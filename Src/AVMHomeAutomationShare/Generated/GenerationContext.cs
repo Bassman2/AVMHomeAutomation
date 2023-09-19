@@ -1,5 +1,6 @@
 ﻿using AVMHomeAutomation;
 using AVMHomeAutomation.Converter;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,76 +8,64 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Xml;
 
-namespace Serialization
+namespace AVMHomeAutomation
 {
-    internal static partial class XSerializer
+    internal partial class GenerationContext : XmlSerializerContext    
     {
-        public static string Serialize(object value, Type inputType, XmlWriterSettings settings = null)
-        {
-            StringBuilder sb = new StringBuilder();
-            XmlWriter writer = XmlWriter.Create(sb, settings);
-            Serialize(writer, value, inputType);
-            writer.Flush();
-            writer.Close();
-            return sb.ToString();
-        }
+       
                 
-        public static void Serialize(XmlWriter writer, object value, Type inputType)
+        public override void Serialize(XmlWriter writer, object value, Type inputType)
         {
             switch (inputType.FullName)
             {
-            case "AVMHomeAutomation.DeviceList": writer.Serialize("devicelist", (DeviceList)value, inputType); break;
-            case "AVMHomeAutomation.DeviceStats": writer.Serialize("devicestats", (DeviceStats)value, inputType); break;
-            case "AVMHomeAutomation.TriggerList": writer.Serialize("triggerlist", (TriggerList)value, inputType); break;
-            case "AVMHomeAutomation.TemplateList": writer.Serialize("templatelist", (TemplateList)value, inputType); break;
-            case "AVMHomeAutomation.ColorDefaults": writer.Serialize("colordefaults", (ColorDefaults)value, inputType); break;
-            case "AVMHomeAutomation.SubscriptionState": writer.Serialize("state", (SubscriptionState)value, inputType); break;
-            case "AVMHomeAutomation.Device": writer.Serialize("device", (Device)value, inputType); break;
+            case "AVMHomeAutomation.DeviceList": Serialize(writer, "devicelist", (DeviceList)value, inputType); break;
+            case "AVMHomeAutomation.DeviceStats": Serialize(writer, "devicestats", (DeviceStats)value, inputType); break;
+            case "AVMHomeAutomation.TriggerList": Serialize(writer, "triggerlist", (TriggerList)value, inputType); break;
+            case "AVMHomeAutomation.TemplateList": Serialize(writer, "templatelist", (TemplateList)value, inputType); break;
+            case "AVMHomeAutomation.ColorDefaults": Serialize(writer, "colordefaults", (ColorDefaults)value, inputType); break;
+            case "AVMHomeAutomation.SubscriptionState": Serialize(writer, "state", (SubscriptionState)value, inputType); break;
+            case "AVMHomeAutomation.Device": Serialize(writer, "device", (Device)value, inputType); break;
             default: throw new ArgumentException("Unknown type", inputType.Name);
             }
         }
 
-        public static object Deserialize(string xml, Type returnType, XmlReaderSettings settings = null)
-        {
-            XmlReader reader = XmlReader.Create(new StringReader(xml), settings);
-            return Deserialize(reader, returnType);
-        }
+        
 
-        public static object Deserialize(XmlReader reader, Type returnType)
+        public override object Deserialize(XmlReader reader, Type returnType)
         {
             object result = null;
             reader.MoveToContent();
             switch (returnType.FullName)
             {
-            case "AVMHomeAutomation.DeviceList": result = reader.Deserialize("devicelist", new DeviceList(), returnType); break;
-            case "AVMHomeAutomation.DeviceStats": result = reader.Deserialize("devicestats", new DeviceStats(), returnType); break;
-            case "AVMHomeAutomation.TriggerList": result = reader.Deserialize("triggerlist", new TriggerList(), returnType); break;
-            case "AVMHomeAutomation.TemplateList": result = reader.Deserialize("templatelist", new TemplateList(), returnType); break;
-            case "AVMHomeAutomation.ColorDefaults": result = reader.Deserialize("colordefaults", new ColorDefaults(), returnType); break;
-            case "AVMHomeAutomation.SubscriptionState": result = reader.Deserialize("state", new SubscriptionState(), returnType); break;
-            case "AVMHomeAutomation.Device": result = reader.Deserialize("device", new Device(), returnType); break;
+            case "AVMHomeAutomation.DeviceList": result = Deserialize(reader, "devicelist", new DeviceList(), returnType); break;
+            case "AVMHomeAutomation.DeviceStats": result = Deserialize(reader, "devicestats", new DeviceStats(), returnType); break;
+            case "AVMHomeAutomation.TriggerList": result = Deserialize(reader, "triggerlist", new TriggerList(), returnType); break;
+            case "AVMHomeAutomation.TemplateList": result = Deserialize(reader, "templatelist", new TemplateList(), returnType); break;
+            case "AVMHomeAutomation.ColorDefaults": result = Deserialize(reader, "colordefaults", new ColorDefaults(), returnType); break;
+            case "AVMHomeAutomation.SubscriptionState": result = Deserialize(reader, "state", new SubscriptionState(), returnType); break;
+            case "AVMHomeAutomation.Device": result = Deserialize(reader, "device", new Device(), returnType); break;
             default: throw new ArgumentException("Unknown type", returnType.Name);
             };
             return result;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, DeviceList value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, DeviceList value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("version", value.Version);
             writer.WriteAttributeString("fwversion", value.FirmwareVersion);
             foreach (var item in value.Devices)
             {
-                writer.Serialize("device", item, typeof(Device));
+                Serialize(writer, "device", item, typeof(Device));
             }
             foreach (var item in value.Groups)
             {
-                writer.Serialize("group", item, typeof(Group));
+                Serialize(writer, "group", item, typeof(Group));
             }
             writer.WriteEndElement();
         }
 
-        private static DeviceList Deserialize(this XmlReader reader, string elementName, DeviceList value, Type returnType)
+        private static DeviceList Deserialize(XmlReader reader, string elementName, DeviceList value, Type returnType)
         {
             reader.CheckElement(elementName);
             
@@ -94,8 +83,8 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "device": value.Devices = AddElement(value.Devices, reader.Deserialize("device", new Device(), typeof(Device))); break;
-                    case "group": value.Groups = AddElement(value.Groups, reader.Deserialize("group", new Group(), typeof(Group))); break;
+                    case "device": value.Devices = AddElement(value.Devices, Deserialize(reader, "device", new Device(), typeof(Device))); break;
+                    case "group": value.Groups = AddElement(value.Groups, Deserialize(reader, "group", new Group(), typeof(Group))); break;
                     }
                     break;
 
@@ -107,7 +96,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Device value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Device value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("identifier", value.Identifier);
@@ -123,26 +112,26 @@ namespace Serialization
             writer.WriteElementString("batterylow", value.IsBatteryLow);
             writer.WriteElementString("battery", value.Battery);
 
-            writer.Serialize("switch", value.Switch, typeof(Switch));
-            writer.Serialize("powermeter", value.PowerMeter, typeof(PowerMeter));
-            writer.Serialize("temperature", value.Temperature, typeof(Temperature));
-            writer.Serialize("alert", value.Alert, typeof(Alert));
+            Serialize(writer, "switch", value.Switch, typeof(Switch));
+            Serialize(writer, "powermeter", value.PowerMeter, typeof(PowerMeter));
+            Serialize(writer, "temperature", value.Temperature, typeof(Temperature));
+            Serialize(writer, "alert", value.Alert, typeof(Alert));
 
             foreach (var item in value.Buttons)
             {
-                writer.Serialize("button", item, typeof(Button));
+                Serialize(writer, "button", item, typeof(Button));
             }
 
-            writer.Serialize("etsiunitinfo", value.EtsiUnitInfo, typeof(EtsiUnitInfo));
-            writer.Serialize("simpleoboff", value.SimpleOnOff, typeof(SimpleOnOff));
-            writer.Serialize("levelcontrol", value.LevelControl, typeof(LevelControl));
-            writer.Serialize("colorControl", value.ColorControl, typeof(ColorControl));
-            writer.Serialize("hkr", value.Hkr, typeof(Hkr));
+            Serialize(writer, "etsiunitinfo", value.EtsiUnitInfo, typeof(EtsiUnitInfo));
+            Serialize(writer, "simpleoboff", value.SimpleOnOff, typeof(SimpleOnOff));
+            Serialize(writer, "levelcontrol", value.LevelControl, typeof(LevelControl));
+            Serialize(writer, "colorControl", value.ColorControl, typeof(ColorControl));
+            Serialize(writer, "hkr", value.Hkr, typeof(Hkr));
 
             writer.WriteEndElement();
         }
 
-        private static Device Deserialize(this XmlReader reader, string elementName, Device value, Type inputType)
+        private static Device Deserialize(XmlReader reader, string elementName, Device value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -153,11 +142,11 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "identifier": value.Identifier = reader.ReadAttributeString(); break;
-                    case "id": value.Id = reader.ReadAttributeString(); break;
-                    case "fwversion": value.FirmwareVersion = reader.ReadAttributeString(); break;
-                    case "manufacturer": value.Manufacturer = reader.ReadAttributeString(); break;
-                    case "productname": value.ProductName = reader.ReadAttributeString(); break;
+                    case "identifier": value.Identifier = reader.ReadAttributeText(); break;
+                    case "id": value.Id = reader.ReadAttributeText(); break;
+                    case "fwversion": value.FirmwareVersion = reader.ReadAttributeText(); break;
+                    case "manufacturer": value.Manufacturer = reader.ReadAttributeText(); break;
+                    case "productname": value.ProductName = reader.ReadAttributeText(); break;
                     case "functionbitmask": value.FunctionBitMask = reader.ReadAttributeEnum<FunctionBitMask>(); break;
                     }
                     break;
@@ -166,7 +155,7 @@ namespace Serialization
                     {
                     case "present": value.IsPresent = reader.ReadElementNullableBool(); break;
                     case "txbusy": value.IsTXBusy = reader.ReadElementNullableBool(); break;
-                    case "name": value.Name = reader.ReadElementString(); break;
+                    case "name": value.Name = reader.ReadElementText(); break;
                     case "batterylow": value.IsBatteryLow = reader.ReadElementNullableBool(); break;
                     case "battery": value.Battery = reader.ReadElementNullableInt(); break;
                     default: reader.ReadInnerXml(); break;
@@ -180,7 +169,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Group value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Group value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("identifier", value.Identifier);
@@ -196,26 +185,26 @@ namespace Serialization
             writer.WriteElementString("batterylow", value.IsBatteryLow);
             writer.WriteElementString("battery", value.Battery);
 
-            writer.Serialize("switch", value.Switch, typeof(Switch));
-            writer.Serialize("powermeter", value.PowerMeter, typeof(PowerMeter));
-            writer.Serialize("temperature", value.Temperature, typeof(Temperature));
-            writer.Serialize("alert", value.Alert, typeof(Alert));
+            Serialize(writer, "switch", value.Switch, typeof(Switch));
+            Serialize(writer, "powermeter", value.PowerMeter, typeof(PowerMeter));
+            Serialize(writer, "temperature", value.Temperature, typeof(Temperature));
+            Serialize(writer, "alert", value.Alert, typeof(Alert));
 
             foreach (var item in value.Buttons)
             {
-                writer.Serialize("button", item, typeof(Button));
+                Serialize(writer, "button", item, typeof(Button));
             }
 
-            writer.Serialize("etsiunitinfo", value.EtsiUnitInfo, typeof(EtsiUnitInfo));
-            writer.Serialize("simpleoboff", value.SimpleOnOff, typeof(SimpleOnOff));
-            writer.Serialize("levelcontrol", value.LevelControl, typeof(LevelControl));
-            writer.Serialize("colorControl", value.ColorControl, typeof(ColorControl));
-            writer.Serialize("hkr", value.Hkr, typeof(Hkr));
+            Serialize(writer, "etsiunitinfo", value.EtsiUnitInfo, typeof(EtsiUnitInfo));
+            Serialize(writer, "simpleoboff", value.SimpleOnOff, typeof(SimpleOnOff));
+            Serialize(writer, "levelcontrol", value.LevelControl, typeof(LevelControl));
+            Serialize(writer, "colorControl", value.ColorControl, typeof(ColorControl));
+            Serialize(writer, "hkr", value.Hkr, typeof(Hkr));
 
             writer.WriteEndElement();
         }
 
-        private static Group Deserialize(this XmlReader reader, string elementName, Group value, Type inputType)
+        private static Group Deserialize(XmlReader reader, string elementName, Group value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -226,11 +215,11 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "identifier": value.Identifier = reader.ReadAttributeString(); break;
-                    case "id": value.Id = reader.ReadAttributeString(); break;
-                    case "fwversion": value.FirmwareVersion = reader.ReadAttributeString(); break;
-                    case "manufacturer": value.Manufacturer = reader.ReadAttributeString(); break;
-                    case "productname": value.ProductName = reader.ReadAttributeString(); break;
+                    case "identifier": value.Identifier = reader.ReadAttributeText(); break;
+                    case "id": value.Id = reader.ReadAttributeText(); break;
+                    case "fwversion": value.FirmwareVersion = reader.ReadAttributeText(); break;
+                    case "manufacturer": value.Manufacturer = reader.ReadAttributeText(); break;
+                    case "productname": value.ProductName = reader.ReadAttributeText(); break;
                     case "functionbitmask": value.FunctionBitMask = reader.ReadAttributeEnum<FunctionBitMask>(); break;
                     }
                     break;
@@ -239,7 +228,7 @@ namespace Serialization
                     {
                     case "present": value.IsPresent = reader.ReadElementNullableBool(); break;
                     case "txbusy": value.IsTXBusy = reader.ReadElementNullableBool(); break;
-                    case "name": value.Name = reader.ReadElementString(); break;
+                    case "name": value.Name = reader.ReadElementText(); break;
                     case "batterylow": value.IsBatteryLow = reader.ReadElementNullableBool(); break;
                     case "battery": value.Battery = reader.ReadElementNullableInt(); break;
                     default: reader.ReadInnerXml(); break;
@@ -253,7 +242,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Switch value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Switch value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("state", value.State);
@@ -289,7 +278,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, PowerMeter value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, PowerMeter value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteConverter("voltage", value.Voltage, typeof(double?), typeof(KiloConverter));
@@ -324,7 +313,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Temperature value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Temperature value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteConverter("celsius", value.Celsius, typeof(double?), typeof(DeciConverter));
@@ -357,7 +346,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Alert value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Alert value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("state", value.State);
@@ -365,7 +354,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static Alert Deserialize(this XmlReader reader, string elementName, Alert value, Type inputType)
+        private static Alert Deserialize(XmlReader reader, string elementName, Alert value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -389,7 +378,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Button value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Button value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("identifier", value.Identifier);
@@ -399,7 +388,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static Button Deserialize(this XmlReader reader, string elementName, Button value, Type inputType)
+        private static Button Deserialize(XmlReader reader, string elementName, Button value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -410,14 +399,14 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "identifier": value.Identifier = reader.ReadAttributeString(); break;
-                    case "id": value.Id = reader.ReadAttributeString(); break;
+                    case "identifier": value.Identifier = reader.ReadAttributeText(); break;
+                    case "id": value.Id = reader.ReadAttributeText(); break;
                     }
                     break;
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "name": value.Name = reader.ReadElementString(); break;
+                    case "name": value.Name = reader.ReadElementText(); break;
                     case "lastpressedtimestamp": value.LastPressedTimestamp = reader.ReadElementNullableDateTime(); break;
                     default: reader.ReadInnerXml(); break;
                     }
@@ -430,7 +419,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, EtsiUnitInfo value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, EtsiUnitInfo value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("etsideviceid", value.EtsiDeviceId);
@@ -442,7 +431,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static EtsiUnitInfo Deserialize(this XmlReader reader, string elementName, EtsiUnitInfo value, Type inputType)
+        private static EtsiUnitInfo Deserialize(XmlReader reader, string elementName, EtsiUnitInfo value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -453,7 +442,7 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "etsideviceid": value.EtsiDeviceId = reader.ReadElementString(); break;
+                    case "etsideviceid": value.EtsiDeviceId = reader.ReadElementText(); break;
                     case "unittype": value.UnitType = reader.ReadElementEnum<EtsiUnitType>(); break;
                     case "interfaces": value.Interfaces.Add(reader.ReadElementEnum<EtsiInterfaces>()); break;
                     default: reader.ReadInnerXml(); break;
@@ -467,14 +456,14 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, SimpleOnOff value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, SimpleOnOff value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("state", value.State);
             writer.WriteEndElement();
         }
 
-        private static SimpleOnOff Deserialize(this XmlReader reader, string elementName, SimpleOnOff value, Type inputType)
+        private static SimpleOnOff Deserialize(XmlReader reader, string elementName, SimpleOnOff value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -497,7 +486,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, LevelControl value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, LevelControl value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("level", value.Level);
@@ -505,7 +494,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static LevelControl Deserialize(this XmlReader reader, string elementName, LevelControl value, Type inputType)
+        private static LevelControl Deserialize(XmlReader reader, string elementName, LevelControl value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -529,7 +518,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, ColorControl value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, ColorControl value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("supported_modes", value.SupportedModes);
@@ -542,7 +531,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static ColorControl Deserialize(this XmlReader reader, string elementName, ColorControl value, Type inputType)
+        private static ColorControl Deserialize(XmlReader reader, string elementName, ColorControl value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -553,8 +542,8 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "supported_modes": value.SupportedModes = reader.ReadAttributeString(); break;
-                    case "current_mode": value.CurrentMode = reader.ReadAttributeString(); break;
+                    case "supported_modes": value.SupportedModes = reader.ReadAttributeText(); break;
+                    case "current_mode": value.CurrentMode = reader.ReadAttributeText(); break;
                     }
                     break;
                 case XmlNodeType.Element:
@@ -575,7 +564,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Hkr value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Hkr value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("tist", value.TIst);
@@ -591,7 +580,7 @@ namespace Serialization
             writer.WriteElementString("boostactiveendtime", value.BoostActiveEndTime);
             writer.WriteElementString("batterylow", value.BatteryLow);
             writer.WriteElementString("battery", value.Battery);
-            writer.Serialize("nextchange", value.NextChange, typeof(NextChange));
+            Serialize(writer, "nextchange", value.NextChange, typeof(NextChange));
             writer.WriteElementString("summeractive", value.SummerActive);
             writer.WriteElementString("holidayactive", value.HolidayActive);
             writer.WriteEndElement();
@@ -620,7 +609,7 @@ namespace Serialization
                     case "boostactive": value.BoostActiveEndTime = reader.ReadElementNullableDateTime(); break;
                     case "batterylow": value.BatteryLow = reader.ReadElementNullableBool(); break;
                     case "battery": value.Battery = reader.ReadElementNullableInt(); break;
-                    case "nextchange": value.NextChange = reader.Deserialize("nextchange", new NextChange(), typeof(NextChange)); break;
+                    case "nextchange": value.NextChange = Deserialize(reader, "nextchange", new NextChange(), typeof(NextChange)); break;
                     case "summeractive": value.SummerActive = reader.ReadElementNullableBool(); break;
                     case "holidayactive": value.HolidayActive = reader.ReadElementNullableBool(); break;
                     default: reader.ReadInnerXml(); break;
@@ -633,7 +622,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, NextChange value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, NextChange value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("endperiod", value.EndPeriod);
@@ -641,7 +630,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static NextChange Deserialize(this XmlReader reader, string elementName, NextChange value, Type inputType)
+        private static NextChange Deserialize(XmlReader reader, string elementName, NextChange value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -664,18 +653,18 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, DeviceStats value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, DeviceStats value, Type inputType)
         {
             writer.WriteStartElement(elementName);
-            writer.WriteElementList("temperature", "stats", value.Temperature, i => writer.Serialize("stats", i, typeof(Stats)));
-            writer.WriteElementList("voltage", "stats", value.Voltage, i => writer.Serialize("stats", i, typeof(Stats)));
-            writer.WriteElementList("power", "stats", value.Power, i => writer.Serialize("stats", i, typeof(Stats)));
-            writer.WriteElementList("energy", "stats", value.Energy, i => writer.Serialize("stats", i, typeof(Stats)));
-            writer.WriteElementList("humidity", "stats", value.Humidity, i => writer.Serialize("stats", i, typeof(Stats)));
+            writer.WriteElementList("temperature", "stats", value.Temperature, i => Serialize(writer, "stats", i, typeof(Stats)));
+            writer.WriteElementList("voltage", "stats", value.Voltage, i => Serialize(writer, "stats", i, typeof(Stats)));
+            writer.WriteElementList("power", "stats", value.Power, i => Serialize(writer, "stats", i, typeof(Stats)));
+            writer.WriteElementList("energy", "stats", value.Energy, i => Serialize(writer, "stats", i, typeof(Stats)));
+            writer.WriteElementList("humidity", "stats", value.Humidity, i => Serialize(writer, "stats", i, typeof(Stats)));
             writer.WriteEndElement();
         }
 
-        private static DeviceStats Deserialize(this XmlReader reader, string elementName, DeviceStats value, Type inputType)
+        private static DeviceStats Deserialize(XmlReader reader, string elementName, DeviceStats value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -686,11 +675,11 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "temperature": value.Temperature = reader.ReadElementList<Stats>("temperature", "stats", () => reader.Deserialize("stats", new Stats(), typeof(Stats))); break;
-                    case "voltage": value.Voltage = reader.ReadElementList<Stats>("voltage", "stats", () => reader.Deserialize("stats", new Stats(), typeof(Stats))); break;
-                    case "power": value.Power = reader.ReadElementList<Stats>("power", "stats", () => reader.Deserialize("stats", new Stats(), typeof(Stats))); break;
-                    case "energy": value.Energy = reader.ReadElementList<Stats>("energy", "stats", () => reader.Deserialize("stats", new Stats(), typeof(Stats))); break;
-                    case "humidity": value.Humidity = reader.ReadElementList<Stats>("humidity", "stats", () => reader.Deserialize("stats", new Stats(), typeof(Stats))); break;
+                    case "temperature": value.Temperature = reader.ReadElementList<Stats>("temperature", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
+                    case "voltage": value.Voltage = reader.ReadElementList<Stats>("voltage", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
+                    case "power": value.Power = reader.ReadElementList<Stats>("power", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
+                    case "energy": value.Energy = reader.ReadElementList<Stats>("energy", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
+                    case "humidity": value.Humidity = reader.ReadElementList<Stats>("humidity", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
                     default: reader.ReadInnerXml(); break;
                     }
                     break;
@@ -702,7 +691,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Stats value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Stats value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("count", value.Count);
@@ -711,7 +700,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static Stats Deserialize(this XmlReader reader, string elementName, Stats value, Type inputType)
+        private static Stats Deserialize(XmlReader reader, string elementName, Stats value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -736,15 +725,15 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, TriggerList value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, TriggerList value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("version", value.Version);
-            writer.WriteElementList<Trigger>(null, "trigger", value.Triggers, i => writer.Serialize("trigger", i, typeof(Trigger)));
+            writer.WriteElementList<Trigger>(null, "trigger", value.Triggers, i => Serialize(writer, "trigger", i, typeof(Trigger)));
             writer.WriteEndElement();
         }
 
-        private static TriggerList Deserialize(this XmlReader reader, string elementName, TriggerList value, Type inputType)
+        private static TriggerList Deserialize(XmlReader reader, string elementName, TriggerList value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -761,7 +750,7 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "trigger": value.Triggers = AddElement<Trigger>(value.Triggers, reader.Deserialize("trigger", new Trigger(), typeof(Trigger))); break;
+                    case "trigger": value.Triggers = AddElement<Trigger>(value.Triggers, Deserialize(reader, "trigger", new Trigger(), typeof(Trigger))); break;
                     default: reader.ReadInnerXml(); break;
                     }
                     break;
@@ -773,7 +762,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Trigger value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Trigger value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("identifier", value.Identifier);
@@ -782,7 +771,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static Trigger Deserialize(this XmlReader reader, string elementName, Trigger value, Type inputType)
+        private static Trigger Deserialize(XmlReader reader, string elementName, Trigger value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -793,14 +782,14 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "identifier": value.Identifier = reader.ReadAttributeString(); break;
+                    case "identifier": value.Identifier = reader.ReadAttributeText(); break;
                     case "active": value.Active = reader.ReadAttributeInt(); break;
                     }
                     break;
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "name": value.Name = reader.ReadElementString(); break;
+                    case "name": value.Name = reader.ReadElementText(); break;
                     default: reader.ReadInnerXml(); break;
                     }
                     break;
@@ -811,15 +800,15 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, TemplateList value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, TemplateList value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("version", value.Version);
-            writer.WriteElementList(null, "template", value.Templates, i => writer.Serialize("template", i, typeof(Template)));
+            writer.WriteElementList(null, "template", value.Templates, i => Serialize(writer, "template", i, typeof(Template)));
             writer.WriteEndElement();
         }
 
-        private static TemplateList Deserialize(this XmlReader reader, string elementName, TemplateList value, Type inputType)
+        private static TemplateList Deserialize(XmlReader reader, string elementName, TemplateList value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -836,7 +825,7 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "template": value.Templates = AddElement<Template>(value.Templates, reader.Deserialize("template", new Template(), typeof(Template))); break;
+                    case "template": value.Templates = AddElement<Template>(value.Templates, Deserialize(reader, "template", new Template(), typeof(Template))); break;
                     default: reader.ReadInnerXml(); break;
                     }
                     break;
@@ -848,7 +837,7 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, Template value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, Template value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("identifier", value.Identifier);
@@ -858,14 +847,14 @@ namespace Serialization
             writer.WriteAttributeString("autocreate", value.AutocCeate);
             writer.WriteElementString("name", value.Name);
             writer.WriteElementString("metadata", value.MetaData);
-            writer.WriteElementList<ItemIdentifier>("devices", "device", value.Devices, (i) => writer.Serialize("device", i, typeof(ItemIdentifier)));
-            writer.Serialize("applymask", value.ApplyMask, typeof(ApplyMask));
-            writer.WriteElementList<ItemIdentifier>("sub_templates", "template", value.SubTemplates, i => writer.Serialize("template", i, typeof(ItemIdentifier)));
-            writer.WriteElementList<ItemIdentifier>("triggers", "trigger", value.Triggers, i => writer.Serialize("trigger", i, typeof(ItemIdentifier)));
+            writer.WriteElementList<ItemIdentifier>("devices", "device", value.Devices, (i) => Serialize(writer, "device", i, typeof(ItemIdentifier)));
+            Serialize(writer, "applymask", value.ApplyMask, typeof(ApplyMask));
+            writer.WriteElementList<ItemIdentifier>("sub_templates", "template", value.SubTemplates, i => Serialize(writer, "template", i, typeof(ItemIdentifier)));
+            writer.WriteElementList<ItemIdentifier>("triggers", "trigger", value.Triggers, i => Serialize(writer, "trigger", i, typeof(ItemIdentifier)));
             writer.WriteEndElement();
         }
 
-        private static Template Deserialize(this XmlReader reader, string elementName, Template value, Type inputType)
+        private static Template Deserialize(XmlReader reader, string elementName, Template value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -876,8 +865,8 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "identifier": value.Identifier = reader.ReadAttributeString(); break;
-                    case "id": value.Id = reader.ReadAttributeString(); break;
+                    case "identifier": value.Identifier = reader.ReadAttributeText(); break;
+                    case "id": value.Id = reader.ReadAttributeText(); break;
                     case "functionbitmask": value.FunctionBitMask = reader.ReadAttributeEnum<FunctionBitMask>(); break;
                     case "applymask": value.ApplyBitMask = reader.ReadAttributeInt(); break;
                     case "autocreate": value.AutocCeate = reader.ReadAttributeInt(); break;
@@ -886,12 +875,12 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "name": value.Name = reader.ReadElementString(); break;
-                    case "metadata": value.MetaData = reader.ReadElementString(); break;
-                    case "devices": value.Devices = reader.ReadElementList<ItemIdentifier>("devices", "device", () => reader.Deserialize("device", new ItemIdentifier(), typeof(ItemIdentifier))); break;
-                    case "applymask": value.ApplyMask = reader.Deserialize("applymask", new ApplyMask(), typeof(ApplyMask)); break;
-                    case "sub_templates": value.SubTemplates = reader.ReadElementList<ItemIdentifier>("sub_templates", "template", () => reader.Deserialize("template", new ItemIdentifier(), typeof(ItemIdentifier))); break;
-                    case "triggers": value.Triggers = reader.ReadElementList<ItemIdentifier>("triggers", "trigger", () => reader.Deserialize("trigger", new ItemIdentifier(), typeof(ItemIdentifier))); break;
+                    case "name": value.Name = reader.ReadElementText(); break;
+                    case "metadata": value.MetaData = reader.ReadElementText(); break;
+                    case "devices": value.Devices = reader.ReadElementList<ItemIdentifier>("devices", "device", () => Deserialize(reader, "device", new ItemIdentifier(), typeof(ItemIdentifier))); break;
+                    case "applymask": value.ApplyMask = Deserialize(reader, "applymask", new ApplyMask(), typeof(ApplyMask)); break;
+                    case "sub_templates": value.SubTemplates = reader.ReadElementList<ItemIdentifier>("sub_templates", "template", () => Deserialize(reader, "template", new ItemIdentifier(), typeof(ItemIdentifier))); break;
+                    case "triggers": value.Triggers = reader.ReadElementList<ItemIdentifier>("triggers", "trigger", () => Deserialize(reader, "trigger", new ItemIdentifier(), typeof(ItemIdentifier))); break;
                     default: reader.ReadInnerXml(); break;
                     }
                     break;
@@ -902,14 +891,14 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, ItemIdentifier value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, ItemIdentifier value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("identifier", value.Identifier);
             writer.WriteEndElement();
         }
 
-        private static ItemIdentifier Deserialize(this XmlReader reader, string elementName, ItemIdentifier value, Type inputType)
+        private static ItemIdentifier Deserialize(XmlReader reader, string elementName, ItemIdentifier value, Type inputType)
         {
             reader.CheckElement(elementName);
             
@@ -920,7 +909,7 @@ namespace Serialization
                 case XmlNodeType.Attribute:
                     switch (reader.Name)
                     {
-                    case "identifier": value.Identifier = reader.ReadAttributeString(); break;
+                    case "identifier": value.Identifier = reader.ReadAttributeText(); break;
                     }
                     break;
 
@@ -931,7 +920,7 @@ namespace Serialization
             return value;
         }        
 
-        private static void Serialize(this XmlWriter writer, string elementName, ApplyMask value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, ApplyMask value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteElementString("hkr_summer", value.HkrSummer);
@@ -955,7 +944,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static ApplyMask Deserialize(this XmlReader reader, string elementName, ApplyMask value, Type inputType)
+        private static ApplyMask Deserialize(XmlReader reader, string elementName, ApplyMask value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -994,16 +983,16 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, ColorDefaults value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, ColorDefaults value, Type inputType)
         {
             writer.WriteStartElement(elementName);
-            writer.WriteElementList<ColorDefaultHS>("hsdefaults", "hs", value.HSDefaults, i => writer.Serialize("hs", i, typeof(ColorDefaultHS)));
-            writer.WriteElementList<ColorDefaultTemperature>("temperaturedefaults", "temp", value.TemperatureDefaults, i => writer.Serialize("temp", i, typeof(ColorDefaultTemperature)));
+            writer.WriteElementList<ColorDefaultHS>("hsdefaults", "hs", value.HSDefaults, i => Serialize(writer, "hs", i, typeof(ColorDefaultHS)));
+            writer.WriteElementList<ColorDefaultTemperature>("temperaturedefaults", "temp", value.TemperatureDefaults, i => Serialize(writer, "temp", i, typeof(ColorDefaultTemperature)));
             
             writer.WriteEndElement();
         }
 
-        private static ColorDefaults Deserialize(this XmlReader reader, string elementName, ColorDefaults value, Type inputType)
+        private static ColorDefaults Deserialize(XmlReader reader, string elementName, ColorDefaults value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -1028,7 +1017,148 @@ namespace Serialization
             return value;
         }
 
-        private static void Serialize(this XmlWriter writer, string elementName, SubscriptionState value, Type inputType)
+        private static void Serialize(XmlWriter writer, string elementName, ColorDefaultHS value, Type inputType)
+        {
+            writer.WriteStartElement(elementName);
+            writer.WriteAttributeString("hue_index", value.HueIndex);
+            Serialize(writer, "name", value.Name, typeof(ColorName));
+            writer.WriteElementList<Color>(null, "color", value.Colors, (i) => Serialize(writer, "color", i, typeof(Color)));
+            writer.WriteEndElement();
+        }
+
+        private static ColorDefaultHS Deserialize(XmlReader reader, string elementName, ColorDefaultHS value, Type inputType)
+        {
+            reader.CheckElement(elementName);
+
+            while (reader.MoveToNextAttribute() || reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                case XmlNodeType.Attribute:
+                    switch (reader.Name)
+                    {
+                    case "hue_index": value.HueIndex = reader.ReadAttributeInt(); break;
+                    }
+                    break;
+                case XmlNodeType.Element:
+                    switch (reader.Name)
+                    {
+                    case "name": value.Name = Deserialize(reader, "name", new ColorName(), typeof(ColorName)); break;
+                    case "color": value.Colors = AddElement(value.Colors, Deserialize(reader, "color", new Color(), typeof(Color))); break;
+                    default: reader.ReadInnerXml(); break;
+                    }
+                    break;
+                case XmlNodeType.EndElement:
+                    return value;
+                }
+            }
+            return value;
+        }
+
+        private static void Serialize(XmlWriter writer, string elementName, ColorDefaultTemperature value, Type inputType)
+        {
+            writer.WriteStartElement(elementName);
+            writer.WriteAttributeString("value", value.Value);
+            writer.WriteEndElement();
+        }
+
+        private static ColorDefaultTemperature Deserialize(XmlReader reader, string elementName, ColorDefaultTemperature value, Type inputType)
+        {
+            reader.CheckElement(elementName);
+
+            while (reader.MoveToNextAttribute() || reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                case XmlNodeType.Attribute:
+                    switch (reader.Name)
+                    {
+                    case "value": value.Value = reader.ReadAttributeInt(); break;
+                    }
+                    break;
+                case XmlNodeType.Element:
+                    reader.ReadInnerXml();
+                    break;
+                case XmlNodeType.EndElement:
+                    return value;
+                }
+            }
+            return value;
+        }
+
+        private static void Serialize(XmlWriter writer, string elementName, ColorName value, Type inputType)
+        {
+            writer.WriteStartElement(elementName);
+            writer.WriteAttributeString("enum", value.Enum);
+            writer.WriteValue(value.Value);
+            writer.WriteEndElement();
+        }
+
+        private static ColorName Deserialize(XmlReader reader, string elementName, ColorName value, Type inputType)
+        {
+            reader.CheckElement(elementName);
+
+            while (reader.MoveToNextAttribute() || reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                case XmlNodeType.Attribute:
+                    switch (reader.Name)
+                    {
+                    case "enum": value.Enum = reader.ReadAttributeInt(); break;
+                    }
+                    break;
+                case XmlNodeType.Element:
+                    reader.ReadInnerXml(); 
+                    break;
+                case XmlNodeType.Text:
+                    value.Value = reader.Value; 
+                    break;
+                case XmlNodeType.EndElement:
+                    return value;
+                }
+            }
+            return value;
+        }
+
+        private static void Serialize(XmlWriter writer, string elementName, Color value, Type inputType)
+        {
+            writer.WriteStartElement(elementName);
+            writer.WriteAttributeString("sat_index", value.SatIndex);
+            writer.WriteAttributeString("hue", value.Hue);
+            writer.WriteAttributeString("sat", value.Sat);
+            writer.WriteAttributeString("val", value.Val);
+            writer.WriteEndElement();
+        }
+
+        private static Color Deserialize(XmlReader reader, string elementName, Color value, Type inputType)
+        {
+            reader.CheckElement(elementName);
+
+            while (reader.MoveToNextAttribute() || reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                case XmlNodeType.Attribute:
+                    switch (reader.Name)
+                    {
+                    case "sat_index": value.SatIndex = reader.ReadAttributeInt(); break;
+                    case "hue": value.Hue = reader.ReadAttributeInt(); break;
+                    case "sat": value.Sat = reader.ReadAttributeInt(); break;
+                    case "val": value.Val = reader.ReadAttributeInt(); break;
+                    }
+                    break;
+                case XmlNodeType.Element:
+                    reader.ReadInnerXml(); 
+                    break;
+                case XmlNodeType.EndElement:
+                    return value;
+                }
+            }
+            return value;
+        }
+
+        private static void Serialize(XmlWriter writer, string elementName, SubscriptionState value, Type inputType)
         {
             writer.WriteStartElement(elementName);
             writer.WriteAttributeString("code", value.Code);
@@ -1036,7 +1166,7 @@ namespace Serialization
             writer.WriteEndElement();
         }
 
-        private static SubscriptionState Deserialize(this XmlReader reader, string elementName, SubscriptionState value, Type inputType)
+        private static SubscriptionState Deserialize(XmlReader reader, string elementName, SubscriptionState value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -1053,7 +1183,7 @@ namespace Serialization
                 case XmlNodeType.Element:
                     switch (reader.Name)
                     {
-                    case "latestain": value.LatestAin = reader.ReadElementString(); break;
+                    case "latestain": value.LatestAin = reader.ReadElementText(); break;
                     default: reader.ReadInnerXml(); break;
                     }
                     break;
@@ -1064,10 +1194,5 @@ namespace Serialization
             }
             return value;
         }
-
-
-
-
-        
     }
 }
