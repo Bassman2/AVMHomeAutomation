@@ -115,6 +115,7 @@ namespace AVMHomeAutomation
             Serialize(writer, "switch", value.Switch, typeof(Switch));
             Serialize(writer, "powermeter", value.PowerMeter, typeof(PowerMeter));
             Serialize(writer, "temperature", value.Temperature, typeof(Temperature));
+            Serialize(writer, "humidity", value.Humidity, typeof(Humidity));
             Serialize(writer, "alert", value.Alert, typeof(Alert));
 
             foreach (var item in value.Buttons)
@@ -123,9 +124,9 @@ namespace AVMHomeAutomation
             }
 
             Serialize(writer, "etsiunitinfo", value.EtsiUnitInfo, typeof(EtsiUnitInfo));
-            Serialize(writer, "simpleoboff", value.SimpleOnOff, typeof(SimpleOnOff));
+            Serialize(writer, "simpleonoff", value.SimpleOnOff, typeof(SimpleOnOff));
             Serialize(writer, "levelcontrol", value.LevelControl, typeof(LevelControl));
-            Serialize(writer, "colorControl", value.ColorControl, typeof(ColorControl));
+            Serialize(writer, "colorcontrol", value.ColorControl, typeof(ColorControl));
             Serialize(writer, "hkr", value.Hkr, typeof(Hkr));
 
             writer.WriteEndElement();
@@ -158,7 +159,22 @@ namespace AVMHomeAutomation
                     case "name": value.Name = reader.ReadElementText(); break;
                     case "batterylow": value.IsBatteryLow = reader.ReadElementNullableBool(); break;
                     case "battery": value.Battery = reader.ReadElementNullableInt(); break;
-                    default: reader.ReadInnerXml(); break;
+
+                    case "switch": value.Switch = Deserialize(reader, "switch", new Switch(), typeof(Switch)); break;
+                    case "powermeter": value.PowerMeter = Deserialize(reader, "powermeter", new PowerMeter(), typeof(PowerMeter)); break;
+                    case "temperature": value.Temperature = Deserialize(reader, "temperature", new Temperature(), typeof(Temperature)); break;
+                    case "humidity": value.Humidity = Deserialize(reader, "humidity", new Humidity(), typeof(Humidity)); break;
+                    case "alert": value.Alert = Deserialize(reader, "alert", new Alert(), typeof(Alert)); break;
+
+                    case "button": value.Buttons = AddElement(value.Buttons, Deserialize(reader, "button", new Button(), typeof(Button))); break;
+
+                    case "etsiunitinfo": value.EtsiUnitInfo = Deserialize(reader, "etsiunitinfo", new EtsiUnitInfo(), typeof(EtsiUnitInfo)); break;                    
+                    case "simpleonoff": value.SimpleOnOff = Deserialize(reader, "simpleonoff", new SimpleOnOff(), typeof(SimpleOnOff)); break;
+                    case "levelcontrol": value.LevelControl = Deserialize(reader, "levelcontrol", new LevelControl(), typeof(LevelControl)); break;
+                    case "colorcontrol": value.ColorControl = Deserialize(reader, "colorcontrol", new ColorControl(), typeof(ColorControl)); break;
+                    case "hkr": value.Hkr = Deserialize(reader, "hkr", new Hkr(), typeof(Hkr)); break;
+
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -231,7 +247,7 @@ namespace AVMHomeAutomation
                     case "name": value.Name = reader.ReadElementText(); break;
                     case "batterylow": value.IsBatteryLow = reader.ReadElementNullableBool(); break;
                     case "battery": value.Battery = reader.ReadElementNullableInt(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -267,7 +283,7 @@ namespace AVMHomeAutomation
                     case "mode": value.Mode = reader.ReadElementNullableBool(); break;
                     case "lock": value.Lock = reader.ReadElementNullableBool(); break;
                     case "devicelock": value.DeviceLock = reader.ReadElementNullableBool(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -301,7 +317,7 @@ namespace AVMHomeAutomation
                     case "voltage": value.Voltage = reader.ReadElementNullableDouble(); break;
                     case "power": value.Power = reader.ReadElementNullableDouble(); break;
                     case "energy": value.Energy = reader.ReadElementNullableDouble(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -321,7 +337,7 @@ namespace AVMHomeAutomation
             writer.WriteEndElement();
         }
 
-        private static Temperature Deserializee(XmlReader reader, string elementName, Temperature value, Type inputType)
+        private static Temperature Deserialize(XmlReader reader, string elementName, Temperature value, Type inputType)
         {
             reader.CheckElement(elementName);
 
@@ -334,14 +350,43 @@ namespace AVMHomeAutomation
                     {
                     case "celsius": value.Celsius = reader.ReadElementNullableDouble(); break;
                     case "offset": value.Offset = reader.ReadElementNullableDouble(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
                 case XmlNodeType.EndElement:
                     return value;
                 }
+            }
+            return value;
+        }
 
+        private static void Serialize(XmlWriter writer, string elementName, Humidity value, Type inputType)
+        {
+            writer.WriteStartElement(elementName);
+            writer.WriteElementString("rel_humidity", value.RelHumidity);
+            writer.WriteEndElement();
+        }
+
+        private static Humidity Deserialize(XmlReader reader, string elementName, Humidity value, Type inputType)
+        {
+            reader.CheckElement(elementName);
+
+            while (reader.MoveToNextAttribute() || reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                case XmlNodeType.Element:
+                    switch (reader.Name)
+                    {
+                    case "rel_humidity": value.RelHumidity = reader.ReadElementNullableInt(); break;
+                    default: reader.UnknownElement(elementName); break;
+                    }
+                    break;
+
+                case XmlNodeType.EndElement:
+                    return value;
+                }
             }
             return value;
         }
@@ -367,7 +412,7 @@ namespace AVMHomeAutomation
                     {
                     case "state": value.State = reader.ReadElementNullableEnum<AlertState>(); break;
                     case "lastalertchgtimestamp": value.LastAlertChangeTimestamp = reader.ReadElementNullableDateTime(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -408,7 +453,7 @@ namespace AVMHomeAutomation
                     {
                     case "name": value.Name = reader.ReadElementText(); break;
                     case "lastpressedtimestamp": value.LastPressedTimestamp = reader.ReadElementNullableDateTime(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -445,7 +490,7 @@ namespace AVMHomeAutomation
                     case "etsideviceid": value.EtsiDeviceId = reader.ReadElementText(); break;
                     case "unittype": value.UnitType = reader.ReadElementEnum<EtsiUnitType>(); break;
                     case "interfaces": value.Interfaces.Add(reader.ReadElementEnum<EtsiInterfaces>()); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -475,7 +520,7 @@ namespace AVMHomeAutomation
                     switch (reader.Name)
                     {
                     case "state": value.State = reader.ReadElementNullableBool(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -507,7 +552,7 @@ namespace AVMHomeAutomation
                     {
                     case "level": value.Level = reader.ReadElementNullableInt(); break;
                     case "levelpercentage": value.LevelPercentage = reader.ReadElementNullableInt(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -554,7 +599,7 @@ namespace AVMHomeAutomation
                     case "unmapped_hue": value.UnmappedHue = reader.ReadElementNullableInt(); break;
                     case "unmapped_saturation": value.UnmappedSaturation = reader.ReadElementNullableInt(); break;
                     case "temperature": value.Temperature = reader.ReadElementNullableInt(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -583,6 +628,8 @@ namespace AVMHomeAutomation
             Serialize(writer, "nextchange", value.NextChange, typeof(NextChange));
             writer.WriteElementString("summeractive", value.SummerActive);
             writer.WriteElementString("holidayactive", value.HolidayActive);
+            writer.WriteElementString("adaptiveHeatingActive", value.AdaptiveHeatingActive);
+            writer.WriteElementString("adaptiveHeatingRunning", value.AdaptiveHeatingRunning);
             writer.WriteEndElement();
         }
 
@@ -606,13 +653,16 @@ namespace AVMHomeAutomation
                     case "errorcode": value.ErrorCode = reader.ReadElementInt(); break;
                     case "windowopenactiv": value.WindowOpenActiv = reader.ReadElementNullableBool(); break;
                     case "windowopenactiveendtime": value.WindowOpenActivEndTime = reader.ReadElementNullableDateTime(); break;
-                    case "boostactive": value.BoostActiveEndTime = reader.ReadElementNullableDateTime(); break;
+                    case "boostactive": value.BoostActive = reader.ReadElementNullableBool(); break;
+                    case "boostactiveendtime": value.BoostActiveEndTime = reader.ReadElementNullableDateTime(); break;
                     case "batterylow": value.BatteryLow = reader.ReadElementNullableBool(); break;
                     case "battery": value.Battery = reader.ReadElementNullableInt(); break;
                     case "nextchange": value.NextChange = Deserialize(reader, "nextchange", new NextChange(), typeof(NextChange)); break;
                     case "summeractive": value.SummerActive = reader.ReadElementNullableBool(); break;
                     case "holidayactive": value.HolidayActive = reader.ReadElementNullableBool(); break;
-                    default: reader.ReadInnerXml(); break;
+                    case "adaptiveHeatingActive": value.AdaptiveHeatingActive = reader.ReadElementBool(); break;
+                    case "adaptiveHeatingRunning": value.AdaptiveHeatingRunning = reader.ReadElementBool(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -643,7 +693,7 @@ namespace AVMHomeAutomation
                     {
                     case "endperiod": value.EndPeriod = reader.ReadElementNullableDateTime(); break;
                     case "tchange": value.TChange = reader.ReadElementNullableDouble(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -680,7 +730,7 @@ namespace AVMHomeAutomation
                     case "power": value.Power = reader.ReadElementList<Stats>("power", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
                     case "energy": value.Energy = reader.ReadElementList<Stats>("energy", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
                     case "humidity": value.Humidity = reader.ReadElementList<Stats>("humidity", "stats", () => Deserialize(reader, "stats", new Stats(), typeof(Stats))); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -751,7 +801,7 @@ namespace AVMHomeAutomation
                     switch (reader.Name)
                     {
                     case "trigger": value.Triggers = AddElement<Trigger>(value.Triggers, Deserialize(reader, "trigger", new Trigger(), typeof(Trigger))); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -790,7 +840,7 @@ namespace AVMHomeAutomation
                     switch (reader.Name)
                     {
                     case "name": value.Name = reader.ReadElementText(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -826,7 +876,7 @@ namespace AVMHomeAutomation
                     switch (reader.Name)
                     {
                     case "template": value.Templates = AddElement<Template>(value.Templates, Deserialize(reader, "template", new Template(), typeof(Template))); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -881,7 +931,7 @@ namespace AVMHomeAutomation
                     case "applymask": value.ApplyMask = Deserialize(reader, "applymask", new ApplyMask(), typeof(ApplyMask)); break;
                     case "sub_templates": value.SubTemplates = reader.ReadElementList<ItemIdentifier>("sub_templates", "template", () => Deserialize(reader, "template", new ItemIdentifier(), typeof(ItemIdentifier))); break;
                     case "triggers": value.Triggers = reader.ReadElementList<ItemIdentifier>("triggers", "trigger", () => Deserialize(reader, "trigger", new ItemIdentifier(), typeof(ItemIdentifier))); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -973,7 +1023,7 @@ namespace AVMHomeAutomation
                     case "timer_control": value.TimerControl = reader.ReadElementBool(); break;
                     case "switch_master": value.SwitchMaster = reader.ReadElementBool(); break;
                     case "custom_notification": value.CustomNotification = reader.ReadElementBool(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -1005,7 +1055,7 @@ namespace AVMHomeAutomation
                     {
                     //case "hsdefaults": value.HSDefaults = reader.ReadElementList<ColorDefaultHS>("hsdefaults", "hs"); break;
                     //case "temperaturedefaults": value.TemperatureDefaults = reader.ReadElementList<ColorDefaultTemperature>("temperaturedefaults", "temp"); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 
@@ -1045,7 +1095,7 @@ namespace AVMHomeAutomation
                     {
                     case "name": value.Name = Deserialize(reader, "name", new ColorName(), typeof(ColorName)); break;
                     case "color": value.Colors = AddElement(value.Colors, Deserialize(reader, "color", new Color(), typeof(Color))); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -1077,7 +1127,7 @@ namespace AVMHomeAutomation
                     }
                     break;
                 case XmlNodeType.Element:
-                    reader.ReadInnerXml();
+                    reader.UnknownElement(elementName);
                     break;
                 case XmlNodeType.EndElement:
                     return value;
@@ -1109,7 +1159,7 @@ namespace AVMHomeAutomation
                     }
                     break;
                 case XmlNodeType.Element:
-                    reader.ReadInnerXml(); 
+                    reader.UnknownElement(elementName); 
                     break;
                 case XmlNodeType.Text:
                     value.Value = reader.Value; 
@@ -1149,7 +1199,7 @@ namespace AVMHomeAutomation
                     }
                     break;
                 case XmlNodeType.Element:
-                    reader.ReadInnerXml(); 
+                    reader.UnknownElement(elementName); 
                     break;
                 case XmlNodeType.EndElement:
                     return value;
@@ -1184,7 +1234,7 @@ namespace AVMHomeAutomation
                     switch (reader.Name)
                     {
                     case "latestain": value.LatestAin = reader.ReadElementText(); break;
-                    default: reader.ReadInnerXml(); break;
+                    default: reader.UnknownElement(elementName); break;
                     }
                     break;
 

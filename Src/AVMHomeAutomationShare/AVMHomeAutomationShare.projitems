@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Generated\GenerationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GenerationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Humidity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />

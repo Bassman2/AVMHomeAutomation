@@ -109,6 +109,18 @@ namespace AVMHomeAutomation
         /// Is the HKR currently in a Holiday period?
         /// </summary>
         [XmlElement("holidayactive")]
-        public bool? HolidayActive { get; set; }        
+        public bool? HolidayActive { get; set; }
+
+        /// <summary>
+        /// Adaptive Heating is active or not.
+        /// </summary>
+        [XmlElement("adaptiveHeatingActive")]
+        public bool AdaptiveHeatingActive { get; set; }
+
+        /// <summary>
+        /// Adaptive Heating is currently running or not.
+        /// </summary>
+        [XmlElement("adaptiveHeatingRunning")]
+        public bool AdaptiveHeatingRunning { get; set; }
     }
 }

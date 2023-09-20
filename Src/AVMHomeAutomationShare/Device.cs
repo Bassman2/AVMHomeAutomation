@@ -99,6 +99,12 @@ namespace AVMHomeAutomation
         public Temperature Temperature { get; set; }
 
         /// <summary>
+        /// Temperature sensor data.
+        /// </summary>
+        [XmlElement("humidity")]
+        public Humidity Humidity { get; set; }
+
+        /// <summary>
         /// Alarm sensor data.
         /// </summary>
         [XmlElement("alert")]

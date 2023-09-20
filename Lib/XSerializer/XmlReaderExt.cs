@@ -18,6 +18,11 @@ namespace Serialization
             }
         }
 
+        public static void UnknownElement(this XmlReader reader, string elementName)
+        {
+            throw new Exception($"Unknown element: {reader.Name} for {elementName}");
+        }
+
         #region Read Simple
 
         public static string ReadAttributeText(this XmlReader reader)
