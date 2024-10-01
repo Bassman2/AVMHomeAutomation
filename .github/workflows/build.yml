@@ -58,13 +58,13 @@ jobs:
       run: nuget pack $env:NugetSpc -properties Configuration=Release
       
     - name: Upload documentation artifact     
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Documentation.zip
         path: Doc/AVMHomeAutomationDoc/Help/AVMHomeAutomation.chm
         
     - name: Upload nuget pack artifact     
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: NugetPackage.zip
         path: Nuget/AVMHomeAutomation.*.nupkg
