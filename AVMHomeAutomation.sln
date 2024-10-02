@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomation48", "Src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomation462", "Src\AVMHomeAutomation462\AVMHomeAutomation462.csproj", "{BF30B41B-6500-4AFE-A646-59FA108167AA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVMHomeAutomation80", "Src\AVMHomeAutomation80\AVMHomeAutomation80.csproj", "{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +253,26 @@ Global
 		{BF30B41B-6500-4AFE-A646-59FA108167AA}.Release|x64.Build.0 = Release|Any CPU
 		{BF30B41B-6500-4AFE-A646-59FA108167AA}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF30B41B-6500-4AFE-A646-59FA108167AA}.Release|x86.Build.0 = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|x64.Build.0 = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Debug|x86.Build.0 = Debug|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|ARM.Build.0 = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|ARM64.Build.0 = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|x64.ActiveCfg = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|x64.Build.0 = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|x86.ActiveCfg = Release|Any CPU
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -267,6 +289,7 @@ Global
 		{A8E6E9FE-4CC7-48C6-800E-5245ED1A2DFE} = {F6B4B28F-9527-4AD6-831E-F05352B0782C}
 		{83F27F9F-8AF7-46AF-934B-BC5F65290028} = {E29B4D4A-76AE-454F-8CD8-90148AA01D52}
 		{BF30B41B-6500-4AFE-A646-59FA108167AA} = {E29B4D4A-76AE-454F-8CD8-90148AA01D52}
+		{F3303C19-802E-4BF1-84D9-61CE4D93BD4B} = {E29B4D4A-76AE-454F-8CD8-90148AA01D52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA554914-5C65-43F3-ADFB-C436CCD65309}
@@ -278,6 +301,7 @@ Global
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{83f27f9f-8af7-46af-934b-bc5f65290028}*SharedItemsImports = 4
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{ab16ac34-84e0-410b-bd72-9a338d8e8cef}*SharedItemsImports = 5
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{bf30b41b-6500-4afe-a646-59fa108167aa}*SharedItemsImports = 4
+		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{f3303c19-802e-4bf1-84d9-61ce4d93bd4b}*SharedItemsImports = 5
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{f5df3beb-95c6-4764-8485-a24ec59e8282}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
