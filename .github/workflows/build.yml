@@ -35,7 +35,7 @@ jobs:
       uses: Bassman2/setup-SHFB@v1
 
     - name: Cache packages  
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -93,7 +93,7 @@ jobs:
         key: ${{ secrets.SIGNKEY }}
         
     - name: Cache packages  
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -136,7 +136,7 @@ jobs:
         key: ${{ secrets.SIGNKEY }}
         
     - name: Cache packages  
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
