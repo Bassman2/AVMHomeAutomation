@@ -1,17 +1,14 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Template device
+/// </summary>
+public class ItemIdentifier
+
 {
     /// <summary>
-    /// Template device
+    /// Identifier
     /// </summary>
-    public class ItemIdentifier
-
-    {
-        /// <summary>
-        /// Identifier
-        /// </summary>
-        [XmlAttribute("identifier")]
-        public string Identifier { get; set; }
-    }
+    [XmlAttribute("identifier")]
+    public string? Identifier { get; set; }
 }

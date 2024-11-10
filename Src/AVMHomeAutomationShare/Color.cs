@@ -1,34 +1,16 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Color data.
+/// </summary>
+public class Color(ColorModel model)
 {
-    /// <summary>
-    /// Color data.
-    /// </summary>
-    public class Color
-    {
-        /// <summary>
-        /// Suturation index.
-        /// </summary>
-        [XmlAttribute("sat_index")]
-        public int SatIndex { get; set; }
+    
+    public int SatIndex { get; set; } = model.SatIndex;
 
-        /// <summary>
-        /// Hue value of the color. (0 is 359)
-        /// </summary>
-        [XmlAttribute("hue")]
-        public int Hue { get; set; }
+    public int Hue { get; set; } = model.Hue;
 
-        /// <summary>
-        /// Saturation value of the color. (0 - 255)
-        /// </summary>
-        [XmlAttribute("sat")]
-        public int Sat { get; set; }
+    public int Sat { get; set; } = model.Sat;
 
-        /// <summary>
-        /// Value (0-255)
-        /// </summary>
-        [XmlAttribute("val")]
-        public int Val { get; set; }
-    }
+    public int Val { get; set; } = model.Val;
 }

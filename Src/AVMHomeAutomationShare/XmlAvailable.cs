@@ -32,7 +32,7 @@ namespace AVMHomeAutomation
         /// </summary>
         /// <param name="other">An object.</param>
         /// <returns>true if the other parameter is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object other)
+        public override bool Equals(object? other)
         {
             if (other == null)
             {

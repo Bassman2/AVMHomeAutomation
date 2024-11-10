@@ -1,23 +1,19 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// ColorName of a color
+/// </summary>
+public class ColorName
 {
     /// <summary>
-    /// ColorName of a color
+    /// Number of the color
     /// </summary>
-    public class ColorName
+    [XmlAttribute("enum")]
+    public int Enum { get; set; }
 
-    {
-        /// <summary>
-        /// Number of the color
-        /// </summary>
-        [XmlAttribute("enum")]
-        public int Enum { get; set; }
-
-        /// <summary>
-        /// ColorName of the color
-        /// </summary>
-        [XmlText]
-        public string Value { get; set; }
-    }
+    /// <summary>
+    /// ColorName of the color
+    /// </summary>
+    [XmlText]
+    public string? Value { get; set; }
 }

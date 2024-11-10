@@ -13,11 +13,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationAuthenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultHS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\SourceGenerationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IXmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubscriptionCode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EtsiInterfaces.cs" />
@@ -27,6 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Trigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateTrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TriggerList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Usings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlAvailable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableDateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableEnum.cs" />
