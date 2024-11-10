@@ -1,8 +1,20 @@
-﻿namespace AVMHomeAutomation;
+﻿
+
+namespace AVMHomeAutomation;
 
 internal static class HAConverter
 {
     private readonly static DateTime UnixDateTimeStart = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+
+    private static JsonSerializerOptions options;
+
+    [RequiresDynamicCode("Calls System.Text.Json.Serialization.JsonStringEnumConverter.JsonStringEnumConverter()")]
+    static HAConverter()
+    {
+        options = new JsonSerializerOptions();
+        options.Converters.Add(new JsonStringEnumConverter());
+    }
 
     public static string ToHkrTemperature(this double val)
     {
@@ -136,6 +148,7 @@ internal static class HAConverter
         return int.Parse(value);
     }
 
+    [RequiresUnreferencedCode("Calls System.Xml.Serialization.XmlSerializer.XmlSerializer(Type)")]
     public static T? XmlToAs<T>(this string value)
     {
         var serializer = new XmlSerializer(typeof(T));
@@ -145,10 +158,7 @@ internal static class HAConverter
         
     }
 
-    private static JsonSerializerOptions options = new JsonSerializerOptions
-    {
-        Converters = { new JsonStringEnumConverter() }
-    };
+    
 
     public static T? JsonToAs<T>(this string value)
     {

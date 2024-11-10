@@ -77,7 +77,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return await service.GetSwitchStateAsync(ain);
+        return await service!.GetSwitchStateAsync(ain, cancellationToken);
     }
     
     /// <summary>
@@ -89,7 +89,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getswitchpresent", ain))).ToBool();
+        return await service!.GetSwitchPresentAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getswitchpower", ain))).ToPower();
+        return await service!.GetSwitchPowerAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getswitchenergy", ain))).ToPower();
+        return await service!.GetSwitchEnergyAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getswitchname", ain))).TrimEnd();
+        return await service!.GetSwitchNameAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        DeviceList deviceList = (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).XmlToAs<DeviceList>(); 
+        DeviceList deviceList = await service!.GetDeviceListInfosAsync(cancellationToken); 
         deviceList.Fill();
         return deviceList;
     }
@@ -149,7 +149,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"))).ToXml();
+        return await service!.GetDeviceListInfosXmlAsync(cancellationToken);
     }
 
     /// <summary>
@@ -161,7 +161,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gettemperature", ain))).ToNullableTemperature();
+        return await service!.GetTemperatureAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -173,7 +173,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gethkrtsoll", ain))).ToHkrTemperature();
+        return await service!.GetHkrtSollAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -185,7 +185,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gethkrkomfort", ain))).ToHkrTemperature();
+        return await service!.GetHkrKomfortAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -197,7 +197,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gethkrabsenk", ain))).ToHkrTemperature();
+        return await service!.GetHkrAbsenkAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
         {
             throw new ArgumentOutOfRangeException(nameof(temperature));
         }
-        return (await this.client.GetStringAsync(BuildUrl("sethkrtsoll", ain, $"param={temperature.ToHkrTemperature()}"))).ToHkrTemperature();
+        return await service!.SetHkrtSollAsync(ain, temperature, cancellationToken);
     }
 
     /// <summary>
@@ -226,7 +226,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).XmlToAs<DeviceStats>();
+        return await service!.GetBasicDeviceStatsAsync(ain, cancellationToken);
     }
     
     /// <summary>
@@ -238,7 +238,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getbasicdevicestats", ain))).ToXml();
+        return await service!.GetBasicDeviceStatsXmlAsync(ain, cancellationToken);
     }
     
     /// <summary>
@@ -250,7 +250,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).XmlToAs<TriggerList>();
+        return await service!.GetTriggerListInfosAsync(cancellationToken);
     }
     
     /// <summary>
@@ -262,7 +262,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gettriggerlistinfos"))).ToXml();
+        return await service!.GetTriggerListInfosXmlAsync(cancellationToken);
     }
 
     /// <summary>
@@ -276,7 +276,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}"))).ToBool();
+        return await service!.SetTriggerActiveAsync(ain, active, cancellationToken);
     }
 
     /// <summary>
@@ -287,7 +287,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).XmlToAs<TemplateList>();
+        return await service!.GetTemplateListInfosAsync(cancellationToken);
     }
 
     /// <summary>
@@ -298,7 +298,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("gettemplatelistinfos"))).ToXml();
+        return await service!.GetTemplateListInfosXmlAsync(cancellationToken);
     }
 
     /// <summary>
@@ -310,7 +310,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("applytemplate", ain))).ToInt();
+        return await service!.ApplyTemplateAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -323,7 +323,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}"))).ToOnOff();
+        return await service!.SetSimpleOnOffAsync(ain, onOff, cancellationToken);
     }
 
     /// <summary>
@@ -336,12 +336,10 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> SetLevelAsync(string ain, int level, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
+        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0, nameof(level));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(level, 255, nameof(level));
 
-        if (level < 0 || level > 255)
-        {
-            throw new ArgumentOutOfRangeException(nameof(level));
-        }
-        return (await this.client.GetStringAsync(BuildUrl("setlevel", ain, $"level={level}"))).ToInt();
+        return await service!.SetLevelAsync(ain, level, cancellationToken);
     }
 
     /// <summary>
@@ -354,12 +352,10 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> SetLevelPercentageAsync(string ain, int level, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
+        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0, nameof(level));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(level, 100, nameof(level));
 
-        if (level < 0 || level > 100)
-        {
-            throw new ArgumentOutOfRangeException(nameof(level));
-        }
-        return (await this.client.GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}"))).ToInt();
+        return await service!.SetLevelPercentageAsync(ain, level, cancellationToken);
     }
 
     /// <summary>
@@ -375,16 +371,12 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
-
-        if (hue < 0 || hue > 359)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hue));
-        }
-        if (saturation < 0 || saturation > 255)
-        {
-            throw new ArgumentOutOfRangeException(nameof(saturation));
-        }
-        return (await this.client.GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"))).ToInt();
+        ArgumentOutOfRangeException.ThrowIfLessThan(hue, 0, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(hue, 359, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfLessThan(saturation, 0, nameof(saturation));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(saturation, 255, nameof(saturation));
+        
+        return await service!.SetColorAsync(ain, hue, saturation, duration, cancellationToken);
     }
 
     /// <summary>
@@ -400,16 +392,12 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
+        ArgumentOutOfRangeException.ThrowIfLessThan(hue, 0, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(hue, 359, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfLessThan(saturation, 0, nameof(saturation));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(saturation, 255, nameof(saturation));
 
-        if (hue < 0 || hue > 359)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hue));
-        }
-        if (saturation < 0 || saturation > 255)
-        {
-            throw new ArgumentOutOfRangeException(nameof(saturation));
-        }
-        return (await this.client.GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"))).ToInt();
+        return await service!.SetUnmappedColorAsync(ain, hue, saturation, duration, cancellationToken);
     }
 
     /// <summary>
@@ -423,12 +411,10 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
-
-        if (temperature < 2700 || temperature > 6500)
-        {
-            throw new ArgumentOutOfRangeException(nameof(temperature));
-        }
-        return (await this.client.GetStringAsync(BuildUrl("setcolortemperature", ain, $"temperature={temperature}&duration={duration.ToDeciseconds()}"))).ToInt();
+        ArgumentOutOfRangeException.ThrowIfLessThan(temperature, 2700, nameof(temperature));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(temperature, 6500, nameof(temperature));
+                
+        return await service!.SetColorTemperatureAsync(ain, temperature, duration, cancellationToken);
     }
 
     /// <summary>
@@ -445,22 +431,14 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
+        ArgumentOutOfRangeException.ThrowIfLessThan(levelPercentage, 0, nameof(levelPercentage));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(levelPercentage, 1000, nameof(levelPercentage));
+        ArgumentOutOfRangeException.ThrowIfLessThan(hue, 0, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(hue, 359, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfLessThan(saturation, 0, nameof(saturation));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(saturation, 255, nameof(saturation));
 
-        if (levelPercentage < 0 || levelPercentage > 1000)
-        {
-            throw new ArgumentOutOfRangeException(nameof(levelPercentage));
-        }
-        if (hue < 0 || levelPercentage > 359)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hue));
-        }
-        if (saturation < 0 || saturation > 255)
-        {
-            throw new ArgumentOutOfRangeException(nameof(saturation));
-        }
-        string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
-        string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name={name}&levelPercentage={levelPercentage}&hue={hue}&saturation={saturation}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-        return (await this.client.GetStringAsync(req)).ToInt();
+        return await service!.AddColorLevelTemplateAsync(name, levelPercentage, hue, saturation, ains, colorpreset, cancellationToken);
     }
 
     /// <summary>
@@ -476,18 +454,12 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
+        ArgumentOutOfRangeException.ThrowIfLessThan(levelPercentage, 0, nameof(levelPercentage));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(levelPercentage, 1000, nameof(levelPercentage));
+        ArgumentOutOfRangeException.ThrowIfLessThan(temperature, 2700, nameof(temperature));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(temperature, 6500, nameof(temperature));
 
-        if (levelPercentage < 0 || levelPercentage > 1000)
-        {
-            throw new ArgumentOutOfRangeException(nameof(levelPercentage));
-        }
-        if (temperature < 2700 || temperature > 6500)
-        {
-            throw new ArgumentOutOfRangeException(nameof(temperature));
-        }
-        string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}"); 
-        string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
-        return (await this.client.GetStringAsync(req)).ToInt();
+        return await service!.AddColorLevelTemplateAsync(name, levelPercentage, temperature, ains, colorpreset, cancellationToken);
     }
 
     /// <summary>
@@ -498,7 +470,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getcolordefaults"))).XmlToAs<ColorDefaults>();
+        return await service!.GetColorDefaultsAsync(cancellationToken);
     }
 
     /// <summary>
@@ -509,7 +481,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getcolordefaults"))).ToXml();
+        return await service!.GetColorDefaultsXmlAsync( cancellationToken);
     }
 
     /// <summary>
@@ -528,7 +500,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
         {
             throw new ArgumentOutOfRangeException(nameof(endtimestamp));
         }
-        return (await this.client.GetStringAsync(BuildUrl("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}"))).ToNullableDateTime();
+        return await service!.SetHkrBoostAsync(ain, endtimestamp, cancellationToken);
     }
     
     /// <summary>
@@ -547,7 +519,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
         {
             throw new ArgumentOutOfRangeException(nameof(endtimestamp));
         }
-        return (await this.client.GetStringAsync(BuildUrl("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}"))).ToNullableDateTime();
+        return await service!.SetHkrWindowOpenAsync(ain, endtimestamp, cancellationToken);
     }
 
     /// <summary>
@@ -561,7 +533,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}"))).ToTarget();
+        return await service!.SetBlindAsync(ain, target, cancellationToken);
     }
     
     /// <summary>
@@ -576,12 +548,8 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     public async Task<string> SetNameAsync(string ain, string name, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
-
-        if (name.Length > 40)
-        {
-            throw new ArgumentOutOfRangeException(nameof(name));
-        }
-        return (await this.client.GetStringAsync(BuildUrl("setname", ain, $"name={name}"))).TrimEnd();
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(name.Length, 40, nameof(name));
+        return await service!.SetNameAsync(ain, name, cancellationToken);
     }
     
     /// <summary>
@@ -595,7 +563,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        await this.client.GetStringAsync(BuildUrl("setmetadata", ain, $"metadata={metaData.AsToJson()}"));
+        await service!.SetMetaDataAsync(ain, metaData, cancellationToken);
     }
 
     /// <summary>
@@ -607,7 +575,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        await this.client.GetStringAsync(BuildUrl("startulesubscription"));
+        await service!.StartUleSubscriptionAsync(cancellationToken);
     }
 
     /// <summary>
@@ -619,7 +587,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).XmlToAs<SubscriptionState>();
+        return await service!.GetSubscriptionStateAsync(cancellationToken);
     }
 
     /// <summary>
@@ -631,7 +599,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getsubscriptionstate"))).ToXml();
+        return await service!.GetSubscriptionStateXmlAsync(cancellationToken);
     }
 
     /// <summary>
@@ -643,7 +611,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).XmlToAs<Device>();
+        return await service!.GetDeviceInfosAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -655,7 +623,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        return (await this.client.GetStringAsync(BuildUrl("getdeviceinfos", ain))).ToXml();
+        return await service!.GetDeviceInfosXmlAsync(ain, cancellationToken);
     }
 
     /// <summary>
@@ -663,22 +631,9 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     public void CreateBugReportFile()
     {
-,
-        string fileName = $"BugReport-{DateTime.Now:yyy-MM-dd-HH-mm-ss}.xml";
-        using (var file = File.CreateText(fileName))
-        {
-            file.WriteLine("<Report>");
-            file.WriteLine(this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
-            file.WriteLine(this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
-            file.WriteLine(this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result);
-            try
-            {
-                file.WriteLine(this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result);
-            }
-            catch
-            { }
-            file.WriteLine("</Report>");
-        }
+        WebServiceException.ThrowIfNullOrNotConnected(this.service);
+        
+        service!.CreateBugReportFile();
     }
             
     #endregion

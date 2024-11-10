@@ -625,12 +625,12 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
         using (var file = File.CreateText(fileName))
         {
             file.WriteLine("<Report>");
-            file.WriteLine(this.client.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
-            file.WriteLine(this.client.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
-            file.WriteLine(this.client.GetStringAsync(BuildUrl("getcolordefaults")).Result);
+            file.WriteLine(this.client!.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
+            file.WriteLine(this.client!.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
+            file.WriteLine(this.client!.GetStringAsync(BuildUrl("getcolordefaults")).Result);
             try
             {
-                file.WriteLine(this.client.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result);
+                file.WriteLine(this.client!.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result);
             }
             catch
             { }
