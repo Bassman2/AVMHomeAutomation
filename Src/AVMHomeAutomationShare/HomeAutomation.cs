@@ -17,6 +17,8 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
         GC.SuppressFinalize(this);
     }
 
+    public const int On = 254;
+    public const int Off = 253;
 
     #region Public Methods
 

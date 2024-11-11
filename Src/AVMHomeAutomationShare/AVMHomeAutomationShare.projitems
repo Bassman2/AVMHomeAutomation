@@ -14,11 +14,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationAuthenticator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultHS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultHSModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultTemperatureModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\Model\SourceGenerationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IXmlNullable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
@@ -50,7 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Hkr.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HomeAutomation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaultHS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ColorName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorNameModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NextChange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OnOff.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PowerMeter.cs" />

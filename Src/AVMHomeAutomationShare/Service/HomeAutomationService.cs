@@ -7,6 +7,9 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
 
     #region Private Methods
 
+    private const int On = 254;
+    private const int Off = 253;
+
     private string BuildUrl(string cmd)
     {
         return $"webservices/homeautoswitch.lua?switchcmd={cmd}&sid={this.sessionId}";
@@ -348,7 +351,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken)
+    public async Task<int> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         if (hue < 0 || hue > 359)
         {
@@ -372,7 +375,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken)
+    public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         if (hue < 0 || hue > 359)
         {
@@ -394,7 +397,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken)
+    public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         if (temperature < 2700 || temperature > 6500)
         {
@@ -415,7 +418,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="colorpreset">User color preset or not.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken)
+    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
         if (levelPercentage < 0 || levelPercentage > 1000)
         {
@@ -445,7 +448,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="colorpreset">>User color preset or not.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken)
+    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
         if (levelPercentage < 0 || levelPercentage > 1000)
         {
@@ -489,7 +492,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="endtimestamp">End time to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<DateTime?> SetHkrBoostAsync(string ain, DateTime? endtimestamp = null, CancellationToken cancellationToken)
+    public async Task<DateTime?> SetHkrBoostAsync(string ain, DateTime? endtimestamp = null, CancellationToken cancellationToken = default)
     {
         if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
         {
@@ -507,7 +510,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="endtimestamp">End time to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<DateTime?> SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null, CancellationToken cancellationToken)
+    public async Task<DateTime?> SetHkrWindowOpenAsync(string ain, DateTime? endtimestamp = null, CancellationToken cancellationToken = default)
     {
         if (endtimestamp.HasValue && (endtimestamp < DateTime.Now || endtimestamp > DateTime.Now + new TimeSpan(24, 0, 0)))
         {

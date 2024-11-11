@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace AVMHomeAutomation
+﻿namespace AVMHomeAutomation
 {
     /// <summary>
     /// Status values
@@ -23,6 +21,6 @@ namespace AVMHomeAutomation
         /// Values
         /// </summary>
         [XmlText]
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 }

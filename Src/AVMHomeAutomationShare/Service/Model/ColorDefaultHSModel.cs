@@ -1,9 +1,9 @@
-﻿namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation.Service.Model;
 
 /// <summary>
 /// Hue and saturation color default values
 /// </summary>
-public class ColorDefaultHS
+public class ColorDefaultHSModel
 {
     /// <summary>
     /// Hue index.
@@ -15,11 +15,11 @@ public class ColorDefaultHS
     /// ColorName of the color
     /// </summary>
     [XmlElement("name")]
-    public ColorName? Name {  get; set;}
+    public ColorNameModel? Name {  get; set;}
 
     /// <summary>
     /// Colors
     /// </summary>
     [XmlElement("color")]
-    public List<Color>? Colors { get; set; }
+    public List<ColorModel>? Colors { get; set; }
 }
