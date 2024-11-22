@@ -1,7 +1,7 @@
 ﻿namespace AVMHomeAutomation.Service;
 
 internal class HomeAutomationService(string login, string password, Uri? host = null) 
-    : XmlService(host ?? new Uri("http://fritz.box"), new HomeAutomationAuthenticator(login, password))
+    : WebService(host ?? new Uri("http://fritz.box"), new HomeAutomationAuthenticator(login, password))
 {
     internal string? sessionId;
 
@@ -42,7 +42,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> SetSwitchOnAsync(string ain, CancellationToken cancellationToken)
+    public async Task<bool?> SetSwitchOnAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("setswitchon", ain), cancellationToken);
         return res.ToBool();
@@ -53,7 +53,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> SetSwitchOffAsync(string ain, CancellationToken cancellationToken)
+    public async Task<bool?> SetSwitchOffAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("setswitchoff", ain), cancellationToken);
         return res.ToBool();
@@ -64,7 +64,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> SetSwitchToggleAsync(string ain, CancellationToken cancellationToken)
+    public async Task<bool?> SetSwitchToggleAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("setswitchtoggle", ain), cancellationToken);
         return res.ToBool();
@@ -79,7 +79,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<bool?> GetSwitchStateAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getswitchstate", ain), cancellationToken);
-        return res.ToNullableBool();
+        return res.ToBool();
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> GetSwitchPresentAsync(string ain, CancellationToken cancellationToken)
+    public async Task<bool?> GetSwitchPresentAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getswitchpresent", ain), cancellationToken);
         return res.ToBool();
@@ -120,28 +120,28 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<string> GetSwitchNameAsync(string ain, CancellationToken cancellationToken)
+    public async Task<string?> GetSwitchNameAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getswitchname", ain), cancellationToken);
-        return res.TrimEnd();
+        return res?.TrimEnd();
     }
 
     /// <summary>
     /// Provides the basic information of all SmartHome devices.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<DeviceList> GetDeviceListInfosAsync(CancellationToken cancellationToken)
+    public async Task<DeviceList?> GetDeviceListInfosAsync(CancellationToken cancellationToken)
     {
-        DeviceList deviceList = (await this.client.GetStringAsync(BuildUrl("getdevicelistinfos"), cancellationToken)).XmlToAs<DeviceList>();
-        deviceList.Fill();
-        return deviceList;
+        var res = await this.client!.GetStringAsync(BuildUrl("getdevicelistinfos"), cancellationToken);
+        //deviceList.Fill();
+        return null;
     }
 
     /// <summary>
     /// Provides the basic information of all SmartHome devices as XML.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetDeviceListInfosXmlAsync(CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetDeviceListInfosXmlAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getdevicelistinfos"), cancellationToken);
         return res.ToXml();
@@ -155,7 +155,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<double?> GetTemperatureAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettemperature", ain), cancellationToken);
-        return res.ToNullableTemperature();
+        return res.ToTemperature();
     }
 
     /// <summary>
@@ -212,10 +212,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain, CancellationToken cancellationToken)
+    public async Task<DeviceStats?> GetBasicDeviceStatsAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getbasicdevicestats", ain), cancellationToken);
-        return res.XmlToAs<DeviceStats>();
+        return null; // res.XmlToAs<DeviceStats>();
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetBasicDeviceStatsXmlAsync(string ain, CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetBasicDeviceStatsXmlAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getbasicdevicestats", ain), cancellationToken);
         return res.ToXml();
@@ -234,10 +234,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-    public async Task<TriggerList> GetTriggerListInfosAsync(CancellationToken cancellationToken)
+    public async Task<TriggerList?> GetTriggerListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettriggerlistinfos"), cancellationToken);
-        return res.XmlToAs<TriggerList>();
+        return null; // res.XmlToAs<TriggerList>();
     }
 
     /// <summary>
@@ -245,7 +245,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-    public async Task<XmlDocument> GetTriggerListInfosXmlAsync(CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetTriggerListInfosXmlAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettriggerlistinfos"), cancellationToken);
         return res.ToXml();
@@ -258,7 +258,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="active">True to activate, false to deactivate.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-    public async Task<bool> SetTriggerActiveAsync(string ain, bool active, CancellationToken cancellationToken)
+    public async Task<bool?> SetTriggerActiveAsync(string ain, bool active, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("settriggeractive", ain, $"active={(active ? "1" : "0")}"), cancellationToken);
         return res.ToBool();
@@ -268,17 +268,17 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// Returns the basic information of all templates / templates.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<TemplateList> GetTemplateListInfosAsync(CancellationToken cancellationToken)
+    public async Task<TemplateList?> GetTemplateListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettemplatelistinfos"), cancellationToken);
-        return res.XmlToAs<TemplateList>();
+        return null; // res.XmlToAs<TemplateList>();
     }
 
     /// <summary>
     /// Returns the basic information of all templates / templates as XML.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetTemplateListInfosXmlAsync(CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetTemplateListInfosXmlAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettemplatelistinfos"), cancellationToken);
         return res.ToXml();
@@ -289,7 +289,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<int> ApplyTemplateAsync(string ain, CancellationToken cancellationToken)
+    public async Task<int?> ApplyTemplateAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("applytemplate", ain), cancellationToken);
         return res.ToInt();
@@ -301,7 +301,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="ain">Identification of the actor or template.</param>
     /// <param name="onOff">Switch on, off or toggle.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<OnOff> SetSimpleOnOffAsync(string ain, OnOff onOff, CancellationToken cancellationToken)
+    public async Task<OnOff?> SetSimpleOnOffAsync(string ain, OnOff onOff, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("setsimpleonoff", ain, $"onoff={((int)onOff)}"), cancellationToken);
         return res.ToOnOff();
@@ -314,14 +314,14 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="level">Level (0 - 255) to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetLevelAsync(string ain, int level, CancellationToken cancellationToken)
+    public async Task<int?> SetLevelAsync(string ain, int level, CancellationToken cancellationToken)
     {
         if (level < 0 || level > 255)
         {
             throw new ArgumentOutOfRangeException(nameof(level));
         }
         var res = await GetStringAsync(BuildUrl("setlevel", ain, $"level={level}"), cancellationToken);
-        return res.ToInt();
+        return res?.ToInt();
     }
 
     /// <summary>
@@ -331,14 +331,14 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="level">Level in percent (0 - 100) to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetLevelPercentageAsync(string ain, int level, CancellationToken cancellationToken)
+    public async Task<int?> SetLevelPercentageAsync(string ain, int level, CancellationToken cancellationToken)
     {
         if (level < 0 || level > 100)
         {
             throw new ArgumentOutOfRangeException(nameof(level));
         }
         var res = await GetStringAsync(BuildUrl("setlevelpercentage", ain, $"level={level}"), cancellationToken);
-        return res.ToInt();
+        return res?.ToInt();
     }
 
     /// <summary>
@@ -351,8 +351,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
+    public async Task<int?> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThan(hue, 0, nameof(hue));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(hue, 359, nameof(hue));
         if (hue < 0 || hue > 359)
         {
             throw new ArgumentOutOfRangeException(nameof(hue));
@@ -362,7 +364,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
             throw new ArgumentOutOfRangeException(nameof(saturation));
         }
         var res = await GetStringAsync(BuildUrl("setcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"), cancellationToken);
-        return res.ToInt();
+        return res?.ToInt();
     }
 
     /// <summary>
@@ -375,7 +377,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
+    public async Task<int?> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         if (hue < 0 || hue > 359)
         {
@@ -386,7 +388,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
             throw new ArgumentOutOfRangeException(nameof(saturation));
         }
         var res = await GetStringAsync(BuildUrl("setunmappedcolor", ain, $"hue={hue}&saturation={saturation}&duration={duration.ToDeciseconds()}"), cancellationToken);
-        return res.ToInt();
+        return res?.ToInt();
     }
 
     /// <summary>
@@ -397,7 +399,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken = default)
+    public async Task<int?> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         if (temperature < 2700 || temperature > 6500)
         {
@@ -418,12 +420,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="colorpreset">User color preset or not.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
+    public async Task<int?> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
-        if (levelPercentage < 0 || levelPercentage > 1000)
-        {
-            throw new ArgumentOutOfRangeException(nameof(levelPercentage));
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(levelPercentage, 0, nameof(levelPercentage));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(levelPercentage, 1000, nameof(levelPercentage));
         if (hue < 0 || levelPercentage > 359)
         {
             throw new ArgumentOutOfRangeException(nameof(hue));
@@ -448,12 +448,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="colorpreset">>User color preset or not.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
+    public async Task<int?> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
-        if (levelPercentage < 0 || levelPercentage > 1000)
-        {
-            throw new ArgumentOutOfRangeException(nameof(levelPercentage));
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(levelPercentage, 0, nameof(levelPercentage));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(levelPercentage, 1000, nameof(levelPercentage));
         if (temperature < 2700 || temperature > 6500)
         {
             throw new ArgumentOutOfRangeException(nameof(temperature));
@@ -461,27 +459,27 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
         string ainlist = ains.Select((v, i) => $"child_{i + 1}={v}").Aggregate("", (a, b) => $"{a}&{b}");
         string req = $"webservices/homeautoswitch.lua?switchcmd=addcolorleveltemplate&sid={this.sessionId}&name=name&levelPercentage={levelPercentage}&temperature={temperature}&{ainlist}" + (colorpreset ? "&colorpreset=true" : "");
         var res = await GetStringAsync(req, cancellationToken);
-        return res.ToInt();
+        return res?.ToInt();
     }
 
     /// <summary>
     /// Provides a proposal for the color selection values.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<ColorDefaults> GetColorDefaultsAsync(CancellationToken cancellationToken)
+    public async Task<ColorDefaults?> GetColorDefaultsAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getcolordefaults"), cancellationToken);
-        return res.XmlToAs<ColorDefaults>();
+        return null; // res.XmlToAs<ColorDefaults>();
     }
 
     /// <summary>
     /// Provides a proposal for the color selection values as XML.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetColorDefaultsXmlAsync(CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetColorDefaultsXmlAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getcolordefaults"), cancellationToken);
-        return res.ToXml();
+        return res?.ToXml();
     }
 
     /// <summary>
@@ -499,7 +497,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
             throw new ArgumentOutOfRangeException(nameof(endtimestamp));
         }
         var res = await GetStringAsync(BuildUrl("sethkrboost", ain, $"endtimestamp={endtimestamp.ToUnixTime()}"), cancellationToken);
-        return res.ToNullableDateTime();
+        return res?.ToNullableDateTime();
     }
 
     /// <summary>
@@ -517,7 +515,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
             throw new ArgumentOutOfRangeException(nameof(endtimestamp));
         }
         var res = await GetStringAsync(BuildUrl("sethkrwindowopen", ain, $"endtimestamp={endtimestamp.ToUnixTime()}"), cancellationToken);
-        return res.ToNullableDateTime();
+        return res?.ToNullableDateTime();
     }
 
     /// <summary>
@@ -542,14 +540,14 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-    public async Task<string> SetNameAsync(string ain, string name, CancellationToken cancellationToken)
+    public async Task<string?> SetNameAsync(string ain, string name, CancellationToken cancellationToken)
     {
         if (name.Length > 40)
         {
             throw new ArgumentOutOfRangeException(nameof(name));
         }
         var res = await GetStringAsync(BuildUrl("setname", ain, $"name={name}"), cancellationToken);
-        return res.TrimEnd();
+        return res?.TrimEnd();
     }
 
     /// <summary>
@@ -561,7 +559,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <remarks>New in Fritz!OS 7.39</remarks>
     public async Task SetMetaDataAsync(string ain, MetaData metaData, CancellationToken cancellationToken)
     {
-        var res = await GetStringAsync(BuildUrl("setmetadata", ain, $"metadata={metaData.AsToJson()}"), cancellationToken);
+        var res = await GetStringAsync(BuildUrl("setmetadata", ain, "metadata={metaData.AsToJson()}"), cancellationToken);
         //return res;
     }
 
@@ -580,10 +578,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-    public async Task<SubscriptionState> GetSubscriptionStateAsync(CancellationToken cancellationToken)
+    public async Task<SubscriptionState?> GetSubscriptionStateAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getsubscriptionstate"), cancellationToken);
-        return res.XmlToAs<SubscriptionState>();
+        return null; // res.XmlToAs<SubscriptionState>();
     }
 
     /// <summary>
@@ -591,7 +589,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-    public async Task<XmlDocument> GetSubscriptionStateXmlAsync(CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetSubscriptionStateXmlAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getsubscriptionstate"), cancellationToken);
         return res.ToXml();
@@ -602,10 +600,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<Device> GetDeviceInfosAsync(string ain, CancellationToken cancellationToken)
+    public async Task<Device?> GetDeviceInfosAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getdeviceinfos", ain), cancellationToken);
-        return res.XmlToAs<Device>();
+        return null; // res.XmlToAs<Device>();
     }
 
     /// <summary>
@@ -613,7 +611,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetDeviceInfosXmlAsync(string ain, CancellationToken cancellationToken)
+    public async Task<XmlDocument?> GetDeviceInfosXmlAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getdeviceinfos", ain), cancellationToken);
         return res.ToXml();

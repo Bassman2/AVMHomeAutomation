@@ -38,7 +38,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> SetSwitchOnAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<bool?> SetSwitchOnAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -50,7 +50,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> SetSwitchOffAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<bool?> SetSwitchOffAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -62,7 +62,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> SetSwitchToggleAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<bool?> SetSwitchToggleAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -87,7 +87,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<bool> GetSwitchPresentAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<bool?> GetSwitchPresentAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -123,7 +123,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<string> GetSwitchNameAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<string?> GetSwitchNameAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -134,20 +134,19 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// Provides the basic information of all SmartHome devices.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<DeviceList> GetDeviceListInfosAsync(CancellationToken cancellationToken = default)
+    public async Task<DeviceList?> GetDeviceListInfosAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
-        DeviceList deviceList = await service!.GetDeviceListInfosAsync(cancellationToken); 
-        deviceList.Fill();
-        return deviceList;
+        var res = await service!.GetDeviceListInfosAsync(cancellationToken);
+        return res;
     }
 
     /// <summary>
     /// Provides the basic information of all SmartHome devices as XML.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetDeviceListInfosXmlAsync(CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetDeviceListInfosXmlAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -224,7 +223,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<DeviceStats> GetBasicDeviceStatsAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<DeviceStats?> GetBasicDeviceStatsAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -236,7 +235,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetBasicDeviceStatsXmlAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetBasicDeviceStatsXmlAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -248,7 +247,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-    public async Task<TriggerList> GetTriggerListInfosAsync(CancellationToken cancellationToken = default)
+    public async Task<TriggerList?> GetTriggerListInfosAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -260,7 +259,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-    public async Task<XmlDocument> GetTriggerListInfosXmlAsync(CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetTriggerListInfosXmlAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -274,7 +273,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="active">True to activate, false to deactivate.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Needs FRITZ!OS 7.39 or higher.</remarks>
-    public async Task<bool> SetTriggerActiveAsync(string ain, bool active, CancellationToken cancellationToken = default)
+    public async Task<bool?> SetTriggerActiveAsync(string ain, bool active, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -285,7 +284,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// Returns the basic information of all templates / templates.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<TemplateList> GetTemplateListInfosAsync(CancellationToken cancellationToken = default)
+    public async Task<TemplateList?> GetTemplateListInfosAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -296,7 +295,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// Returns the basic information of all templates / templates as XML.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetTemplateListInfosXmlAsync(CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetTemplateListInfosXmlAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -308,7 +307,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<int> ApplyTemplateAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<int?> ApplyTemplateAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -321,7 +320,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="ain">Identification of the actor or template.</param>
     /// <param name="onOff">Switch on, off or toggle.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<OnOff> SetSimpleOnOffAsync(string ain, OnOff onOff, CancellationToken cancellationToken = default)
+    public async Task<OnOff?> SetSimpleOnOffAsync(string ain, OnOff onOff, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -335,7 +334,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="level">Level (0 - 255) to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetLevelAsync(string ain, int level, CancellationToken cancellationToken = default)
+    public async Task<int?> SetLevelAsync(string ain, int level, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(level, 0, nameof(level));
@@ -351,7 +350,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="level">Level in percent (0 - 100) to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetLevelPercentageAsync(string ain, int level, CancellationToken cancellationToken = default)
+    public async Task<int?> SetLevelPercentageAsync(string ain, int level, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(level, 0, nameof(level));
@@ -370,7 +369,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
+    public async Task<int?> SetColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(hue, 0, nameof(hue));
@@ -391,7 +390,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
+    public async Task<int?> SetUnmappedColorAsync(string ain, int hue, int saturation, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(hue, 0, nameof(hue));
@@ -410,7 +409,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="duration">Speed of the change.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public async Task<int> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken = default)
+    public async Task<int?> SetColorTemperatureAsync(string ain, int temperature, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(temperature, 2700, nameof(temperature));
@@ -430,7 +429,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="colorpreset">User color preset or not.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
+    public async Task<int?> AddColorLevelTemplateAsync(string name, int levelPercentage, int hue, int saturation, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(levelPercentage, 0, nameof(levelPercentage));
@@ -453,7 +452,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="colorpreset">>User color preset or not.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">On of the argument are out of range.</exception>
-    public async Task<int> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
+    public async Task<int?> AddColorLevelTemplateAsync(string name, int levelPercentage, int temperature, IEnumerable<string> ains, bool colorpreset = false, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfLessThan(levelPercentage, 0, nameof(levelPercentage));
@@ -468,7 +467,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// Provides a proposal for the color selection values.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<ColorDefaults> GetColorDefaultsAsync(CancellationToken cancellationToken = default)
+    public async Task<ColorDefaults?> GetColorDefaultsAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -479,7 +478,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// Provides a proposal for the color selection values as XML.
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetColorDefaultsXmlAsync(CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetColorDefaultsXmlAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -531,7 +530,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <param name="ain">Identification of the actor or template.</param>
     /// <param name="target">Target to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<Target> SetBlindAsync(string ain, Target target, CancellationToken cancellationToken = default)
+    public async Task<Target?> SetBlindAsync(string ain, Target target, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -547,11 +546,13 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-    public async Task<string> SetNameAsync(string ain, string name, CancellationToken cancellationToken = default)
+    public async Task<string?> SetNameAsync(string ain, string name, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(name.Length, 40, nameof(name));
-        return await service!.SetNameAsync(ain, name, cancellationToken);
+
+        var res = await service!.SetNameAsync(ain, name, cancellationToken);
+        return res;
     }
     
     /// <summary>
@@ -585,7 +586,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-    public async Task<SubscriptionState> GetSubscriptionStateAsync(CancellationToken cancellationToken = default)
+    public async Task<SubscriptionState?> GetSubscriptionStateAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -597,7 +598,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <returns>The task object representing the asynchronous operation.</returns>
     /// <remarks>Requires the "Restricted FRITZ!Box settings for apps" permission.</remarks>
-    public async Task<XmlDocument> GetSubscriptionStateXmlAsync(CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetSubscriptionStateXmlAsync(CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -609,7 +610,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<Device> GetDeviceInfosAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<Device?> GetDeviceInfosAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 
@@ -621,7 +622,7 @@ public sealed class HomeAutomation(string login, string password, Uri? host = nu
     /// </summary>
     /// <param name="ain">Identification of the actor or template.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<XmlDocument> GetDeviceInfosXmlAsync(string ain, CancellationToken cancellationToken = default)
+    public async Task<XmlDocument?> GetDeviceInfosXmlAsync(string ain, CancellationToken cancellationToken = default)
     {
         WebServiceException.ThrowIfNullOrNotConnected(this.service);
 

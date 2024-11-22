@@ -7,14 +7,14 @@ internal static class HAConverter
     private readonly static DateTime UnixDateTimeStart = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 
-    private static JsonSerializerOptions options;
+    //private static JsonSerializerOptions options;
 
-    [RequiresDynamicCode("Calls System.Text.Json.Serialization.JsonStringEnumConverter.JsonStringEnumConverter()")]
-    static HAConverter()
-    {
-        options = new JsonSerializerOptions();
-        options.Converters.Add(new JsonStringEnumConverter());
-    }
+    //[RequiresDynamicCode("Calls System.Text.Json.Serialization.JsonStringEnumConverter.JsonStringEnumConverter()")]
+    //static HAConverter()
+    //{
+    //    options = new JsonSerializerOptions();
+    //    options.Converters.Add(new JsonStringEnumConverter());
+    //}
 
     public static string ToHkrTemperature(this double val)
     {
@@ -50,7 +50,7 @@ internal static class HAConverter
     /// </summary>
     /// <param name="value"></param>
     /// <returns>Temeratur in °C or null</returns>
-    public static double? ToNullableTemperature(this string? value)
+    public static double? ToTemperature(this string? value)
     {
         if (value == "inval\n")
         {
@@ -86,39 +86,35 @@ internal static class HAConverter
         throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
     }
 
-    public static bool ToBool(this string? value)
+    public static bool? ToBool(this string? value)
     {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return null;
+        }
         return value switch
         {
             "0\n" => false,
-            "1\n" => false,
-            _ => throw new ArgumentException($"Unknown value: '{value}'", nameof(value))
+            "1\n" => true,
+            "inval\n" => null,
+            _ => null
         };
     }
 
-    public static bool? ToNullableBool(this string? value)
+
+    public static OnOff? ToOnOff(this string? value)
     {
-        switch (value)
+        if (string.IsNullOrWhiteSpace(value))
         {
-        case "0\n":
-            return false;
-        case "1\n":
-            return true;
-        case "inval\n":
             return null;
         }
-        throw new ArgumentException($"Unknown value: '{value}'", nameof(value));
-    }
-
-    public static OnOff ToOnOff(this string value)
-    {
-        switch (value.TrimEnd())
+        return value switch
         {
-        case "0": return OnOff.Off;
-        case "1": return OnOff.On;
-        case "2": return OnOff.Toggle;
-        default: throw new ArgumentOutOfRangeException(nameof(value), value);
-        }
+            "0\n" => OnOff.Off,
+            "1\n" => OnOff.On,
+            "2\n" => OnOff.Toggle,
+            _ => null
+        };
     }
 
     public static Target ToTarget(this string value)
@@ -143,39 +139,43 @@ internal static class HAConverter
         return doc;
     }
 
-    public static int ToInt(this string value)
+    public static int? ToInt(this string? value)
     {
-        return int.Parse(value);
+        if (int.TryParse(value, out var val))
+        {
+            return val;
+        }
+        return null;
     }
 
-    [RequiresUnreferencedCode("Calls System.Xml.Serialization.XmlSerializer.XmlSerializer(Type)")]
-    public static T? XmlToAs<T>(this string value)
-    {
-        var serializer = new XmlSerializer(typeof(T));
-        using var reader = new StringReader(value);
-        T? val = (T?)serializer.Deserialize(reader);
-        return val;
+    //[RequiresUnreferencedCode("Calls System.Xml.Serialization.XmlSerializer.XmlSerializer(Type)")]
+    //public static T? XmlToAs<T>(this string value)
+    //{
+    //    var serializer = new XmlSerializer(typeof(T));
+    //    using var reader = new StringReader(value);
+    //    T? val = (T?)serializer.Deserialize(reader);
+    //    return val;
         
-    }
+    //}
 
     
 
-    public static T? JsonToAs<T>(this string value)
-    {
+    //public static T? JsonToAs<T>(this string value)
+    //{
        
-        return JsonSerializer.Deserialize<T>(value, options);
-    }
+    //    return JsonSerializer.Deserialize<T>(value, options);
+    //}
 
-    public static string AsToJson<T>(this T value)
-    {
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Converters = { new JsonStringEnumConverter() }
-        };
+    //public static string AsToJson<T>(this T value)
+    //{
+    //    var options = new JsonSerializerOptions
+    //    {
+    //        WriteIndented = true,
+    //        Converters = { new JsonStringEnumConverter() }
+    //    };
 
-        return JsonSerializer.Serialize(value, options);
-    }
+    //    return JsonSerializer.Serialize(value, options);
+    //}
     
     public static long ToUnixTime(this DateTime dateTime)
     {
@@ -212,17 +212,17 @@ internal static class HAConverter
     /// <returns>Result string</returns>
     /// <exception cref="HttpRequestException">Throw exception is result string starts with HTTP error.</exception>
 
-    public static string CheckStatusCode(this string value)
-    {
-        // "HTTP/1.0 500 Internal Server Error\r\nContent-Length: 0\r\nContent-Type: text/plain; charset=utf-8\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nExpires: -1"
-        if (value.StartsWith("HTTP/1.0 500"))
-        {
-#if NET
-            throw new HttpRequestException("Internal Server Error", null, HttpStatusCode.InternalServerError);
-#else
-            throw new HttpRequestException("Internal Server Error", null);
-#endif
-        }
-        return value;
-    }
+//    public static string CheckStatusCode(this string value)
+//    {
+//        // "HTTP/1.0 500 Internal Server Error\r\nContent-Length: 0\r\nContent-Type: text/plain; charset=utf-8\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nExpires: -1"
+//        if (value.StartsWith("HTTP/1.0 500"))
+//        {
+//#if NET
+//            throw new HttpRequestException("Internal Server Error", null, HttpStatusCode.InternalServerError);
+//#else
+//            throw new HttpRequestException("Internal Server Error", null);
+//#endif
+//        }
+//        return value;
+//    }
 }

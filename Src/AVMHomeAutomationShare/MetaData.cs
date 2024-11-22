@@ -1,7 +1,4 @@
-﻿using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
-
-namespace AVMHomeAutomation
+﻿namespace AVMHomeAutomation
 {
     /// <summary>
     /// Meta data
