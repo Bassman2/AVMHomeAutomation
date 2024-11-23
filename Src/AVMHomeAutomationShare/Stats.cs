@@ -1,26 +1,30 @@
-﻿namespace AVMHomeAutomation
+﻿namespace AVMHomeAutomation;
+
+/// <summary>
+/// Status values
+/// </summary>
+public class Stats : IXSerializable
 {
     /// <summary>
-    /// Status values
+    /// Number of values
     /// </summary>
-    public class Stats
+    public int? Count { get; set; }
+
+    /// <summary>
+    /// Grid of values
+    /// </summary>
+    public int? Grid { get; set; }
+
+    /// <summary>
+    /// Values
+    /// </summary>
+    public string? Value { get; set; }
+
+    public void ReadX(XContainer container)
     {
-        /// <summary>
-        /// Number of values
-        /// </summary>
-        [XmlAttribute("count")]
-        public int Count { get; set; }
-
-        /// <summary>
-        /// Grid of values
-        /// </summary>
-        [XmlAttribute("grid")]
-        public int Grid { get; set; }
-
-        /// <summary>
-        /// Values
-        /// </summary>
-        [XmlText]
-        public string? Value { get; set; }
+        var elm = container.Element("studs");
+        Count = elm.GetIntAttribute("count");
+        Grid = elm.GetIntAttribute("grid");
+        Value = elm?.Value;
     }
 }

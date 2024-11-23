@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// List of all triggers.
+/// </summary>
+public class TriggerList : IXSerializable
 {
     /// <summary>
-    /// List of all triggers.
+    /// Version of template list
     /// </summary>
-    [XmlRoot("triggerlist")]
-    public class TriggerList
+    public string? Version { get; set; }
+
+    /// <summary>
+    /// Devices and groups
+    /// </summary>
+    public List<Trigger>? Triggers { get; set; }
+
+    public void ReadX(XContainer container)
     {
-        /// <summary>
-        /// Version of template list
-        /// </summary>
-        [XmlAttribute("version")]
-        public string Version { get; set; }
-
-        /// <summary>
-        /// Devices and groups
-        /// </summary>
-        [XmlElement("trigger")]
-        public List<Trigger> Triggers { get; set; }
-
+        var elm = container.Element("triggerlist");
+        Version = elm.GetStringAttribute("version");
+        Triggers = elm.GetListElemets<Trigger>("trigger");    
     }
 }

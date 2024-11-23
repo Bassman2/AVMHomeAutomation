@@ -4,7 +4,7 @@
 /// List of all devices.
 /// </summary>
 [XmlRoot("devicelist")]
-public class DeviceList
+public class DeviceList : IXSerializable
 {
     /// <summary>
     /// Version of the device list.
@@ -23,7 +23,7 @@ public class DeviceList
     /// </summary>
     [XmlElement("device", typeof(Device))]
     [XmlElement("group", typeof(Group))]
-    public List<Device>? RowDevices { get; set; }
+    public List<Device> RowDevices { get; } = [];
 
     [XmlIgnore]
     public List<Device>? ItemsList { get; private set; }
@@ -43,6 +43,31 @@ public class DeviceList
 
     [XmlIgnore]
     public List<Group>? GroupsTree { get; private set; }
+
+    public void ReadX(XContainer container)
+    {
+        var elm = container.Element("devicelist");
+        Version = elm.GetStringAttribute("version");
+        FirmwareVersion = elm.GetStringAttribute("fwversion");
+        foreach (var item in elm?.Elements() ?? [])
+        {
+            if (item.Name == "device")
+            {
+                var device = new Device();
+                device.ReadX(item);
+                RowDevices.Add(device); 
+            }
+            else if (item.Name == "group")
+            {
+                var group = new Group();
+                group.ReadX(item);
+                RowDevices.Add(group);
+            }
+        }
+    }
+
+
+
 
     internal void Fill()
     {

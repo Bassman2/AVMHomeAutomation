@@ -133,8 +133,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<DeviceList?> GetDeviceListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await this.client!.GetStringAsync(BuildUrl("getdevicelistinfos"), cancellationToken);
-        //deviceList.Fill();
-        return null;
+        return res.XDeserialize<DeviceList>();
     }
 
     /// <summary>
@@ -215,7 +214,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<DeviceStats?> GetBasicDeviceStatsAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getbasicdevicestats", ain), cancellationToken);
-        return null; // res.XmlToAs<DeviceStats>();
+        return res.XDeserialize<DeviceStats>();
     }
 
     /// <summary>
@@ -237,7 +236,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<TriggerList?> GetTriggerListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettriggerlistinfos"), cancellationToken);
-        return null; // res.XmlToAs<TriggerList>();
+        return res.XDeserialize<TriggerList>();
     }
 
     /// <summary>
@@ -271,7 +270,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<TemplateList?> GetTemplateListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettemplatelistinfos"), cancellationToken);
-        return null; // res.XmlToAs<TemplateList>();
+        return res.XDeserialize<TemplateList>();
     }
 
     /// <summary>
@@ -469,7 +468,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<ColorDefaults?> GetColorDefaultsAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getcolordefaults"), cancellationToken);
-        return null; // res.XmlToAs<ColorDefaults>();
+        return res.XDeserialize<ColorDefaults>();
     }
 
     /// <summary>
@@ -581,7 +580,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<SubscriptionState?> GetSubscriptionStateAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getsubscriptionstate"), cancellationToken);
-        return null; // res.XmlToAs<SubscriptionState>();
+        return res.XDeserialize<SubscriptionState>();
     }
 
     /// <summary>
@@ -603,7 +602,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<Device?> GetDeviceInfosAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getdeviceinfos", ain), cancellationToken);
-        return null; // res.XmlToAs<Device>();
+        return res.XDeserialize<Device>();
     }
 
     /// <summary>

@@ -18,8 +18,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj" />
-  </ItemGroup>
-
 </Project>

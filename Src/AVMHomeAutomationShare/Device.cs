@@ -1,83 +1,67 @@
-﻿namespace AVMHomeAutomation;
+﻿
+namespace AVMHomeAutomation;
 
 /// <summary>
 /// Device data.
 /// </summary>
 [DebuggerDisplay("Device: {Name} -  {Manufacturer} - {ProductName} - {Identifier}")]
-[XmlRoot("device")]
-public class Device
+public class Device : IXSerializable
 {
     /// <summary>
     /// AIN, MAC address or unique ID
     /// </summary>
-    [XmlAttribute("identifier")]
     public string? Identifier { get; set; }
 
     /// <summary>
     /// Internal device ID
     /// </summary>
-    [XmlAttribute("id")]
     public string? Id { get; set; }
 
     /// <summary>
     /// Firmware version of the device
     /// </summary>
-    [XmlAttribute("fwversion")]
     public string? FirmwareVersion { get; set; }
 
     /// <summary>
     /// Manufacturer of the device
     /// </summary>
-    [XmlAttribute("manufacturer")]
     public string? Manufacturer { get; set; }
 
     /// <summary>
     /// Product name of the device, empty with unknown / undefined device
     /// </summary>
-    [XmlAttribute("productname")]
     public string? ProductName { get; set; }
 
     /// <summary>
     /// Bit mask of the device function classes, starting with bit 0, several bits can be set. For internal use only. Use Functions instead.
     /// </summary>
-    [XmlAttribute("functionbitmask")]
-    public int FunctionBitMask { get; set; }        
-    
-    /// <summary>
-    /// Functions of the device
-    /// </summary>
-    [XmlIgnore]
-    public Functions Functions { get { return (Functions)FunctionBitMask; } }
+    public Functions FunctionBitMask { get; set; }        
+       
     
     /// <summary>
     /// 0/1 - Device connected no / yes. For internal use only. Use IsPresent instead.
     /// </summary>
-    [XmlElement("present")]
-    public XmlNullableBool IsPresent { get; set; }
+     public bool? IsPresent { get; set; }
 
     /// <summary>
     /// A command (such as a switching command or change brightness) is running.
     /// </summary>
-    [XmlElement("txbusy")]
-    public XmlNullableBool IsTXBusy { get; set; }
+    public bool? IsTXBusy { get; set; }
     
     /// <summary>
     /// Name of the device.
     /// </summary>
-    [XmlElement("name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// Battery charge level low - please change battery.
     /// </summary>
-    [XmlElement("batterylow", IsNullable=true)]
-    public XmlNullableBool IsBatteryLow { get; set; }
+    public bool? IsBatteryLow { get; set; }
 
     /// <summary>
     /// Battery state of charge in percent. (0 - 100)
     /// </summary>
-    [XmlElement("battery", IsNullable = true)]
-    public XmlNullableInt Battery { get; set; }
+    public int? Battery { get; set; }
 
     /// <summary>
     /// Data for switch socket.
@@ -144,6 +128,25 @@ public class Device
 
     [XmlIgnore]
     public DeviceType DeviceType { get; internal set; }
+
+    public virtual void ReadX(XContainer container)
+    {
+        var elm = container.Element("device");
+
+        Identifier = elm.GetStringAttribute("identifier");
+        Id = elm.GetStringAttribute("id");
+        FirmwareVersion = elm.GetStringAttribute("fwversion");
+        Manufacturer = elm.GetStringAttribute("manufacturer");
+        ProductName = elm.GetStringAttribute("productname");
+        FunctionBitMask = elm.GetEnumAttribute<Functions>("functionbitmask");
+
+        IsPresent = elm.GetBoolElement("present");
+        IsTXBusy = elm.GetBoolElement("txbusy");
+        Name = elm.GetStringElement("name");
+        IsBatteryLow = elm.GetBoolElement("batterylow");
+        Battery = elm.GetIntElement("batterylow");
+    }
+
     //{ 
     //    get 
     //    {

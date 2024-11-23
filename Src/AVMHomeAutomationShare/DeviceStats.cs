@@ -1,43 +1,43 @@
-﻿namespace AVMHomeAutomation;
+﻿
+namespace AVMHomeAutomation;
 
 /// <summary>
 /// Device status
 /// </summary>
-[XmlRoot("devicestats")]
-public class DeviceStats
+public class DeviceStats : IXSerializable
 {
     /// <summary>
     /// Temeratures
     /// </summary>
-    [XmlArray("temperature")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Temperature { get; set; }
 
     /// <summary>
     /// Voltages
     /// </summary>
-    [XmlArray("voltage")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Voltage { get; set; }
 
     /// <summary>
     /// Power
     /// </summary>
-    [XmlArray("power")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Power { get; set; }
 
     /// <summary>
     /// Energy
     /// </summary>
-    [XmlArray("energy")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Energy { get; set; }
 
     /// <summary>
     /// Humidity
     /// </summary>
-    [XmlArray("humidity")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Humidity { get; set; }
+
+    public void ReadX(XContainer container)
+    {
+        var elm = container.Element("devicestats");
+        Temperature = elm.GetListElemets<Stats>("temperature", "stats");
+        Voltage = elm.GetListElemets<Stats>("voltage", "stats");
+        Power = elm.GetListElemets<Stats>("power", "stats");
+        Energy = elm.GetListElemets<Stats>("energy", "stats");
+        Humidity = elm.GetListElemets<Stats>("humidity", "stats");
+    }
 }

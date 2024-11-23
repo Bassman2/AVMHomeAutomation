@@ -10,12 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Alert.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AlertState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\AlertState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplyMask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceType.cs" />
+    <Compile Include="..\AVMHomeAutomationShare\IXSerializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationAuthenticator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultHSModel.cs" />
@@ -30,7 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EtsiInterfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LevelControl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EtsiUnitType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\EtsiUnitType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Template.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateTrigger.cs" />
@@ -70,5 +71,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)XmlNullableTemperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HAConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
   </ItemGroup>
 </Project>

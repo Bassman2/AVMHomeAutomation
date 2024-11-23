@@ -1,6 +1,4 @@
-﻿
-
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 internal static class HAConverter
 {
@@ -148,6 +146,131 @@ internal static class HAConverter
         return null;
     }
 
+    public static T? XDeserialize<T>(this string? value) where T : IXSerializable, new()
+    {
+        if (value is null)
+        {
+            return default;
+        }
+
+        var res = new T();
+        var doc = XDocument.Parse(value);
+        res.ReadX(doc);
+        return res;
+    }
+
+    //public static SubscriptionState? ToSubscriptionState(this string? value)
+    //{
+    //    if (value is null)    
+    //    {
+    //        return null;
+    //    }
+
+    //    var res = new SubscriptionState();
+    //    var doc = XDocument.Parse(value);
+    //    var state = doc.Element("state");
+    //    res.Code = state.GetEnumAttribute<SubscriptionCode>("code");
+    //    res.LatestAin = state.GetStringElement("latestain");
+    //    return res;
+    //}
+
+    //public static DeviceList? ToToDeviceList(this string? value)
+    //{
+    //    if (value is null)
+    //    {
+    //        return null;
+    //    }
+
+    //    var res = new DeviceList();
+    //    var doc = XDocument.Parse(value);
+    //    var device = doc.Element("devicelist");
+
+    //    return res;
+    //}
+
+    //public static Device? ToDevice(this string? value)
+    //{
+    //    if (value is null)
+    //    {
+    //        return null;
+    //    }
+
+    //    var res = new Device();
+    //    var doc = XDocument.Parse(value);
+    //    var device = doc.Element("device");
+
+    //    res.Identifier = device.GetStringAttribute("identifier");
+    //    res.Id = device.GetStringAttribute("id");
+    //    res.FirmwareVersion = device.GetStringAttribute("fwversion");
+    //    res.Manufacturer = device.GetStringAttribute("manufacturer");
+    //    res.ProductName = device.GetStringAttribute("productname");
+    //    res.FunctionBitMask = device.GetEnumAttribute<Functions>("functionbitmask");
+
+    //    res.IsPresent = device.GetBoolElement("present");
+    //    res.IsTXBusy = device.GetBoolElement("txbusy");
+    //    res.Name = device.GetStringElement("name");
+    //    res.IsBatteryLow = device.GetBoolElement("batterylow");
+    //    res.Battery = device.GetIntElement("batterylow");
+        
+    //    var _switch = new Switch();
+    //    var switchElm = device?.Element("switch");
+    //    //_switch.State = switchElm
+    //    //TODO
+    //    res.Switch = _switch;
+    //    return res;
+    //}
+
+    
+    //private static string? GetStringAttribute(this XElement? elm, string attrName)
+    //{
+    //    return elm?.Attribute("latestain")?.Value;
+    //}
+
+    //private static int? GetIntAttribute(this XElement? elm, string attrName)
+    //{
+    //    string? value = elm?.Attribute(attrName)?.Value;
+    //    if (int.TryParse(value, out var val))
+    //    {
+    //       return val;
+    //    }
+    //    return null;
+    //}
+
+    //private static T GetEnumAttribute<T>(this XElement? elm, string attrName) where T : Enum
+    //{
+    //    string? value = elm?.Attribute(attrName)?.Value;
+    //    if (int.TryParse(value, out var val))
+    //    {
+    //        return (T)(object)val;
+    //    }
+    //    return default(T);
+    //}
+
+    //private static string? GetStringElement(this XElement? elm, string attrName)
+    //{
+    //    return elm?.Element(attrName)?.Value;
+    //}
+
+    //private static int? GetIntElement(this XElement? elm, string attrName)
+    //{
+    //    string? value = elm?.Attribute(attrName)?.Value;
+    //    if (int.TryParse(value, out var val))
+    //    {
+    //        return val;
+    //    }
+    //    return null;
+    //}
+
+    //private static bool? GetBoolElement(this XElement? elm, string attrName)
+    //{
+    //    string? value = elm?.Attribute(attrName)?.Value;
+    //    if (int.TryParse(value, out var val))
+    //    {
+    //        return val != 0;
+    //    }
+    //    return null;
+    //}
+
     //[RequiresUnreferencedCode("Calls System.Xml.Serialization.XmlSerializer.XmlSerializer(Type)")]
     //public static T? XmlToAs<T>(this string value)
     //{
@@ -155,14 +278,14 @@ internal static class HAConverter
     //    using var reader = new StringReader(value);
     //    T? val = (T?)serializer.Deserialize(reader);
     //    return val;
-        
+
     //}
 
-    
+
 
     //public static T? JsonToAs<T>(this string value)
     //{
-       
+
     //    return JsonSerializer.Deserialize<T>(value, options);
     //}
 
@@ -176,7 +299,7 @@ internal static class HAConverter
 
     //    return JsonSerializer.Serialize(value, options);
     //}
-    
+
     public static long ToUnixTime(this DateTime dateTime)
     {
         // return ((DateTimeOffset)dateTime).ToUnixTimeSeconds();

@@ -1,22 +1,30 @@
 ﻿
-
 namespace AVMHomeAutomation;
 
 /// <summary>
 /// Subscription state data.
 /// </summary>
-[XmlRoot("state")]
-public class SubscriptionState
+public class SubscriptionState : IXSerializable
 {
     /// <summary>
     /// Subscription state code.
     /// </summary>
-    [XmlAttribute("code")]
     public SubscriptionCode Code { get; set; }
 
     /// <summary>
     /// AIN of the last registered device.
     /// </summary>
-    [XmlElement("latestain")]
-    public string LatestAin { get; set; }
+    public string? LatestAin { get; set; }
+
+
+    #region IXSerializable
+    
+    public void ReadX(XContainer container)
+    {
+        var state = container.Element("state");
+        Code = state.GetEnumAttribute<SubscriptionCode>("code");
+        LatestAin = state.GetStringElement("latestain"); 
+    }
+
+    #endregion
 }

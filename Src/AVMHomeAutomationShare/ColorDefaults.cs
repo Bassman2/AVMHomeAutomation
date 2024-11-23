@@ -1,10 +1,11 @@
-﻿namespace AVMHomeAutomation;
+﻿
+namespace AVMHomeAutomation;
 
 /// <summary>
 /// Color defaults.
 /// </summary>
 [XmlRoot("colordefaults")]
-public class ColorDefaults
+public class ColorDefaults : IXSerializable
 {
     /// <summary>
     /// Hue and saturation values
@@ -19,4 +20,9 @@ public class ColorDefaults
     [XmlArray("temperaturedefaults")]
     [XmlArrayItem("temp")]
     public List<ColorDefaultTemperature>? TemperatureDefaults { get; set; }
+
+    public void ReadX(XContainer container)
+    {
+        throw new NotImplementedException();
+    }
 }

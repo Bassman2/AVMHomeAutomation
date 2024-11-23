@@ -1,16 +1,19 @@
-﻿using System.Xml.Serialization;
+﻿
+namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Color temperature default values
+/// </summary>
+public class ColorDefaultTemperature : IXSerializable
 {
     /// <summary>
-    /// Color temperature default values
+    /// Color temperatur value in ° Kelvin. (2700° bis 6500°)
     /// </summary>
-    public class ColorDefaultTemperature
+    [XmlAttribute("value")]
+    public int Value { get; set; }
+
+    public void ReadX(XContainer container)
     {
-        /// <summary>
-        /// Color temperatur value in ° Kelvin. (2700° bis 6500°)
-        /// </summary>
-        [XmlAttribute("value")]
-        public int Value { get; set; }
+        throw new NotImplementedException();
     }
 }
