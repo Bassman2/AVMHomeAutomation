@@ -21,29 +21,29 @@ public class ColorControl
     /// Hue value of the color. (0° bis 359°)
     /// </summary>
     [XmlElement("hue")]
-    public XmlNullableInt Hue { get; set; }
+    public int? Hue { get; set; }
 
     /// <summary>
     /// Saturation value of the color. (0 bis 255)
     /// </summary>
     [XmlElement("saturation")]
-    public XmlNullableInt Saturation { get; set; }
+    public int? Saturation { get; set; }
 
     /// <summary>
     /// Unmapped hue value.
     /// </summary>
     [XmlElement("unmapped_hue")]
-    public XmlNullableInt UnmappedHue { get; set; }
+    public int? UnmappedHue { get; set; }
 
     /// <summary>
     ///  Unmapped Saturation value
     /// </summary>
     [XmlElement("unmapped_saturation")]
-    public XmlNullableInt UnmappedSaturation { get; set; }
+    public int? UnmappedSaturation { get; set; }
 
     /// <summary>
     /// Color temperature in ° Kelvin. (2700° bis 6500° Kelvin)
     /// </summary>
     [XmlElement("temperature")]
-    public XmlNullableInt Temperature { get; set; }
+    public int? Temperature { get; set; }
 }

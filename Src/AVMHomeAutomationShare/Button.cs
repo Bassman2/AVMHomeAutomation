@@ -27,5 +27,5 @@ public class Button
     /// Time of the last key press.
     /// </summary>
     [XmlElement("lastpressedtimestamp")]
-    public XmlNullableDateTime LastPressedTimestamp { get; set; }
+    public DateTime? LastPressedTimestamp { get; set; }
 }

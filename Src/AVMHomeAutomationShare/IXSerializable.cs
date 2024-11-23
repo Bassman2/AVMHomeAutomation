@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 internal interface IXSerializable
 {

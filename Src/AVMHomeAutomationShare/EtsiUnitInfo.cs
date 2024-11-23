@@ -15,11 +15,11 @@ public class EtsiUnitInfo
     /// HAN-FUN unit typ
     /// </summary>
     [XmlElement("unittype")]
-    public XmlNullableEnum<EtsiUnitType> UnitType { get; set; }
+    public List<EtsiUnitType>? UnitType { get; set; }
 
     /// <summary>
     /// HAN-FUN interfaces
     /// </summary>
     [XmlElement("interfaces")]
-    public XmlList<EtsiInterfaces> Interfaces { get; set; }
+    public List<EtsiInterfaces>? Interfaces { get; set; }
 }

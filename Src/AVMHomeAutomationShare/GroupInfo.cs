@@ -15,5 +15,5 @@ public class GroupInfo
     /// Internal ids of group members
     /// </summary>
     [XmlElement("members")]
-    public XmlList<string>? Members { get; set; }
+    public List<string>? Members { get; set; }
 }

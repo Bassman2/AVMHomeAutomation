@@ -1,22 +1,19 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Temperature sensor data.
+/// </summary>
+public class Temperature
 {
     /// <summary>
-    /// Temperature sensor data.
+    /// Temperatur value in ° Celsius
     /// </summary>
-    public class Temperature
-    {
-        /// <summary>
-        /// Temperatur value in ° Celsius
-        /// </summary>
-        [XmlElement("celsius")]
-        public XmlNullableTemperature Celsius { get; set; }
+    [XmlElement("celsius")]
+    public double? Celsius { get; set; }
 
-        /// <summary>
-        /// Temperatur offset value in ° Celsius
-        /// </summary>
-        [XmlElement("offset")]
-        public XmlNullableTemperature Offset { get; set; }
-    }
+    /// <summary>
+    /// Temperatur offset value in ° Celsius
+    /// </summary>
+    [XmlElement("offset")]
+    public double? Offset { get; set; }
 }
