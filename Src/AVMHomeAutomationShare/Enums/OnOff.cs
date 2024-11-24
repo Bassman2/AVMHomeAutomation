@@ -1,28 +1,22 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Switch values
+/// </summary>
+public enum OnOff
 {
     /// <summary>
-    /// Switch values
+    /// Set to off.
     /// </summary>
-    public enum OnOff
-    {
-        /// <summary>
-        /// Set to off.
-        /// </summary>
-        [XmlEnum("0")]
-        Off = 0,
+    Off = 0,
 
-        /// <summary>
-        /// Set to on.
-        /// </summary>
-        [XmlEnum("1")]
-        On = 1,
+    /// <summary>
+    /// Set to on.
+    /// </summary>
+    On = 1,
 
-        /// <summary>
-        /// Toggle state.
-        /// </summary>
-        [XmlEnum("2")]
-        Toggle = 2
-    }
+    /// <summary>
+    /// Toggle state.
+    /// </summary>
+    Toggle = 2
 }

@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationReport90",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVMHomeAutomationReport80", "Report\AVMHomeAutomationReport80\AVMHomeAutomationReport80.csproj", "{81A777B2-6C9B-4A6D-BAAA-3DCB64C0E5B1}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebServiceClientShare", "..\WebServiceClient\Src\WebServiceClientShare\WebServiceClientShare.shproj", "{8CAACB04-9656-4B7C-A692-422FCA51474B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -250,6 +252,7 @@ Global
 		{66236FBB-69CF-46B7-9270-9945BA953EBF} = {F6B4B28F-9527-4AD6-831E-F05352B0782C}
 		{34A164D6-221C-4B3F-A99F-BDD40649D1B6} = {F6B4B28F-9527-4AD6-831E-F05352B0782C}
 		{81A777B2-6C9B-4A6D-BAAA-3DCB64C0E5B1} = {F6B4B28F-9527-4AD6-831E-F05352B0782C}
+		{8CAACB04-9656-4B7C-A692-422FCA51474B} = {E29B4D4A-76AE-454F-8CD8-90148AA01D52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA554914-5C65-43F3-ADFB-C436CCD65309}
@@ -265,6 +268,7 @@ Global
 		Demo\AVMHomeAutomationDemoShare\AVMHomeAutomationDemoShare.projitems*{7c23fdc1-5d90-4dee-9fb4-041cfb55e8d6}*SharedItemsImports = 5
 		Report\AVMHomeAutomationReportShare\AVMHomeAutomationReportShare.projitems*{81a777b2-6c9b-4a6d-baaa-3dcb64c0e5b1}*SharedItemsImports = 5
 		Test\AVMHomeAutomationTestShare\AVMHomeAutomationTestShare.projitems*{82cf4731-33df-41ce-897e-3f8e45df710b}*SharedItemsImports = 5
+		..\WebServiceClient\Src\WebServiceClientShare\WebServiceClientShare.projitems*{8caacb04-9656-4b7c-a692-422fca51474b}*SharedItemsImports = 13
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{bcc952cc-ce38-40eb-96ae-8fd89640f528}*SharedItemsImports = 5
 		..\WebServiceClient\Src\WebServiceClientShare\WebServiceClientShare.projitems*{bcc952cc-ce38-40eb-96ae-8fd89640f528}*SharedItemsImports = 5
 		Src\AVMHomeAutomationShare\AVMHomeAutomationShare.projitems*{f3303c19-802e-4bf1-84d9-61ce4d93bd4b}*SharedItemsImports = 5

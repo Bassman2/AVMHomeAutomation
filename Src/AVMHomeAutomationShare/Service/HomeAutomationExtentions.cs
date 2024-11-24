@@ -1,6 +1,6 @@
 ﻿namespace AVMHomeAutomation;
 
-internal static class HAConverter
+internal static class HomeAutomationExtentions
 {
     private readonly static DateTime UnixDateTimeStart = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -8,7 +8,7 @@ internal static class HAConverter
     //private static JsonSerializerOptions options;
 
     //[RequiresDynamicCode("Calls System.Text.Json.Serialization.JsonStringEnumConverter.JsonStringEnumConverter()")]
-    //static HAConverter()
+    //static HomeAutomationExtentions()
     //{
     //    options = new JsonSerializerOptions();
     //    options.Converters.Add(new JsonStringEnumConverter());

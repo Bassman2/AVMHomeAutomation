@@ -24,29 +24,29 @@ namespace MVVMAppBase.ViewModel
             //UpgradeSettings();
         }
 
-        protected ApplicationSettingsBase GetApplicationSettings()
+        protected ApplicationSettingsBase? GetApplicationSettings()
         {
-            Type type = Assembly.GetEntryAssembly().GetTypes().FirstOrDefault(t => t.FullName.EndsWith(".Properties.Settings"));
+            Type? type = Assembly.GetEntryAssembly()?.GetTypes().FirstOrDefault(t => t.FullName!.EndsWith(".Properties.Settings"));
             if (type == null)
             {
                 throw new Exception("No App settings found!");
             }
-            return (ApplicationSettingsBase)type.GetProperty("Default").GetValue(null);
+            return (ApplicationSettingsBase?)type?.GetProperty("Default")?.GetValue(null);
         }
 
-        private void UpgradeSettings()
+        private static void UpgradeSettings()
         {
             const string upgradeProperty = "NeedsUpgrade";
 
             // upgrade Application settings
-            Type type = Assembly.GetEntryAssembly().GetTypes().FirstOrDefault(t => t.FullName.EndsWith(".Properties.Settings"));
+            Type? type = Assembly.GetEntryAssembly()?.GetTypes().FirstOrDefault(t => t.FullName!.EndsWith(".Properties.Settings"));
             if (type != null)
             {
-                ApplicationSettingsBase settings = (ApplicationSettingsBase)type.GetProperty("Default").GetValue(null);
-                SettingsProperty property = settings.Properties.Cast<SettingsProperty>().FirstOrDefault(p => p.Name == upgradeProperty);
+                ApplicationSettingsBase? settings = (ApplicationSettingsBase?)type.GetProperty("Default")?.GetValue(null);
+                SettingsProperty? property = settings?.Properties.Cast<SettingsProperty>().FirstOrDefault(p => p.Name == upgradeProperty);
                 if (property != null && property.PropertyType == typeof(bool))
                 {
-                    if ((bool)settings[upgradeProperty])
+                    if ((bool)settings![upgradeProperty])
                     {
                         settings.Upgrade();
                         settings.Reload();
@@ -90,10 +90,10 @@ namespace MVVMAppBase.ViewModel
         {
             get
             {
-                Assembly app = Assembly.GetEntryAssembly();
-                string title = app.GetCustomAttribute<AssemblyTitleAttribute>().Title;
-                Version ver = app.GetName().Version;
-                string version = ver.Build > 0 ? ver.ToString(3) : ver.ToString(2);
+                Assembly? app = Assembly.GetEntryAssembly();
+                string? title = app?.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
+                Version? ver = app?.GetName().Version;
+                string? version = ver?.Build > 0 ? ver.ToString(3) : ver?.ToString(2);
                 return $"{title} {version}";
             }
         }
@@ -182,7 +182,7 @@ namespace MVVMAppBase.ViewModel
         [RelayCommand]
         protected virtual void OnHelp()
         {
-            string path = Path.ChangeExtension(Assembly.GetEntryAssembly().Location, ".chm");
+            string path = Path.ChangeExtension(Assembly.GetEntryAssembly()?.Location ?? "", ".chm");
             if (File.Exists(path))
             {
                 System.Diagnostics.Process.Start(path);

@@ -1,17 +1,16 @@
-﻿namespace AVMHomeAutomation
+﻿namespace AVMHomeAutomation;
+
+public enum DeviceType
 {
-    public enum DeviceType
-    {
-        Unknown,
-        Button,
-        Control,
-        DoorContact,
-        Heater,
-        Light,
-        MotionDetector,
-        Repeater,
-        Rollotron,
-        Socket,
-        Wallbutton
-    }
+    Unknown,
+    Button,
+    Control,
+    DoorContact,
+    Heater,
+    Light,
+    MotionDetector,
+    Repeater,
+    Rollotron,
+    Socket,
+    Wallbutton
 }

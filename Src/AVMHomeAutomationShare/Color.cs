@@ -3,14 +3,34 @@
 /// <summary>
 /// Color data.
 /// </summary>
-public class Color(ColorModel model)
+public class Color : IXSerializable
 {
-    
-    public int SatIndex { get; set; } = model.SatIndex;
+    /// <summary>
+    /// Suturation index.
+    /// </summary>
+    public int? SatIndex { get; set; }
 
-    public int Hue { get; set; } = model.Hue;
+    /// <summary>
+    /// Hue value of the color. (0 is 359)
+    /// </summary>
 
-    public int Sat { get; set; } = model.Sat;
+    public int? Hue { get; set; }
 
-    public int Val { get; set; } = model.Val;
+    /// <summary>
+    /// Saturation value of the color. (0 - 255)
+    /// </summary>
+    public int? Sat { get; set; }
+
+    /// <summary>
+    /// Value (0-255)
+    /// </summary>
+    public int? Val { get; set; } 
+
+    public void ReadX(XElement elm)
+    {
+        SatIndex = elm.ReadElementInt("sat_index");
+        Hue = elm.ReadElementInt("hue");
+        Sat = elm.ReadElementInt("sat");
+        Val = elm.ReadElementInt("val");
+    }
 }

@@ -1,23 +1,22 @@
-﻿namespace AVMHomeAutomation
+﻿namespace AVMHomeAutomation;
+
+/// <summary>
+/// Blind switch
+/// </summary>
+public enum Target
 {
     /// <summary>
-    /// Blind switch
+    /// Open the blind.
     /// </summary>
-    public enum Target
-    {
-        /// <summary>
-        /// Open the blind.
-        /// </summary>
-        Open,
+    Open,
 
-        /// <summary>
-        /// Close the blind.
-        /// </summary>
-        Close,
+    /// <summary>
+    /// Close the blind.
+    /// </summary>
+    Close,
 
-        /// <summary>
-        /// Stop the blind
-        /// </summary>
-        Stop
-    }
+    /// <summary>
+    /// Stop the blind
+    /// </summary>
+    Stop
 }

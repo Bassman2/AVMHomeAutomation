@@ -17,16 +17,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)ColorName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\DeviceType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\TypeEnum.cs" />
-    <Compile Include="..\AVMHomeAutomationShare\IXSerializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationAuthenticator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultHSModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultsModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorDefaultTemperatureModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\Model\SourceGenerationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\SubscriptionCode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\EtsiInterfaces.cs" />
@@ -47,7 +42,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Hkr.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HomeAutomation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorDefaultHS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Service\Model\ColorNameModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NextChange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\OnOff.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PowerMeter.cs" />
@@ -60,6 +54,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ItemIdentifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HAConverter.cs" />
+    <Compile Include="..\AVMHomeAutomationShare\Service\HomeAutomationExtentions.cs" />
   </ItemGroup>
 </Project>
