@@ -22,8 +22,8 @@ public class Trigger : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Identifier = elm.GetStringAttribute("identifier");
-        Active = elm.GetIntAttribute("active");            
-        Name = elm.GetStringElement("name");
+        Identifier = elm.ReadAttributeString("identifier");
+        Active = elm.ReadAttributeInt("active");            
+        Name = elm.ReadElementString("name");
     }
 }

@@ -17,7 +17,7 @@ public class SubscriptionState : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Code = elm.GetEnumAttribute<SubscriptionCode>("code");
-        LatestAin = elm.GetStringElement("latestain"); 
+        Code = elm.ReadAttributeEnum<SubscriptionCode>("code");
+        LatestAin = elm.ReadElementString("latestain"); 
     }
 }

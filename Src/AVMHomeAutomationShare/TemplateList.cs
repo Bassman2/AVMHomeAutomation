@@ -17,7 +17,7 @@ public class TemplateList : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Version = elm.GetStringAttribute("version");
-        Templates = elm.GetListElements<Template>("template");
+        Version = elm.ReadAttributeString("version");
+        Templates = elm.ReadElementList<Template>("template");
     }
 }

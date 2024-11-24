@@ -22,8 +22,8 @@ public class Stats : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Count = elm.GetIntAttribute("count");
-        Grid = elm.GetIntAttribute("grid");
+        Count = elm.ReadAttributeInt("count");
+        Grid = elm.ReadAttributeInt("grid");
         Value = elm?.Value;
     }
 }

@@ -66,16 +66,16 @@ public class Template : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Identifier = elm.GetStringAttribute("identifier");
-        Id = elm.GetStringAttribute("id");
-        FunctionBitMask = elm.GetEnumAttribute<Functions>("functionbitmask");
-        ApplyBitMask = elm.GetIntAttribute("applymask");
-        AutocCeate = elm.GetIntAttribute("autocreate");
-        Name = elm.GetStringElement("name");
-        MetaData = elm.GetStringElement("metadata");
-        Devices = elm.GetListElements<ItemIdentifier>("devices", "device");
-        ApplyMask = elm.GetItemElement<ApplyMask>("applymask");
-        SubTemplates = elm.GetListElements<ItemIdentifier>("sub_templates", "template");
-        Triggers = elm.GetListElements<TemplateTrigger>("triggers", "trigger");
+        Identifier = elm.ReadAttributeString("identifier");
+        Id = elm.ReadAttributeString("id");
+        FunctionBitMask = elm.ReadAttributeEnum<Functions>("functionbitmask");
+        ApplyBitMask = elm.ReadAttributeInt("applymask");
+        AutocCeate = elm.ReadAttributeInt("autocreate");
+        Name = elm.ReadElementString("name");
+        MetaData = elm.ReadElementString("metadata");
+        Devices = elm.ReadElementList<ItemIdentifier>("devices", "device");
+        ApplyMask = elm.ReadElementItem<ApplyMask>("applymask");
+        SubTemplates = elm.ReadElementList<ItemIdentifier>("sub_templates", "template");
+        Triggers = elm.ReadElementList<TemplateTrigger>("triggers", "trigger");
     }
 }

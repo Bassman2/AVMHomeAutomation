@@ -27,9 +27,9 @@ public class Button : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Identifier = elm.GetStringAttribute("identifier");
-        Id = elm.GetStringAttribute("id");
-        Name = elm.GetStringElement("name");
-        LastPressedTimestamp = elm.GetDateTimeElement("lastpressedtimestamp");
+        Identifier = elm.ReadAttributeString("identifier");
+        Id = elm.ReadAttributeString("id");
+        Name = elm.ReadElementString("name");
+        LastPressedTimestamp = elm.ReadElementDateTime("lastpressedtimestamp");
     }
 }

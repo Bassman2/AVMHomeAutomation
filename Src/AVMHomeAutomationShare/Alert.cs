@@ -17,7 +17,7 @@ public class Alert : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        State = elm.GetEnumElement<AlertState>("state");
-        LastAlertChangeTimestamp = elm.GetDateTimeElement("lastalertchgtimestamp");
+        State = elm.ReadElementEnum<AlertState>("state");
+        LastAlertChangeTimestamp = elm.ReadElementDateTime("lastalertchgtimestamp");
     }
 }

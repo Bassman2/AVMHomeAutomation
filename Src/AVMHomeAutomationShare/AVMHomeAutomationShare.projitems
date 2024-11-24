@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\DeviceType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\TypeEnum.cs" />
     <Compile Include="..\AVMHomeAutomationShare\IXSerializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationAuthenticator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationService.cs" />
@@ -60,8 +61,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)ItemIdentifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HAConverter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
   </ItemGroup>
 </Project>

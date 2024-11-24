@@ -3,51 +3,39 @@
 /// <summary>
 /// List of all devices.
 /// </summary>
-[XmlRoot("devicelist")]
 public class DeviceList : IXSerializable
 {
     /// <summary>
     /// Version of the device list.
     /// </summary>
-    [XmlAttribute("version")]
     public string? Version { get; set; }
 
     /// <summary>
     /// Firmware version
     /// </summary>
-    [XmlAttribute("fwversion")]
     public string? FirmwareVersion { get; set; }
 
     /// <summary>
     /// Devices and groups
     /// </summary>
-    [XmlElement("device", typeof(Device))]
-    [XmlElement("group", typeof(Group))]
     public List<Device> RowDevices { get; } = [];
 
-    [XmlIgnore]
     public List<Device>? ItemsList { get; private set; }
 
-    [XmlIgnore]
     public List<Device>? ItemsTree { get; private set; }
 
-
-    [XmlIgnore]
     public List<Device>? DevicesList { get; private set; }
-    
-    [XmlIgnore]
+
     public List<Device>? DevicesTree { get; private set; }
 
-    [XmlIgnore]
     public List<Group>? GroupsList { get; private set; }
 
-    [XmlIgnore]
     public List<Group>? GroupsTree { get; private set; }
 
     public void ReadX(XElement elm)
     {
-        Version = elm.GetStringAttribute("version");
-        FirmwareVersion = elm.GetStringAttribute("fwversion");
+        Version = elm.ReadAttributeString("version");
+        FirmwareVersion = elm.ReadAttributeString("fwversion");
         foreach (var item in elm?.Elements() ?? [])
         {
             if (item.Name == "device")
@@ -63,6 +51,7 @@ public class DeviceList : IXSerializable
                 RowDevices.Add(group);
             }
         }
+        Fill();
     }
 
 

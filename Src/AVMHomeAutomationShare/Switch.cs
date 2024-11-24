@@ -27,9 +27,9 @@ public class Switch : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        State = elm.GetBoolElement("state");
-        Mode = elm.GetBoolElement("mode");
-        Lock = elm.GetBoolElement("lock");
-        DeviceLock = elm.GetBoolElement("devicelock");
+        State = elm.ReadElementBool("state");
+        Mode = elm.ReadElementBool("mode");
+        Lock = elm.ReadElementBool("lock");
+        DeviceLock = elm.ReadElementBool("devicelock");
     }
 }

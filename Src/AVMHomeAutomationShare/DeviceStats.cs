@@ -1,5 +1,4 @@
-﻿
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 /// <summary>
 /// Device status
@@ -33,10 +32,10 @@ public class DeviceStats : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Temperature = elm.GetListElements<Stats>("temperature", "stats");
-        Voltage = elm.GetListElements<Stats>("voltage", "stats");
-        Power = elm.GetListElements<Stats>("power", "stats");
-        Energy = elm.GetListElements<Stats>("energy", "stats");
-        Humidity = elm.GetListElements<Stats>("humidity", "stats");
+        Temperature = elm.ReadElementList<Stats>("temperature", "stats");
+        Voltage = elm.ReadElementList<Stats>("voltage", "stats");
+        Power = elm.ReadElementList<Stats>("power", "stats");
+        Energy = elm.ReadElementList<Stats>("energy", "stats");
+        Humidity = elm.ReadElementList<Stats>("humidity", "stats");
     }
 }

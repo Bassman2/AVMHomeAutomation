@@ -158,8 +158,8 @@ internal static class HAConverter
     //    var res = new SubscriptionState();
     //    var doc = XDocument.Parse(value);
     //    var state = doc.Element("state");
-    //    res.Code = state.GetEnumAttribute<SubscriptionCode>("code");
-    //    res.LatestAin = state.GetStringElement("latestain");
+    //    res.Code = state.ReadAttributeEnum<SubscriptionCode>("code");
+    //    res.LatestAin = state.ReadElementString("latestain");
     //    return res;
     //}
 
@@ -188,18 +188,18 @@ internal static class HAConverter
     //    var doc = XDocument.Parse(value);
     //    var device = doc.Element("device");
 
-    //    res.Identifier = device.GetStringAttribute("identifier");
-    //    res.Id = device.GetStringAttribute("id");
-    //    res.FirmwareVersion = device.GetStringAttribute("fwversion");
-    //    res.Manufacturer = device.GetStringAttribute("manufacturer");
-    //    res.ProductName = device.GetStringAttribute("productname");
-    //    res.FunctionBitMask = device.GetEnumAttribute<Functions>("functionbitmask");
+    //    res.Identifier = device.ReadAttributeString("identifier");
+    //    res.Id = device.ReadAttributeString("id");
+    //    res.FirmwareVersion = device.ReadAttributeString("fwversion");
+    //    res.Manufacturer = device.ReadAttributeString("manufacturer");
+    //    res.ProductName = device.ReadAttributeString("productname");
+    //    res.FunctionBitMask = device.ReadAttributeEnum<Functions>("functionbitmask");
 
-    //    res.IsPresent = device.GetBoolElement("present");
-    //    res.IsTXBusy = device.GetBoolElement("txbusy");
-    //    res.Name = device.GetStringElement("name");
-    //    res.IsBatteryLow = device.GetBoolElement("batterylow");
-    //    res.Battery = device.GetIntElement("batterylow");
+    //    res.IsPresent = device.ReadElementBool("present");
+    //    res.IsTXBusy = device.ReadElementBool("txbusy");
+    //    res.Name = device.ReadElementString("name");
+    //    res.IsBatteryLow = device.ReadElementBool("batterylow");
+    //    res.Battery = device.ReadElementInt("batterylow");
         
     //    var _switch = new Switch();
     //    var switchElm = device?.Element("switch");
@@ -210,12 +210,12 @@ internal static class HAConverter
     //}
 
     
-    //private static string? GetStringAttribute(this XElement? elm, string attrName)
+    //private static string? ReadAttributeString(this XElement? elm, string attrName)
     //{
     //    return elm?.Attribute("latestain")?.Value;
     //}
 
-    //private static int? GetIntAttribute(this XElement? elm, string attrName)
+    //private static int? ReadAttributeInt(this XElement? elm, string attrName)
     //{
     //    string? value = elm?.Attribute(attrName)?.Value;
     //    if (int.TryParse(value, out var val))
@@ -225,7 +225,7 @@ internal static class HAConverter
     //    return null;
     //}
 
-    //private static T GetEnumAttribute<T>(this XElement? elm, string attrName) where T : Enum
+    //private static T ReadAttributeEnum<T>(this XElement? elm, string attrName) where T : Enum
     //{
     //    string? value = elm?.Attribute(attrName)?.Value;
     //    if (int.TryParse(value, out var val))
@@ -235,12 +235,12 @@ internal static class HAConverter
     //    return default(T);
     //}
 
-    //private static string? GetStringElement(this XElement? elm, string attrName)
+    //private static string? ReadElementString(this XElement? elm, string attrName)
     //{
     //    return elm?.Element(attrName)?.Value;
     //}
 
-    //private static int? GetIntElement(this XElement? elm, string attrName)
+    //private static int? ReadElementInt(this XElement? elm, string attrName)
     //{
     //    string? value = elm?.Attribute(attrName)?.Value;
     //    if (int.TryParse(value, out var val))
@@ -250,7 +250,7 @@ internal static class HAConverter
     //    return null;
     //}
 
-    //private static bool? GetBoolElement(this XElement? elm, string attrName)
+    //private static bool? ReadElementBool(this XElement? elm, string attrName)
     //{
     //    string? value = elm?.Attribute(attrName)?.Value;
     //    if (int.TryParse(value, out var val))

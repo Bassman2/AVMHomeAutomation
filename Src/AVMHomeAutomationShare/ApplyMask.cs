@@ -106,23 +106,23 @@ public class ApplyMask : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        HkrSummer = elm.GetBoolElement("hkr_summer");
-        HkrTemperature = elm.GetBoolElement("hkr_temperature");
-        HkrHolidays = elm.GetBoolElement("hkr_holidays");
-        HkrTimeTable = elm.GetBoolElement("hkr_time_table");
-        RelayManual = elm.GetBoolElement("relay_manual");
-        RelayAutomatic = elm.GetBoolElement("relay_automatic");
-        Level = elm.GetBoolElement("level");
-        Color = elm.GetBoolElement("color");
-        Dialhelper = elm.GetBoolElement("dialhelper");
-        SunSimulation = elm.GetBoolElement("sun_simulation");
-        SubTemplates = elm.GetBoolElement("sub_templates");
-        MainWifi = elm.GetBoolElement("main_wifi");
-        GuestWifi = elm.GetBoolElement("guest_wifi");
-        TamControl = elm.GetBoolElement("tam_control");
-        HttpRequest = elm.GetBoolElement("http_request");
-        TimerControl = elm.GetBoolElement("timer_control");
-        SwitchMaster = elm.GetBoolElement("switch_master");
-        CustomNotification = elm.GetBoolElement("custom_notification");
+        HkrSummer = elm.ReadElementBool("hkr_summer");
+        HkrTemperature = elm.ReadElementBool("hkr_temperature");
+        HkrHolidays = elm.ReadElementBool("hkr_holidays");
+        HkrTimeTable = elm.ReadElementBool("hkr_time_table");
+        RelayManual = elm.ReadElementBool("relay_manual");
+        RelayAutomatic = elm.ReadElementBool("relay_automatic");
+        Level = elm.ReadElementBool("level");
+        Color = elm.ReadElementBool("color");
+        Dialhelper = elm.ReadElementBool("dialhelper");
+        SunSimulation = elm.ReadElementBool("sun_simulation");
+        SubTemplates = elm.ReadElementBool("sub_templates");
+        MainWifi = elm.ReadElementBool("main_wifi");
+        GuestWifi = elm.ReadElementBool("guest_wifi");
+        TamControl = elm.ReadElementBool("tam_control");
+        HttpRequest = elm.ReadElementBool("http_request");
+        TimerControl = elm.ReadElementBool("timer_control");
+        SwitchMaster = elm.ReadElementBool("switch_master");
+        CustomNotification = elm.ReadElementBool("custom_notification");
     }
 }

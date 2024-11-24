@@ -1,16 +1,17 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Device/socket/lamp/actuator that can be switched on/off.
+/// </summary>
+public class SimpleOnOff : IXSerializable
 {
     /// <summary>
-    /// Device/socket/lamp/actuator that can be switched on/off.
+    /// Current switching status.
     /// </summary>
-    public class SimpleOnOff
+    public bool? State { get; set; }
+
+    public void ReadX(XElement elm)
     {
-        /// <summary>
-        /// Current switching status.
-        /// </summary>
-        [XmlElement("state")]
-        public bool? State { get; set; }
+        State = elm.ReadElementBool("state");
     }
 }

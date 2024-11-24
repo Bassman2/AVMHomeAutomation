@@ -3,42 +3,36 @@
 /// <summary>
 /// Radiator regulator
 /// </summary>
-public class Hkr
+public class Hkr : IXSerializable
 {
     /// <summary>
     /// Actual temperature in ° C. (8 to 28 ° C or ON / OFF)
     /// </summary>
-    [XmlElement("tist")]
     public double? TIst { get; set; }
 
     /// <summary>
     /// Target temperature in ° C. (8 to 28 ° C or ON / OFF)
     /// </summary>
-    [XmlElement("tsoll")]
     public double? TSoll { get; set; }
 
     /// <summary>
     /// Lowering temperature in ° C. (8 to 28 ° C or ON / OFF)
     /// </summary>
-    [XmlElement("absenk")]
     public double? Absenk { get; set; }
 
     /// <summary>
     /// Comfort temperature in ° C. (8 to 28 ° C or ON / OFF)
     /// </summary>
-    [XmlElement("komfort")]
     public double? Komfort { get; set; }
 
     /// <summary>
     /// Keylock via UI / API on no / yes 
     /// </summary>
-    [XmlElement("lock")]
     public bool? Lock { get; set; }
 
     /// <summary>
     /// Key lock directly on the device on no / yes 
     /// </summary>
-    [XmlElement("devicelock")]
     public bool? DeviceLock { get; set; }
 
     /// <summary>
@@ -51,60 +45,70 @@ public class Hkr
     /// 5: The radiator controller is in installation mode and can be mounted on the heater valve.
     /// 6: The radiator controller now adapts to the stroke of the heating valve.
     /// </summary>
-    [XmlElement("errorcode")]
-    public int ErrorCode { get; set; }
+    public int? ErrorCode { get; set; }
 
     /// <summary>
     /// Window oven detected
     /// </summary>
-    [XmlElement("windowopenactiv")]
     public bool? WindowOpenActiv { get; set; }
 
     /// <summary>
     /// Window open end time
     /// </summary>
-    [XmlElement("windowopenactiveendtime")]
     public DateTime? WindowOpenActivEndTime { get; set; }
 
     /// <summary>
     ///  Boost active
     /// </summary>
-    [XmlElement("boostactive")]
     public bool? BoostActive { get; set; }
 
     /// <summary>
     /// Boost active end time.
     /// </summary>
-    [XmlElement("boostactiveendtime")]
     public DateTime? BoostActiveEndTime { get; set; }
 
     /// <summary>
     /// Battery low - please change the battery
     /// </summary>
-    [XmlElement("batterylow")]
     public bool? BatteryLow { get; set; }
 
     /// <summary>
     /// Battery state of charge in percent. (0 - 100)
     /// </summary>
-    [XmlElement("battery")]
     public int? Battery{ get; set; }
 
     /// <summary>
     /// Next temperature change
     /// </summary>
-    [XmlElement("nextchange")]
     public NextChange? NextChange { get; set; }
 
     /// <summary>
     /// Is the HKR currently in a vacation period?
     /// </summary>
-    [XmlElement("summeractive")]
     public bool? SummerActive { get; set; }
 
     /// <summary>
     /// Is the HKR currently in a Holiday period?
     /// </summary>
-    [XmlElement("holidayactive")]
-    public bool? HolidayActive { get; set; }        
+    public bool? HolidayActive { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        TIst = elm.ReadElementInt("tist");
+        TSoll = elm.ReadElementInt("tsoll");
+        Absenk = elm.ReadElementInt("absenk");
+        Komfort = elm.ReadElementInt("komfort");
+        Lock = elm.ReadElementBool("lock");
+        DeviceLock = elm.ReadElementBool("devicelock");
+        ErrorCode = elm.ReadElementInt("errorcode");
+        WindowOpenActiv = elm.ReadElementBool("windowopenactiv");
+        WindowOpenActivEndTime = elm.ReadElementDateTime("windowopenactiveendtime");
+        BoostActive = elm.ReadElementBool("boostactive");
+        BoostActiveEndTime = elm.ReadElementDateTime("boostactiveendtime");
+        BatteryLow = elm.ReadElementBool("batterylow");
+        Battery = elm.ReadElementInt("battery");
+        NextChange = elm.ReadElementItem<NextChange>("nextchange");
+        SummerActive = elm.ReadElementBool("summeractive");
+        HolidayActive = elm.ReadElementBool("holidayactive");
+    }
 }

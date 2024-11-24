@@ -23,12 +23,12 @@ internal static class XSerializableExt
         return res;
     }
 
-    internal static string? GetStringAttribute(this XElement? elm, string name)
+    internal static string? ReadAttributeString(this XElement? elm, string name)
     {
         return elm?.Attribute(name)?.Value;
     }
 
-    internal static int? GetIntAttribute(this XElement? elm, string name)
+    internal static int? ReadAttributeInt(this XElement? elm, string name)
     {
         string? value = elm?.Attribute(name)?.Value;
         if (int.TryParse(value, out var val))
@@ -38,7 +38,7 @@ internal static class XSerializableExt
         return null;
     }
 
-    internal static bool? GetBoolAttribute(this XElement? elm, string name)
+    internal static bool? ReadAttributeBool(this XElement? elm, string name)
     {
         string? value = elm?.Attribute(name)?.Value;
         if (int.TryParse(value, out var val))
@@ -49,7 +49,7 @@ internal static class XSerializableExt
     }
 
     
-    internal static T? GetEnumAttribute<T>(this XElement? elm, string name) where T : Enum
+    internal static T? ReadAttributeEnum<T>(this XElement? elm, string name) where T : Enum
     {
         string? value = elm?.Attribute(name)?.Value;
         if (int.TryParse(value, out var val))
@@ -59,12 +59,12 @@ internal static class XSerializableExt
         return default;
     }
 
-    internal static string? GetStringElement(this XElement? elm, string name)
+    internal static string? ReadElementString(this XElement? elm, string name)
     {
         return elm?.Element(name)?.Value;
     }
 
-    internal static int? GetIntElement(this XElement? elm, string name)
+    internal static int? ReadElementInt(this XElement? elm, string name)
     {
         string? value = elm?.Element(name)?.Value;
         if (int.TryParse(value, out var val))
@@ -74,7 +74,7 @@ internal static class XSerializableExt
         return null;
     }
 
-    internal static bool? GetBoolElement(this XElement? elm, string name)
+    internal static bool? ReadElementBool(this XElement? elm, string name)
     {
         string? value = elm?.Element(name)?.Value;
         if (int.TryParse(value, out var val))
@@ -84,7 +84,7 @@ internal static class XSerializableExt
         return null;
     }
 
-    internal static DateTime? GetDateTimeElement(this XElement? elm, string name)
+    internal static DateTime? ReadElementDateTime(this XElement? elm, string name)
     {
         string? value = elm?.Element(name)?.Value;
         if (long.TryParse(value, out var val))
@@ -94,7 +94,7 @@ internal static class XSerializableExt
         return null;
     }
 
-    internal static T? GetEnumElement<T>(this XElement? elm, string name) where T : Enum
+    internal static T? ReadElementEnum<T>(this XElement? elm, string name) where T : Enum
     {
         string? value = elm?.Element(name)?.Value;
         if (int.TryParse(value, out var val))
@@ -104,7 +104,12 @@ internal static class XSerializableExt
         return default;
     }
 
-    internal static T? GetItemElement<T>(this XElement? elm, string name) where T : IXSerializable, new()
+    internal static List<T>? ReadElementEnums<T>(this XElement? elm, string name) where T : Enum
+    {
+        return elm?.Elements(name).Select(i => (T)(object)(int.TryParse(i.Value, out int val) ? val : 0))?.ToList();
+    }
+
+    internal static T? ReadElementItem<T>(this XElement? elm, string name) where T : IXSerializable, new()
     {
         var child = elm?.Element(name);
         if (child is null)
@@ -116,16 +121,16 @@ internal static class XSerializableExt
         return item;
         
     }
-    internal static List<string>? GetListStringsElement(this XElement? elm, string name)
+    internal static List<string>? ReadElementStrings(this XElement? elm, string name)
     {
-        return elm?.Elements(name).Select(e =>  e.Value).ToList();
+        return elm?.Elements(name).Select(e => e.Value).ToList();
     }
 
-    internal static List<T>? GetListElements<T>(this XElement? elm, string name) where T : IXSerializable, new()
+    internal static List<T>? ReadElementList<T>(this XElement? elm, string name) where T : IXSerializable, new()
     {
         return elm?.Elements(name).Select(e => { T i = new(); i.ReadX(e); return i; }).ToList();
     }
-    internal static List<T>? GetListElements<T>(this XElement? elm, string array,string name) where T : IXSerializable, new()
+    internal static List<T>? ReadElementList<T>(this XElement? elm, string array,string name) where T : IXSerializable, new()
     {
         return elm?.Element(array)?.Elements(name).Select(e => { T i = new(); i.ReadX(e); return i; }).ToList();
     }

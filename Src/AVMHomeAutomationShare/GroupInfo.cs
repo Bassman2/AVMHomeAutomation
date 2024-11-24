@@ -8,7 +8,6 @@ public class GroupInfo : IXSerializable
     /// <summary>
     /// Internal id of the master/boss switch, 0 for "none set".
     /// </summary>
-    [XmlElement("masterdeviceid")]
     public string? MasterDeviceId { get; set; }
 
     /// <summary>
@@ -18,7 +17,7 @@ public class GroupInfo : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        MasterDeviceId = elm.GetStringElement("masterdeviceid");
-        Members = elm.GetListStringsElement("members");
+        MasterDeviceId = elm.ReadElementString("masterdeviceid");
+        Members = elm.ReadElementStrings("members");
     }
 }

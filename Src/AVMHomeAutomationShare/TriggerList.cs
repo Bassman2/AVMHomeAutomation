@@ -17,7 +17,7 @@ public class TriggerList : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Version = elm.GetStringAttribute("version");
-        Triggers = elm.GetListElements<Trigger>("trigger");    
+        Version = elm.ReadAttributeString("version");
+        Triggers = elm.ReadElementList<Trigger>("trigger");    
     }
 }

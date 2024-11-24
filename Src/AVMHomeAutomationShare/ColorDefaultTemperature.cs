@@ -1,5 +1,4 @@
-﻿
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 /// <summary>
 /// Color temperature default values
@@ -9,11 +8,10 @@ public class ColorDefaultTemperature : IXSerializable
     /// <summary>
     /// Color temperatur value in ° Kelvin. (2700° bis 6500°)
     /// </summary>
-    [XmlAttribute("value")]
-    public int Value { get; set; }
+    public int? Value { get; set; }
 
     public void ReadX(XElement elm)
     {
-        throw new NotImplementedException();
+        Value = elm.ReadAttributeInt("value");
     }
 }

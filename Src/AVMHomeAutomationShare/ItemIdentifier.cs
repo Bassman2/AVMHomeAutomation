@@ -12,6 +12,6 @@ public class ItemIdentifier : IXSerializable
 
     public void ReadX(XElement elm)
     {
-        Identifier = elm.GetStringAttribute("identifier");
+        Identifier = elm.ReadAttributeString("identifier");
     }
 }

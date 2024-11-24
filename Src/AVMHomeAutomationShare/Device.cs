@@ -1,5 +1,4 @@
-﻿
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 /// <summary>
 /// Device data.
@@ -66,83 +65,83 @@ public class Device : IXSerializable
     /// <summary>
     /// Data for switch socket.
     /// </summary>
-    [XmlElement("switch", IsNullable = true)]
     public Switch? Switch { get; set; }
 
     /// <summary>
     /// Energy gauge data
     /// </summary>
-    [XmlElement("powermeter", IsNullable = true)]
     public PowerMeter? PowerMeter { get; set; }
 
     /// <summary>
     /// Temperature sensor data.
     /// </summary>
-    [XmlElement("temperature", IsNullable = true)]
     public Temperature? Temperature { get; set; }
 
     /// <summary>
     /// Alarm sensor data.
     /// </summary>
-    [XmlElement("alert", IsNullable = true)]
     public Alert? Alert { get; set; }
 
     /// <summary>
     /// Button data.
     /// </summary>
-    [XmlElement("button")]
     public List<Button>? Buttons { get; set; }
 
     /// <summary>
     /// HAN-FUN / ETSI unit data
     /// </summary>
-    [XmlElement("etsiunitinfo", IsNullable = true)]
     public EtsiUnitInfo? EtsiUnitInfo { get; set; }
 
     /// <summary>
     /// Device/socket/lamp/actuator that can be switched on/off.
     /// </summary>
-    [XmlElement("simpleonoff", IsNullable = true)]
     public SimpleOnOff? SimpleOnOff { get; set; }
 
     /// <summary>
     /// Device with adjustable dimming, height, brightness or level.
     /// </summary>
-    [XmlElement("levelcontrol", IsNullable = true)]
     public LevelControl? LevelControl { get; set; }
 
     /// <summary>
     /// Lamp with adjustable colour/colour temperature.
     /// </summary>
-    [XmlElement("colorcontrol", IsNullable = true)]
     public ColorControl? ColorControl { get; set; }
 
     /// <summary>
     /// Radiator control data
     /// </summary>
-    [XmlElement("hkr", IsNullable = true)]
     public Hkr? Hkr { get; set; }
 
-    [XmlIgnore]
-    public List<Device>? Children { get; internal set; }
+    //[XmlIgnore]
+    //public List<Device>? Children { get; internal set; }
 
-    [XmlIgnore]
-    public DeviceType DeviceType { get; internal set; }
+    //[XmlIgnore]
+    //public DeviceType DeviceType { get; internal set; }
 
     public virtual void ReadX(XElement elm)
     {
-        Identifier = elm.GetStringAttribute("identifier");
-        Id = elm.GetStringAttribute("id");
-        FirmwareVersion = elm.GetStringAttribute("fwversion");
-        Manufacturer = elm.GetStringAttribute("manufacturer");
-        ProductName = elm.GetStringAttribute("productname");
-        FunctionBitMask = elm.GetEnumAttribute<Functions>("functionbitmask");
+        Identifier = elm.ReadAttributeString("identifier");
+        Id = elm.ReadAttributeString("id");
+        FirmwareVersion = elm.ReadAttributeString("fwversion");
+        Manufacturer = elm.ReadAttributeString("manufacturer");
+        ProductName = elm.ReadAttributeString("productname");
+        FunctionBitMask = elm.ReadAttributeEnum<Functions>("functionbitmask");
 
-        IsPresent = elm.GetBoolElement("present");
-        IsTXBusy = elm.GetBoolElement("txbusy");
-        Name = elm.GetStringElement("name");
-        IsBatteryLow = elm.GetBoolElement("batterylow");
-        Battery = elm.GetIntElement("batterylow");
+        IsPresent = elm.ReadElementBool("present");
+        IsTXBusy = elm.ReadElementBool("txbusy");
+        Name = elm.ReadElementString("name");
+        IsBatteryLow = elm.ReadElementBool("batterylow");
+        Battery = elm.ReadElementInt("batterylow");
+        Switch = elm.ReadElementItem<Switch>("switch");
+        PowerMeter = elm.ReadElementItem<PowerMeter>("powermeter");
+        Temperature = elm.ReadElementItem<Temperature>("temperature");
+        Alert = elm.ReadElementItem<Alert>("alert");
+        Buttons = elm.ReadElementList<Button>("button");
+        EtsiUnitInfo = elm.ReadElementItem<EtsiUnitInfo>("etsiunitinfo");
+        SimpleOnOff = elm.ReadElementItem<SimpleOnOff>("simpleonoff");
+        LevelControl = elm.ReadElementItem<LevelControl>("levelcontrol");
+        ColorControl = elm.ReadElementItem<ColorControl>("colorcontrol");
+        Hkr = elm.ReadElementItem<Hkr>("hkr");
     }
 
     //{ 
