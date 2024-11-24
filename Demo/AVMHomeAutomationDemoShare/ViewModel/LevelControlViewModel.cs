@@ -1,19 +1,15 @@
-﻿using AVMHomeAutomation;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿namespace AVMHomeAutomationDemo.ViewModel;
 
-namespace AVMHomeAutomationDemo.ViewModel
+public class LevelControlViewModel : ObservableObject
 {
-    public class LevelControlViewModel : ObservableObject
+    private LevelControl levelControl;
+
+    public LevelControlViewModel(LevelControl levelControl)
     {
-        private LevelControl levelControl;
-
-        public LevelControlViewModel(LevelControl levelControl)
-        {
-            this.levelControl = levelControl;
-        }
-
-        public int? Level => this.levelControl.Level;
-        
-        public int? LevelPercentage => this.levelControl.LevelPercentage;
+        this.levelControl = levelControl;
     }
+
+    public int? Level => this.levelControl.Level;
+    
+    public int? LevelPercentage => this.levelControl.LevelPercentage;
 }

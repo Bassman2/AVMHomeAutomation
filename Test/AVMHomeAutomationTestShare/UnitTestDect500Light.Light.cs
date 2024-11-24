@@ -15,7 +15,7 @@ public partial class UnitTestDect500Light : UnitTestBase
         }
 
         Assert.IsNotNull(colorDefaults);
-        CollectionAssert.AreEquivalent(new int[] { 2700, 3000, 3400, 3800, 4200, 4700, 5300, 5900, 6500 }, colorDefaults.TemperatureDefaults.Select((t) => t.Value).ToList());
+        CollectionAssert.AreEquivalent(new int[] { 2700, 3000, 3400, 3800, 4200, 4700, 5300, 5900, 6500 }, colorDefaults.TemperatureDefaults?.Select((t) => t.Value).ToList());
     }
 
     [TestMethod]

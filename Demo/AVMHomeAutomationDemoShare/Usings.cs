@@ -7,5 +7,5 @@ global using System.Threading.Tasks;
 global using System.Xml;
 
 global using CommunityToolkit.Mvvm.ComponentModel;
-
+global using MVVMAppBase.ViewModel;
 global using AVMHomeAutomation;
