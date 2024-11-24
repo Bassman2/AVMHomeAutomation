@@ -1,41 +1,42 @@
-namespace AVMHomeAutomationTest
+namespace AVMHomeAutomationTest;
+
+public partial class UnitTestDect210Socket : UnitTestBase
 {
-    public partial class UnitTestDect210Socket : UnitTestBase
+    #region Energy Meter
+
+    [TestMethod]
+    public async Task TestMethodEnergyAsync()
     {
-        #region Energy Meter
+        Device? device;
+        double? energy;
 
-        [TestMethod]
-        public async Task TestMethodEnergyAsync()
+        using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
         {
-            Device device;
-            double? energy;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                device = await client.GetDeviceInfosAsync(testDevice!.Ain);
-                energy = await client.GetSwitchEnergyAsync(testDevice!.Ain);
-            }
-
-            Assert.IsTrue(energy.HasValue);
-            Assert.AreEqual((double?)device.PowerMeter.Energy, energy.Value);
+            device = await client.GetDeviceInfosAsync(testDevice!.Ain);
+            energy = await client.GetSwitchEnergyAsync(testDevice!.Ain);
         }
 
-        [TestMethod]
-        public async Task TestMethodPowerAsync()
-        {
-            Device device;
-            double? power;
-
-            using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
-            {
-                device = await client.GetDeviceInfosAsync(testDevice!.Ain);
-                power = await client.GetSwitchPowerAsync(testDevice!.Ain);
-            }
-
-            Assert.IsTrue(power.HasValue);
-            Assert.AreEqual((double?)device.PowerMeter.Power, power.Value);
-        }
-
-        #endregion
+        Assert.IsNotNull(device);
+        Assert.IsTrue(energy.HasValue);
+        Assert.AreEqual(device.PowerMeter!.Energy, energy.Value);
     }
+
+    [TestMethod]
+    public async Task TestMethodPowerAsync()
+    {
+        Device? device;
+        double? power;
+
+        using (HomeAutomation client = new HomeAutomation(TestSettings.Login, TestSettings.Password))
+        {
+            device = await client.GetDeviceInfosAsync(testDevice!.Ain);
+            power = await client.GetSwitchPowerAsync(testDevice!.Ain);
+        }
+
+        Assert.IsNotNull(device);
+        Assert.IsTrue(power.HasValue);
+        Assert.AreEqual(device.PowerMeter!.Power, power.Value);
+    }
+
+    #endregion
 }

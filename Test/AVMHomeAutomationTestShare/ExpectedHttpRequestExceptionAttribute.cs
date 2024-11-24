@@ -9,11 +9,11 @@ public class ExpectedHttpRequestExceptionAttribute : ExpectedExceptionBaseAttrib
         this.StatusCode = statusCode;
     }
 
-    public Type ExceptionType { get; }
+    //public Type ExceptionType { get; }
 
     protected override void Verify(Exception ex)
     {
-        if (ex is AggregateException)
+        if (ex is AggregateException && ex.InnerException is not null)
         {
             ex = ex.InnerException;
         }
