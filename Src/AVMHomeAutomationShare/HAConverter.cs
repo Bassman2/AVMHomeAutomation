@@ -115,7 +115,7 @@ internal static class HAConverter
         };
     }
 
-    public static Target ToTarget(this string value)
+    public static Target? ToTarget(this string value)
     {
         switch (value.TrimEnd())
         {
@@ -146,18 +146,7 @@ internal static class HAConverter
         return null;
     }
 
-    public static T? XDeserialize<T>(this string? value) where T : IXSerializable, new()
-    {
-        if (value is null)
-        {
-            return default;
-        }
-
-        var res = new T();
-        var doc = XDocument.Parse(value);
-        res.ReadX(doc);
-        return res;
-    }
+    
 
     //public static SubscriptionState? ToSubscriptionState(this string? value)
     //{

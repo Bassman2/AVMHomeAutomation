@@ -129,10 +129,8 @@ public class Device : IXSerializable
     [XmlIgnore]
     public DeviceType DeviceType { get; internal set; }
 
-    public virtual void ReadX(XContainer container)
+    public virtual void ReadX(XElement elm)
     {
-        var elm = container.Element("device");
-
         Identifier = elm.GetStringAttribute("identifier");
         Id = elm.GetStringAttribute("id");
         FirmwareVersion = elm.GetStringAttribute("fwversion");

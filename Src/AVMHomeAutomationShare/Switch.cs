@@ -1,34 +1,35 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Data for switch socket.
+/// </summary>
+public class Switch : IXSerializable
 {
     /// <summary>
-    /// Data for switch socket.
+    /// Switching state off / on 
     /// </summary>
-    public class Switch
+    public bool? State { get; set; }
+
+    /// <summary>
+    /// Automatic time switching (false) or manual switching (true)
+    /// </summary>
+    public bool? Mode { get; set; }
+
+    /// <summary>
+    /// Switch lock via UI / API on no / yes 
+    /// </summary>
+    public bool? Lock { get; set; }
+
+    /// <summary>
+    /// Switching lock directly on the device on no / yes 
+    /// </summary>
+    public bool? DeviceLock { get; set; }
+
+    public void ReadX(XElement elm)
     {
-        /// <summary>
-        /// Switching state off / on 
-        /// </summary>
-        [XmlElement("state")]
-        public XmlNullableBool State { get; set; }
-
-        /// <summary>
-        /// Automatic time switching (false) or manual switching (true)
-        /// </summary>
-        [XmlElement("mode")]
-        public XmlNullableBool Mode { get; set; }
-
-        /// <summary>
-        /// Switch lock via UI / API on no / yes 
-        /// </summary>
-        [XmlElement("lock")]
-        public XmlNullableBool Lock { get; set; }
-
-        /// <summary>
-        /// Switching lock directly on the device on no / yes 
-        /// </summary>
-        [XmlElement("devicelock")]
-        public XmlNullableBool DeviceLock { get; set; }
+        State = elm.GetBoolElement("state");
+        Mode = elm.GetBoolElement("mode");
+        Lock = elm.GetBoolElement("lock");
+        DeviceLock = elm.GetBoolElement("devicelock");
     }
 }

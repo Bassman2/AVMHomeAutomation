@@ -133,7 +133,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<DeviceList?> GetDeviceListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await this.client!.GetStringAsync(BuildUrl("getdevicelistinfos"), cancellationToken);
-        return res.XDeserialize<DeviceList>();
+        return res.XDeserialize<DeviceList>("devicelist");
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<DeviceStats?> GetBasicDeviceStatsAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getbasicdevicestats", ain), cancellationToken);
-        return res.XDeserialize<DeviceStats>();
+        return res.XDeserialize<DeviceStats>("devicestats");
     }
 
     /// <summary>
@@ -236,7 +236,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<TriggerList?> GetTriggerListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettriggerlistinfos"), cancellationToken);
-        return res.XDeserialize<TriggerList>();
+        return res.XDeserialize<TriggerList>("triggerlist");
     }
 
     /// <summary>
@@ -270,7 +270,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<TemplateList?> GetTemplateListInfosAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("gettemplatelistinfos"), cancellationToken);
-        return res.XDeserialize<TemplateList>();
+        return res.XDeserialize<TemplateList>("templatelist");
     }
 
     /// <summary>
@@ -468,7 +468,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<ColorDefaults?> GetColorDefaultsAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getcolordefaults"), cancellationToken);
-        return res.XDeserialize<ColorDefaults>();
+        return res.XDeserialize<ColorDefaults>("colordefaults");
     }
 
     /// <summary>
@@ -524,10 +524,10 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     /// <param name="ain">Identification of the actor or template.</param>
     /// <param name="target">Target to set.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public async Task<Target> SetBlindAsync(string ain, Target target, CancellationToken cancellationToken)
+    public async Task<Target?> SetBlindAsync(string ain, Target target, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("setblind", ain, $"target={target.ToString().ToLower()}"), cancellationToken);
-        return res.ToTarget();
+        return res?.ToTarget();
     }
 
     /// <summary>
@@ -580,7 +580,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<SubscriptionState?> GetSubscriptionStateAsync(CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getsubscriptionstate"), cancellationToken);
-        return res.XDeserialize<SubscriptionState>();
+        return res.XDeserialize<SubscriptionState>("state");
     }
 
     /// <summary>
@@ -602,7 +602,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public async Task<Device?> GetDeviceInfosAsync(string ain, CancellationToken cancellationToken)
     {
         var res = await GetStringAsync(BuildUrl("getdeviceinfos", ain), cancellationToken);
-        return res.XDeserialize<Device>();
+        return res.XDeserialize<Device>("device");
     }
 
     /// <summary>
@@ -622,19 +622,19 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
     public void CreateBugReportFile()
     {
         string fileName = $"BugReport-{DateTime.Now:yyy-MM-dd-HH-mm-ss}.xml";
-        using (var file = File.CreateText(fileName))
+        using var file = File.CreateText(fileName);
+
+        file.WriteLine("<Report>");
+        file.WriteLine(this.client!.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
+        file.WriteLine(this.client!.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
+        file.WriteLine(this.client!.GetStringAsync(BuildUrl("getcolordefaults")).Result);
+        try
         {
-            file.WriteLine("<Report>");
-            file.WriteLine(this.client!.GetStringAsync(BuildUrl("getdevicelistinfos")).Result);
-            file.WriteLine(this.client!.GetStringAsync(BuildUrl("gettemplatelistinfos")).Result);
-            file.WriteLine(this.client!.GetStringAsync(BuildUrl("getcolordefaults")).Result);
-            try
-            {
-                file.WriteLine(this.client!.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result);
-            }
-            catch
-            { }
-            file.WriteLine("</Report>");
+            file.WriteLine(this.client!.GetStringAsync(BuildUrl("gettriggerlistinfos")).Result);
         }
+        catch
+        { }
+        file.WriteLine("</Report>");
+
     }
 }

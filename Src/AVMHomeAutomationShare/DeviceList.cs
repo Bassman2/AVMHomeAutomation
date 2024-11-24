@@ -44,9 +44,8 @@ public class DeviceList : IXSerializable
     [XmlIgnore]
     public List<Group>? GroupsTree { get; private set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("devicelist");
         Version = elm.GetStringAttribute("version");
         FirmwareVersion = elm.GetStringAttribute("fwversion");
         foreach (var item in elm?.Elements() ?? [])
@@ -71,12 +70,12 @@ public class DeviceList : IXSerializable
 
     internal void Fill()
     {
-        this.ItemsList = new List<Device>();
-        this.ItemsTree = new List<Device>();
-        this.DevicesList = new List<Device>();
-        this.DevicesTree = new List<Device>();
-        this.GroupsList = new List<Group>();
-        this.GroupsTree = new List<Group>();
+        this.ItemsList = [];
+        this.ItemsTree = [];
+        this.DevicesList = [];
+        this.DevicesTree = [];
+        this.GroupsList = [];
+        this.GroupsTree = [];
 
         Device? master = null;
         foreach (Device device in RowDevices!)
@@ -86,7 +85,7 @@ public class DeviceList : IXSerializable
             if (master != null && device.Identifier!.StartsWith(master.Identifier!))
             {
                 master.DeviceType = device.DeviceType;
-                (master.Children = master.Children ?? new List<Device>()).Add(device);
+                (master.Children ??= []).Add(device);
 
                 this.ItemsList.Add(device);
                 if (device.GetType() == typeof(Group))
@@ -150,53 +149,53 @@ public class DeviceList : IXSerializable
             break;
 
         default:
-            if (device.EtsiUnitInfo != null && device.EtsiUnitInfo.UnitType.HasValue)
-            {
-                switch (device.EtsiUnitInfo.UnitType.Value)
-                {
-                case EtsiUnitType.SimpleButton:
-                case EtsiUnitType.SimpleOnOffSwitch:
-                    deviceType = DeviceType.Button;
-                    break;
+            //if (device.EtsiUnitInfo != null && device.EtsiUnitInfo.UnitType.HasValue)
+            //{
+            //    switch (device.EtsiUnitInfo!.UnitType)
+            //    {
+            //    case EtsiUnitType.SimpleButton:
+            //    case EtsiUnitType.SimpleOnOffSwitch:
+            //        deviceType = DeviceType.Button;
+            //        break;
 
-                case EtsiUnitType.SimpleLight:
-                case EtsiUnitType.DimmableLight:
-                case EtsiUnitType.ColorBulb:
-                case EtsiUnitType.DimmableColorBulb:
-                    deviceType = DeviceType.Light;
-                    break;
+            //    case EtsiUnitType.SimpleLight:
+            //    case EtsiUnitType.DimmableLight:
+            //    case EtsiUnitType.ColorBulb:
+            //    case EtsiUnitType.DimmableColorBulb:
+            //        deviceType = DeviceType.Light;
+            //        break;
 
-                case EtsiUnitType.Blind:
-                case EtsiUnitType.Lamellar:
-                    deviceType = DeviceType.Rollotron;
-                    break;
+            //    case EtsiUnitType.Blind:
+            //    case EtsiUnitType.Lamellar:
+            //        deviceType = DeviceType.Rollotron;
+            //        break;
 
-                case EtsiUnitType.ACOutlet:
-                case EtsiUnitType.ACOutletSimplePowerMetering:
-                    deviceType = DeviceType.Socket;
-                    break;
+            //    case EtsiUnitType.ACOutlet:
+            //    case EtsiUnitType.ACOutletSimplePowerMetering:
+            //        deviceType = DeviceType.Socket;
+            //        break;
 
-                case EtsiUnitType.DoorOpenCloseDetector:
-                case EtsiUnitType.WindowOpenCloseDetector:
-                    deviceType = DeviceType.DoorContact;
-                    break;
+            //    case EtsiUnitType.DoorOpenCloseDetector:
+            //    case EtsiUnitType.WindowOpenCloseDetector:
+            //        deviceType = DeviceType.DoorContact;
+            //        break;
 
-                case EtsiUnitType.MotionDetector:
-                    deviceType = DeviceType.MotionDetector;
-                    break;
+            //    case EtsiUnitType.MotionDetector:
+            //        deviceType = DeviceType.MotionDetector;
+            //        break;
 
-                case EtsiUnitType.SimpleOnOffSwitchable:
-                case EtsiUnitType.DimmerSwitch:
-                case EtsiUnitType.SimpleDetector:
+            //    case EtsiUnitType.SimpleOnOffSwitchable:
+            //    case EtsiUnitType.DimmerSwitch:
+            //    case EtsiUnitType.SimpleDetector:
                 
                 
-                case EtsiUnitType.FloodDetector:
-                case EtsiUnitType.GlasBreakDetector:
-                case EtsiUnitType.VibrationDetector:
-                case EtsiUnitType.Siren:
-                    break;
-                }
-            }
+            //    case EtsiUnitType.FloodDetector:
+            //    case EtsiUnitType.GlasBreakDetector:
+            //    case EtsiUnitType.VibrationDetector:
+            //    case EtsiUnitType.Siren:
+            //        break;
+            //    }
+            //}
             break;
         }
         device.DeviceType = deviceType;

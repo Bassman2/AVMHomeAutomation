@@ -62,7 +62,7 @@ namespace AVMHomeAutomationDemo.Controls
         
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as SelectableTreeView).OnSelectedItemChanged(e.NewValue, e.OldValue);
+            (d as SelectableTreeView)?.OnSelectedItemChanged(e.NewValue, e.OldValue);
         }
 
         private void OnSelectedItemChanged(object newValue, object oldValue)

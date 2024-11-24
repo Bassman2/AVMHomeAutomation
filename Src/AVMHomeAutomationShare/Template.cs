@@ -1,5 +1,4 @@
-﻿
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 /// <summary>
 /// Data for template.
@@ -9,91 +8,74 @@ public class Template : IXSerializable
     /// <summary>
     /// Identifier of the template.
     /// </summary>
-    [XmlAttribute("identifier")]
     public string? Identifier { get; set; }
 
     /// <summary>
     /// ID of the template.
     /// </summary>
-    [XmlAttribute("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
     /// Functional bitmask of the template.
     /// </summary>
-    [XmlAttribute("functionbitmask")]
-    public int FunctionBitMask { get; set; }
-
-    /// <summary>
-    /// Functions of the template
-    /// </summary>
-    [XmlIgnore]
-    public Functions Functions { get => (Functions)FunctionBitMask;  }
+    public Functions FunctionBitMask { get; set; }
 
     /// <summary>
     /// Subnodes depending on which configuration is set.
     /// </summary>
-    [XmlAttribute("applymask")]
-    public int ApplyBitMask { get; set; }
-
-    /// <summary>
-    /// Functions of the template
-    /// </summary>
-    [XmlIgnore]
-    public int Applies { get => ApplyBitMask; }
-
+    public int? ApplyBitMask { get; set; }
+        
     /// <summary>
     /// Was template generated automatically?
     /// </summary>
     /// <remarks>New in Fritz!OS 7.39</remarks>
-    [XmlAttribute("autocreate")]
-    public int AutocCeate { get; set; }        
+    public int? AutocCeate { get; set; }        
 
     /// <summary>
     /// Name of the template
     /// </summary>
-    [XmlElement("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Json metadata
     /// </summary>
     /// <remarks>New in Fritz!OS 7.39</remarks>
-    [XmlElement("metadata")]
-    public string MetaData { get; set; }
+    public string? MetaData { get; set; }
 
     /// <summary>
     /// List of devices 
     /// </summary>
-    [XmlArray("devices")]
-    [XmlArrayItem("device")]
-    public List<ItemIdentifier> Devices { get; set; }
+    public List<ItemIdentifier>? Devices { get; set; }
 
     /// <summary>
     /// Subnodes depending on which configuration is set.
     /// </summary>
-    [XmlElement("applymask")]
-    public ApplyMask ApplyMask { get; set; }
+    public ApplyMask? ApplyMask { get; set; }
 
     /// <summary>
     /// List of subtemplates 
     /// </summary>
     /// <remarks>New in Fritz!OS 7.39</remarks>
-    [XmlArray("sub_templates")]
-    [XmlArrayItem("template")]
-    public List<ItemIdentifier> SubTemplates { get; set; }
+    public List<ItemIdentifier>? SubTemplates { get; set; }
 
     /// <summary>
     /// List of sub triggers 
     /// </summary>
     /// <remarks>New in Fritz!OS 7.39</remarks>
-    [XmlArray("triggers")]
-    [XmlArrayItem("trigger>")]
-    public List<TemplateTrigger> Triggers { get; set; }
+    public List<TemplateTrigger>? Triggers { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("template");
         Identifier = elm.GetStringAttribute("identifier");
+        Id = elm.GetStringAttribute("id");
+        FunctionBitMask = elm.GetEnumAttribute<Functions>("functionbitmask");
+        ApplyBitMask = elm.GetIntAttribute("applymask");
+        AutocCeate = elm.GetIntAttribute("autocreate");
+        Name = elm.GetStringElement("name");
+        MetaData = elm.GetStringElement("metadata");
+        Devices = elm.GetListElements<ItemIdentifier>("devices", "device");
+        ApplyMask = elm.GetItemElement<ApplyMask>("applymask");
+        SubTemplates = elm.GetListElements<ItemIdentifier>("sub_templates", "template");
+        Triggers = elm.GetListElements<TemplateTrigger>("triggers", "trigger");
     }
 }

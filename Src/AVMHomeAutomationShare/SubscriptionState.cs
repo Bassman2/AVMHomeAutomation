@@ -1,5 +1,4 @@
-﻿
-namespace AVMHomeAutomation;
+﻿namespace AVMHomeAutomation;
 
 /// <summary>
 /// Subscription state data.
@@ -16,15 +15,9 @@ public class SubscriptionState : IXSerializable
     /// </summary>
     public string? LatestAin { get; set; }
 
-
-    #region IXSerializable
-    
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var state = container.Element("state");
-        Code = state.GetEnumAttribute<SubscriptionCode>("code");
-        LatestAin = state.GetStringElement("latestain"); 
+        Code = elm.GetEnumAttribute<SubscriptionCode>("code");
+        LatestAin = elm.GetStringElement("latestain"); 
     }
-
-    #endregion
 }

@@ -21,7 +21,7 @@ public class ColorDefaults : IXSerializable
     [XmlArrayItem("temp")]
     public List<ColorDefaultTemperature>? TemperatureDefaults { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
         throw new NotImplementedException();
     }

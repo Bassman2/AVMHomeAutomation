@@ -1,11 +1,9 @@
-﻿using AVMHomeAutomation;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows.Data;
 
 namespace AVMHomeAutomationDemo.Converter
 {
-    [ValueConversion(typeof(IXmlNullable), typeof(string))]
+    //[ValueConversion(typeof(IXmlNullable), typeof(string))]
     public class ValueToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -16,13 +14,13 @@ namespace AVMHomeAutomationDemo.Converter
             switch(name)
             {
             case nameof(Boolean):
-                res = (bool)value ? "On" : "Off"; 
+                //res = (bool)value ? "On" : "Off"; 
                 break;
             case nameof(Int32):
-                res = ((int)value).ToString();
+                //res = ((int)value).ToString();
                 break;
             case nameof(Double):
-                double val = (double)value;
+                double val = (double)value!;
                 switch ((Unit)parameter)
                 {
                 case Unit.Temperature:
@@ -54,7 +52,7 @@ namespace AVMHomeAutomationDemo.Converter
                 }
                 break;
             case nameof(DateTime):
-                res = ((DateTime)value).ToString();
+                //res = ((DateTime)value).ToString();
                 break;
             case "Null":
                 res = "---";

@@ -39,14 +39,14 @@ namespace AVMHomeAutomationDemo.ViewModel
 
         public string Text { get; }
 
-        public string Identifier => this.template.Identifier;
+        public string? Identifier => this.template.Identifier;
 
-        public string Id => this.template.Id;
+        public string? Id => this.template.Id;
 
-        public Functions Functions => this.template.Functions;
+        public Functions? Functions => this.template.FunctionBitMask;
 
 
-        public string Name => this.template.Name;
+        public string? Name => this.template.Name;
 
         
         public List<DeviceViewModel> Devices { get; }

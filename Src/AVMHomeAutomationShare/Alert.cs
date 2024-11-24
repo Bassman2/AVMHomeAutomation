@@ -3,17 +3,21 @@
 /// <summary>
 /// Alarm sensor data.
 /// </summary>
-public class Alert
+public class Alert : IXSerializable
 {
     /// <summary>
     /// Last reported alarm condition.
     /// </summary>
-    [XmlElement("state", IsNullable = true)]
     public AlertState? State { get; set; }
 
     /// <summary>
     /// Time of last alarm status change.
     /// </summary>
-    [XmlElement("lastalertchgtimestamp")]
     public DateTime? LastAlertChangeTimestamp { get; set;}
+
+    public void ReadX(XElement elm)
+    {
+        State = elm.GetEnumElement<AlertState>("state");
+        LastAlertChangeTimestamp = elm.GetDateTimeElement("lastalertchgtimestamp");
+    }
 }

@@ -12,7 +12,7 @@ public class ColorDefaultTemperature : IXSerializable
     [XmlAttribute("value")]
     public int Value { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
         throw new NotImplementedException();
     }

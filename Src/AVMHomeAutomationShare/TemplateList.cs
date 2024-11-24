@@ -15,10 +15,9 @@ public class TemplateList : IXSerializable
     /// </summary>
     public List<Template>? Templates { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("templatelist");
         Version = elm.GetStringAttribute("version");
-        Templates = elm.GetListElemets<Template>("template");
+        Templates = elm.GetListElements<Template>("template");
     }
 }

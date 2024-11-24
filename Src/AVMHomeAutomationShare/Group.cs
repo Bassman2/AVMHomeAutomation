@@ -10,7 +10,7 @@ public class Group : Device
     /// Is synchronized?
     /// </summary>
     [XmlAttribute("synchronized")]
-    public bool Synchronized { get; set; }
+    public bool? Synchronized { get; set; }
 
     /// <summary>
     /// Group information
@@ -18,21 +18,10 @@ public class Group : Device
     [XmlElement("groupinfo")]
     public GroupInfo? GroupInfo { get; set; }
 
-    public override void ReadX(XContainer container)
+    public override void ReadX(XElement elm)
     {
-        var elm = container.Element("device");
-
-        Identifier = elm.GetStringAttribute("identifier");
-        Id = elm.GetStringAttribute("id");
-        FirmwareVersion = elm.GetStringAttribute("fwversion");
-        Manufacturer = elm.GetStringAttribute("manufacturer");
-        ProductName = elm.GetStringAttribute("productname");
-        FunctionBitMask = elm.GetEnumAttribute<Functions>("functionbitmask");
-
-        IsPresent = elm.GetBoolElement("present");
-        IsTXBusy = elm.GetBoolElement("txbusy");
-        Name = elm.GetStringElement("name");
-        IsBatteryLow = elm.GetBoolElement("batterylow");
-        Battery = elm.GetIntElement("batterylow");
+        base.ReadX(elm);
+        Synchronized = elm.GetBoolAttribute("synchronized");
+        GroupInfo = elm.GetItemElement<GroupInfo>("groupinfo");
     }
 }

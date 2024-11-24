@@ -20,9 +20,8 @@ public class Trigger : IXSerializable
     /// </summary>
     public string? Name { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("trigger");
         Identifier = elm.GetStringAttribute("identifier");
         Active = elm.GetIntAttribute("active");            
         Name = elm.GetStringElement("name");

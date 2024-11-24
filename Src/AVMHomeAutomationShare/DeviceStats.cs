@@ -31,13 +31,12 @@ public class DeviceStats : IXSerializable
     /// </summary>
     public List<Stats>? Humidity { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("devicestats");
-        Temperature = elm.GetListElemets<Stats>("temperature", "stats");
-        Voltage = elm.GetListElemets<Stats>("voltage", "stats");
-        Power = elm.GetListElemets<Stats>("power", "stats");
-        Energy = elm.GetListElemets<Stats>("energy", "stats");
-        Humidity = elm.GetListElemets<Stats>("humidity", "stats");
+        Temperature = elm.GetListElements<Stats>("temperature", "stats");
+        Voltage = elm.GetListElements<Stats>("voltage", "stats");
+        Power = elm.GetListElements<Stats>("power", "stats");
+        Energy = elm.GetListElements<Stats>("energy", "stats");
+        Humidity = elm.GetListElements<Stats>("humidity", "stats");
     }
 }

@@ -15,10 +15,9 @@ public class TriggerList : IXSerializable
     /// </summary>
     public List<Trigger>? Triggers { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("triggerlist");
         Version = elm.GetStringAttribute("version");
-        Triggers = elm.GetListElemets<Trigger>("trigger");    
+        Triggers = elm.GetListElements<Trigger>("trigger");    
     }
 }

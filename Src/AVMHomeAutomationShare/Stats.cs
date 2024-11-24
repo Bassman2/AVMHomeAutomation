@@ -20,9 +20,8 @@ public class Stats : IXSerializable
     /// </summary>
     public string? Value { get; set; }
 
-    public void ReadX(XContainer container)
+    public void ReadX(XElement elm)
     {
-        var elm = container.Element("studs");
         Count = elm.GetIntAttribute("count");
         Grid = elm.GetIntAttribute("grid");
         Value = elm?.Value;

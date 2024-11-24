@@ -3,12 +3,15 @@
 /// <summary>
 /// Template device
 /// </summary>
-public class ItemIdentifier
-
+public class ItemIdentifier : IXSerializable
 {
     /// <summary>
     /// Identifier
     /// </summary>
-    [XmlAttribute("identifier")]
     public string? Identifier { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        Identifier = elm.GetStringAttribute("identifier");
+    }
 }
