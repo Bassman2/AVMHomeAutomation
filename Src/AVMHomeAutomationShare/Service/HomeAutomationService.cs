@@ -5,10 +5,7 @@ internal class HomeAutomationService(string login, string password, Uri? host = 
 {
     internal string? sessionId;
 
-    protected override void TestAutentication()
-    { 
-        //TODO
-    }
+    protected override string? AuthenticationTestUrl => BuildUrl("getdevicelistinfos");
 
     #region Private Methods
 
