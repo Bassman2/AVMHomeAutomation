@@ -30,17 +30,17 @@ jobs:
       with:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
-        
+
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v1
 
-    - name: Cache packages  
+    - name: Cache packages
       uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: ${{ runner.os }}-nuget-
-      
+
     - name: Nuget restore dependencies
       run: nuget restore $env:Solution
 
@@ -48,27 +48,27 @@ jobs:
       run: dotnet restore $env:Solution
 
     - name: MSBuild of solution
-      run: msbuild $env:Solution /p:configuration="Debug" /verbosity:minimal   
+      run: msbuild $env:Solution /p:configuration="Debug" /verbosity:minimal
 
     - name: MSBuild of solution
-      run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal   
-        
+      run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal
+
     - name: Nuget pack nuspec
       working-directory: .\Nuget\
       run: nuget pack $env:NugetSpc -properties Configuration=Release
-      
-    - name: Upload documentation artifact     
+
+    - name: Upload documentation artifact
       uses: actions/upload-artifact@v4
       with:
         name: Documentation.zip
         path: Doc/AVMHomeAutomationDoc/Help/AVMHomeAutomation.chm
-        
-    - name: Upload nuget pack artifact     
+
+    - name: Upload nuget pack artifact
       uses: actions/upload-artifact@v4
       with:
         name: NugetPackage.zip
         path: Nuget/AVMHomeAutomation.*.nupkg
-        
+
   buildLinux:
     name: Linux Build
     runs-on: ubuntu-22.04
@@ -83,38 +83,37 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          6.0.x
-          7.0.x
-        
+          8.0.x
+          9.0.x
+
     - name: Add SignKeys
       uses: Bassman2/SignKey@v1
       with:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
-        
-    - name: Cache packages  
+
+    - name: Cache packages
       uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-        restore-keys: ${{ runner.os }}-nuget-        
-        
-    - name: Restore dependencies .NET 6.0
-      run: dotnet restore ./Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj
- 
-    - name: Restore dependencies .NET 7.0
-      run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
-    
-    - name: Build .NET 6.0
-      run: dotnet build Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj --no-restore
-    
-    - name: Build .NET 7.0
-      run: dotnet build Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj --no-restore
-     
-       
+        restore-keys: ${{ runner.os }}-nuget-
+
+    - name: Restore dependencies .NET 8.0
+      run: dotnet restore ./Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj
+
+    - name: Restore dependencies .NET 9.0
+      run: dotnet restore ./Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj
+
+    - name: Build  .NET 8.0
+      run: dotnet build Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj --no-restore
+
+    - name: Build  .NET 9.0
+      run: dotnet build Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj --no-restore
+
   buildMac:
     name: MacOS Build
-    runs-on: macos-12
+    runs-on: macos-latest
     environment: sign
     env:
       Solution: AVMHomeAutomation.sln
@@ -126,30 +125,30 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          6.0.x
-          7.0.x
-        
+          8.0.x
+          9.0.x
+
     - name: Add SignKeys
       uses: Bassman2/SignKey@v1
       with:
         file: Bassman.snk
         key: ${{ secrets.SIGNKEY }}
-        
-    - name: Cache packages  
+
+    - name: Cache packages
       uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: ${{ runner.os }}-nuget-
 
-    - name: Restore dependencies .NET 6.0
-      run: dotnet restore ./Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj
-      
-    - name: Restore dependencies .NET 7.0
-      run: dotnet restore ./Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj
-    
-    - name: Build  .NET 6.0
-      run: dotnet build Src/AVMHomeAutomation60/AVMHomeAutomation60.csproj --no-restore    
-      
-    - name: Build  .NET 7.0
-      run: dotnet build Src/AVMHomeAutomation70/AVMHomeAutomation70.csproj --no-restore
+    - name: Restore dependencies .NET 8.0
+      run: dotnet restore ./Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj
+
+    - name: Restore dependencies .NET 9.0
+      run: dotnet restore ./Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj
+
+    - name: Build  .NET 8.0
+      run: dotnet build Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj --no-restore
+
+    - name: Build  .NET 9.0
+      run: dotnet build Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj --no-restore
