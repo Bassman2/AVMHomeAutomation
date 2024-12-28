@@ -3,23 +3,27 @@
 /// <summary>
 /// HAN-FUN / ETSI unit data
 /// </summary>
-public class EtsiUnitInfo
+public class EtsiUnitInfo : IXSerializable
 {
     /// <summary>
     /// Internal device ID of the associated HAN-FUN device.
     /// </summary>
-    [XmlElement("etsideviceid")]
     public string? EtsiDeviceId { get; set; }
 
     /// <summary>
     /// HAN-FUN unit typ
     /// </summary>
-    [XmlElement("unittype")]
-    public XmlNullableEnum<EtsiUnitType> UnitType { get; set; }
+    public List<EtsiUnitType>? UnitType { get; set; }
 
     /// <summary>
     /// HAN-FUN interfaces
     /// </summary>
-    [XmlElement("interfaces")]
-    public XmlList<EtsiInterfaces> Interfaces { get; set; }
+    public List<EtsiInterfaces>? Interfaces { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        EtsiDeviceId = elm.ReadElementString("etsideviceid");
+        UnitType = elm.ReadElementEnums<EtsiUnitType>("unittype");
+        Interfaces = elm.ReadElementEnums<EtsiInterfaces>("interfaces"); 
+    }
 }

@@ -3,41 +3,39 @@
 /// <summary>
 /// Device status
 /// </summary>
-[XmlRoot("devicestats")]
-public class DeviceStats
+public class DeviceStats : IXSerializable
 {
     /// <summary>
     /// Temeratures
     /// </summary>
-    [XmlArray("temperature")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Temperature { get; set; }
 
     /// <summary>
     /// Voltages
     /// </summary>
-    [XmlArray("voltage")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Voltage { get; set; }
 
     /// <summary>
     /// Power
     /// </summary>
-    [XmlArray("power")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Power { get; set; }
 
     /// <summary>
     /// Energy
     /// </summary>
-    [XmlArray("energy")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Energy { get; set; }
 
     /// <summary>
     /// Humidity
     /// </summary>
-    [XmlArray("humidity")]
-    [XmlArrayItem("stats")]
     public List<Stats>? Humidity { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        Temperature = elm.ReadElementList<Stats>("temperature", "stats");
+        Voltage = elm.ReadElementList<Stats>("voltage", "stats");
+        Power = elm.ReadElementList<Stats>("power", "stats");
+        Energy = elm.ReadElementList<Stats>("energy", "stats");
+        Humidity = elm.ReadElementList<Stats>("humidity", "stats");
+    }
 }

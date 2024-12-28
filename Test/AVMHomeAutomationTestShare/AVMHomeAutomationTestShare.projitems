@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>0da5bb85-1a8b-4433-8227-42be591cfff0</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AVMHomeAutomationTest</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ExpectedHttpRequestExceptionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestDevice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect100Repeater.TemperatureSensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.EnergyMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.SwitchSocket.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect200Socket.TemperatureSensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.EnergyMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.SwitchSocket.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect210Socket.TemperatureSensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.RadiatorController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect301Radiator.TemperatureSensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect400Switch.TemperatureSensor.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect440Switch.TemperatureSensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.Light.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.SwitchSocket.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDect500Light.TemperatureSensor.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDectGlobal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDectGlobal.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestDectGlobal.Trigger.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunDoorWindowContact.TemperatureSensor.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunMotionDetector.TemperatureSensor.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.Blind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunRollerShutter.TemperatureSensor.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.Blind.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.EnergyMeter.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.Light.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.RadiatorController.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.Simple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.SwitchSocket.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestHanFunWallButton.TemperatureSensor.Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Usings.cs" />
+  </ItemGroup>
+</Project>

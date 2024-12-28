@@ -1,16 +1,17 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Data for template trigger.
+/// </summary>
+public class TemplateTrigger: IXSerializable
 {
     /// <summary>
-    /// Data for template trigger.
+    /// Identifier of the trigger.
     /// </summary>
-    public class TemplateTrigger
+    public string? Identifier { get; set; }
+
+    public void ReadX(XElement elm)
     {
-        /// <summary>
-        /// Identifier of the trigger.
-        /// </summary>
-        [XmlAttribute("identifier")]
-        public string Identifier { get; set; }
+        Identifier = elm.ReadAttributeString("identifier");
     }
 }

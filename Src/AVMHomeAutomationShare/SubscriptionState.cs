@@ -1,23 +1,23 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Subscription state data.
+/// </summary>
+public class SubscriptionState : IXSerializable
 {
     /// <summary>
-    /// Subscription state data.
+    /// Subscription state code.
     /// </summary>
-    [XmlRoot("state")]
-    public class SubscriptionState
-    {
-        /// <summary>
-        /// Subscription state code.
-        /// </summary>
-        [XmlAttribute("code")]
-        public SubscriptionCode Code { get; set; }
+    public SubscriptionCode Code { get; set; }
 
-        /// <summary>
-        /// AIN of the last registered device.
-        /// </summary>
-        [XmlElement("latestain")]
-        public string LatestAin { get; set; }
+    /// <summary>
+    /// AIN of the last registered device.
+    /// </summary>
+    public string? LatestAin { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        Code = elm.ReadAttributeEnum<SubscriptionCode>("code");
+        LatestAin = elm.ReadElementString("latestain"); 
     }
 }

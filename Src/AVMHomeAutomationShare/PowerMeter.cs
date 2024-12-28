@@ -1,29 +1,29 @@
-﻿using System.Xml;
-using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Energy meter
+/// </summary>
+public class PowerMeter : IXSerializable
 {
     /// <summary>
-    /// Energy meter
+    /// Voltage value in Volt
     /// </summary>
-    public class PowerMeter 
-    {
-        /// <summary>
-        /// Voltage value in Volt
-        /// </summary>
-        [XmlElement("voltage")]
-        public XmlNullableKilo Voltage { get; set; }
+    public double? Voltage { get; set; }
 
-        /// <summary>
-        /// Power value in W
-        /// </summary>
-        [XmlElement("power")]
-        public XmlNullableKilo Power { get; set; }
-                
-        /// <summary>
-        /// Energy value in kWh
-        /// </summary>
-        [XmlElement("energy")]
-        public XmlNullableKilo Energy { get; set; }
+    /// <summary>
+    /// Power value in W
+    /// </summary>
+    public double? Power { get; set; }
+            
+    /// <summary>
+    /// Energy value in kWh
+    /// </summary>
+    public double? Energy { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        Voltage = elm.ReadElementInt("voltage");
+        Power = elm.ReadElementInt("power");
+        Energy = elm.ReadElementInt("energy");
     }
 }

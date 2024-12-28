@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Data for trigger.
+/// </summary>
+public class Trigger : IXSerializable
 {
     /// <summary>
-    /// Data for trigger.
+    /// Identifier of the trigger.
     /// </summary>
-    public class Trigger
+    public string? Identifier { get; set; }
+
+    /// <summary>
+    /// Identifier of the trigger.
+    /// </summary>
+    public int? Active { get; set; }
+
+    /// <summary>
+    /// Name of the trigger.
+    /// </summary>
+    public string? Name { get; set; }
+
+    public void ReadX(XElement elm)
     {
-        /// <summary>
-        /// Identifier of the trigger.
-        /// </summary>
-        [XmlAttribute("identifier")]
-        public string Identifier { get; set; }
-
-        /// <summary>
-        /// Identifier of the trigger.
-        /// </summary>
-        [XmlAttribute("active")]
-        public int Active { get; set; }
-
-        /// <summary>
-        /// Name of the trigger.
-        /// </summary>
-        [XmlElement("name")]
-        public string Name { get; set; }
+        Identifier = elm.ReadAttributeString("identifier");
+        Active = elm.ReadAttributeInt("active");            
+        Name = elm.ReadElementString("name");
     }
 }

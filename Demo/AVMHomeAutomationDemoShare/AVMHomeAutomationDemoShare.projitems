@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>47e96dc3-f859-4508-8978-e2ea4e78af92</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AVMHomeAutomationDemo</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SelectableTreeView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\BoolToBallImageConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\DebugConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\DeviceTypeToImageConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\EnumListToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\EnumToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\IntToFunctionBitMaskConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\Unit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\ValueToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Usings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AlertViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AppViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ButtonViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ColorControlViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DeviceViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ETSIUnitInfoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GroupViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\HkrViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LevelControlViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\PowerMeterViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SimpleOnOffViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SwitchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TemperatureViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TemplateViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TriggerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\AlertView.xaml.cs">
+      <DependentUpon>AlertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\AppView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\ButtonsView.xaml.cs">
+      <DependentUpon>ButtonsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\ColorControlView.xaml.cs">
+      <DependentUpon>ColorControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\DevicesView.xaml.cs">
+      <DependentUpon>DevicesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\ETSIUnitInfoView.xaml.cs">
+      <DependentUpon>ETSIUnitInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\GroupsView.xaml.cs">
+      <DependentUpon>GroupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\GroupView.xaml.cs">
+      <DependentUpon>GroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\HkrView.xaml.cs">
+      <DependentUpon>HkrView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\ItemsTreeView.xaml.cs">
+      <DependentUpon>ItemsTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\LevelControlView.xaml.cs">
+      <DependentUpon>LevelControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\PowerMeterView.xaml.cs">
+      <DependentUpon>PowerMeterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\SimpleOnOffView.xaml.cs">
+      <DependentUpon>SimpleOnOffView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\SwitchView.xaml.cs">
+      <DependentUpon>SwitchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\TemperatureView.xaml.cs">
+      <DependentUpon>TemperatureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\TemplatesView.xaml.cs">
+      <DependentUpon>TemplatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\TemplateView.xaml.cs">
+      <DependentUpon>TemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\TriggersView.xaml.cs">
+      <DependentUpon>TriggersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\TriggerView.xaml.cs">
+      <DependentUpon>TriggerView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Button.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Control.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\DoorContact.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\GrayBall.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\GreenBall.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Heater.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Light.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\MotionDetector.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Repeater.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Rollotron.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Socket.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Images\Wallbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)View\AlertView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\ButtonsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\ColorControlView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\DevicesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\DeviceView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\ETSIUnitInfoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\GroupsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\GroupView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\HkrView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\ItemsTreeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\LevelControlView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\PowerMeterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\SimpleOnOffView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\SwitchView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\TemperatureView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\TemplatesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\TemplateView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\TriggersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)View\TriggerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+</Project>

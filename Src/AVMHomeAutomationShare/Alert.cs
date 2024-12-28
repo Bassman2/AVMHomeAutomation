@@ -1,22 +1,23 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Alarm sensor data.
+/// </summary>
+public class Alert : IXSerializable
 {
     /// <summary>
-    /// Alarm sensor data.
+    /// Last reported alarm condition.
     /// </summary>
-    public class Alert
-    {
-        /// <summary>
-        /// Last reported alarm condition.
-        /// </summary>
-        [XmlElement("state", IsNullable = true)]
-        public XmlNullableEnum<AlertState> State { get; set; }
+    public AlertState? State { get; set; }
 
-        /// <summary>
-        /// Time of last alarm status change.
-        /// </summary>
-        [XmlElement("lastalertchgtimestamp")]
-        public XmlNullableDateTime LastAlertChangeTimestamp { get; set;}
+    /// <summary>
+    /// Time of last alarm status change.
+    /// </summary>
+    public DateTime? LastAlertChangeTimestamp { get; set;}
+
+    public void ReadX(XElement elm)
+    {
+        State = elm.ReadElementEnum<AlertState>("state");
+        LastAlertChangeTimestamp = elm.ReadElementDateTime("lastalertchgtimestamp");
     }
 }

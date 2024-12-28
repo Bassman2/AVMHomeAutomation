@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Template list
+/// </summary>
+public class TemplateList : IXSerializable
 {
     /// <summary>
-    /// Template list
+    /// Version of template list
     /// </summary>
-    [XmlRoot("templatelist")]
-    public class TemplateList
-    {
-        /// <summary>
-        /// Version of template list
-        /// </summary>
-        [XmlAttribute("version")]
-        public string Version { get; set; }
+    public string? Version { get; set; }
 
-        /// <summary>
-        /// Devices and groups
-        /// </summary>
-        [XmlElement("template")]
-        public List<Template> Templates { get; set; }        
+    /// <summary>
+    /// Devices and groups
+    /// </summary>
+    public List<Template>? Templates { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        Version = elm.ReadAttributeString("version");
+        Templates = elm.ReadElementList<Template>("template");
     }
 }

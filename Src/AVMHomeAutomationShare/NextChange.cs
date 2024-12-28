@@ -1,22 +1,23 @@
-﻿using System.Xml.Serialization;
+﻿namespace AVMHomeAutomation;
 
-namespace AVMHomeAutomation
+/// <summary>
+/// Next temperature change
+/// </summary>
+public class NextChange : IXSerializable
 {
     /// <summary>
-    /// Next temperature change
+    /// End of the time period.
     /// </summary>
-    public class NextChange
-    {
-        /// <summary>
-        /// End of the time period.
-        /// </summary>
-        [XmlElement("endperiod")]
-        public XmlNullableDateTime EndPeriod { get; set; }
+    public DateTime? EndPeriod { get; set; }
 
-        /// <summary>
-        /// Target temperatur in °C or Off.
-        /// </summary>           
-        [XmlElement("tchange")]
-        public XmlNullableHkrTemperature TChange { get; set; }
+    /// <summary>
+    /// Target temperatur in °C or Off.
+    /// </summary>           
+    public double? TChange { get; set; }
+
+    public void ReadX(XElement elm)
+    {
+        EndPeriod = elm.ReadElementDateTime("endperiod");
+        TChange = elm.ReadElementInt("tchange");
     }
 }
