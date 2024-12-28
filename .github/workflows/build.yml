@@ -13,7 +13,6 @@ jobs:
     environment: sign
     env:
       Solution: main/${{ github.event.repository.name }}.sln
-      NugetSpc: ${{ github.event.repository.name }}.nuspec
 
     steps:
     - name: Checkout
@@ -62,20 +61,20 @@ jobs:
       run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal
 
     - name: Nuget pack nuspec
-      working-directory: .\Nuget\
-      run: nuget pack $env:NugetSpc -properties Configuration=Release
+      working-directory: .\main\Nuget\
+      run: nuget pack ${{ github.event.repository.name }}.nuspec -properties Configuration=Release
 
     - name: Upload documentation artifact
       uses: actions/upload-artifact@v4
       with:
         name: Documentation.zip
-        path: Doc/${{ github.event.repository.name }}/Help/${{ github.event.repository.name }}.chm
+        path: main/Doc/${{ github.event.repository.name }}/Help/${{ github.event.repository.name }}.chm
 
     - name: Upload nuget pack artifact
       uses: actions/upload-artifact@v4
       with:
         name: NugetPackage.zip
-        path: Nuget/${{ github.event.repository.name }}.*.nupkg
+        path: main/Nuget/${{ github.event.repository.name }}.*.nupkg
 
   buildLinux:
     name: Linux Build
@@ -127,6 +126,12 @@ jobs:
     - name: Build  .NET 9.0
       run: dotnet build main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj --no-restore
 
+    - name: Restore dependencies   
+      run: dotnet restore main/${{ github.event.repository.name }}.sln
+
+    - name: Build  .NET 8.0
+      run: dotnet build main/${{ github.event.repository.name }}.sln --no-restore
+      
   buildMac:
     name: MacOS Build
     runs-on: macos-latest
