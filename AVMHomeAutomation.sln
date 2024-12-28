@@ -14,6 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{6BBFABC6-1D46-4ECE-A9A0-D4F98E5EFD2E}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "AVMHomeAutomationDoc", "Doc\AVMHomeAutomationDoc\AVMHomeAutomationDoc.shfbproj", "{7A0F58B4-D1BD-4F0D-B62A-63BE67F9F5DC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BCC952CC-CE38-40EB-96AE-8FD89640F528} = {BCC952CC-CE38-40EB-96AE-8FD89640F528}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{F6B4B28F-9527-4AD6-831E-F05352B0782C}"
 EndProject

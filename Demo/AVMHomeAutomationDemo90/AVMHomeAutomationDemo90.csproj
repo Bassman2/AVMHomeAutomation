@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>AVMHomeAutomationDemo</AssemblyName>
     <RootNamespace>AVMHomeAutomationDemo</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <Import Project="..\AVMHomeAutomationDemoShare\AVMHomeAutomationDemoShare.projitems" Label="Shared" />
