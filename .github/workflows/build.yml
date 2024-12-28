@@ -126,6 +126,9 @@ jobs:
     - name: Build  .NET 9.0
       run: dotnet build main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj --no-restore
 
+    - name: Remove windows projects  
+      run: dotnet sln main/${{ github.event.repository.name }}.sln remove main/Demo/AVMHomeAutomationDemo80/AVMHomeAutomationDemo80.csproj main/Demo/AVMHomeAutomationDemo90/AVMHomeAutomationDemo90.csproj 
+
     - name: Restore dependencies   
       run: dotnet restore main/${{ github.event.repository.name }}.sln
 

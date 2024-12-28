@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AVMHomeAutomation</id>
-    <version>1.0.0-beta.2</version>
+    <version>1.0.0-beta.3</version>
     <title>AVM Home Automation</title>
     <authors>Ralf Beckers</authors>
     <owners>Ralf Beckers</owners>
@@ -12,24 +12,18 @@
     <projectUrl>https://github.com/Bassman2/AVMHomeAutomation</projectUrl>
     <description>API to communicate with AVM Fritz!Box Home Automation web service</description>
     <releaseNotes>Creation</releaseNotes>
-    <copyright>Copyright 2023 (c) by Ralf Beckers</copyright>
+    <copyright>Copyright 2024 (c) by Ralf Beckers</copyright>
     <repository type="git" url="https://github.com/Bassman2/AVMHomeAutomation" />
     <tags>API HomeAutomation AVM Fritz!Box DECT</tags>
     <readme>docs\README.md</readme>
     <dependencies>
-      <group targetFramework=".NET7.0" />
-      <group targetFramework=".NET6.0" />
-      <group targetFramework=".NET5.0" />
-      <group targetFramework=".NETFramework4.8" />
-      <group targetFramework=".NETFramework4.6.2" />
+      <group targetFramework=".NET9.0" />
+      <group targetFramework=".NET8.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Src\AVMHomeAutomation70\bin\Release\net7.0\**" target="lib/net7.0" />
-    <file src="..\Src\AVMHomeAutomation60\bin\Release\net6.0\**" target="lib/net6.0" />
-    <file src="..\Src\AVMHomeAutomation50\bin\Release\net5.0\**" target="lib/net5.0" />
-    <file src="..\Src\AVMHomeAutomation48\bin\Release\**" target="lib/net48" />	
-    <file src="..\Src\AVMHomeAutomation462\bin\Release\**" target="lib/net462" />	
+    <file src="..\Src\AVMHomeAutomation90\bin\Release\net9.0\**" target="lib/net9.0" />
+    <file src="..\Src\AVMHomeAutomation80\bin\Release\net8.0\**" target="lib/net8.0" />
     <file src="..\Doc\AVMHomeAutomationDoc\Help\AVMHomeAutomation.chm" target="content" />
     <file src="..\README.md" target="docs\" />
     <file src="..\LICENSE" target="content" />
