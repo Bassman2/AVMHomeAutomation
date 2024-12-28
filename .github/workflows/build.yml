@@ -1,6 +1,6 @@
 name: Continuous Integration
 
-on: 
+on:
   push:
     branches: [main,]
   pull_request:
@@ -12,8 +12,8 @@ jobs:
     runs-on: windows-2022
     environment: sign
     env:
-      Solution: AVMHomeAutomation.sln
-      NugetSpc: AVMHomeAutomation.nuspec
+      Solution: ${{ github.event.repository.name }}.sln
+      NugetSpc: ${{ github.event.repository.name }}.nuspec
 
     steps:
     - name: Checkout
@@ -61,20 +61,20 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Documentation.zip
-        path: Doc/AVMHomeAutomationDoc/Help/AVMHomeAutomation.chm
+        path: Doc/${{ github.event.repository.name }}/Help/${{ github.event.repository.name }}.chm
 
     - name: Upload nuget pack artifact
       uses: actions/upload-artifact@v4
       with:
         name: NugetPackage.zip
-        path: Nuget/AVMHomeAutomation.*.nupkg
+        path: Nuget/${{ github.event.repository.name }}.*.nupkg
 
   buildLinux:
     name: Linux Build
     runs-on: ubuntu-22.04
     environment: sign
     env:
-      Solution: AVMHomeAutomation.sln
+      Solution: ${{ github.event.repository.name }}.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -100,23 +100,23 @@ jobs:
         restore-keys: ${{ runner.os }}-nuget-
 
     - name: Restore dependencies .NET 8.0
-      run: dotnet restore ./Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj
+      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
 
     - name: Restore dependencies .NET 9.0
-      run: dotnet restore ./Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj
+      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
 
     - name: Build  .NET 8.0
-      run: dotnet build Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj --no-restore
+      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
 
     - name: Build  .NET 9.0
-      run: dotnet build Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj --no-restore
+      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
 
   buildMac:
     name: MacOS Build
     runs-on: macos-latest
     environment: sign
     env:
-      Solution: AVMHomeAutomation.sln
+      Solution: ${{ github.event.repository.name }}.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -142,13 +142,13 @@ jobs:
         restore-keys: ${{ runner.os }}-nuget-
 
     - name: Restore dependencies .NET 8.0
-      run: dotnet restore ./Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj
+      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
 
     - name: Restore dependencies .NET 9.0
-      run: dotnet restore ./Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj
+      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
 
     - name: Build  .NET 8.0
-      run: dotnet build Src/AVMHomeAutomation80/AVMHomeAutomation80.csproj --no-restore
+      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
 
     - name: Build  .NET 9.0
-      run: dotnet build Src/AVMHomeAutomation90/AVMHomeAutomation90.csproj --no-restore
+      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore

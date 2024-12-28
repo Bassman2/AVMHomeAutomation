@@ -14,22 +14,29 @@ jobs:
     runs-on: windows-2022
     environment: sign
     env:
-      Solution: AVMHomeAutomation.sln
-    
+      Solution: ${{ github.event.repository.name }}.sln
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: | 
+          8.0.x
+          9.0.x
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
 
     - name: Setup NuGet
       uses: nuget/setup-nuget@v2
-    
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
 
-    - name: Add SignKeys  
+    - name: Add SignKeys
       uses: Bassman2/SignKey@v1
       with:
         file: Bassman.snk
