@@ -49,7 +49,7 @@
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\Src\AVMHomeAutomation70\AVMHomeAutomation70.csproj" xmlns="" />
+      <DocumentationSource sourceFile="..\..\Src\AVMHomeAutomation90\AVMHomeAutomation90.csproj" />
     </DocumentationSources>
     <HtmlHelp1xCompilerPath>
     </HtmlHelp1xCompilerPath>
