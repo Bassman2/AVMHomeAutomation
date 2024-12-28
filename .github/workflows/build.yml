@@ -82,6 +82,7 @@ jobs:
     environment: sign
     env:
       Solution: ${{ github.event.repository.name }}.sln
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -114,28 +115,17 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: ${{ runner.os }}-nuget-
 
-    - name: Restore dependencies .NET 8.0
-      run: dotnet restore ./main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj
-
-    - name: Restore dependencies .NET 9.0
-      run: dotnet restore ./main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj
-
-    - name: Build  .NET 8.0
-      run: dotnet build main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj --no-restore
-
-    - name: Build  .NET 9.0
-      run: dotnet build main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj --no-restore
-
     - name: Remove windows projects  
       run: dotnet sln main/${{ github.event.repository.name }}.sln remove main/Demo/*/*.csproj
-      
-#      run: dotnet sln main/${{ github.event.repository.name }}.sln remove main/Demo/AVMHomeAutomationDemo80/AVMHomeAutomationDemo80.csproj main/Demo/AVMHomeAutomationDemo90/AVMHomeAutomationDemo90.csproj 
 
     - name: Restore dependencies   
       run: dotnet restore main/${{ github.event.repository.name }}.sln
 
-    - name: Build  .NET 8.0
-      run: dotnet build main/${{ github.event.repository.name }}.sln --no-restore
+    - name: Build Debug 
+      run: dotnet build main/${{ github.event.repository.name }}.sln -c Debug --no-restore
+
+    - name: Build Release
+      run: dotnet build main/${{ github.event.repository.name }}.sln -c Release --no-restore
       
   buildMac:
     name: MacOS Build
@@ -175,14 +165,14 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: ${{ runner.os }}-nuget-
 
-    - name: Restore dependencies .NET 8.0
-      run: dotnet restore ./main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj
+    - name: Remove windows projects
+      run: dotnet sln main/${{ github.event.repository.name }}.sln remove main/Demo/*/*.csproj
 
-    - name: Restore dependencies .NET 9.0
-      run: dotnet restore ./main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj
+    - name: Restore dependencies   
+      run: dotnet restore main/${{ github.event.repository.name }}.sln
 
-    - name: Build  .NET 8.0
-      run: dotnet build main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj --no-restore
+    - name: Build Debug 
+      run: dotnet build main/${{ github.event.repository.name }}.sln -c Debug --no-restore
 
-    - name: Build  .NET 9.0
-      run: dotnet build main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj --no-restore
+    - name: Build Release
+      run: dotnet build main/${{ github.event.repository.name }}.sln -c Release --no-restore    
