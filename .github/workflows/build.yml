@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-2022
     environment: sign
     env:
-      Solution: ${{ github.event.repository.name }}.sln
+      Solution: main/${{ github.event.repository.name }}.sln
       NugetSpc: ${{ github.event.repository.name }}.nuspec
 
     steps:
