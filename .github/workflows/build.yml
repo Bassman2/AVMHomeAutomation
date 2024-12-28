@@ -86,6 +86,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        path: main
+        
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        repository: Bassman2/WebServiceClient
+        path: WebServiceClient
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -108,16 +116,16 @@ jobs:
         restore-keys: ${{ runner.os }}-nuget-
 
     - name: Restore dependencies .NET 8.0
-      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
+      run: dotnet restore ./main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj
 
     - name: Restore dependencies .NET 9.0
-      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
+      run: dotnet restore ./main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj
 
     - name: Build  .NET 8.0
-      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
+      run: dotnet build main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj --no-restore
 
     - name: Build  .NET 9.0
-      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
+      run: dotnet build main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj --no-restore
 
   buildMac:
     name: MacOS Build
@@ -128,6 +136,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        path: main
+        
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        repository: Bassman2/WebServiceClient
+        path: WebServiceClient
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -150,13 +166,13 @@ jobs:
         restore-keys: ${{ runner.os }}-nuget-
 
     - name: Restore dependencies .NET 8.0
-      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
+      run: dotnet restore ./main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj
 
     - name: Restore dependencies .NET 9.0
-      run: dotnet restore ./Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
+      run: dotnet restore ./main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj
 
     - name: Build  .NET 8.0
-      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
+      run: dotnet build main/Src/${{ github.event.repository.name }}80/${{ github.event.repository.name }}80.csproj --no-restore
 
     - name: Build  .NET 9.0
-      run: dotnet build Src/${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj --no-restore
+      run: dotnet build main/Src/${{ github.event.repository.name }}90/${{ github.event.repository.name }}90.csproj --no-restore
