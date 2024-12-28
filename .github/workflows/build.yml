@@ -68,7 +68,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Documentation.zip
-        path: main/Doc/${{ github.event.repository.name }}/Help/${{ github.event.repository.name }}.chm
+        path: main/Doc/${{ github.event.repository.name }}Doc/Help/${{ github.event.repository.name }}.chm
 
     - name: Upload nuget pack artifact
       uses: actions/upload-artifact@v4
