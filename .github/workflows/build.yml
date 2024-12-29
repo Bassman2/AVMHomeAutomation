@@ -36,7 +36,7 @@ jobs:
 
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v1
-      if: ${{ hashFiles(${{ env.Sandcastle }} != '' }}
+      if: ${{ hashFiles( ${{ env.Sandcastle }} != '' }}
 
     - name: Cache packages
       uses: actions/cache@v4
