@@ -17,10 +17,10 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Device**
-Name, software version of the device and Fritz!OS.
+Name, software version of the device.
 
 **Version:**
-Version of the used AVMHomeAutomation library.
+Version of the used library.
 
 **Additional context**
 Add any other context about the problem here.
