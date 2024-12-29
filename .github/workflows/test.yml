@@ -31,6 +31,13 @@ jobs:
         repository: Bassman2/WebServiceClient
         path: WebServiceClient
         
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: | 
+          8.0.x
+          9.0.x
+          
 #    - name: Setup NuGet
 #      uses: nuget/setup-nuget@v2
 
