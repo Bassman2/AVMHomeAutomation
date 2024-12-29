@@ -51,7 +51,7 @@ jobs:
         
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v1 
-      if: $env:IsWindows      
+      if: ${{ matrix.os == 'windows-latest' }}      
 
     - name: Remove windows projects   
       run: dotnet sln $env:Solution remove main/Demo/*/*.csproj
