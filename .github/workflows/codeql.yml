@@ -11,27 +11,28 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-2022
+    runs-on: windows-latest
     environment: sign
     env:
-      Solution: ${{ github.event.repository.name }}.sln
+      Solution: main/${{ github.event.repository.name }}.sln
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Setup DotNet
-      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: | 
-          8.0.x
-          9.0.x
+        path: main
+        
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        repository: Bassman2/WebServiceClient
+        path: WebServiceClient
 
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+#    - name: Add msbuild to PATH
+#      uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
+#    - name: Setup NuGet
+#      uses: nuget/setup-nuget@v2
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -45,14 +46,17 @@ jobs:
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v1
 
-    - name: Nuget restore dependencies
-      run: nuget restore $env:Solution
+#    - name: Nuget restore dependencies
+#      run: nuget restore $env:Solution
 
     - name: Dotnet restore dependencies
       run: dotnet restore $env:Solution
 
-    - name: MSBuild of solution
-      run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal      
+#    - name: MSBuild of solution
+#      run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal      
+
+    - name: Build Release
+      run: dotnet build ${{ env.Solution }} -c Release --no-restore
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
