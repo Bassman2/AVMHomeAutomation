@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Test Continuous Integration
 
 on:
   push:
