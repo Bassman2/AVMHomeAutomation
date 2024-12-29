@@ -71,5 +71,5 @@ jobs:
       with:
         name: ${{ github.event.repository.name }}Doc.zip
         path: main/Doc/${{ github.event.repository.name }}Doc/Help/${{ github.event.repository.name }}.chm
-      if: ${{ hashFiles( 'main/Doc/*/*.shfbproj' != '' }}
+      if: ${{ hashFiles( 'main/Doc/*/*.shfbproj' ) != '' }}
  
