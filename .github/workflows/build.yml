@@ -36,7 +36,7 @@ jobs:
 
     - name: Install SHFB
       uses: Bassman2/setup-SHFB@v1
-      if: ${{ hashFiles( ${{ env.Sandcastle }} != '' }}
+      if: ${{ hashFiles( ${{ env.Sandcastle }} ) != '' }}
 
     - name: Cache packages
       uses: actions/cache@v4
@@ -57,19 +57,19 @@ jobs:
     - name: Nuget pack nuspec
       working-directory: .\main\Nuget\
       run: nuget pack ${{ github.event.repository.name }}.nuspec -properties Configuration=Release
-      if: ${{ hashFiles(${{ env.NugetSpec }} != '' }}
+      if: ${{ hashFiles( ${{ env.NugetSpec }} ) != '' }}
 
     - name: Upload nuget pack artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ github.event.repository.name }}NugetPackage.zip
         path: main/Nuget/*.nupkg
-      if: ${{ hashFiles(${{ env.NugetSpec }} != '' }}
+      if: ${{ hashFiles( ${{ env.NugetSpec }} ) != '' }}
 
     - name: Upload documentation artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ github.event.repository.name }}Doc.zip
         path: main/Doc/${{ github.event.repository.name }}Doc/Help/${{ github.event.repository.name }}.chm
-      if: ${{ hashFiles(${{ env.Sandcastle }} != '' }}
+      if: ${{ hashFiles( ${{ env.Sandcastle }} )) != '' }}
  
