@@ -8,7 +8,6 @@ on:
  
 env:
   Solution: main/${{ github.event.repository.name }}.sln
-  IsWindows: ${{ matrix.os == 'windows-latest' }}
    
 jobs:
   build:
