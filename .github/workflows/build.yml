@@ -9,7 +9,7 @@ on:
 jobs:
   buildWindows:
     name: Windows Build
-    runs-on: windows-2022
+    runs-on: windows-latest
     environment: sign
     env:
       Solution: main/${{ github.event.repository.name }}.sln
@@ -26,11 +26,11 @@ jobs:
         repository: Bassman2/WebServiceClient
         path: WebServiceClient
 
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+#    - name: Add msbuild to PATH
+#      uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
+#    - name: Setup NuGet
+#      uses: nuget/setup-nuget@v2
 
     - name: Add SignKeys
       uses: Bassman2/SignKey@v1
@@ -48,17 +48,17 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: ${{ runner.os }}-nuget-
 
-    - name: Nuget restore dependencies
-      run: nuget restore $env:Solution
+#    - name: Nuget restore dependencies
+#      run: nuget restore $env:Solution
 
     - name: Dotnet restore dependencies
       run: dotnet restore $env:Solution
 
-    - name: MSBuild of solution
-      run: msbuild $env:Solution /p:configuration="Debug" /verbosity:minimal
+    - name: Build Debug
+      run: dotnet build ${{ env.Solution }} -c Debug --no-restore
 
-    - name: MSBuild of solution
-      run: msbuild $env:Solution /p:configuration="Release" /verbosity:minimal
+    - name: Build Release
+      run: dotnet build ${{ env.Solution }} -c Release --no-restore
 
     - name: Nuget pack nuspec
       working-directory: .\main\Nuget\
@@ -67,112 +67,13 @@ jobs:
     - name: Upload documentation artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Documentation.zip
+        name: ${{ github.event.repository.name }}Doc.zip
         path: main/Doc/${{ github.event.repository.name }}Doc/Help/${{ github.event.repository.name }}.chm
 
     - name: Upload nuget pack artifact
       uses: actions/upload-artifact@v4
       with:
-        name: NugetPackage.zip
-        path: main/Nuget/${{ github.event.repository.name }}.*.nupkg
+        name: ${{ github.event.repository.name }}NugetPackage.zip
+        path: main/Nuget/*.nupkg
 
-  buildLinux:
-    name: Linux Build
-    runs-on: ubuntu-22.04
-    environment: sign
-    env:
-      Solution: ${{ github.event.repository.name }}.sln
-      
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        path: main
-        
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        repository: Bassman2/WebServiceClient
-        path: WebServiceClient
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-
-    - name: Add SignKeys
-      uses: Bassman2/SignKey@v1
-      with:
-        file: Bassman.snk
-        key: ${{ secrets.SIGNKEY }}
-
-    - name: Cache packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-        restore-keys: ${{ runner.os }}-nuget-
-
-    - name: Remove windows projects  
-      run: dotnet sln main/${{ github.event.repository.name }}.sln remove main/Demo/*/*.csproj
-
-    - name: Restore dependencies   
-      run: dotnet restore main/${{ github.event.repository.name }}.sln
-
-    - name: Build Debug 
-      run: dotnet build main/${{ github.event.repository.name }}.sln -c Debug --no-restore
-
-    - name: Build Release
-      run: dotnet build main/${{ github.event.repository.name }}.sln -c Release --no-restore
-      
-  buildMac:
-    name: MacOS Build
-    runs-on: macos-latest
-    environment: sign
-    env:
-      Solution: ${{ github.event.repository.name }}.sln
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        path: main
-        
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        repository: Bassman2/WebServiceClient
-        path: WebServiceClient
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-
-    - name: Add SignKeys
-      uses: Bassman2/SignKey@v1
-      with:
-        file: Bassman.snk
-        key: ${{ secrets.SIGNKEY }}
-
-    - name: Cache packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-        restore-keys: ${{ runner.os }}-nuget-
-
-    - name: Remove windows projects
-      run: dotnet sln main/${{ github.event.repository.name }}.sln remove main/Demo/*/*.csproj
-
-    - name: Restore dependencies   
-      run: dotnet restore main/${{ github.event.repository.name }}.sln
-
-    - name: Build Debug 
-      run: dotnet build main/${{ github.event.repository.name }}.sln -c Debug --no-restore
-
-    - name: Build Release
-      run: dotnet build main/${{ github.event.repository.name }}.sln -c Release --no-restore    
+ 
