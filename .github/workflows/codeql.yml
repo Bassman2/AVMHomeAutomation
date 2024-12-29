@@ -38,7 +38,7 @@ jobs:
         key: ${{ secrets.SIGNKEY }}
 
     - name: Remove sandcastle projects   
-      run: dotnet sln ${{ env.Solution }} remove main/Doc/*/*.shfbproj
+      run: dotnet sln ${{ env.Solution }} remove main/Doc/${{ github.event.repository.name }}Doc/${{ github.event.repository.name }}Doc.shfbproj
 
     - name: Dotnet restore dependencies
       run: dotnet restore ${{ env.Solution }}
