@@ -13,8 +13,6 @@ jobs:
     environment: sign
     env:
       Solution: main/${{ github.event.repository.name }}.sln
-      Sandcastle: main/Doc/${{ github.event.repository.name }}Doc/${{ github.event.repository.name }}Doc.shfbproj
-      NugetSpec: main/Nuget/${{ github.event.repository.name }}.nuspec
 
     steps:
     - name: Checkout Main
