@@ -61,7 +61,7 @@ jobs:
       if: ${{ matrix.os == 'windows-latest' }}      
 
     - name: Remove windows projects   
-      run: dotnet sln ${{ env.Solution }} remove main/Demo/*/*.csproj
+      run: dotnet sln ${{ env.Solution }} remove main/Demo/*/*.csproj main/Doc/*/*.shfbproj
 
     - name: Restore dependencies   
       run: dotnet restore ${{ env.Solution }}
