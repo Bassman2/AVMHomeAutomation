@@ -5,8 +5,8 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>AVMHomeAutomationTest</AssemblyName>
-    <RootNamespace>AVMHomeAutomationTest</RootNamespace>
+    <AssemblyName>AVMHomeAutomationWebApiUnitTest</AssemblyName>
+    <RootNamespace>AVMHomeAutomationWebApiUnitTest</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,13 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\AVMHomeAutomation90\AVMHomeAutomation90.csproj" />
+     <ProjectReference Include="..\..\Src\AVMHomeAutomationWebApi90\AVMHomeAutomationWebApi90.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
-  <Import Project="..\AVMHomeAutomationTestShare\AVMHomeAutomationTestShare.projitems" Label="Shared" />
+  <Import Project="..\AVMHomeAutomationWebApiUnitTestShare\AVMHomeAutomationWebApiUnitTestShare.projitems" Label="Shared" />
 
 </Project>

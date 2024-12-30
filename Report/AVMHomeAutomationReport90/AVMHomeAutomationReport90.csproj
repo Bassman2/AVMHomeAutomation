@@ -12,7 +12,7 @@
   <Import Project="..\AVMHomeAutomationReportShare\AVMHomeAutomationReportShare.projitems" Label="Shared" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\AVMHomeAutomation90\AVMHomeAutomation90.csproj" />
+    <ProjectReference Include="..\..\Src\AVMHomeAutomationWebApi90\AVMHomeAutomationWebApi90.csproj" />
   </ItemGroup>
 
 </Project>

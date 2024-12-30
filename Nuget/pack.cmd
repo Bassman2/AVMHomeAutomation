@@ -1,1 +1,1 @@
-nuget pack AVMHomeAutomation.nuspec -properties Configuration=Release
+nuget pack AVMHomeAutomationWebApi.nuspec -properties Configuration=Release

@@ -6,7 +6,7 @@
     <SharedGUID>78527ef9-74e9-44c2-98cc-a2f939ae8b7d</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>AVMHomeAutomation</Import_RootNamespace>
+    <Import_RootNamespace>AVMHomeAutomationWebApi</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Alert.cs" />
@@ -54,6 +54,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Temperature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ItemIdentifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateList.cs" />
-    <Compile Include="..\AVMHomeAutomationShare\Service\HomeAutomationExtentions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\HomeAutomationExtentions.cs" />
   </ItemGroup>
 </Project>
